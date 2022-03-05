@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          appBar: const MyAppBar(),
+          appBar: MyAppBar(),
           body: Obx(() => screens[bottomTabController.index.value]),
           bottomNavigationBar: const BottomTab()),
     );

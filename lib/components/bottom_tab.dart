@@ -18,6 +18,8 @@ class BottomTab extends StatefulWidget {
 class _BottomTabState extends State<BottomTab> {
   int index = 0;
 
+  List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
+
   final bottomTabController = Get.find<BottomTabController>();
 
   void _onItemTapped(i) {
