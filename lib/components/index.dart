@@ -35,10 +35,8 @@ class AppWidget {
                   .map(
                     (Menu item) => ListTile(
                       onTap: () => {_selectModal(item.key, context)},
+                      title: Text(item.title),
                       leading: item.icon,
-                      title: Text(
-                        item.title.toString(),
-                      ),
                     ),
                   )
                   .toList(),

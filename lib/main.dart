@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:my_app/body.dart';
-import 'package:my_app/components/colors.dart';
-import 'package:my_app/data/assets.dart';
+import 'package:get/get.dart';
+import 'package:my_app/components/app_bar.dart';
+import 'package:my_app/components/bottom_tab.dart';
+import 'package:my_app/controllers/bottom_tab_controller.dart';
+import 'package:my_app/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,50 +11,29 @@ void main() {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 0;
+  final bottomTabController = Get.put(BottomTabController());
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  final screens = [
+    RouteName.POS,
+    RouteName.DASHBOARD,
+    RouteName.MANAGE,
+    RouteName.PROFILE,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-              title: const Text('Cool app'),
-              centerTitle: false,
-              backgroundColor: AppColors.darkRed),
-          body: const BodyApp(),
-          bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset('assets/images.svg',
-                    width: 20, height: 20),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon:
-                    SvgPicture.asset(AppAssets.appLogo, width: 20, height: 20),
-                label: 'Business',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'School',
-              ),
-            ],
-            selectedItemColor: Colors.red[800],
-            onTap: _onItemTapped,
-            currentIndex: _selectedIndex,
-          ),
-        ));
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+          appBar: const MyAppBar(),
+          body: Obx(() => screens[bottomTabController.index.value]),
+          bottomNavigationBar: const BottomTab()),
+    );
   }
 }

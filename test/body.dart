@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/components/category_selector.dart';
 import 'package:my_app/components/index.dart';
 import 'package:my_app/components/button.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +28,8 @@ class _BodyAppState extends State<BodyApp> {
     super.initState();
   }
 
+  void _linkDetail() {}
+
   Future<dynamic> getHttp() async {
     try {
       var response = await Dio().get(
@@ -46,7 +49,7 @@ class _BodyAppState extends State<BodyApp> {
         context: context,
         menuList: menuList,
         onSelect: _onMenuSelect,
-        height: 200);
+        height: 250);
   }
 
   void _onMenuSelect(data) {
@@ -56,9 +59,10 @@ class _BodyAppState extends State<BodyApp> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      const CategorySelector(),
       PrimaryButton(
         value: 'My Button',
-        delete: () => {getHttp()},
+        delete: () => {_linkDetail()},
       ),
       Expanded(
         child: ListView.builder(
