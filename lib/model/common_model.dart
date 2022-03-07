@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class Menu {
@@ -10,4 +11,11 @@ class Menu {
       required this.title,
       required this.key,
       this.subTitle});
+}
+
+class MyFile {
+  final MultipartFile blob;
+  final String path;
+  final String name;
+  MyFile({required this.blob, required this.path, required this.name});
 }

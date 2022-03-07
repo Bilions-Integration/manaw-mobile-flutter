@@ -1,7 +1,25 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_app/model/common_model.dart';
 
 class AppWidget {
+  static marginBottom(double value) {
+    return Padding(padding: EdgeInsets.only(bottom: value * 10));
+  }
+
+  static hideKeyboard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  static fileUpload({ImageSource source = ImageSource.gallery}) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: source);
+    final file =
+        await MultipartFile.fromFile(image!.path, filename: image.name);
+    return MyFile(blob: file, path: image.path, name: image.name);
+  }
+
   showErrorMessageDialog(
       {required BuildContext context, required String message}) {
     showDialog(

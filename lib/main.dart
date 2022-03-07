@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_app/components/app_bar.dart';
-import 'package:my_app/components/bottom_tab.dart';
-import 'package:my_app/controllers/bottom_tab_controller.dart';
-import 'package:my_app/routes.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_app/controllers/bottom_tab_controller.dart';
+import 'package:my_app/data/colors.dart';
+import 'package:my_app/screens/after_auth_screen.dart';
+import 'package:my_app/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -23,23 +26,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final auth = Get.put(AuthController());
   final bottomTabController = Get.put(BottomTabController());
-
-  final screens = [
-    RouteName.POS,
-    RouteName.DASHBOARD,
-    RouteName.MANAGE,
-    RouteName.PROFILE,
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          appBar: MyAppBar(),
-          body: Obx(() => screens[bottomTabController.index.value]),
-          bottomNavigationBar: const BottomTab()),
-    );
+    return GetMaterialApp(
+        theme: ThemeData().copyWith(
+          colorScheme: ThemeData().colorScheme.copyWith(
+                primary: AppColors.dark,
+              ),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const SplashScreen());
   }
 }

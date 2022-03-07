@@ -28,8 +28,10 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_svg: 1.0.3
+  image_picker: ^0.8.4+10
   dio: 4.0.4
   get: 4.6.1
+  get_storage: ^2.0.3
   flutter:
     sdk: flutter
 

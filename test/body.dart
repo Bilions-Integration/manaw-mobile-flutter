@@ -62,7 +62,7 @@ class _BodyAppState extends State<BodyApp> {
       const CategorySelector(),
       PrimaryButton(
         value: 'My Button',
-        delete: () => {_linkDetail()},
+        onPressed: () => {_linkDetail()},
       ),
       Expanded(
         child: ListView.builder(
@@ -73,7 +73,7 @@ class _BodyAppState extends State<BodyApp> {
       ),
       PrimaryButton(
         value: 'My Button',
-        delete: () => {_showModal()},
+        onPressed: () => {_showModal()},
       )
     ]);
   }
