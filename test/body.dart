@@ -17,9 +17,9 @@ class _BodyAppState extends State<BodyApp> {
   List<Flag> flags = <Flag>[];
 
   List<Menu> menuList = [
-    Menu(const Icon(Icons.edit), 'Edit', 'edit'),
-    Menu(const Icon(Icons.delete), 'Delete', 'delete'),
-    Menu(const Icon(Icons.copy), 'Copy', 'copy'),
+    Menu(icon: Icons.edit, title: 'Edit', key: 'edit'),
+    Menu(icon: Icons.delete, title: 'Delete', key: 'delete'),
+    Menu(icon: Icons.copy, title: 'Copy', key: 'copy'),
   ];
 
   @override

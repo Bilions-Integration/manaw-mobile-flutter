@@ -1,4 +1,4 @@
-package com.example.my_app
+package org.bilions.manaw
 
 import io.flutter.embedding.android.FlutterActivity
 

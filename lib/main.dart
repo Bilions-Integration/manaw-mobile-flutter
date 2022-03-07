@@ -4,8 +4,14 @@ import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/components/bottom_tab.dart';
 import 'package:my_app/controllers/bottom_tab_controller.dart';
 import 'package:my_app/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

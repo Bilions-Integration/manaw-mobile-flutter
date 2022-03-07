@@ -33,11 +33,21 @@ class AppWidget {
               physics: const BouncingScrollPhysics(),
               children: menuList
                   .map(
-                    (Menu item) => ListTile(
-                      onTap: () => {_selectModal(item.key, context)},
-                      title: Text(item.title),
-                      leading: item.icon,
-                    ),
+                    (Menu item) => item.subTitle != null
+                        ? ListTile(
+                            onTap: () => {_selectModal(item.key, context)},
+                            title: Text(item.title),
+                            subtitle: Text(item.subTitle!),
+                            leading: Padding(
+                              padding: const EdgeInsets.only(top: 8, bottom: 8),
+                              child: Icon(item.icon),
+                            ),
+                          )
+                        : ListTile(
+                            onTap: () => {_selectModal(item.key, context)},
+                            title: Text(item.title),
+                            leading: Icon(item.icon),
+                          ),
                   )
                   .toList(),
             ),

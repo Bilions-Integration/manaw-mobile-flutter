@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.my_app">
+    package="org.bilions.manaw">
    <application
-        android:label="my_app"
+        android:label="MaNaw Store"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

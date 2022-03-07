@@ -1,9 +1,4 @@
-class Model {
-  void toJson() {}
-  static void convertJson(json) {}
-}
-
-class Flag implements Model {
+class Flag {
   final String name;
   final String code;
   final String dialCode;
@@ -15,16 +10,11 @@ class Flag implements Model {
         code = json['code'],
         dialCode = json['dial_code'];
 
-  @override
   Map<String, dynamic> toJson() => {
         'name': name,
         'code': code,
         'dial_code': dialCode,
       };
-
-  static void convertJson(json) {
-    Flag.fromJson(json);
-  }
 }
 
 class FlagList {
