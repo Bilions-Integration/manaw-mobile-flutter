@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/model/common_model.dart';
 
@@ -10,6 +11,11 @@ class AppWidget {
 
   static hideKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  static storeToken(String? token) {
+    final box = GetStorage();
+    box.write('@bearerToken', token);
   }
 
   static fileUpload({ImageSource source = ImageSource.gallery}) async {

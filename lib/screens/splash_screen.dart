@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:my_app/components/index.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/helpers/api.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
-import 'package:my_app/screens/after_auth_screen.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -15,6 +17,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final auth = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,14 +49,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _checkToken() async {
     try {
-      final box = GetStorage();
-      final token = await box.read('@BearerToken');
-      if (token == null) {
-        ARouter.push(RouteName.LOGIN);
-      }
-      print(token);
+      var res = await Api.get('/auth/refresh');
+      AppWidget.storeToken(res['token']);
+      var res2 = await Api.get('/auth/user');
+      auth.user.value = User.fromJson(res2['data']);
+      ARouter.push(RouteName.HOME);
     } catch (e) {
-      print(e);
+      ARouter.push(RouteName.LOGIN);
     }
   }
 }

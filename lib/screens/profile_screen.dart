@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/components/index.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/controllers/bottom_tab_controller.dart';
 import 'package:my_app/routes.dart';
@@ -26,6 +27,7 @@ class ProfileScreen extends StatelessWidget {
   _logout() {
     auth.user.value = null;
     tab.index.value = 0;
+    AppWidget.storeToken('');
     ARouter.push(RouteName.LOGIN);
   }
 }

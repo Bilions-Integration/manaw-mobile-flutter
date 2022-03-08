@@ -18,7 +18,7 @@ class RouteName {
 
 class ARouter {
   static void push(Widget screen) {
-    Get.offAll(screen);
+    Get.offAll(() => screen);
   }
 
   ARouter();

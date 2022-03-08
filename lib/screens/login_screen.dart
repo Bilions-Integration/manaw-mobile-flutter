@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/index.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/api.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,30 +29,58 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () {
               AppWidget.hideKeyboard();
             },
-            child: Scaffold(
-              body: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Obx(() => Text(auth.user.value?.email ?? '')),
-                    Image.asset(AppAssets.appLogo),
-                    AppWidget.marginBottom(5),
-                    const TextInput(placeholder: 'Email', icon: Icons.email),
-                    AppWidget.marginBottom(2),
-                    const PasswordInput(
-                        placeholder: 'Password', icon: Icons.lock),
-                    AppWidget.marginBottom(2),
-                    PrimaryButton(value: 'Login', onPressed: _login)
-                  ],
-                ),
-              ),
-            )));
+            child: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.dark,
+                child: Scaffold(
+                  body: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(AppAssets.appLogo),
+                        AppWidget.marginBottom(2),
+                        const Text(
+                          'Manaw Store',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        AppWidget.marginBottom(1),
+                        Text(
+                          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: AppColors.lightDark),
+                        ),
+                        AppWidget.marginBottom(3),
+                        const MyTextInput(
+                            placeholder: 'Email', icon: Icons.email),
+                        AppWidget.marginBottom(2),
+                        const PasswordInput(
+                            placeholder: 'Password', icon: Icons.lock),
+                        AppWidget.marginBottom(2),
+                        PrimaryButton(value: 'Login', onPressed: _login),
+                        AppWidget.marginBottom(4),
+                        InkWell(
+                          child: const Text('Not a member yet? Register here'),
+                          onTap: () {},
+                        )
+                      ],
+                    ),
+                  ),
+                ))));
   }
 
-  _login() {
-    print('logging in');
-    ARouter.push(RouteName.HOME);
+  _login() async {
+    final payload = {
+      "email": "aj.kumarsharno@gmail.com",
+      "password": "password"
+    };
+    var res = await Api.post('/auth/login-email', data: payload);
+    if (res['status'] == 'success') {
+      AppWidget.storeToken(res['token']);
+      final user = User.fromJson(res['data']);
+      auth.user.value = user;
+      ARouter.push(RouteName.HOME);
+    }
   }
 }

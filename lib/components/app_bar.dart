@@ -19,14 +19,14 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         titleSpacing: 0,
         title: Obx(() => Text(
               titles[bottomTabController.index.value],
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: AppColors.white),
             )),
         leading: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Image.asset(AppAssets.appLogo)),
         centerTitle: false,
-        elevation: 0,
-        backgroundColor: AppColors.darkRed);
+        backgroundColor: AppColors.dark);
   }
 
   @override

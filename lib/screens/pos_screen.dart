@@ -1,12 +1,11 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/image_preview.dart';
 import 'package:my_app/components/index.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/model/common_model.dart';
 
 class PosScreen extends StatefulWidget {
@@ -24,6 +23,8 @@ class _PosScreenState extends State<PosScreen> {
     _getFirebaseToken();
     super.initState();
   }
+
+  final auth = Get.find<AuthController>();
 
   _getFirebaseToken() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -64,7 +65,7 @@ class _PosScreenState extends State<PosScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Column(children: [
         PrimaryButton(value: 'Select Image', onPressed: _selectImage),
-        const Text('Uploaded Image'),
+        Obx(() => Text(auth.user.value?.name ?? '')),
         selectedImage != null
             ? ImagePreview(
                 image: selectedImage,
