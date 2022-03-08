@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
 import 'package:my_app/controllers/bottom_tab_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/data/assets.dart';

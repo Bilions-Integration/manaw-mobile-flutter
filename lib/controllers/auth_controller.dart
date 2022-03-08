@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
+import 'package:my_app/model/user_model.dart';
 
 class AuthController extends GetxController {
-  var token = ''.obs;
-
-  var user = null.obs;
+  Rx<User?> user = null.obs;
 }

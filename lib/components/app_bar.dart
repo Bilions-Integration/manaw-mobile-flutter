@@ -21,12 +21,9 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
               titles[bottomTabController.index.value],
               style: const TextStyle(fontWeight: FontWeight.bold),
             )),
-        leading: const Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Image(
-            image: AssetImage(AppAssets.appLogo),
-          ),
-        ),
+        leading: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(AppAssets.appLogo)),
         centerTitle: false,
         elevation: 0,
         backgroundColor: AppColors.darkRed);

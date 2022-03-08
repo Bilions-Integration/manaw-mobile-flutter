@@ -6,8 +6,6 @@ import 'package:my_app/components/input.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/routes.dart';
-import 'package:my_app/screens/after_auth_screen.dart';
-import 'package:my_app/screens/pos_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -34,8 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Obx(() => Text(auth.token.value)),
-                    const Image(image: AssetImage(AppAssets.appLogo)),
+                    Obx(() => Text(auth.user.value?.email ?? '')),
+                    Image.asset(AppAssets.appLogo),
                     AppWidget.marginBottom(5),
                     const TextInput(placeholder: 'Email', icon: Icons.email),
                     AppWidget.marginBottom(2),

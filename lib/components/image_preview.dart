@@ -12,11 +12,11 @@ class ImagePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      child: ClipRRect(
+    return SizedBox(
+        height: 100,
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(radius),
-          child: Image(image: FileImage(File(image)))),
-    );
+          child: Image.file(File(image)),
+        ));
   }
 }

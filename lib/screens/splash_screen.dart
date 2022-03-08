@@ -22,9 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        Image(image: AssetImage(AppAssets.appLogo)),
-        Padding(
+      children: [
+        Image.asset(AppAssets.appLogo),
+        const Padding(
           padding: EdgeInsets.all(20.0),
           child: Text(
             'Manaw Store',
