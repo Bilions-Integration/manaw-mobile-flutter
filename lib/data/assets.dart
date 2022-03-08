@@ -6,4 +6,6 @@ class AppAssets {
   static const profile = 'assets/images/profile.svg';
   static const icCart = 'assets/images/cart.svg';
   static const icSearch = 'assets/images/search.svg';
+  static const imgCard = 'assets/images/card-img.png';
+  static const icAdd = 'assets/images/plus-icon.svg';
 }

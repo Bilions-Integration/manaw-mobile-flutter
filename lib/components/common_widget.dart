@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/colors.dart';
 
 class IconTapper extends StatelessWidget {
-  final String icon;
-
+  final String? icon;
+  final IconData? iconDefault;
   final Function()? onTap;
 
-  const IconTapper({Key? key, required this.icon, this.onTap})
+  const IconTapper({Key? key, this.iconDefault, this.icon, this.onTap})
       : super(key: key);
 
   @override
@@ -17,10 +17,12 @@ class IconTapper extends StatelessWidget {
       child: InkWell(
         hoverColor: Colors.blue,
         onTap: onTap,
-        child: SvgPicture.asset(
-          icon,
-          color: AppColors.white,
-        ),
+        child: icon != null
+            ? SvgPicture.asset(
+                icon!,
+                color: AppColors.white,
+              )
+            : Icon(iconDefault!),
       ),
     );
   }

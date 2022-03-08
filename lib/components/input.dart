@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/components/common_widget.dart';
 import 'package:my_app/data/colors.dart';
 
 class MyTextInput extends StatelessWidget {
@@ -51,17 +52,11 @@ class MyTextInput extends StatelessWidget {
   }
 }
 
-class PasswordInput extends StatelessWidget {
+class PasswordInput extends StatefulWidget {
   final String placeholder;
-
   final IconData icon;
   final String? column;
-
   final Function(String, String?) onChanged;
-
-  _onChanged(value) {
-    onChanged(value, column);
-  }
 
   const PasswordInput(
       {Key? key,
@@ -72,14 +67,40 @@ class PasswordInput extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<PasswordInput> {
+  _onChanged(value) {
+    widget.onChanged(value, widget.column);
+  }
+
+  bool showPassword = true;
+
+  _togglePassword() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
       onChanged: _onChanged,
-      obscureText: true,
+      obscureText: showPassword,
       obscuringCharacter: "*",
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(widget.icon),
+        suffixIcon: !showPassword
+            ? IconTapper(
+                onTap: _togglePassword,
+                iconDefault: Icons.visibility,
+              )
+            : IconTapper(
+                onTap: _togglePassword,
+                iconDefault: Icons.visibility_off,
+              ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.borderColor,
@@ -94,7 +115,7 @@ class PasswordInput extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(10.0),
         ),
-        hintText: placeholder,
+        hintText: widget.placeholder,
       ),
     );
   }

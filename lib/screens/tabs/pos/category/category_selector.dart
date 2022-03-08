@@ -49,49 +49,45 @@ class _CategorySelectorState extends State<CategorySelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-        color: AppColors.dark,
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 2,
-            blurRadius: 4,
-            offset: Offset(0, 1),
-          )
-        ],
-        border: Border(
-          top: BorderSide(color: AppColors.white, width: 0.2),
+    return Card(
+      margin: EdgeInsets.zero,
+      elevation: 4,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          color: AppColors.dark,
+          border: Border(
+            top: BorderSide(color: AppColors.white, width: 0.2),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: _showList,
-              child: Row(
-                children: [
-                  Text(
-                    selectedList?.title ?? 'Select Category',
-                    style: TextStyle(color: AppColors.white),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    color: AppColors.white,
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: _showList,
+                child: Row(
+                  children: [
+                    Text(
+                      selectedList?.title ?? 'Select Category',
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: AppColors.white,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Row(
-              children: const [
-                IconTapper(icon: AppAssets.icSearch),
-                IconTapper(icon: AppAssets.icCart),
-              ],
-            )
-          ],
+              Row(
+                children: const [
+                  IconTapper(icon: AppAssets.icSearch),
+                  IconTapper(icon: AppAssets.icCart),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

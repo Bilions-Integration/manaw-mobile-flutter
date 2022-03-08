@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:my_app/components/category/category_selector.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/model/common_model.dart';
+import 'package:my_app/screens/tabs/pos/category/category_selector.dart';
+import 'package:my_app/screens/tabs/pos/components/product_card.dart';
 
 class PosScreen extends StatefulWidget {
   const PosScreen({Key? key}) : super(key: key);
@@ -60,7 +61,32 @@ class _PosScreenState extends State<PosScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [CategorySelector(context: context)],
+      children: [
+        CategorySelector(context: context),
+        Expanded(
+          child: GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(10),
+            crossAxisSpacing: 18,
+            mainAxisSpacing: 18,
+            crossAxisCount: 2,
+            childAspectRatio: 2 / 2.3,
+            children: const [
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+              ProductCard(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
