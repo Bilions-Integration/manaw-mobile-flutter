@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/category_selector.dart';
-import 'package:my_app/components/index.dart';
+import 'package:my_app/components/category/category_selector.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/components/button.dart';
 import 'package:dio/dio.dart';
 import 'package:my_app/model/common_model.dart';
@@ -59,7 +59,9 @@ class _BodyAppState extends State<BodyApp> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const CategorySelector(),
+      CategorySelector(
+        context: context,
+      ),
       PrimaryButton(
         value: 'My Button',
         onPressed: () => {_linkDetail()},

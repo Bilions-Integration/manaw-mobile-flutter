@@ -18,12 +18,12 @@ class AppWidget {
     box.write('@bearerToken', token);
   }
 
-  static fileUpload({ImageSource source = ImageSource.gallery}) async {
+  static showFileUpload({ImageSource source = ImageSource.gallery}) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: source);
-    final file =
+    final blob =
         await MultipartFile.fromFile(image!.path, filename: image.name);
-    return MyFile(blob: file, path: image.path, name: image.name);
+    return MyFile(blob: blob, path: image.path, name: image.name);
   }
 
   showErrorMessageDialog(
@@ -38,21 +38,23 @@ class AppWidget {
   static void showMenu(
       {required BuildContext context,
       required List<Menu> menuList,
-      required double height,
-      required Function onSelect}) {
+      double height = 1000,
+      required Function(Menu) onSelect}) {
     void _selectModal(type, context) {
       Navigator.pop(context);
       onSelect(type);
     }
 
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        context: context,
-        builder: (builder) {
-          return SizedBox(
-            height: height,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      context: context,
+      builder: (builder) {
+        return SizedBox(
+          height: height,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 30, top: 10),
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: menuList
@@ -68,14 +70,16 @@ class AppWidget {
                             ),
                           )
                         : ListTile(
-                            onTap: () => {_selectModal(item.key, context)},
+                            onTap: () => {_selectModal(item, context)},
                             title: Text(item.title),
                             leading: Icon(item.icon),
                           ),
                   )
                   .toList(),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

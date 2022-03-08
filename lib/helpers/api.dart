@@ -7,7 +7,6 @@ class DioWrapper {
   static init() {
     final box = GetStorage();
     final token = box.read('@bearerToken');
-    print('BEARER TOKEN => $token');
     BaseOptions options = BaseOptions(
         baseUrl: 'https://api.manawstore.com/api',
         headers: {
@@ -19,6 +18,10 @@ class DioWrapper {
 }
 
 class Api {
+  static _convertFormData(data) {
+    return FormData.fromMap(data);
+  }
+
   // get method
   static Future<dynamic> get(String url, {Map<String, dynamic>? data}) async {
     try {
@@ -32,9 +35,13 @@ class Api {
   }
 
   // post method
-  static Future<dynamic> post(String url, {Map<String, dynamic>? data}) async {
+  static Future<dynamic> post(String url,
+      {Map<String, dynamic>? data, bool formData = false}) async {
     try {
       Dio dio = DioWrapper.init();
+      if (formData) {
+        data = _convertFormData(data);
+      }
       var response = await dio.post(url, data: data);
       return response.data;
     } catch (e) {
@@ -44,9 +51,13 @@ class Api {
   }
 
   // put method
-  static Future<dynamic> put(String url, {Map<String, dynamic>? data}) async {
+  static Future<dynamic> put(String url,
+      {Map<String, dynamic>? data, bool formData = false}) async {
     try {
       Dio dio = DioWrapper.init();
+      if (formData) {
+        data = _convertFormData(data);
+      }
       var response = await dio.post(url, data: data);
       return response;
     } catch (e) {

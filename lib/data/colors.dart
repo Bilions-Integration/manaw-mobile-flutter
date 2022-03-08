@@ -12,6 +12,7 @@ class AppColors {
   static get lightDark => HexColor('#999999');
   static get borderColor => HexColor('#EEEEEE');
   static get white => HexColor('#FFFFFF');
+  static get lightGrey => HexColor('#F3F3F3');
 }
 
 class HexColor extends Color {

@@ -19,3 +19,9 @@ class MyFile {
   final String name;
   MyFile({required this.blob, required this.path, required this.name});
 }
+
+class ListItem {
+  final String title;
+  final dynamic id;
+  ListItem({required this.title, this.id});
+}

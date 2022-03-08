@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/index.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/api.dart';
@@ -22,21 +22,27 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(AppAssets.appLogo),
-        const Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Text(
-            'Manaw Store',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-          ),
-        )
-      ],
-    )));
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(AppAssets.appLogo),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text(
+                'Manaw Store',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+            ),
+            const Text(
+              'Powered by Bilions Co., Ltd',
+              style: TextStyle(fontSize: 14),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override

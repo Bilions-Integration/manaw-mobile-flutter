@@ -12,15 +12,20 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-        onPressed: onPressed,
-        child: Text(value,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
-        color: AppColors.dark,
-        height: 50,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+      onPressed: onPressed,
+      child: Text(
+        value,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
         ),
-        minWidth: double.infinity);
+      ),
+      color: AppColors.dark,
+      height: 50,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      minWidth: double.infinity,
+    );
   }
 }

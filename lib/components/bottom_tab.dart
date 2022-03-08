@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_app/controllers/bottom_tab_controller.dart';
+import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:get/get.dart';
@@ -19,7 +19,7 @@ class _BottomTabState extends State<BottomTab> {
 
   List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
 
-  final bottomTabController = Get.find<BottomTabController>();
+  final bottomTabController = Get.find<BottomTabsController>();
 
   void _onItemTapped(i) {
     setState(() {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:my_app/components/button.dart';
-import 'package:my_app/components/image_preview.dart';
-import 'package:my_app/components/index.dart';
+import 'package:my_app/components/category/category_selector.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/model/common_model.dart';
 
@@ -61,37 +59,8 @@ class _PosScreenState extends State<PosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(children: [
-        PrimaryButton(value: 'Select Image', onPressed: _selectImage),
-        Obx(() => Text(auth.user.value?.name ?? '')),
-        selectedImage != null
-            ? ImagePreview(
-                image: selectedImage,
-                height: 100,
-              )
-            : const Text('No File')
-      ]),
+    return Column(
+      children: [CategorySelector(context: context)],
     );
-  }
-
-  _selectImage() async {
-    try {
-      final MyFile image =
-          await AppWidget.fileUpload(source: ImageSource.gallery);
-
-      setState(() {
-        selectedImage = image.path;
-      });
-      // print(image.path);
-      // var formData = FormData.fromMap({'name': 'AJ', 'avatar': image.path});
-      // var response = await Dio()
-      //     .post('http://192.168.1.105:8000/api/file_upload', data: formData);
-
-      // print(response.data);
-    } catch (e) {
-      print(e);
-    }
   }
 }

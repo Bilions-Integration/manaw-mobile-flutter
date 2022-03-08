@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/components/index.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:my_app/controllers/bottom_tab_controller.dart';
+import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
   final auth = Get.find<AuthController>();
-  final tab = Get.find<BottomTabController>();
+  final tab = Get.find<BottomTabsController>();
 
   @override
   Widget build(BuildContext context) {
