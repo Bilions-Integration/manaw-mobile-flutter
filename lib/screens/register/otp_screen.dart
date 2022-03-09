@@ -32,7 +32,12 @@ class _OTPScreenState extends State<OTPScreen> {
         title: const Text('Verify OTP'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
+          onPressed: () => {
+            setState(() {
+              code = '';
+            }),
+            Get.back()
+          },
         ),
       ),
       body: Padding(
@@ -50,23 +55,24 @@ class _OTPScreenState extends State<OTPScreen> {
               keyboardType: TextInputType.number,
               appContext: context,
               obscureText: false,
+              enableActiveFill: true,
               animationType: AnimationType.fade,
               pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(5),
-                  fieldHeight: 60,
-                  borderWidth: 1,
-                  fieldWidth: width / 5,
-                  inactiveFillColor: Colors.grey.withAlpha(30),
-                  selectedFillColor: Colors.white,
-                  activeFillColor: Colors.white,
-                  selectedColor: AppColors.lightDark,
-                  activeColor: AppColors.dark,
-                  inactiveColor: Colors.grey.withAlpha(40)),
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(5),
+                fieldHeight: 60,
+                borderWidth: 1,
+                fieldWidth: width / 5,
+                inactiveFillColor: Colors.grey.withAlpha(30),
+                selectedFillColor: Colors.white,
+                activeFillColor: Colors.white,
+                selectedColor: AppColors.lightDark,
+                activeColor: AppColors.dark,
+                inactiveColor: Colors.grey.withAlpha(40),
+              ),
               backgroundColor: HexColor('#F6F6F6'),
               cursorColor: AppColors.dark,
               animationDuration: const Duration(milliseconds: 300),
-              enableActiveFill: true,
               onCompleted: (v) {
                 _submit();
               },
@@ -76,7 +82,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 });
               },
               beforeTextPaste: (text) {
-                return true;
+                return false;
               },
             ),
             Expanded(child: mb(0)),

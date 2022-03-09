@@ -8,8 +8,16 @@ import 'package:my_app/data/colors.dart';
 
 class console {
   static log(dynamic text, {dynamic payload}) {
-    final fimber = FimberLog('LOG');
-    fimber.d(text, ex: payload);
+    final fimber = FimberLog('');
+    fimber.d('🔥🔥🔥 ===================');
+    fimber.d(text, stacktrace: StackTrace.fromString(payload.toString()));
+    fimber.d('END');
+  }
+
+  static warn(dynamic text, {dynamic payload}) {
+    final fimber = FimberLog('');
+    fimber.d(text);
+    fimber.d('', ex: payload);
   }
 }
 
