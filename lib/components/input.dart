@@ -27,26 +27,29 @@ class MyTextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: _onChanged,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
-        prefixIcon: Icon(icon),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.borderColor,
-            width: 1.5,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: TextField(
+        onChanged: _onChanged,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
+          prefixIcon: Icon(icon),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.borderColor,
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.dark,
-            width: 1.0,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.dark,
+              width: 1.0,
+            ),
+            borderRadius: BorderRadius.circular(radius),
           ),
-          borderRadius: BorderRadius.circular(radius),
+          hintText: placeholder,
         ),
-        hintText: placeholder,
       ),
     );
   }
@@ -85,37 +88,40 @@ class _PasswordInputState extends State<PasswordInput> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: _onChanged,
-      obscureText: showPassword,
-      obscuringCharacter: "*",
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
-        prefixIcon: Icon(widget.icon),
-        suffixIcon: !showPassword
-            ? IconTapper(
-                onTap: _togglePassword,
-                iconDefault: Icons.visibility,
-              )
-            : IconTapper(
-                onTap: _togglePassword,
-                iconDefault: Icons.visibility_off,
-              ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.borderColor,
-            width: 1.5,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: TextField(
+        onChanged: _onChanged,
+        obscureText: showPassword,
+        obscuringCharacter: "*",
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
+          prefixIcon: Icon(widget.icon),
+          suffixIcon: !showPassword
+              ? IconTapper(
+                  onTap: _togglePassword,
+                  iconDefault: Icons.visibility,
+                )
+              : IconTapper(
+                  onTap: _togglePassword,
+                  iconDefault: Icons.visibility_off,
+                ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.borderColor,
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.dark,
-            width: 1.0,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.dark,
+              width: 1.0,
+            ),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          borderRadius: BorderRadius.circular(10.0),
+          hintText: widget.placeholder,
         ),
-        hintText: widget.placeholder,
       ),
     );
   }

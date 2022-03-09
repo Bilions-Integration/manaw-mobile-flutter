@@ -20,6 +20,13 @@ logo(double? width) {
   );
 }
 
+empty(String? value) {
+  if (value == null || value.isEmpty) {
+    return true;
+  }
+  return false;
+}
+
 hideKeyboard() {
   FocusManager.instance.primaryFocus?.unfocus();
 }

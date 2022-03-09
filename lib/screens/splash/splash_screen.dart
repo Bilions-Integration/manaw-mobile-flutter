@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';

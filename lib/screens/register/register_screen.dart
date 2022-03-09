@@ -13,23 +13,28 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final auth = Get.find<AuthController>();
 
   Map<String, dynamic> params = {
     "email": null,
     "password": null,
+    "name": null,
+    "company_name": null,
   };
 
-  bool _showLogin() {
-    if (empty(params["email"]) || empty(params["password"])) {
+  bool _showRegister() {
+    if (empty(params["email"]) ||
+        empty(params["password"]) ||
+        empty(params["name"]) ||
+        empty(params["company_name"])) {
       return false;
     }
     return true;
@@ -54,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AppWidget.marginBottom(8),
+                      AppWidget.marginBottom(4),
                       logo(60),
                       AppWidget.marginBottom(2),
                       const Text(
@@ -75,6 +80,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       AppWidget.marginBottom(3),
                       MyTextInput(
                         onChanged: _onValueChanged,
+                        column: 'name',
+                        placeholder: 'Name',
+                        icon: Icons.person,
+                      ),
+                      MyTextInput(
+                        onChanged: _onValueChanged,
+                        column: 'company_name',
+                        placeholder: 'Store / Company Name',
+                        icon: Icons.business,
+                      ),
+                      MyTextInput(
+                        onChanged: _onValueChanged,
                         column: 'email',
                         placeholder: 'Email',
                         icon: Icons.email,
@@ -87,26 +104,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       AppWidget.marginBottom(1),
                       PrimaryButton(
-                        value: 'Login',
-                        disabled: !_showLogin(),
-                        onPressed: _login,
+                        disabled: !_showRegister(),
+                        value: 'Register',
+                        onPressed: _register,
                       ),
                       AppWidget.marginBottom(2),
                       InkWell(
-                        child: const Text('Not a member yet? Register here'),
+                        child: const Text('Already member? Login here'),
                         onTap: () {
-                          ARouter.push(RouteName.register);
+                          ARouter.push(RouteName.login);
                         },
                       ),
-                      AppWidget.marginBottom(2),
-                      InkWell(
-                        child: const Text(
-                          'Forget password?',
-                          textAlign: TextAlign.left,
-                        ),
-                        onTap: () {},
-                      ),
-                      AppWidget.marginBottom(7),
+                      AppWidget.marginBottom(5),
                       SvgPicture.asset(AppAssets.icPoweredBy),
                     ],
                   )
@@ -125,7 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  _login() async {
+  _register() async {
+    if (_showRegister() == false) {
+      return;
+    }
     try {
       var res = await Api.post('/auth/login-email', data: params);
       if (res['status'] == 'success') {
@@ -142,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _showError() {
-    Get.snackbar('Error', 'Invalid email or password!',
+    Get.snackbar('Error', 'Something went wrong! Please try again.',
         icon: const Icon(Icons.info));
   }
 }

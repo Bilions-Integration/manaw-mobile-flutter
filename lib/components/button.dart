@@ -5,12 +5,15 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     Key? key,
     required this.value,
+    this.disabled = false,
     this.width = double.infinity,
     this.height = 50,
     required this.onPressed,
   }) : super(key: key);
 
   final String value;
+
+  final bool disabled;
 
   final double width;
 
@@ -21,7 +24,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: onPressed,
+      onPressed: () => {disabled ? null : onPressed()},
       child: Text(
         value,
         style: const TextStyle(
@@ -29,7 +32,7 @@ class PrimaryButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      color: AppColors.dark,
+      color: disabled ? AppColors.lightDark : AppColors.dark,
       height: height,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
