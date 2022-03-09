@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/common_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/app_widget.dart';
 
 class ProductCard extends StatelessWidget {
   final Map<String, dynamic> product;

@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/components/common_widget.dart';
 import 'package:my_app/data/assets.dart';
@@ -17,8 +18,8 @@ class _CategorySelectorState extends State<CategorySelector> {
     ListItem(title: 'Mac book'),
     ListItem(title: 'I phone'),
     ListItem(title: 'Vivo'),
-    ListItem(title: 'Oppo'),
-    ListItem(title: 'Kenbo'),
+    ListItem(title: 'Vivo'),
+    ListItem(title: 'I pad Air'),
     ListItem(title: 'I pad'),
     ListItem(title: 'Snack'),
     ListItem(title: 'New Phone'),
@@ -44,7 +45,7 @@ class _CategorySelectorState extends State<CategorySelector> {
     setState(() {
       selectedList = data;
     });
-    print(data.title);
+    FimberLog(data.title);
   }
 
   @override

@@ -8,12 +8,12 @@ import 'package:my_app/screens/tabs/pos/pos_screen.dart';
 import 'package:my_app/screens/tabs/profile/profile_screen.dart';
 
 class RouteName {
-  static const POS = PosScreen();
-  static const DASHBOARD = DashboardScreen();
-  static const MANAGE = ManageScreen();
-  static final PROFILE = ProfileScreen();
-  static const LOGIN = LoginScreen();
-  static final HOME = TabsScreen();
+  static const pos = PosScreen();
+  static const dashboard = DashboardScreen();
+  static const manage = ManageScreen();
+  static final profile = ProfileScreen();
+  static const login = LoginScreen();
+  static final home = TabsScreen();
 }
 
 class ARouter {

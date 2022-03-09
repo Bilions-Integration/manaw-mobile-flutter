@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
         AppWidget.storeToken(res['token']);
         final user = User.fromJson(res['data']);
         auth.user.value = user;
-        ARouter.push(RouteName.HOME);
+        ARouter.push(RouteName.home);
       } else {
         _showError();
       }

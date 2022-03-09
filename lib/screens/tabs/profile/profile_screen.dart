@@ -28,6 +28,6 @@ class ProfileScreen extends StatelessWidget {
     auth.user.value = null;
     tab.index.value = 0;
     AppWidget.storeToken('');
-    ARouter.push(RouteName.LOGIN);
+    ARouter.push(RouteName.login);
   }
 }

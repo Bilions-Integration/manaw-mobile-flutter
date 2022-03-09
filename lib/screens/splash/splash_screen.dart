@@ -59,9 +59,9 @@ class _SplashScreenState extends State<SplashScreen> {
       AppWidget.storeToken(res['token']);
       var res2 = await Api.get('/auth/user');
       auth.user.value = User.fromJson(res2['data']);
-      ARouter.push(RouteName.HOME);
+      ARouter.push(RouteName.home);
     } catch (e) {
-      ARouter.push(RouteName.LOGIN);
+      ARouter.push(RouteName.login);
     }
   }
 }

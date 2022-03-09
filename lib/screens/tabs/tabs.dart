@@ -10,10 +10,10 @@ class TabsScreen extends StatelessWidget {
   final bottomTabController = Get.find<BottomTabsController>();
 
   final screens = [
-    RouteName.POS,
-    RouteName.DASHBOARD,
-    RouteName.MANAGE,
-    RouteName.PROFILE,
+    RouteName.pos,
+    RouteName.dashboard,
+    RouteName.manage,
+    RouteName.profile,
   ];
 
   TabsScreen({

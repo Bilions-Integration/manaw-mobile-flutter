@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_app/helpers/console_log.dart';
 
 class DioWrapper {
   DioWrapper();
@@ -29,7 +30,7 @@ class Api {
       var response = await dio.get(url, queryParameters: data);
       return response.data;
     } catch (e) {
-      print("API =>  GET => ERROR ${e.toString()}");
+      console.log("API =>  GET => ERROR ${e.toString()}");
       rethrow;
     }
   }
@@ -45,7 +46,7 @@ class Api {
       var response = await dio.post(url, data: data);
       return response.data;
     } catch (e) {
-      print("API =>  POST => ERROR $e");
+      console.log("API =>  POST => ERROR $e");
       rethrow;
     }
   }
@@ -61,7 +62,7 @@ class Api {
       var response = await dio.post(url, data: data);
       return response;
     } catch (e) {
-      print("API =>  PUT => ERROR $e");
+      console.log("API =>  PUT => ERROR $e");
       rethrow;
     }
   }
@@ -74,7 +75,7 @@ class Api {
       var response = await dio.delete(url, queryParameters: data);
       return response.data;
     } catch (e) {
-      print("API =>  DELETE => ERROR $e");
+      console.log("API =>  DELETE => ERROR $e");
       rethrow;
     }
   }
