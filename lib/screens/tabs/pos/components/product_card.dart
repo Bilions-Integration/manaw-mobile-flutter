@@ -5,7 +5,9 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  final Map<String, dynamic> product;
+
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +30,11 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'I phone 13 someting new and good one',
-                  overflow: TextOverflow.ellipsis,
+                Text(
+                  product['name'],
+                  // overflow: TextOverflow.ellipsis,
                 ),
-                AppWidget.marginBottom(1),
+                // AppWidget.marginBottom(1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

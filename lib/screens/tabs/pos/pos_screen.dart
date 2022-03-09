@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
@@ -58,34 +59,36 @@ class _PosScreenState extends State<PosScreen> {
     print(data);
   }
 
+  List products = [
+    {'name': "this is long product name and very long"},
+    {'name': "short"},
+    {'name': "short"},
+    {'name': "short"},
+    {'name': "this is long product name and very long very very very long"},
+    {'name': "this is long product name and very long"},
+    {'name': "short"},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CategorySelector(context: context),
         Expanded(
-          child: GridView.count(
-            primary: false,
-            padding: const EdgeInsets.all(10),
-            crossAxisSpacing: 18,
-            mainAxisSpacing: 18,
+            child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: StaggeredGridView.countBuilder(
             crossAxisCount: 2,
-            childAspectRatio: 2 / 2.3,
-            children: const [
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-              ProductCard(),
-            ],
+            itemCount: products.length,
+            itemBuilder: (BuildContext context, int index) {
+              final product = products[index];
+              return ProductCard(product: product);
+            },
+            staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
           ),
-        ),
+        )),
       ],
     );
   }
