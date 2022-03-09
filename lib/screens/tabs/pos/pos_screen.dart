@@ -76,15 +76,14 @@ class _PosScreenState extends State<PosScreen> {
         CategorySelector(context: context),
         Expanded(
             child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: StaggeredGridView.countBuilder(
+          padding: const EdgeInsets.all(8),
+          child: MasonryGridView.count(
             crossAxisCount: 2,
             itemCount: products.length,
             itemBuilder: (BuildContext context, int index) {
               final product = products[index];
               return ProductCard(product: product);
             },
-            staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
           ),

@@ -51,7 +51,7 @@ class _CategorySelectorState extends State<CategorySelector> {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.zero,
-      elevation: 4,
+      elevation: 2,
       child: Container(
         height: 50,
         decoration: BoxDecoration(
