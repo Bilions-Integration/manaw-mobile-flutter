@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+import 'package:my_app/screens/register/otp_screen.dart';
 import 'package:my_app/screens/register/register_screen.dart';
 import 'package:my_app/screens/tabs/tabs.dart';
 import 'package:my_app/screens/tabs/dashboard/dashboard_screen.dart';
@@ -16,12 +17,11 @@ class RouteName {
   static const login = LoginScreen();
   static const register = RegisterScreen();
   static final home = TabsScreen();
+  static const otp = OTPScreen();
 }
 
 class ARouter {
   static void push(Widget screen) {
     Get.offAll(() => screen);
   }
-
-  ARouter();
 }

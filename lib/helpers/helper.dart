@@ -20,6 +20,16 @@ logo(double? width) {
   );
 }
 
+Widget logoText() {
+  return const Text(
+    'Manaw Store',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 20,
+    ),
+  );
+}
+
 empty(String? value) {
   if (value == null || value.isEmpty) {
     return true;

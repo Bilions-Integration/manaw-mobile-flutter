@@ -3,15 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/register/register_controller.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -22,18 +22,19 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final auth = Get.find<AuthController>();
+  final registerController = Get.put(RegisterController());
 
   Map<String, dynamic> params = {
     "email": null,
     "password": null,
-    "name": null,
+    "full_name": null,
     "company_name": null,
   };
 
   bool _showRegister() {
     if (empty(params["email"]) ||
         empty(params["password"]) ||
-        empty(params["name"]) ||
+        empty(params["full_name"]) ||
         empty(params["company_name"])) {
       return false;
     }
@@ -80,8 +81,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       AppWidget.marginBottom(3),
                       MyTextInput(
                         onChanged: _onValueChanged,
-                        column: 'name',
-                        placeholder: 'Name',
+                        column: 'full_name',
+                        placeholder: 'Full Name',
                         icon: Icons.person,
                       ),
                       MyTextInput(
@@ -139,22 +140,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
     try {
-      var res = await Api.post('/auth/login-email', data: params);
-      if (res['status'] == 'success') {
-        AppWidget.storeToken(res['token']);
-        final user = User.fromJson(res['data']);
-        auth.user.value = user;
-        ARouter.push(RouteName.home);
+      RegisterParams paramsToSent = RegisterParams.fromJson(params);
+      var res =
+          await Api.post('/auth/register-email', data: paramsToSent.toJson());
+      if (res['success']) {
+        registerController.params.value = paramsToSent;
+        Get.to(() => RouteName.otp);
       } else {
-        _showError();
+        alert(
+          context: context,
+          title: 'Error',
+          message: 'Email already registered!',
+        );
       }
     } catch (e) {
-      _showError();
+      alert(
+        context: context,
+        title: 'Error',
+        message: 'Something went wrong. Please try again.',
+      );
     }
-  }
-
-  _showError() {
-    Get.snackbar('Error', 'Something went wrong! Please try again.',
-        icon: const Icon(Icons.info));
   }
 }
