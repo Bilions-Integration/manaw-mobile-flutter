@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({Key? key, required this.value, required this.onPressed})
-      : super(key: key);
+  const PrimaryButton({
+    Key? key,
+    required this.value,
+    this.width = double.infinity,
+    this.height = 50,
+    required this.onPressed,
+  }) : super(key: key);
 
   final String value;
+
+  final double width;
+
+  final double height;
 
   final Function() onPressed;
 
@@ -21,11 +30,11 @@ class PrimaryButton extends StatelessWidget {
         ),
       ),
       color: AppColors.dark,
-      height: 50,
+      height: height,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      minWidth: double.infinity,
+      minWidth: width,
     );
   }
 }

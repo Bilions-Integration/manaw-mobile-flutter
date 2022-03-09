@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:my_app/helpers/console_log.dart';
+import 'package:my_app/helpers/helper.dart';
 
 class DioWrapper {
   DioWrapper();

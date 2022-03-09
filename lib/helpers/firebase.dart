@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:my_app/helpers/console_log.dart';
+import 'package:my_app/helpers/helper.dart';
 
 updateFirebaseToken() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -14,4 +14,5 @@ updateFirebaseToken() async {
   );
   String? token = await messaging.getToken();
   console.log('FCM_TOKEN $token');
+  // update fcm token here
 }

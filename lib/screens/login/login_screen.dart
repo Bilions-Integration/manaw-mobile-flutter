@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/helpers/app_widget.dart';
@@ -8,6 +11,7 @@ import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 
@@ -32,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       top: false,
       child: GestureDetector(
         onTap: () {
-          AppWidget.hideKeyboard();
+          hideKeyboard();
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.dark,
@@ -45,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AppWidget.marginBottom(10),
-                      Image.asset(AppAssets.appLogo),
+                      AppWidget.marginBottom(8),
+                      logo(60),
                       AppWidget.marginBottom(2),
                       const Text(
                         'Manaw Store',
@@ -77,16 +81,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: Icons.lock),
                       AppWidget.marginBottom(2),
                       PrimaryButton(value: 'Login', onPressed: _login),
-                      AppWidget.marginBottom(4),
+                      AppWidget.marginBottom(2),
                       InkWell(
                         child: const Text('Not a member yet? Register here'),
                         onTap: () {},
                       ),
-                      AppWidget.marginBottom(10),
+                      AppWidget.marginBottom(2),
                       InkWell(
-                        child: const Text('Powered by Bilions Co., Ltd'),
+                        child: const Text(
+                          'Forget password?',
+                          textAlign: TextAlign.left,
+                        ),
                         onTap: () {},
-                      )
+                      ),
+                      AppWidget.marginBottom(7),
+                      SvgPicture.asset(AppAssets.icPoweredBy),
                     ],
                   )
                 ],

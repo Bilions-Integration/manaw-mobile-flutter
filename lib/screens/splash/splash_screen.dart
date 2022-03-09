@@ -3,6 +3,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(AppAssets.appLogo),
+            logo(100),
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(

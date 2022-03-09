@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/components/bottom_tab.dart';
-import 'package:my_app/helpers/app_widget.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
 
@@ -24,7 +24,7 @@ class TabsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppWidget.hideKeyboard();
+        hideKeyboard();
       },
       child: Scaffold(
         appBar: MyAppBar(),

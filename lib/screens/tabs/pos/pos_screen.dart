@@ -16,12 +16,8 @@ class PosScreen extends StatefulWidget {
 class _PosScreenState extends State<PosScreen> {
   @override
   void initState() {
-    _updateFirebaseToken();
+    updateFirebaseToken();
     super.initState();
-  }
-
-  _updateFirebaseToken() async {
-    await updateFirebaseToken();
   }
 
   final auth = Get.find<AuthController>();
@@ -42,19 +38,20 @@ class _PosScreenState extends State<PosScreen> {
       children: [
         CategorySelector(context: context),
         Expanded(
-            child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: MasonryGridView.count(
-            crossAxisCount: 2,
-            itemCount: products.length,
-            itemBuilder: (BuildContext context, int index) {
-              final product = products[index];
-              return ProductCard(product: product);
-            },
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: MasonryGridView.count(
+              crossAxisCount: 2,
+              itemCount: products.length,
+              itemBuilder: (BuildContext context, int index) {
+                final product = products[index];
+                return ProductCard(product: product, index: index);
+              },
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+            ),
           ),
-        )),
+        ),
       ],
     );
   }

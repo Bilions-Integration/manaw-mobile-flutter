@@ -9,10 +9,6 @@ class AppWidget {
     return Padding(padding: EdgeInsets.only(bottom: value * 10));
   }
 
-  static hideKeyboard() {
-    FocusManager.instance.primaryFocus?.unfocus();
-  }
-
   static storeToken(String? token) {
     final box = GetStorage();
     box.write('@bearerToken', token);
@@ -24,15 +20,6 @@ class AppWidget {
     final blob =
         await MultipartFile.fromFile(image!.path, filename: image.name);
     return MyFile(blob: blob, path: image.path, name: image.name);
-  }
-
-  showErrorMessageDialog(
-      {required BuildContext context, required String message}) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (context) => AlertDialog(title: Text(message)),
-    );
   }
 
   static void showMenu(
