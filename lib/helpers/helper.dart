@@ -3,8 +3,10 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/current_context.dart';
 
 class console {
   static log(dynamic text, {dynamic payload}) {
@@ -19,6 +21,10 @@ class console {
     fimber.d(text);
     fimber.d('', ex: payload);
   }
+}
+
+BuildContext currentContext() {
+  return CurrentContext.navigatorKey.currentContext!;
 }
 
 logo(double? width) {
@@ -71,7 +77,23 @@ Widget borderRadiusCard(radius, child) {
   );
 }
 
-alert({required BuildContext context, String? title, String? message}) {
+loading({String? title}) {
+  final context = currentContext();
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => LoadingWidget(
+      title: title,
+    ),
+  );
+}
+
+hideLoading({String? title}) {
+  Navigator.pop(currentContext());
+}
+
+alert({String? title, String? message}) {
+  final context = currentContext();
   showDialog(
     context: context,
     barrierDismissible: true,
@@ -109,13 +131,13 @@ alert({required BuildContext context, String? title, String? message}) {
 }
 
 confirm({
-  required BuildContext context,
   String? title,
   String? message,
   String? confirmText,
   String? cancelText,
   required Function(bool) onPressed,
 }) {
+  final context = currentContext();
   showDialog(
     context: context,
     barrierDismissible: true,

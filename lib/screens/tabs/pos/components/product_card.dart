@@ -51,14 +51,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       MaterialButton(
                         color: AppColors.dark,
-                        onPressed: () => {
-                          confirm(
-                              onPressed: (value) =>
-                                  {console.log(value ? 'true' : 'false')},
-                              context: context,
-                              message:
-                                  'The dialog route created by this method is pushed to the root navigator.')
-                        },
+                        onPressed: () => {},
                         minWidth: 20,
                         height: 20,
                         shape: RoundedRectangleBorder(

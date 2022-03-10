@@ -24,12 +24,22 @@ class Api {
   }
 
   // get method
-  static Future<dynamic> get(String url, {Map<String, dynamic>? data}) async {
+  static Future<dynamic> get(
+    String url, {
+    Map<String, dynamic>? data,
+    bool showLoading = true,
+  }) async {
     try {
+      if (showLoading) {
+        loading();
+      }
       console.log('GET => $url =>', payload: data);
       Dio dio = DioWrapper.init();
       var response = await dio.get(url, queryParameters: data);
       console.log('GET RESPONSE => $url =>', payload: response.data);
+      if (showLoading) {
+        hideLoading();
+      }
       return response.data;
     } catch (e) {
       console.log("API =>  GET => ERROR ${e.toString()}");
@@ -38,15 +48,25 @@ class Api {
   }
 
   // post method
-  static Future<dynamic> post(String url,
-      {Map<String, dynamic>? data, bool formData = false}) async {
+  static Future<dynamic> post(
+    String url, {
+    Map<String, dynamic>? data,
+    bool formData = false,
+    bool showLoading = true,
+  }) async {
     try {
+      if (showLoading) {
+        loading();
+      }
       console.log('POST => $url =>', payload: data);
       Dio dio = DioWrapper.init();
       if (formData) {
         data = _convertFormData(data);
       }
       var response = await dio.post(url, data: data);
+      if (showLoading) {
+        hideLoading();
+      }
       console.log('POST RESPONSE => $url =>', payload: response.data);
       return response.data;
     } catch (e) {
@@ -56,15 +76,25 @@ class Api {
   }
 
   // put method
-  static Future<dynamic> put(String url,
-      {Map<String, dynamic>? data, bool formData = false}) async {
+  static Future<dynamic> put(
+    String url, {
+    Map<String, dynamic>? data,
+    bool formData = false,
+    bool showLoading = true,
+  }) async {
     try {
+      if (showLoading) {
+        loading();
+      }
       console.log('PUT => $url =>', payload: data);
       Dio dio = DioWrapper.init();
       if (formData) {
         data = _convertFormData(data);
       }
       var response = await dio.post(url, data: data);
+      if (showLoading) {
+        hideLoading();
+      }
       console.log('PUT RESPONSE => $url =>', payload: response.data);
       return response;
     } catch (e) {
@@ -74,12 +104,21 @@ class Api {
   }
 
   // delete method
-  static Future<dynamic> delete(String url,
-      {Map<String, dynamic>? data}) async {
+  static Future<dynamic> delete(
+    String url, {
+    Map<String, dynamic>? data,
+    bool showLoading = true,
+  }) async {
     try {
+      if (showLoading) {
+        loading();
+      }
       console.log('DELETE => $url =>', payload: data);
       Dio dio = DioWrapper.init();
       var response = await dio.delete(url, queryParameters: data);
+      if (showLoading) {
+        hideLoading();
+      }
       console.log('DELETE RESPONSE => $url =>', payload: response.data);
       return response.data;
     } catch (e) {

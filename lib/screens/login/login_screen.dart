@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       InkWell(
                         child: const Text('Not a member yet? Register here'),
                         onTap: () {
-                          ARouter.push(RouteName.register);
+                          Get.to(() => RouteName.register);
                         },
                       ),
                       AppWidget.marginBottom(2),
@@ -104,7 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Forget password?',
                           textAlign: TextAlign.left,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => RouteName.forgetPassword);
+                        },
                       ),
                       AppWidget.marginBottom(7),
                       SvgPicture.asset(AppAssets.icPoweredBy),

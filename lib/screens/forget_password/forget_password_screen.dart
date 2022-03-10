@@ -3,39 +3,31 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/components/input.dart';
-import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/routes.dart';
-import 'package:my_app/screens/register/register_controller.dart';
+import 'package:my_app/screens/forget_password/forget_password_controller.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class ForgetPasswordScreen extends StatefulWidget {
+  const ForgetPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final auth = Get.find<AuthController>();
-  final registerController = Get.put(RegisterController());
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  final forgetPasswordController = Get.put(ForgetPasswordController);
 
   Map<String, dynamic> params = {
     "email": null,
-    "password": null,
-    "full_name": null,
-    "company_name": null,
   };
 
-  bool _showRegister() {
-    if (empty(params["email"]) ||
-        empty(params["password"]) ||
-        empty(params["full_name"]) ||
-        empty(params["company_name"])) {
+  bool _showLogin() {
+    if (empty(params["email"])) {
       return false;
     }
     return true;
@@ -52,6 +44,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
+            appBar: AppBar(
+              title: const Text('Password Recover'),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => {Get.back()},
+              ),
+            ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: ListView(
@@ -60,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AppWidget.marginBottom(4),
+                      AppWidget.marginBottom(8),
                       logo(60),
                       AppWidget.marginBottom(2),
                       const Text(
@@ -72,7 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       AppWidget.marginBottom(1),
                       Text(
-                        'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+                        'Enter your email to reset password.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.lightDark,
@@ -81,42 +80,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       AppWidget.marginBottom(3),
                       MyTextInput(
                         onChanged: _onValueChanged,
-                        column: 'full_name',
-                        placeholder: 'Full Name',
-                        icon: Icons.person,
-                      ),
-                      MyTextInput(
-                        onChanged: _onValueChanged,
-                        column: 'company_name',
-                        placeholder: 'Store / Company Name',
-                        icon: Icons.business,
-                      ),
-                      MyTextInput(
-                        onChanged: _onValueChanged,
                         column: 'email',
                         placeholder: 'Email',
                         icon: Icons.email,
                       ),
-                      PasswordInput(
-                        onChanged: _onValueChanged,
-                        column: 'password',
-                        placeholder: 'Password',
-                        icon: Icons.lock,
-                      ),
                       AppWidget.marginBottom(1),
                       PrimaryButton(
-                        disabled: !_showRegister(),
-                        value: 'Register',
-                        onPressed: _register,
+                        value: 'Recover',
+                        disabled: !_showLogin(),
+                        onPressed: _login,
                       ),
                       AppWidget.marginBottom(2),
                       InkWell(
-                        child: const Text('Already member? Login here'),
+                        child: const Text('Not a member yet? Register here'),
                         onTap: () {
-                          ARouter.push(RouteName.login);
+                          Get.to(RouteName.register);
                         },
                       ),
-                      AppWidget.marginBottom(5),
+                      AppWidget.marginBottom(2),
+                      InkWell(
+                        child: const Text(
+                          'Back to login',
+                          textAlign: TextAlign.left,
+                        ),
+                        onTap: () {
+                          Get.to(RouteName.login);
+                        },
+                      ),
+                      AppWidget.marginBottom(7),
                       SvgPicture.asset(AppAssets.icPoweredBy),
                     ],
                   )
@@ -135,28 +126,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
-  _register() async {
-    if (_showRegister() == false) {
-      return;
+  _login() async {
+    try {} catch (e) {
+      _showError();
     }
-    try {
-      RegisterParams paramsToSent = RegisterParams.fromJson(params);
-      var res =
-          await Api.post('/auth/register-email', data: paramsToSent.toJson());
-      if (res['success']) {
-        registerController.params.value = paramsToSent;
-        Get.to(() => RouteName.otp);
-      } else {
-        alert(
-          title: 'Error',
-          message: 'Email already registered!',
-        );
-      }
-    } catch (e) {
-      alert(
-        title: 'Error',
-        message: 'Something went wrong. Please try again.',
-      );
-    }
+  }
+
+  _showError() {
+    Get.snackbar('Error', 'Account with that email do not exist',
+        icon: const Icon(Icons.info));
   }
 }

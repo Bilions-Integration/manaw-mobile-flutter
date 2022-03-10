@@ -87,7 +87,7 @@ class _OTPScreenState extends State<OTPScreen> {
             ),
             Expanded(child: mb(0)),
             PrimaryButton(
-              value: 'NEXT',
+              value: 'Verify',
               onPressed: () => {_submit()},
             ),
             mb(3),

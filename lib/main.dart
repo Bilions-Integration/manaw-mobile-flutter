@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
@@ -39,6 +40,7 @@ class _MyAppState extends State<MyApp> {
               primary: AppColors.dark,
             ),
       ),
+      navigatorKey: CurrentContext.navigatorKey,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
     );
