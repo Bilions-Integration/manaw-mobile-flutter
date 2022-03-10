@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
 
@@ -18,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
+          Text(currency()),
           PrimaryButton(value: 'Logout', onPressed: _logout),
         ],
       ),

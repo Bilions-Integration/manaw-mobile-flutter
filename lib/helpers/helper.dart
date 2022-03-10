@@ -2,8 +2,10 @@
 
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/loading_widget.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/current_context.dart';
@@ -25,6 +27,11 @@ class console {
 
 BuildContext currentContext() {
   return CurrentContext.navigatorKey.currentContext!;
+}
+
+currency() {
+  final auth = Get.find<AuthController>();
+  return auth.user.value?.company.currency.toString() ?? '';
 }
 
 logo(double? width) {

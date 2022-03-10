@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_app/controllers/cart_controller.dart';
 import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/colors.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final auth = Get.put(AuthController());
+  final cart = Get.put(CartController());
   final bottomTabController = Get.put(BottomTabsController());
 
   @override

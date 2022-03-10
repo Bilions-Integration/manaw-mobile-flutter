@@ -1,6 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/common_widget.dart';
+import 'package:my_app/controllers/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/list_picker.dart';
@@ -32,6 +35,8 @@ class _CategorySelectorState extends State<CategorySelector> {
   ];
 
   ListItem? selectedList;
+
+  final cartController = Get.find<CartController>();
 
   _showList() {
     ListPicker(
@@ -82,9 +87,20 @@ class _CategorySelectorState extends State<CategorySelector> {
                 ),
               ),
               Row(
-                children: const [
-                  IconTapper(icon: AppAssets.icSearch),
-                  IconTapper(icon: AppAssets.icCart),
+                children: [
+                  const IconTapper(icon: AppAssets.icSearch),
+                  InkWell(
+                    onTap: _showCheckout,
+                    child: Badge(
+                      badgeContent: Obx(
+                        () => (Text(
+                          cartController.total().toString(),
+                          style: TextStyle(color: AppColors.white),
+                        )),
+                      ),
+                      child: const IconTapper(icon: AppAssets.icCart),
+                    ),
+                  )
                 ],
               )
             ],
@@ -92,5 +108,9 @@ class _CategorySelectorState extends State<CategorySelector> {
         ),
       ),
     );
+  }
+
+  _showCheckout() {
+    cartController.products.value = [];
   }
 }

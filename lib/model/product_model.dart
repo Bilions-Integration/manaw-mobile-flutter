@@ -6,6 +6,7 @@ class Product {
   final int price;
   final String type;
   final List units;
+  final int quantity;
 
   Product({
     required this.id,
@@ -15,6 +16,7 @@ class Product {
     required this.price,
     required this.type,
     required this.units,
+    this.quantity = 1,
   });
 
   Product.fromJson(Map json)
@@ -24,6 +26,7 @@ class Product {
         instock = json['instock'],
         price = json['price'],
         type = json['type'],
+        quantity = json['quantity'] ?? 1,
         units = json['units'];
 
   Map<String, dynamic> toJson() => {
@@ -34,5 +37,6 @@ class Product {
         'price': price,
         'type': type,
         'units': units,
+        'quantity': quantity,
       };
 }

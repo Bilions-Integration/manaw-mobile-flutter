@@ -1,3 +1,5 @@
+import 'package:my_app/model/company_model.dart';
+
 class User {
   final String name;
   final String email;
@@ -5,12 +7,14 @@ class User {
   final String? startDate;
   final String? expiredDate;
   final String userType;
+  final Company company;
 
   User(
       {required this.name,
       required this.email,
       required this.plan,
       this.startDate,
+      required this.company,
       required this.userType,
       this.expiredDate});
 
@@ -20,6 +24,7 @@ class User {
         startDate = json['start_date'],
         userType = json['user_type'],
         expiredDate = json['expired_date'],
+        company = Company.fromJson(json['company']),
         plan = json['plan'];
 
   Map<String, dynamic> toJson() => {

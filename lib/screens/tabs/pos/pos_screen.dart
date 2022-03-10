@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/controllers/cart_controller.dart';
 import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
@@ -18,6 +19,7 @@ class PosScreen extends StatefulWidget {
 
 class _PosScreenState extends State<PosScreen> {
   final posController = Get.put(POSController());
+  final cartController = Get.find<CartController>();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -58,7 +60,6 @@ class _PosScreenState extends State<PosScreen> {
                     addCart: _addCart,
                   );
                 },
-                mainAxisSpacing: 15,
                 crossAxisSpacing: 15,
               ),
             ),
@@ -69,7 +70,7 @@ class _PosScreenState extends State<PosScreen> {
   }
 
   _addCart(Product product) {
-    console.log(product.id.toString());
+    cartController.products.value = [...cartController.products.value, product];
   }
 
   _reset() {
