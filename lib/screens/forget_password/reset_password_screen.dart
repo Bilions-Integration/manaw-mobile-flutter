@@ -5,30 +5,32 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/components/input.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/forget_password/forget_password_controller.dart';
-import 'package:my_app/screens/otp/otp_screen.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
-  const ForgetPasswordScreen({Key? key}) : super(key: key);
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
+  _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  final forgetPasswordController = Get.put(ForgetPasswordController());
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final auth = Get.find<AuthController>();
 
   Map<String, dynamic> params = {
-    "email": null,
+    "password_confirmation": null,
+    "password": null,
   };
 
   bool _showLogin() {
-    if (empty(params["email"])) {
+    if (empty(params["password"]) || empty(params["password_confirmation"])) {
       return false;
     }
     return true;
@@ -46,7 +48,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('Password Recover'),
+              title: const Text('Set New Password'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => {Get.back()},
@@ -72,43 +74,32 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                       AppWidget.marginBottom(1),
                       Text(
-                        'Enter your email to reset password.',
+                        'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.lightDark,
                         ),
                       ),
                       AppWidget.marginBottom(3),
-                      MyTextInput(
+                      PasswordInput(
                         onChanged: _onValueChanged,
-                        column: 'email',
-                        placeholder: 'Email',
-                        icon: Icons.email,
+                        column: 'password',
+                        placeholder: 'Password',
+                        icon: Icons.lock,
+                      ),
+                      PasswordInput(
+                        onChanged: _onValueChanged,
+                        column: 'password_confirmation',
+                        placeholder: 'Confirm',
+                        icon: Icons.lock,
                       ),
                       AppWidget.marginBottom(1),
                       PrimaryButton(
-                        value: 'Recover',
+                        value: 'Set New Password',
                         disabled: !_showLogin(),
-                        onPressed: _request,
+                        onPressed: _resetPassword,
                       ),
-                      AppWidget.marginBottom(2),
-                      InkWell(
-                        child: const Text('Not a member yet? Register here'),
-                        onTap: () {
-                          Get.to(RouteName.register);
-                        },
-                      ),
-                      AppWidget.marginBottom(2),
-                      InkWell(
-                        child: const Text(
-                          'Back to login',
-                          textAlign: TextAlign.left,
-                        ),
-                        onTap: () {
-                          Get.to(RouteName.login);
-                        },
-                      ),
-                      AppWidget.marginBottom(7),
+                      AppWidget.marginBottom(9),
                       SvgPicture.asset(AppAssets.icPoweredBy),
                     ],
                   )
@@ -127,25 +118,31 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     });
   }
 
-  _request() async {
+  _resetPassword() async {
     try {
-      var res = await Api.post('/auth/request_reset_password', data: params);
-      if (res['code'] == 404) {
-        _showError();
-      }
-      if (res['code'] == 200) {
-        forgetPasswordController.params.value =
-            ForgetPasswordParams.fromJson(params);
-        Get.to(() => const OTPScreen(type: 'forget_password'));
+      final forgetPasswordController = Get.find<ForgetPasswordController>();
+      ForgetPasswordParams? paramsToSent =
+          forgetPasswordController.params.value;
+
+      if (paramsToSent != null) {
+        paramsToSent.password = params["password"];
+        paramsToSent.passwordConfirmation = params["password_confirmation"];
+        final json = paramsToSent.toJson();
+        var res = await Api.post('/auth/reset_password', data: json);
+        if (res['success'] == true) {
+          ARouter.push(RouteName.login);
+        } else {
+          _showError();
+        }
       }
     } catch (e) {
+      console.log(e);
       _showError();
     }
   }
 
   _showError() {
-    alert(
-        title: 'Error',
-        message: 'Account with ${params['email']} do not exist!');
+    Get.snackbar('Error', 'Something went wrong! Please try again.',
+        icon: const Icon(Icons.info));
   }
 }

@@ -96,7 +96,7 @@ alert({String? title, String? message}) {
   final context = currentContext();
   showDialog(
     context: context,
-    barrierDismissible: true,
+    barrierDismissible: false,
     builder: (context) => AlertDialog(
       title: Row(children: [
         const Icon(Icons.info),

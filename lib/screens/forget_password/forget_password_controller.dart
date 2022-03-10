@@ -2,10 +2,12 @@ import 'package:get/get.dart';
 
 class ForgetPasswordParams {
   final String? email;
-  final String? password;
+  String? password;
+  String? passwordConfirmation;
   String? code;
 
-  ForgetPasswordParams({this.email, this.password, this.code});
+  ForgetPasswordParams(
+      {this.email, this.password, this.code, this.passwordConfirmation});
 
   ForgetPasswordParams.fromJson(Map json)
       : email = json['email'],
@@ -15,7 +17,7 @@ class ForgetPasswordParams {
   Map<String, dynamic> toJson() => {
         'email': email,
         'password': password,
-        'password_confirmation': password,
+        'password_confirmation': passwordConfirmation,
         'code': code,
       };
 }

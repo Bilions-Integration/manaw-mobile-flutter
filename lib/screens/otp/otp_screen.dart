@@ -8,18 +8,19 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/forget_password/forget_password_controller.dart';
 import 'package:my_app/screens/register/register_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({Key? key}) : super(key: key);
+  final String type;
+  const OTPScreen({Key? key, this.type = 'register'}) : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  final registerController = Get.find<RegisterController>();
   final authController = Get.find<AuthController>();
 
   String code = '';
@@ -98,7 +99,16 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   _submit() async {
+    if (widget.type == 'register') {
+      await _register();
+    } else {
+      await _passwordReset();
+    }
+  }
+
+  _register() async {
     try {
+      final registerController = Get.find<RegisterController>();
       RegisterParams? params = registerController.params.value;
       if (params != null) {
         params.code = code;
@@ -112,11 +122,45 @@ class _OTPScreenState extends State<OTPScreen> {
           authController.user.value = User.fromJson(res['data']);
           ARouter.push(RouteName.home);
         } else {
+          _showError();
           console.log(res.toString());
         }
       }
     } catch (e) {
+      _showError();
       console.log(e.toString());
     }
+  }
+
+  _passwordReset() async {
+    try {
+      final forgetPasswordController = Get.find<ForgetPasswordController>();
+      ForgetPasswordParams? paramsToSent =
+          forgetPasswordController.params.value;
+      if (paramsToSent != null) {
+        paramsToSent.code = code;
+
+        final newParams = paramsToSent.toJson();
+        var res = await Api.post(
+          '/auth/verify_reset_password',
+          data: newParams,
+        );
+        if (res['success'] == true) {
+          forgetPasswordController.params.value =
+              ForgetPasswordParams.fromJson(newParams);
+          Get.to(RouteName.resetPassword);
+        } else {
+          _showError();
+          console.log(res.toString());
+        }
+      }
+    } catch (e) {
+      _showError();
+      console.log(e.toString());
+    }
+  }
+
+  _showError() {
+    alert(title: 'Error', message: 'Invalid OTP');
   }
 }

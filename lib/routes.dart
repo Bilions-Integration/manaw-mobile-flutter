@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/screens/forget_password/forget_password_screen.dart';
-import 'package:my_app/screens/register/otp_screen.dart';
+import 'package:my_app/screens/forget_password/reset_password_screen.dart';
+import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/register/register_screen.dart';
 import 'package:my_app/screens/tabs/tabs.dart';
 import 'package:my_app/screens/tabs/dashboard/dashboard_screen.dart';
@@ -20,6 +21,7 @@ class RouteName {
   static final home = TabsScreen();
   static const otp = OTPScreen();
   static const forgetPassword = ForgetPasswordScreen();
+  static const resetPassword = ResetPasswordScreen();
 }
 
 class ARouter {
