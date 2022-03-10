@@ -3,8 +3,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/firebase.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/category/category_selector.dart';
 import 'package:my_app/screens/tabs/pos/components/product_card.dart';
+import 'package:my_app/screens/tabs/pos/pos_controller.dart';
 
 class PosScreen extends StatefulWidget {
   const PosScreen({Key? key}) : super(key: key);
@@ -14,45 +17,70 @@ class PosScreen extends StatefulWidget {
 }
 
 class _PosScreenState extends State<PosScreen> {
+  final posController = Get.put(POSController());
+
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     updateFirebaseToken();
     super.initState();
+    _reset();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        console.log('ended');
+        _loadMore();
+      }
+    });
   }
 
   final auth = Get.find<AuthController>();
 
-  List products = [
-    {'name': "this is long product name and very long"},
-    {'name': "short"},
-    {'name': "short"},
-    {'name': "short"},
-    {'name': "this is long product name and very long very very very long"},
-    {'name': "this is long product name and very long"},
-    {'name': "short"},
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CategorySelector(context: context),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: MasonryGridView.count(
-              crossAxisCount: 2,
-              itemCount: products.length,
-              itemBuilder: (BuildContext context, int index) {
-                final product = products[index];
-                return ProductCard(product: product, index: index);
-              },
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
+    return Obx(
+      () => Column(
+        children: [
+          CategorySelector(context: context),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: MasonryGridView.count(
+                controller: _scrollController,
+                crossAxisCount: 2,
+                itemCount: posController.products.value.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final product = posController.products.value[index];
+                  return ProductCard(
+                    product: product,
+                    index: index,
+                    addCart: _addCart,
+                  );
+                },
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+
+  _addCart(Product product) {
+    console.log(product.id.toString());
+  }
+
+  _reset() {
+    posController.page.value = 1;
+    posController.products.value = [];
+    posController.getProducts();
+  }
+
+  _loadMore() {
+    posController.page.value++;
+    posController.getProducts();
+    console.log(posController.products.value.length.toString());
   }
 }

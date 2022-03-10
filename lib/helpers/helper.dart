@@ -67,10 +67,11 @@ Widget p(double padding, Widget child) {
   return Padding(padding: EdgeInsets.all(padding), child: child);
 }
 
-Widget borderRadiusCard(radius, child) {
+Widget borderRadiusCard(radius, child, {double border = 0}) {
   return Container(
     child: child,
     decoration: BoxDecoration(
+      border: Border.all(color: AppColors.borderColor, width: border),
       color: AppColors.lightGrey,
       borderRadius: BorderRadius.circular(10),
     ),
