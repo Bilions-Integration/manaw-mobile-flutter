@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/components/input.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -12,11 +13,13 @@ class CustomerPicker {
   final List<CustomerModel> menuList;
   final Function(CustomerModel) onSelect;
   final Function(String)? onSearch;
+  final CustomerModel? selectedCustomer;
 
   CustomerPicker({
     required this.menuList,
     this.searchPlaceholder,
     this.onSearch,
+    this.selectedCustomer,
     required this.onSelect,
     this.height = 1000,
   });
@@ -34,6 +37,7 @@ class CustomerPicker {
           context: context,
           onSelect: onSelect,
           searchPlaceholder: searchPlaceholder,
+          selectedCustomer: selectedCustomer,
           menuList: menuList,
         );
       },
@@ -48,9 +52,17 @@ class CustomerListView extends StatefulWidget {
   final List<CustomerModel> menuList;
   final String? searchPlaceholder;
   final Function(CustomerModel) onSelect;
-  const CustomerListView(
-      {Key? key, required this.height, this.searchPlaceholder, required this.context, required this.menuList, required this.onSelect})
-      : super(key: key);
+  final CustomerModel? selectedCustomer;
+
+  const CustomerListView({
+    Key? key,
+    required this.height,
+    this.searchPlaceholder,
+    this.selectedCustomer,
+    required this.context,
+    required this.menuList,
+    required this.onSelect,
+  }) : super(key: key);
 
   @override
   State<CustomerListView> createState() => _CustomerListViewState();
@@ -111,10 +123,9 @@ class _CustomerListViewState extends State<CustomerListView> {
                           ),
                           dense: true,
                           onTap: () => {_selectModal(item, context)},
-                          trailing: const Icon(
-                            Icons.radio_button_checked,
-                            size: 20,
-                          ),
+                          trailing: widget.selectedCustomer?.id == item.id
+                              ? Icon(Icons.radio_button_checked, size: 20, color: AppColors.green)
+                              : const Icon(Icons.radio_button_checked, size: 20),
                           title: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -122,26 +133,34 @@ class _CustomerListViewState extends State<CustomerListView> {
                               borderRadiusCard(
                                 3,
                                 Image.network(
-                                  item.image!,
+                                  item.image ?? AppAssets.placeholder,
                                   width: 30,
                                   height: 30,
                                 ),
                                 border: 2,
                               ),
                               mr(1),
-                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(
-                                  item.name,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Email - ${item.email}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ]),
+                              item.email != null && item.email != ''
+                                  ? Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.name,
+                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          'Email - ${item.email ?? ''}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      item.name,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
                             ],
                           ),
                         ),

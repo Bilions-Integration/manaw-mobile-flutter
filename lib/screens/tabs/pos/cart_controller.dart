@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model.dart';
+import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
 
@@ -10,6 +11,8 @@ class CartController extends GetxController {
   final products = Rx<List<Product>>([]);
 
   final account = Rx<Account?>(null);
+
+  final customer = Rx<CustomerModel?>(null);
 
   setAccount() {
     final box = GetStorage();
@@ -61,16 +64,23 @@ class CartController extends GetxController {
     for (Product product in products.value) {
       list = [
         ...list,
-        {"product_id": product.productId, "quantity": product.quantity, "price": product.price, "discount": 0, "discount_type": "fixed"}
+        {
+          "product_id": product.productId,
+          "quantity": product.quantity,
+          "price": product.price,
+          "discount": 0,
+          "discount_type": "fixed",
+        }
       ];
     }
     Map params = {
-      "receiver_id": 1,
-      "receiver_name": "guest",
-      "receiver_email": "",
-      "receiver_phone": "",
-      "shipping_address": "",
-      "billing_address": "",
+      "receiver_id": customer.value?.id,
+      "receiver_name": customer.value?.name,
+      "receiver_email": customer.value?.email,
+      "receiver_phone": customer.value?.phone,
+      "shipping_address": customer.value?.address,
+      "billing_address": customer.value?.address,
+      "receiver_tax_id": customer.value?.taxId,
       "discount": 0,
       "discount_type": "fixed",
       "account_id": account.value?.id,

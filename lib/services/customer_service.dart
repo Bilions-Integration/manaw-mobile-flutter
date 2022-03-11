@@ -11,6 +11,8 @@ class CustomerService {
         },
         showLoading: false);
     List<CustomerModel> categories = (res["data"]["customers"] as List).map((e) => CustomerModel.fromJson(e)).toList();
-    return categories;
+
+    final result = [CustomerModel(name: 'Deselect Customer', id: null, image: null)];
+    return [...result, ...categories];
   }
 }

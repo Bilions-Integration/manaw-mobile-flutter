@@ -65,15 +65,16 @@ showAccountModal({Function()? callback}) async {
   ).open();
 }
 
-showCustomerModal({Function(CustomerModel)? callback}) async {
+showCustomerModal() async {
+  final cartController = Get.find<CartController>();
   _onSelect(CustomerModel customer) {
-    console.log(customer.id);
-    callback != null ? callback(customer) : null;
+    cartController.customer.value = customer;
   }
 
   List<CustomerModel> customers = await CustomerService.get();
   CustomerPicker(
     onSelect: _onSelect,
+    selectedCustomer: cartController.customer.value,
     menuList: customers,
   ).open();
 }

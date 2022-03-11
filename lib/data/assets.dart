@@ -15,4 +15,5 @@ class AppAssets {
   static const icCoupon = 'assets/images/coupon.svg';
   static const icPerson = 'assets/images/person.svg';
   static const icAccount = 'assets/images/account.svg';
+  static const placeholder = 'https://api.manawstore.com/placeholder.png';
 }
