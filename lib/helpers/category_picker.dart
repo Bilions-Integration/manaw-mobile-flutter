@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
-import 'package:my_app/model/common_model.dart';
+import 'package:my_app/model/category_model.dart';
 
-class ListPicker {
+class CategoryPicker {
   final BuildContext context;
   final double? height;
   final String? searchPlaceholder;
-  final List<ListItem> menuList;
-  final Function(ListItem) onSelect;
+  final List<CategoryModel> menuList;
+  final Function(CategoryModel) onSelect;
   final Function(String)? onSearch;
 
-  ListPicker({
+  CategoryPicker({
     required this.context,
     required this.menuList,
     this.searchPlaceholder,
@@ -44,16 +44,10 @@ class ListPicker {
 class MyListView extends StatefulWidget {
   final BuildContext context;
   final double? height;
-  final List<ListItem> menuList;
+  final List<CategoryModel> menuList;
   final String? searchPlaceholder;
-  final Function(ListItem) onSelect;
-  const MyListView(
-      {Key? key,
-      required this.height,
-      this.searchPlaceholder,
-      required this.context,
-      required this.menuList,
-      required this.onSelect})
+  final Function(CategoryModel) onSelect;
+  const MyListView({Key? key, required this.height, this.searchPlaceholder, required this.context, required this.menuList, required this.onSelect})
       : super(key: key);
 
   @override
@@ -61,7 +55,7 @@ class MyListView extends StatefulWidget {
 }
 
 class _MyListViewState extends State<MyListView> {
-  List<ListItem> chosenList = [];
+  List<CategoryModel> chosenList = [];
 
   @override
   void initState() {
@@ -88,9 +82,7 @@ class _MyListViewState extends State<MyListView> {
               height: 6,
               width: 50,
               child: Container(
-                decoration: BoxDecoration(
-                    color: AppColors.dark,
-                    borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
               ),
             ),
             AppWidget.marginBottom(1),
@@ -107,10 +99,8 @@ class _MyListViewState extends State<MyListView> {
                 physics: const BouncingScrollPhysics(),
                 children: chosenList
                     .map(
-                      (ListItem item) => Container(
-                        decoration: BoxDecoration(
-                            color: AppColors.lightGrey,
-                            borderRadius: BorderRadius.circular(10)),
+                      (CategoryModel item) => Container(
+                        decoration: BoxDecoration(color: AppColors.lightGrey, borderRadius: BorderRadius.circular(10)),
                         margin: const EdgeInsets.all(4),
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(
@@ -124,7 +114,7 @@ class _MyListViewState extends State<MyListView> {
                             size: 20,
                           ),
                           title: Text(
-                            item.title,
+                            item.name,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -139,14 +129,14 @@ class _MyListViewState extends State<MyListView> {
     );
   }
 
-  _selectModal(ListItem type, context) {
+  _selectModal(CategoryModel type, context) {
     Navigator.pop(context);
     widget.onSelect(type);
   }
 
   _onSearch(String keyword, String? column) {
-    final newList = widget.menuList.where((ListItem element) {
-      final String name = element.title.toLowerCase();
+    final newList = widget.menuList.where((CategoryModel element) {
+      final String name = element.name.toLowerCase();
       return name.contains(keyword.toLowerCase());
     }).toList();
 

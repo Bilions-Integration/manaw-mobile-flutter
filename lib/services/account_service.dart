@@ -1,5 +1,5 @@
 import 'package:my_app/helpers/api.dart';
-import 'package:my_app/model/common_model.dart';
+import 'package:my_app/model/account_model.dart';
 
 class AccountService {
   static Future<List<Account>> get() async {

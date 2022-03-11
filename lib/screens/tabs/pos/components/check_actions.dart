@@ -8,7 +8,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/account_picker.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/common_model.dart';
+import 'package:my_app/model/account_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/services/account_service.dart';
 

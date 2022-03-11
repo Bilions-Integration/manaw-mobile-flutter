@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/common_model.dart';
+import 'package:my_app/model/account_model.dart';
 
 class AccountPicker {
   final double? height;

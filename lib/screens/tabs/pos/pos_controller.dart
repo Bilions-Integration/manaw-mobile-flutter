@@ -9,11 +9,16 @@ class POSController extends GetxController {
   var page = 1.obs;
   var limit = 8.obs;
 
-  getProducts({bool showLoading = false}) async {
+  getProducts({bool showLoading = false, dynamic category}) async {
     try {
+      if (category != null) {
+        products.value = [];
+        page.value = 1;
+      }
       var res = await Api.get('/pos/products', showLoading: showLoading, data: {
         "page": page.value,
         "limit": limit.value,
+        "category": category,
       });
       final resProducts = res['data']['data'];
       final mapProducts = (resProducts as List).map((e) => Product.fromJson(e as Map)).toList();

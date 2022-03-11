@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/common_model.dart';
+import 'package:my_app/model/account_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
 

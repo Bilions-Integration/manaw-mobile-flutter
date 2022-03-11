@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -44,7 +45,7 @@ class _PosScreenState extends State<PosScreen> {
     return Obx(
       () => Column(
         children: [
-          CategorySelector(context: context),
+          CategorySelector(context: context, callback: _categoryChanged),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
@@ -67,6 +68,10 @@ class _PosScreenState extends State<PosScreen> {
         ],
       ),
     );
+  }
+
+  _categoryChanged(CategoryModel category) {
+    posController.getProducts(category: category.id);
   }
 
   _addCart(Product product) {

@@ -1,57 +1,64 @@
 import 'package:badges/badges.dart';
-import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/common_widget.dart';
+import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/list_picker.dart';
-import 'package:my_app/model/common_model.dart';
+import 'package:my_app/helpers/category_picker.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/services/category_service.dart';
 
 class CategorySelector extends StatefulWidget {
   final BuildContext context;
-  const CategorySelector({Key? key, required this.context}) : super(key: key);
+  final Function(CategoryModel) callback;
+  const CategorySelector({
+    Key? key,
+    required this.context,
+    required this.callback,
+  }) : super(key: key);
   @override
   State<CategorySelector> createState() => _CategorySelectorState();
 }
 
 class _CategorySelectorState extends State<CategorySelector> {
-  final List<ListItem> menuList = [
-    ListItem(title: 'Mac book'),
-    ListItem(title: 'I phone'),
-    ListItem(title: 'Vivo'),
-    ListItem(title: 'Vivo'),
-    ListItem(title: 'I pad Air'),
-    ListItem(title: 'I pad'),
-    ListItem(title: 'Snack'),
-    ListItem(title: 'New Phone'),
-    ListItem(title: 'China Phone'),
-    ListItem(title: 'B Phone'),
-    ListItem(title: 'D Phone'),
-    ListItem(title: 'E Phone'),
-    ListItem(title: 'F Phone'),
-    ListItem(title: 'My Phone'),
-  ];
+  List<CategoryModel> menuList = [];
 
-  ListItem? selectedList;
+  CategoryModel? selectedList;
 
   final cartController = Get.find<CartController>();
 
-  _showList() {
-    ListPicker(
+  _getCategory() async {
+    if (menuList.isEmpty) {
+      List<CategoryModel> initialCategories = [
+        CategoryModel(
+          name: 'All',
+          id: null,
+          image: [],
+        )
+      ];
+      List<CategoryModel> categories = await CategoryService.get();
+      setState(() {
+        menuList = [...initialCategories, ...categories];
+      });
+    }
+  }
+
+  _showList() async {
+    await _getCategory();
+    CategoryPicker(
       onSelect: _onSelect,
       menuList: menuList,
       context: widget.context,
     ).open();
   }
 
-  _onSelect(ListItem data) {
+  _onSelect(CategoryModel data) {
     setState(() {
       selectedList = data;
     });
-    FimberLog(data.title);
+    widget.callback(data);
   }
 
   @override
@@ -77,7 +84,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 child: Row(
                   children: [
                     Text(
-                      selectedList?.title ?? 'Select Category',
+                      selectedList?.name ?? 'Select Category',
                       style: TextStyle(color: AppColors.white),
                     ),
                     Icon(
