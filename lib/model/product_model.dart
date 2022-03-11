@@ -34,6 +34,7 @@ class Product {
         'index': index,
         'name': name,
         'product_id': productId,
+        'id': productId,
         'images': images,
         'instock': instock,
         'price': price,

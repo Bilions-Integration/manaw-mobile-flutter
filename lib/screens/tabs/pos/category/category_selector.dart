@@ -3,7 +3,7 @@ import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/common_widget.dart';
-import 'package:my_app/controllers/cart_controller.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/list_picker.dart';

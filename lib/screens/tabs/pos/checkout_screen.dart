@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/controllers/cart_controller.dart';
-import 'package:my_app/data/assets.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
 import 'package:my_app/screens/tabs/pos/components/product_card_checkout.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -31,32 +30,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => {Get.back()},
         ),
-        actions: [
-          IconButton(
-            icon: SvgPicture.asset(
-              AppAssets.icAccount,
-              color: AppColors.white,
-            ),
-            onPressed: () => {_showCouponModal},
-          ),
-          IconButton(
-            icon: SvgPicture.asset(
-              AppAssets.icCoupon,
-              color: AppColors.white,
-            ),
-            onPressed: () => {_showCouponModal},
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                AppAssets.icPerson,
-                color: AppColors.white,
-              ),
-              onPressed: () => {_showCustomerModal},
-            ),
-          ),
-        ],
+        actions: checkoutActions(),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -65,11 +39,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             children: [
               Expanded(
                 child: (ListView(
-                  children: cartController.products.value
-                      .mapIndexed((Product product, index) {
+                  children: cartController.products.value.mapIndexed((Product product, index) {
                     product.index = index;
-                    return ProductCardCheckout(
-                        product: product, removed: _removed);
+                    return ProductCardCheckout(product: product, removed: _removed);
                   }).toList(),
                 )),
               ),
@@ -91,10 +63,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-
-  _showCouponModal() {}
-
-  _showCustomerModal() {}
 
   _checkout() {
     confirm(

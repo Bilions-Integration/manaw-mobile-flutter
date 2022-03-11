@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:my_app/controllers/cart_controller.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
@@ -29,8 +29,7 @@ class _PosScreenState extends State<PosScreen> {
     super.initState();
     _reset();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         console.log('ended');
         _loadMore();
       }
@@ -71,10 +70,7 @@ class _PosScreenState extends State<PosScreen> {
 
   _addCart(Product product) {
     final newProduct = Product.fromJson(product.toJson());
-    cartController.products.value = [
-      ...cartController.products.value,
-      newProduct
-    ];
+    cartController.products.value = [...cartController.products.value, newProduct];
   }
 
   _reset() {

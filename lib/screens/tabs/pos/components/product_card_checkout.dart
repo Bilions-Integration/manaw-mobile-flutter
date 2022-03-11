@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:my_app/controllers/cart_controller.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
@@ -36,7 +36,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
     double top = (widget.product.index! == 0) ? 15.0 : 0.0;
     return Padding(
       padding: EdgeInsets.only(
-        bottom: 15,
+        bottom: 6,
         top: top,
       ),
       child: borderRadiusCard(
@@ -116,8 +116,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
         setState(() {
           quantity = newQuantity;
         });
-        cartController.products.value[widget.product.index!].quantity =
-            quantity;
+        cartController.products.value[widget.product.index!].quantity = quantity;
       }
     }
     cartController.reset();

@@ -9,14 +9,15 @@ class User {
   final String userType;
   final Company company;
 
-  User(
-      {required this.name,
-      required this.email,
-      required this.plan,
-      this.startDate,
-      required this.company,
-      required this.userType,
-      this.expiredDate});
+  User({
+    required this.name,
+    required this.email,
+    required this.plan,
+    this.startDate,
+    required this.company,
+    required this.userType,
+    this.expiredDate,
+  });
 
   User.fromJson(Map json)
       : name = json['full_name'],

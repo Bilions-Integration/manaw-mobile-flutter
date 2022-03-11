@@ -12,14 +12,15 @@ class Company {
   final String? hexColor;
   final String? logo;
 
-  Company(
-      {required this.id,
-      this.name,
-      this.currency,
-      this.color,
-      this.hexColor,
-      this.logo,
-      this.address});
+  Company({
+    required this.id,
+    this.name,
+    this.currency,
+    this.color,
+    this.hexColor,
+    this.logo,
+    this.address,
+  });
 
   Company.fromJson(Map json)
       : id = json['id'],
@@ -41,7 +42,6 @@ class Company {
 }
 
 String getCurrency(String code) {
-  var format =
-      NumberFormat.simpleCurrency(locale: Platform.localeName, name: code);
+  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: code);
   return format.currencySymbol;
 }

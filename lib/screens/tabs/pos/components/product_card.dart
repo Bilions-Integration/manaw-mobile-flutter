@@ -29,13 +29,19 @@ class ProductCard extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              child: Image.network(product.images[0]),
-            ),
+            ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minHeight: 100,
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: Image.network(
+                    product.images[0],
+                  ),
+                )),
             Padding(
               padding: const EdgeInsets.only(
                 top: 8,
