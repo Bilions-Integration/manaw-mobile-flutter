@@ -27,15 +27,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: ListView(
-          children: cartController.products.value
-              .mapIndexed((Product product, index) {
-            product.index = index;
-            return ProductCardCheckout(
-              product: product,
-              index: index,
-            );
-          }).toList(),
+        child: Obx(
+          () => (ListView(
+            children: cartController.products.value
+                .mapIndexed((Product product, index) {
+              product.index = index;
+              return ProductCardCheckout(
+                product: product,
+                index: index,
+              );
+            }).toList(),
+          )),
         ),
       ),
     );

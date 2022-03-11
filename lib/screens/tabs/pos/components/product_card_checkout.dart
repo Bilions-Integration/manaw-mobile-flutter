@@ -94,20 +94,34 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
   }
 
   _changeQuantity(String type) {
-    console.log(type);
     if (type == 'add') {
+      final newQuantity = quantity + 1;
       setState(() {
-        quantity = quantity + 1;
+        quantity = newQuantity;
       });
-      console.log(
-          'Product ID => ${cartController.products.value[widget.index].toJson()}');
       cartController.products.value[widget.index].quantity = quantity;
     } else {
-      setState(() {
-        quantity = quantity - 1;
-      });
-      console.log(cartController.products.value[widget.index]);
-      cartController.products.value[widget.index].quantity = quantity;
+      final newQuantity = quantity - 1;
+      if (newQuantity == 0) {
+        confirm(
+          onPressed: _confirmRemove,
+          title: 'Confirm',
+          message: 'Are you sure you want to remove ${widget.product.name}?',
+        );
+      } else {
+        setState(() {
+          quantity = newQuantity;
+        });
+        cartController.products.value[widget.index].quantity = quantity;
+      }
+    }
+  }
+
+  _confirmRemove(bool confirm) {
+    if (confirm) {
+      final List<Product> products = List.from(cartController.products.value);
+      products.removeAt(widget.index);
+      cartController.products.value = products;
     }
   }
 }
