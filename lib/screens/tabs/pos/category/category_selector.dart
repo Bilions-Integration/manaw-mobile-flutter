@@ -6,7 +6,7 @@ import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/category_picker.dart';
+import 'package:my_app/components/category_picker.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/services/category_service.dart';
 

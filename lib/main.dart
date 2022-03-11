@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
             ),
       ),
       navigatorKey: CurrentContext.navigatorKey,
+      key: CurrentContext.scaffoldKey,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
     );

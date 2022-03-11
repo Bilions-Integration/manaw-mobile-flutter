@@ -3,6 +3,7 @@ import 'package:my_app/components/input.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
+import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/services/customer_service.dart';
@@ -21,19 +22,20 @@ class CustomerPicker {
     this.onSearch,
     this.selectedCustomer,
     required this.onSelect,
-    this.height = 1000,
+    this.height = 800,
   });
 
   void open() {
     BuildContext context = currentContext();
     showModalBottomSheet(
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       context: context,
       builder: (builder) {
         return CustomerListView(
-          height: height,
+          height: MediaQuery.of(context).size.height - 100,
           context: context,
           onSelect: onSelect,
           searchPlaceholder: searchPlaceholder,

@@ -27,9 +27,10 @@ class CategoryPicker {
         borderRadius: BorderRadius.circular(15.0),
       ),
       context: context,
+      isScrollControlled: true,
       builder: (builder) {
         return MyListView(
-          height: height,
+          height: MediaQuery.of(context).size.height - 100,
           context: context,
           onSelect: onSelect,
           searchPlaceholder: searchPlaceholder,
