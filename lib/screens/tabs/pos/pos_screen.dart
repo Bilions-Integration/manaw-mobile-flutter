@@ -28,6 +28,7 @@ class _PosScreenState extends State<PosScreen> {
     updateFirebaseToken();
     super.initState();
     _reset();
+    cartController.setAccount();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         console.log('ended');

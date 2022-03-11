@@ -1,8 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/account_picker.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/common_model.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
+import 'package:my_app/services/account_service.dart';
 
 List<Widget> checkoutActions() {
   return [
@@ -11,14 +19,14 @@ List<Widget> checkoutActions() {
         AppAssets.icAccount,
         color: AppColors.white,
       ),
-      onPressed: () => {_showAccountModal()},
+      onPressed: () => {showAccountModal()},
     ),
     IconButton(
       icon: SvgPicture.asset(
         AppAssets.icCoupon,
         color: AppColors.white,
       ),
-      onPressed: () => {_showCouponModal()},
+      onPressed: () => {showCouponModal()},
     ),
     Padding(
       padding: const EdgeInsets.only(right: 10),
@@ -27,28 +35,33 @@ List<Widget> checkoutActions() {
           AppAssets.icPerson,
           color: AppColors.white,
         ),
-        onPressed: () => {_showCustomerModal()},
+        onPressed: () => {showCustomerModal()},
       ),
     ),
   ];
 }
 
-_showCouponModal() {
+showCouponModal() {
   alert();
 }
 
-_showAccountModal() {
-  // final List accountList = [];
+showAccountModal({Function()? callback}) async {
+  final cartController = Get.find<CartController>();
+  List<Account> accounts = await AccountService.get();
+  _onSelect(Account account) {
+    cartController.account.value = account;
+    final box = GetStorage();
+    box.write('@account', jsonEncode(account.toJson()));
+    callback != null ? callback() : null;
+  }
 
-  // _onSelect(item) {}
-
-  // AccountPicker(
-  //   onSelect: _onSelect,
-  //   menuList: accountList,
-  //   context: widget.context,
-  // ).open();
+  AccountPicker(
+    onSelect: _onSelect,
+    selectedAccount: cartController.account.value,
+    menuList: accounts,
+  ).open();
 }
 
-_showCustomerModal() {
+showCustomerModal() {
   alert();
 }

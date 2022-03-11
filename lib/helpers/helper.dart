@@ -16,8 +16,7 @@ class console {
   static log(dynamic text, {dynamic payload}) {
     final fimber = FimberLog('');
     fimber.d('🔥🔥🔥 ===================');
-    fimber.d(text.toString(),
-        stacktrace: StackTrace.fromString(payload.toString()));
+    fimber.d(text.toString(), stacktrace: StackTrace.fromString(payload.toString()));
     fimber.d('END');
   }
 
@@ -111,7 +110,7 @@ hideLoading({String? title}) {
   Navigator.pop(currentContext());
 }
 
-alert({String? title, String? message}) {
+alert({String? title, String? message, Function()? onPressed}) {
   final context = currentContext();
   showDialog(
     context: context,
@@ -138,6 +137,7 @@ alert({String? title, String? message}) {
               value: 'Ok',
               onPressed: () {
                 Navigator.pop(context);
+                onPressed != null ? onPressed() : null;
               },
               width: 100,
               height: 40,
@@ -162,8 +162,7 @@ confirm({
     barrierDismissible: true,
     builder: (context) => AlertDialog(
       actionsPadding: const EdgeInsets.all(10),
-      contentPadding:
-          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      contentPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       title: Row(children: [
         const Icon(Icons.info),
         mr(1),

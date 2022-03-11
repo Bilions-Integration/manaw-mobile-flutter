@@ -4,23 +4,22 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
 
 class AccountPicker {
-  final BuildContext context;
   final double? height;
   final String? searchPlaceholder;
-  final List<ListItem> menuList;
-  final Function(ListItem) onSelect;
-  final Function(String)? onSearch;
+  final List<Account> menuList;
+  final Function(Account) onSelect;
+  final Account? selectedAccount;
 
   AccountPicker({
-    required this.context,
     required this.menuList,
-    this.searchPlaceholder,
-    this.onSearch,
     required this.onSelect,
+    this.searchPlaceholder,
+    this.selectedAccount,
     this.height = 1000,
   });
 
   void open() {
+    final context = currentContext();
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -31,6 +30,7 @@ class AccountPicker {
           height: height,
           context: context,
           onSelect: onSelect,
+          selectedAccount: selectedAccount,
           searchPlaceholder: searchPlaceholder,
           menuList: menuList,
         );
@@ -43,24 +43,27 @@ class AccountPicker {
 class MyListView extends StatefulWidget {
   final BuildContext context;
   final double? height;
-  final List<ListItem> menuList;
+  final Account? selectedAccount;
+  final List<Account> menuList;
   final String? searchPlaceholder;
-  final Function(ListItem) onSelect;
-  const MyListView(
-      {Key? key,
-      required this.height,
-      this.searchPlaceholder,
-      required this.context,
-      required this.menuList,
-      required this.onSelect})
-      : super(key: key);
+  final Function(Account) onSelect;
+
+  const MyListView({
+    Key? key,
+    required this.height,
+    required this.onSelect,
+    required this.context,
+    required this.menuList,
+    this.selectedAccount,
+    this.searchPlaceholder,
+  }) : super(key: key);
 
   @override
   State<MyListView> createState() => _MyListViewState();
 }
 
 class _MyListViewState extends State<MyListView> {
-  List<ListItem> chosenList = [];
+  List<Account> chosenList = [];
 
   @override
   void initState() {
@@ -87,9 +90,7 @@ class _MyListViewState extends State<MyListView> {
               height: 6,
               width: 50,
               child: Container(
-                decoration: BoxDecoration(
-                    color: AppColors.dark,
-                    borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
               ),
             ),
             mb(1),
@@ -98,10 +99,11 @@ class _MyListViewState extends State<MyListView> {
                 physics: const BouncingScrollPhysics(),
                 children: chosenList
                     .map(
-                      (ListItem item) => Container(
+                      (Account item) => Container(
                         decoration: BoxDecoration(
-                            color: AppColors.lightGrey,
-                            borderRadius: BorderRadius.circular(10)),
+                          color: AppColors.lightGrey,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         margin: const EdgeInsets.all(4),
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(
@@ -110,14 +112,22 @@ class _MyListViewState extends State<MyListView> {
                           ),
                           dense: true,
                           onTap: () => {_selectModal(item, context)},
-                          trailing: const Icon(
-                            Icons.radio_button_checked,
-                            size: 20,
-                          ),
-                          title: Text(
-                            item.title,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          trailing: widget.selectedAccount?.id == item.id
+                              ? Icon(Icons.radio_button_checked, size: 20, color: AppColors.green)
+                              : const Icon(Icons.radio_button_checked, size: 20),
+                          title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Text(
+                              item.name,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Balance # ${currency()} ${cast(item.currentBalance ?? 0)} ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ]),
                         ),
                       ),
                     )
@@ -130,8 +140,8 @@ class _MyListViewState extends State<MyListView> {
     );
   }
 
-  _selectModal(ListItem type, context) {
+  _selectModal(Account account, context) {
     Navigator.pop(context);
-    widget.onSelect(type);
+    widget.onSelect(account);
   }
 }
