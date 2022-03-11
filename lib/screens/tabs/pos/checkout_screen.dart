@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/controllers/cart_controller.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -15,6 +16,8 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final cartController = Get.find<CartController>();
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,21 +28,37 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           onPressed: () => {Get.back()},
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Obx(
-          () => (ListView(
-            children: cartController.products.value
-                .mapIndexed((Product product, index) {
-              product.index = index;
-              return ProductCardCheckout(
-                product: product,
-                index: index,
-              );
-            }).toList(),
-          )),
-        ),
+      body: Obx(
+        () => (Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: loading
+              ? const LoadingWidget(
+                  title: 'Refreshing',
+                )
+              : ListView(
+                  children: cartController.products.value
+                      .mapIndexed((Product product, index) {
+                    product.index = index;
+                    return ProductCardCheckout(
+                        product: product, removed: _removed);
+                  }).toList(),
+                ),
+        )),
       ),
     );
+  }
+
+  _removed(int? index) {
+    setState(() {
+      loading = true;
+    });
+    Future.delayed(const Duration(milliseconds: 30), () {
+      final List<Product> products = List.from(cartController.products.value);
+      products.removeAt(index!);
+      cartController.products.value = products;
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }

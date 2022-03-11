@@ -8,11 +8,11 @@ import 'package:my_app/model/product_model.dart';
 
 class ProductCardCheckout extends StatefulWidget {
   final Product product;
-  final int index;
+  final Function(int?) removed;
 
   const ProductCardCheckout({
     Key? key,
-    required this.index,
+    required this.removed,
     required this.product,
   }) : super(key: key);
 
@@ -99,7 +99,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
       setState(() {
         quantity = newQuantity;
       });
-      cartController.products.value[widget.index].quantity = quantity;
+      cartController.products.value[widget.product.index!].quantity = quantity;
     } else {
       final newQuantity = quantity - 1;
       if (newQuantity == 0) {
@@ -112,16 +112,16 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
         setState(() {
           quantity = newQuantity;
         });
-        cartController.products.value[widget.index].quantity = quantity;
+        cartController.products.value[widget.product.index!].quantity =
+            quantity;
       }
     }
   }
 
   _confirmRemove(bool confirm) {
     if (confirm) {
-      final List<Product> products = List.from(cartController.products.value);
-      products.removeAt(widget.index);
-      cartController.products.value = products;
+      cartController.products.value[widget.product.index!].quantity = 0;
+      widget.removed(widget.product.index!);
     }
   }
 }
