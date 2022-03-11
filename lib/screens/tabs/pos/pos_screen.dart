@@ -70,7 +70,11 @@ class _PosScreenState extends State<PosScreen> {
   }
 
   _addCart(Product product) {
-    cartController.products.value = [...cartController.products.value, product];
+    final newProduct = Product.fromJson(product.toJson());
+    cartController.products.value = [
+      ...cartController.products.value,
+      newProduct
+    ];
   }
 
   _reset() {

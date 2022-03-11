@@ -1,5 +1,6 @@
 class Product {
-  final int id;
+  final int productId;
+  int? index;
   final String name;
   final List<dynamic> images;
   final int instock;
@@ -9,7 +10,7 @@ class Product {
   int quantity;
 
   Product({
-    required this.id,
+    required this.productId,
     required this.name,
     required this.images,
     required this.instock,
@@ -22,7 +23,7 @@ class Product {
   Product.fromJson(Map json)
       : name = json['name'],
         images = json['images'],
-        id = json['id'],
+        productId = json['id'],
         instock = json['instock'],
         price = json['price'],
         type = json['type'],
@@ -30,8 +31,9 @@ class Product {
         units = json['units'];
 
   Map<String, dynamic> toJson() => {
+        'index': index,
         'name': name,
-        'id': id,
+        'id': productId,
         'images': images,
         'instock': instock,
         'price': price,

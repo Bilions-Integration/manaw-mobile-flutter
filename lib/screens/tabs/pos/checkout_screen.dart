@@ -30,6 +30,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         child: ListView(
           children: cartController.products.value
               .mapIndexed((Product product, index) {
+            product.index = index;
             return ProductCardCheckout(
               product: product,
               index: index,
