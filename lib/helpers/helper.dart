@@ -3,6 +3,7 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
@@ -34,6 +35,14 @@ BuildContext currentContext() {
 currency() {
   final auth = Get.find<AuthController>();
   return auth.user.value?.company.currency.toString() ?? '';
+}
+
+String cast(dynamic number) {
+  if (number >= 1000) {
+    var formatter = NumberFormat('#,##,000');
+    return formatter.format(number);
+  }
+  return number.toString();
 }
 
 logo(double? width) {

@@ -5,6 +5,7 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     Key? key,
     required this.value,
+    this.child,
     this.disabled = false,
     this.width = double.infinity,
     this.height = 50,
@@ -12,6 +13,8 @@ class PrimaryButton extends StatelessWidget {
   }) : super(key: key);
 
   final String value;
+
+  final Widget? child;
 
   final bool disabled;
 
@@ -25,13 +28,14 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: () => {disabled ? null : onPressed()},
-      child: Text(
-        value,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      child: child ??
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
       color: disabled ? AppColors.lightDark : AppColors.dark,
       height: height,
       shape: RoundedRectangleBorder(

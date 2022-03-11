@@ -33,12 +33,14 @@ class Product {
   Map<String, dynamic> toJson() => {
         'index': index,
         'name': name,
-        'id': productId,
+        'product_id': productId,
         'images': images,
         'instock': instock,
         'price': price,
         'type': type,
         'units': units,
         'quantity': quantity,
+        "discount": 0,
+        "discount_type": "fixed"
       };
 }

@@ -10,7 +10,6 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/company_model.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 

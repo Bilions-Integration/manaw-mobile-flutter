@@ -33,8 +33,12 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
 
   @override
   Widget build(BuildContext context) {
+    double top = (widget.product.index! == 0) ? 15.0 : 0.0;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.only(
+        bottom: 15,
+        top: top,
+      ),
       child: borderRadiusCard(
         10,
         Padding(
@@ -59,7 +63,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${currency()} ${widget.product.price} x $quantity',
+                        '${currency()} ${widget.product.price}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -116,6 +120,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
             quantity;
       }
     }
+    cartController.reset();
   }
 
   _confirmRemove(bool confirm) {
