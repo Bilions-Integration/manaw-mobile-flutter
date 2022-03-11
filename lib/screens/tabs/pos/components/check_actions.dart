@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_app/components/prompt.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/account_picker.dart';
 import 'package:my_app/helpers/customer_picker.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
@@ -45,7 +45,19 @@ List<Widget> checkoutActions() {
 }
 
 showCouponModal() {
-  alert();
+  final cartController = Get.find<CartController>();
+
+  _onSubmit(String? value) {
+    cartController.discount.value = value;
+  }
+
+  prompt(
+    onSubmit: _onSubmit,
+    title: 'Discount Amount',
+    confirmText: 'Submit',
+    value: cartController.discount.value,
+    numberOnly: true,
+  );
 }
 
 showAccountModal({Function()? callback}) async {

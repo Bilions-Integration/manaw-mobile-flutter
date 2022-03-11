@@ -14,6 +14,8 @@ class CartController extends GetxController {
 
   final customer = Rx<CustomerModel?>(null);
 
+  final discount = Rx<dynamic>(0);
+
   setAccount() {
     final box = GetStorage();
     var cachedAccount = box.read('@account');
@@ -81,7 +83,7 @@ class CartController extends GetxController {
       "shipping_address": customer.value?.address,
       "billing_address": customer.value?.address,
       "receiver_tax_id": customer.value?.taxId,
-      "discount": 0,
+      "discount": discount,
       "discount_type": "fixed",
       "account_id": account.value?.id,
       "products": list,

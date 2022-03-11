@@ -100,13 +100,15 @@ class _CategorySelectorState extends State<CategorySelector> {
                   Obx(
                     () => (InkWell(
                       onTap: _showCheckout,
-                      child: Badge(
-                        badgeContent: Text(
-                          cartController.total().toString(),
-                          style: TextStyle(color: AppColors.white),
-                        ),
-                        child: const IconTapper(icon: AppAssets.icCart),
-                      ),
+                      child: cartController.total() > 0
+                          ? Badge(
+                              badgeContent: Text(
+                                cartController.total().toString(),
+                                style: TextStyle(color: AppColors.white),
+                              ),
+                              child: const IconTapper(icon: AppAssets.icCart),
+                            )
+                          : const IconTapper(icon: AppAssets.icCart),
                     )),
                   ),
                 ],

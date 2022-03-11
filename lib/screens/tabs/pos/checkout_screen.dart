@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/model/product_model.dart';
@@ -35,30 +37,43 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
         child: Obx(
-          () => Column(
-            children: [
-              Expanded(
-                child: (ListView(
-                  children: cartController.products.value.mapIndexed((Product product, index) {
-                    product.index = index;
-                    return ProductCardCheckout(product: product, removed: _removed);
-                  }).toList(),
-                )),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: PrimaryButton(
-                    value: '',
-                    child: Obx(
-                      () => (Text(
-                        '${currency()} ${cartController.totalPrice()} Checkout',
-                        style: TextStyle(color: AppColors.white),
+          () => cartController.products.value.isNotEmpty
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: (ListView(
+                        children: cartController.products.value.mapIndexed((Product product, index) {
+                          product.index = index;
+                          return ProductCardCheckout(product: product, removed: _removed);
+                        }).toList(),
                       )),
                     ),
-                    onPressed: _checkout),
-              )
-            ],
-          ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: PrimaryButton(
+                          value: '',
+                          child: Obx(
+                            () => (Text(
+                              '${currency()} ${cartController.totalPrice()} Checkout',
+                              style: TextStyle(color: AppColors.white),
+                            )),
+                          ),
+                          onPressed: _checkout),
+                    )
+                  ],
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AppAssets.noItems),
+                      mb(1),
+                      const Text('No items in the cart'),
+                      mb(6),
+                    ],
+                  ),
+                ),
         ),
       ),
     );
