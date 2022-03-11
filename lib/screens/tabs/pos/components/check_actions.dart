@@ -7,10 +7,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/account_picker.dart';
+import 'package:my_app/helpers/customer_picker.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model.dart';
+import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/services/account_service.dart';
+import 'package:my_app/services/customer_service.dart';
 
 List<Widget> checkoutActions() {
   return [
@@ -62,6 +65,15 @@ showAccountModal({Function()? callback}) async {
   ).open();
 }
 
-showCustomerModal() {
-  alert();
+showCustomerModal({Function(CustomerModel)? callback}) async {
+  _onSelect(CustomerModel customer) {
+    console.log(customer.id);
+    callback != null ? callback(customer) : null;
+  }
+
+  List<CustomerModel> customers = await CustomerService.get();
+  CustomerPicker(
+    onSelect: _onSelect,
+    menuList: customers,
+  ).open();
 }
