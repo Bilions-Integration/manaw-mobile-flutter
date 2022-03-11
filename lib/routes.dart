@@ -4,6 +4,7 @@ import 'package:my_app/screens/forget_password/forget_password_screen.dart';
 import 'package:my_app/screens/forget_password/reset_password_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/register/register_screen.dart';
+import 'package:my_app/screens/tabs/pos/checkout_screen.dart';
 import 'package:my_app/screens/tabs/tabs.dart';
 import 'package:my_app/screens/tabs/dashboard/dashboard_screen.dart';
 import 'package:my_app/screens/login/login_screen.dart';
@@ -22,6 +23,7 @@ class RouteName {
   static const otp = OTPScreen();
   static const forgetPassword = ForgetPasswordScreen();
   static const resetPassword = ResetPasswordScreen();
+  static const checkoutScreen = CheckoutScreen();
 }
 
 class ARouter {

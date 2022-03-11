@@ -8,6 +8,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/list_picker.dart';
 import 'package:my_app/model/common_model.dart';
+import 'package:my_app/routes.dart';
 
 class CategorySelector extends StatefulWidget {
   final BuildContext context;
@@ -89,18 +90,18 @@ class _CategorySelectorState extends State<CategorySelector> {
               Row(
                 children: [
                   const IconTapper(icon: AppAssets.icSearch),
-                  InkWell(
-                    onTap: _showCheckout,
-                    child: Badge(
-                      badgeContent: Obx(
-                        () => (Text(
+                  Obx(
+                    () => (InkWell(
+                      onTap: _showCheckout,
+                      child: Badge(
+                        badgeContent: Text(
                           cartController.total().toString(),
                           style: TextStyle(color: AppColors.white),
-                        )),
+                        ),
+                        child: const IconTapper(icon: AppAssets.icCart),
                       ),
-                      child: const IconTapper(icon: AppAssets.icCart),
-                    ),
-                  )
+                    )),
+                  ),
                 ],
               )
             ],
@@ -111,6 +112,6 @@ class _CategorySelectorState extends State<CategorySelector> {
   }
 
   _showCheckout() {
-    cartController.products.value = [];
+    Get.to(() => RouteName.checkoutScreen);
   }
 }

@@ -38,6 +38,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
+      bottom: false,
       child: GestureDetector(
         onTap: () {
           hideKeyboard();

@@ -6,7 +6,7 @@ class Product {
   final int price;
   final String type;
   final List units;
-  final int quantity;
+  int quantity;
 
   Product({
     required this.id,

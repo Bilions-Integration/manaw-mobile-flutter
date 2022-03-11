@@ -10,4 +10,6 @@ class AppAssets {
   static const imgCard = 'assets/images/card-img.png';
   static const icAdd = 'assets/images/plus-icon.svg';
   static const icPoweredBy = 'assets/images/powered-by.svg';
+  static const icPlus = 'assets/images/plus.svg';
+  static const icMinus = 'assets/images/minus.svg';
 }

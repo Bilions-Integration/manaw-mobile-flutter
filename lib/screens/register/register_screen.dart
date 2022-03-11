@@ -45,6 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
+      bottom: false,
       child: GestureDetector(
         onTap: () {
           hideKeyboard();

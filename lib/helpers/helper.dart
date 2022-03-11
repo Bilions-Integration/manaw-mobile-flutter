@@ -9,12 +9,14 @@ import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/current_context.dart';
+import 'dart:core';
 
 class console {
   static log(dynamic text, {dynamic payload}) {
     final fimber = FimberLog('');
     fimber.d('🔥🔥🔥 ===================');
-    fimber.d(text, stacktrace: StackTrace.fromString(payload.toString()));
+    fimber.d(text.toString(),
+        stacktrace: StackTrace.fromString(payload.toString()));
     fimber.d('END');
   }
 
@@ -189,4 +191,11 @@ confirm({
       ],
     ),
   );
+}
+
+extension IndexedIterable<E> on Iterable<E> {
+  Iterable<T> mapIndexed<T>(T Function(E e, int i) f) {
+    var i = 0;
+    return map((e) => f(e, i++));
+  }
 }
