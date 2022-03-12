@@ -60,7 +60,7 @@ class _PromptWidgetState extends State<PromptWidget> {
       title: Row(children: [
         Text(
           widget.title ?? 'Info',
-          style: TextStyle(color: AppColors.dark, fontSize: 18),
+          style: TextStyle(color: AppColors.black, fontSize: 18),
         )
       ]),
       content: MyTextInput(

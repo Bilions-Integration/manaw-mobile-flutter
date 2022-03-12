@@ -9,7 +9,7 @@ class Company {
   final String? currency;
   final String? address;
   final Color? color;
-  final String? hexColor;
+  String? hexColor;
   final String? logo;
 
   Company({

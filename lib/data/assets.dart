@@ -26,4 +26,5 @@ class AppAssets {
   static const icKey = 'assets/images/key.svg';
   static const icTheme = 'assets/images/theme.svg';
   static const icLogout = 'assets/images/logout.svg';
+  static const icUser = 'assets/images/user.svg';
 }

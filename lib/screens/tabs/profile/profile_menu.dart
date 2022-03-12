@@ -47,8 +47,10 @@ class ProfileMenu extends StatelessWidget {
                       child: Text(
                         value ?? '',
                         overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
                       ),
                     ),
+                    mr(2),
                     SvgPicture.asset(AppAssets.icArrowRight),
                   ],
                 ),

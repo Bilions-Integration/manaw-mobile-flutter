@@ -51,6 +51,18 @@ logo(double? width) {
   );
 }
 
+hr() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 3, right: 3),
+    child: Container(
+      height: 0,
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: AppColors.line, width: 0.5)),
+      ),
+    ),
+  );
+}
+
 Widget logoText() {
   return const Text(
     'Manaw Store',
@@ -121,12 +133,12 @@ alert({String? title, String? message, Function()? onPressed}) {
         mr(1),
         Text(
           title ?? 'Info',
-          style: TextStyle(color: AppColors.dark, fontSize: 18),
+          style: TextStyle(color: AppColors.black, fontSize: 18),
         )
       ]),
       content: Text(
         message ?? '',
-        style: TextStyle(color: AppColors.dark, fontSize: 14),
+        style: TextStyle(color: AppColors.black, fontSize: 14),
         textAlign: TextAlign.center,
       ),
       actions: [
@@ -168,12 +180,12 @@ confirm({
         mr(1),
         Text(
           title ?? 'Info',
-          style: TextStyle(color: AppColors.dark, fontSize: 18),
+          style: TextStyle(color: AppColors.black, fontSize: 18),
         )
       ]),
       content: Text(
         message ?? '',
-        style: TextStyle(color: AppColors.dark, fontSize: 14),
+        style: TextStyle(color: AppColors.black, fontSize: 14),
         textAlign: TextAlign.center,
       ),
       actions: [
