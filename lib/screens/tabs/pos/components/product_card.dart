@@ -8,11 +8,14 @@ class ProductCard extends StatelessWidget {
 
   final int index;
 
+  final int crossCount;
+
   final Function(Product) addCart;
 
   const ProductCard({
     Key? key,
     required this.product,
+    required this.crossCount,
     required this.index,
     required this.addCart,
   }) : super(key: key);
@@ -21,7 +24,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: (index == 0 || index == 1) ? 15.0 : 0,
+        top: (index <= crossCount) ? 15.0 : 0,
         bottom: 15,
       ),
       child: borderRadiusCard(

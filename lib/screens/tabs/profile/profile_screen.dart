@@ -6,6 +6,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/routes.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/tabs/profile/profile_image.dart';
 import 'package:my_app/screens/tabs/profile/profile_menu.dart';
@@ -38,6 +39,13 @@ class ProfileScreen extends StatelessWidget {
                     onPressed: _showColorPicker,
                   ),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.icKey), title: 'Password'),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icPrinter),
+                    title: 'Printer Setting',
+                    onPressed: () {
+                      Get.to(RouteName.printerSettingScreen);
+                    },
+                  ),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.icHelp), title: 'Help'),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.icInfo), title: 'Report a problem'),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.bilions), title: 'About us'),

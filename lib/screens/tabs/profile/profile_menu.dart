@@ -29,7 +29,7 @@ class ProfileMenu extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 3, right: 3),
         child: Container(
-          padding: EdgeInsets.only(right: 10, left: 10),
+          padding: const EdgeInsets.only(right: 10, left: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,

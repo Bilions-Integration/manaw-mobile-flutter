@@ -68,7 +68,9 @@ showCouponModal() {
   final cartController = Get.find<CartController>();
 
   _onSubmit(String? value) {
-    cartController.discount.value = value;
+    if (value != null) {
+      cartController.discount.value = value;
+    }
   }
 
   prompt(

@@ -28,4 +28,5 @@ class AppAssets {
   static const icLogout = 'assets/images/logout.svg';
   static const icUser = 'assets/images/user.svg';
   static const icClose = 'assets/images/close.svg';
+  static const icPrinter = 'assets/images/printer.svg';
 }

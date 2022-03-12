@@ -42,6 +42,7 @@ class _PosScreenState extends State<PosScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var crossCount = (MediaQuery.of(context).size.width / 200).ceil();
     return Obx(
       () => Column(
         children: [
@@ -51,13 +52,14 @@ class _PosScreenState extends State<PosScreen> {
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: MasonryGridView.count(
                 controller: _scrollController,
-                crossAxisCount: 2,
+                crossAxisCount: crossCount,
                 itemCount: posController.products.value.length,
                 itemBuilder: (BuildContext context, int index) {
                   final product = posController.products.value[index];
                   return ProductCard(
                     product: product,
                     index: index,
+                    crossCount: crossCount,
                     addCart: _addCart,
                   );
                 },

@@ -12,12 +12,12 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
         child: InkWell(
           onTap: () {},
           child: Stack(children: [
             CircleAvatar(
-              radius: 50,
+              radius: 40,
               backgroundImage: NetworkImage(auth.user.value!.image),
             ),
             const Positioned(
@@ -35,7 +35,7 @@ class ProfileImage extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      mb(4)
+      mb(2)
     ]);
   }
 }

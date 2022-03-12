@@ -42,7 +42,12 @@ class CartController extends GetxController {
     for (Product product in products.value) {
       price += product.price * product.quantity;
     }
-    return cast(price - int.parse(discount.value.toString()) - (price * (tax / 100)));
+    var discountPrice = 0;
+    try {
+      discountPrice = int.parse(discount.value.toString());
+    } catch (e) {}
+
+    return cast(price - discountPrice - (price * (tax / 100)));
   }
 
   setAccount() {

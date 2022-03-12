@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     // ignore: missing_enum_constant_in_switch
     switch (defaultTargetPlatform) {
@@ -40,6 +37,17 @@ class DefaultFirebaseOptions {
     );
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyB0OCdBQdL2sKpZ3KET0y5TMV3ht5aaxgs',
+    appId: '1:571631180991:web:b88d73f60e85d3e49d7a0a',
+    messagingSenderId: '571631180991',
+    projectId: 'bilions-pos',
+    authDomain: 'bilions-pos.firebaseapp.com',
+    databaseURL: 'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'bilions-pos.appspot.com',
+    measurementId: 'G-5GP5GL5XCB',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDGFF0b6BIjSpit8Zx-wLbUKCLNRkAkOXQ',
     appId: '1:571631180991:android:c5c1de8c33e6b4059d7a0a',
@@ -56,6 +64,7 @@ class DefaultFirebaseOptions {
     projectId: 'bilions-pos',
     databaseURL: 'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'bilions-pos.appspot.com',
+    androidClientId: '571631180991-n515f142slu0453l1pjovpqarrlplaqg.apps.googleusercontent.com',
     iosClientId: '571631180991-k2vqp1893p3llagbfscnemnvgpejcp7t.apps.googleusercontent.com',
     iosBundleId: 'org.bilions.manaw',
   );

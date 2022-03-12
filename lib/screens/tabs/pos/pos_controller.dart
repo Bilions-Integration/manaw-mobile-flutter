@@ -7,7 +7,7 @@ class POSController extends GetxController {
   var products = Rx<List<Product>>([]);
 
   var page = 1.obs;
-  var limit = 8.obs;
+  var limit = 20.obs;
 
   getProducts({bool showLoading = false, dynamic category}) async {
     try {
