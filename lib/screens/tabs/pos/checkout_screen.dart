@@ -22,6 +22,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   bool loading = false;
 
+  List<Product> carItems = [];
+
+  @override
+  initState() {
+    super.initState();
+    setState(() {
+      carItems = List.from(cartController.products.value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,45 +46,43 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-        child: Obx(
-          () => cartController.products.value.isNotEmpty
-              ? Column(
-                  children: [
-                    Expanded(
-                      child: (ListView(
-                        children: cartController.products.value.mapIndexed((Product product, index) {
-                          product.index = index;
-                          return ProductCardCheckout(product: product, removed: _removed);
-                        }).toList(),
-                      )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: PrimaryButton(
-                          value: '',
-                          child: Obx(
-                            () => (Text(
-                              '${currency()} ${cartController.totalPrice()} Checkout',
-                              style: TextStyle(color: AppColors.white),
-                            )),
-                          ),
-                          onPressed: _checkout),
-                    )
-                  ],
-                )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(AppAssets.noItems),
-                      mb(1),
-                      const Text('No items in the cart'),
-                      mb(6),
-                    ],
+        child: carItems.isNotEmpty
+            ? Column(
+                children: [
+                  Expanded(
+                    child: (ListView(
+                      children: carItems.mapIndexed((Product product, index) {
+                        product.index = index;
+                        return ProductCardCheckout(product: product, removed: _removed);
+                      }).toList(),
+                    )),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: PrimaryButton(
+                        value: '',
+                        child: Obx(
+                          () => (Text(
+                            '${currency()} ${cartController.totalPrice()} Checkout',
+                            style: TextStyle(color: AppColors.white),
+                          )),
+                        ),
+                        onPressed: _checkout),
+                  )
+                ],
+              )
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(AppAssets.noItems),
+                    mb(1),
+                    const Text('No items in the cart'),
+                    mb(6),
+                  ],
                 ),
-        ),
+              ),
       ),
     );
   }
@@ -95,10 +103,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   _removed(int? index) {
+    List<Product> tempCartItem = List.from(carItems);
+    setState(() {
+      carItems = [];
+    });
     final List<Product> products = List.from(cartController.products.value);
     cartController.products.value = [];
     Future.delayed(const Duration(milliseconds: 10), () {
-      products.removeAt(index!);
+      tempCartItem.removeAt(index!);
+      setState(() {
+        carItems = tempCartItem;
+      });
+      products.removeAt(index);
       cartController.products.value = products;
     });
   }
