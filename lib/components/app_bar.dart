@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -12,6 +13,8 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
 
   final bottomTabController = Get.find<BottomTabsController>();
+
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {

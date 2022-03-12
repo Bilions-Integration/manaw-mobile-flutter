@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/colors.dart';
@@ -19,6 +20,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final cartController = Get.find<CartController>();
+  final auth = Get.find<AuthController>();
 
   bool loading = false;
 
@@ -42,7 +44,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => {Get.back()},
         ),
-        actions: checkoutActions(),
+        actions: checkoutActions(onClear: () {
+          setState(() {
+            carItems = [];
+          });
+        }),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -57,18 +63,43 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       }).toList(),
                     )),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: PrimaryButton(
-                        value: '',
-                        child: Obx(
-                          () => (Text(
-                            '${currency()} ${cartController.totalPrice()} Checkout',
-                            style: TextStyle(color: AppColors.white),
-                          )),
-                        ),
-                        onPressed: _checkout),
-                  )
+                  Obx(
+                    () => (Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0, top: 13),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: cartController.customer.value != null && cartController.customer.value!.id != null
+                                ? Row(
+                                    children: [const Text('Customer'), const Spacer(), Text(cartController.customer.value!.name)],
+                                  )
+                                : null,
+                          ),
+                          Row(
+                            children: [const Text('Sub Total'), const Spacer(), Text(cartController.subTotalPrice().toString())],
+                          ),
+                          mb(1),
+                          Row(
+                            children: [Text('Tax (${auth.user.value?.company.tax}%)'), const Spacer(), Text(cartController.tax().toString())],
+                          ),
+                          mb(1),
+                          Row(
+                            children: [const Text('Discount'), const Spacer(), Text(cartController.discount.value.toString())],
+                          ),
+                          mb(1),
+                          PrimaryButton(
+                            value: '',
+                            child: Text(
+                              '${currency()} ${cartController.totalPrice()} Checkout',
+                              style: TextStyle(color: AppColors.white),
+                            ),
+                            onPressed: _checkout,
+                          )
+                        ],
+                      ),
+                    )),
+                  ),
                 ],
               )
             : Center(

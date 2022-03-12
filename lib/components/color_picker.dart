@@ -56,7 +56,9 @@ class MyColorPicker extends StatelessWidget {
                 value: 'Pick Color',
                 onPressed: () {
                   Navigator.pop(context);
-                  onColorChange(myColor);
+                  if (myColor.isNotEmpty) {
+                    onColorChange(myColor);
+                  }
                 },
               ),
             )

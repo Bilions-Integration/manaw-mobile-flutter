@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
@@ -8,6 +9,8 @@ import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
 
 class CartController extends GetxController {
+  final auth = Get.find<AuthController>();
+
   final products = Rx<List<Product>>([]);
 
   final account = Rx<Account?>(null);
@@ -15,6 +18,32 @@ class CartController extends GetxController {
   final customer = Rx<CustomerModel?>(null);
 
   final discount = Rx<dynamic>(0);
+
+  String subTotalPrice() {
+    int price = 0;
+    for (Product product in products.value) {
+      price += product.price * product.quantity;
+    }
+    return cast(price);
+  }
+
+  String tax() {
+    final tax = auth.user.value?.company.tax ?? 0;
+    int price = 0;
+    for (Product product in products.value) {
+      price += product.price * product.quantity;
+    }
+    return cast((price * (tax / 100)));
+  }
+
+  String totalPrice() {
+    final tax = auth.user.value?.company.tax ?? 0;
+    int price = 0;
+    for (Product product in products.value) {
+      price += product.price * product.quantity;
+    }
+    return cast(price - int.parse(discount.value.toString()) - (price * (tax / 100)));
+  }
 
   setAccount() {
     final box = GetStorage();
@@ -39,14 +68,6 @@ class CartController extends GetxController {
     Future.delayed(const Duration(milliseconds: 10), () {
       products.value = newProducts;
     });
-  }
-
-  String totalPrice() {
-    int price = 0;
-    for (Product product in products.value) {
-      price += product.price * product.quantity;
-    }
-    return cast(price);
   }
 
   checkout() {

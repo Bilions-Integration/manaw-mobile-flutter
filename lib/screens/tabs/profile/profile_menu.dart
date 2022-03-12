@@ -29,14 +29,13 @@ class ProfileMenu extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 3, right: 3),
         child: Container(
+          padding: EdgeInsets.only(right: 10, left: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(
-                child: Row(
-                  children: [icon, mr(1), Text(title)],
-                ),
+              Row(
+                children: [icon, mr(1), Text(title)],
               ),
               Expanded(
                 child: Row(
@@ -48,6 +47,7 @@ class ProfileMenu extends StatelessWidget {
                         value ?? '',
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.right,
+                        style: TextStyle(color: AppColors.lightDark),
                       ),
                     ),
                     mr(2),

@@ -92,7 +92,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
             ],
           ),
         ),
-        border: 2,
+        border: 0,
       ),
     );
   }

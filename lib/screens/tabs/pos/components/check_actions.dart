@@ -9,13 +9,26 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/components/account_picker.dart';
 import 'package:my_app/components/customer_picker.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/services/account_service.dart';
 import 'package:my_app/services/customer_service.dart';
 
-List<Widget> checkoutActions() {
+List<Widget> checkoutActions({onClear}) {
+  _clearCartItems() {
+    final cartController = Get.find<CartController>();
+    confirm(
+      confirmText: 'Clear',
+      onPressed: (yes) => {
+        if (yes) {cartController.products.value = [], onClear()}
+      },
+      title: 'Confirm',
+      message: 'Are you sure you want to clear all cart items?',
+    );
+  }
+
   return [
     IconButton(
       icon: SvgPicture.asset(
@@ -31,14 +44,21 @@ List<Widget> checkoutActions() {
       ),
       onPressed: () => {showCouponModal()},
     ),
+    IconButton(
+      icon: SvgPicture.asset(
+        AppAssets.icPerson,
+        color: AppColors.white,
+      ),
+      onPressed: () => {showCustomerModal()},
+    ),
     Padding(
       padding: const EdgeInsets.only(right: 10),
       child: IconButton(
         icon: SvgPicture.asset(
-          AppAssets.icPerson,
+          AppAssets.icClose,
           color: AppColors.white,
         ),
-        onPressed: () => {showCustomerModal()},
+        onPressed: () => {_clearCartItems()},
       ),
     ),
   ];
