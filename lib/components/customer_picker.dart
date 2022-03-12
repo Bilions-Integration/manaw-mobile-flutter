@@ -33,13 +33,16 @@ class CustomerPicker {
       ),
       context: context,
       builder: (builder) {
-        return CustomerListView(
-          height: MediaQuery.of(context).size.height - 100,
-          context: context,
-          onSelect: onSelect,
-          searchPlaceholder: searchPlaceholder,
-          selectedCustomer: selectedCustomer,
-          menuList: menuList,
+        return Container(
+          height: MediaQuery.of(context).size.height - 150,
+          padding: MediaQuery.of(context).viewInsets,
+          child: CustomerListView(
+            context: context,
+            onSelect: onSelect,
+            searchPlaceholder: searchPlaceholder,
+            selectedCustomer: selectedCustomer,
+            menuList: menuList,
+          ),
         );
       },
     );
@@ -49,7 +52,6 @@ class CustomerPicker {
 // List View Widget
 class CustomerListView extends StatefulWidget {
   final BuildContext context;
-  final double? height;
   final List<CustomerModel> menuList;
   final String? searchPlaceholder;
   final Function(CustomerModel) onSelect;
@@ -57,7 +59,6 @@ class CustomerListView extends StatefulWidget {
 
   const CustomerListView({
     Key? key,
-    required this.height,
     this.searchPlaceholder,
     this.selectedCustomer,
     required this.context,
@@ -83,7 +84,6 @@ class _CustomerListViewState extends State<CustomerListView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height,
       child: Padding(
         padding: const EdgeInsets.only(
           bottom: 30,

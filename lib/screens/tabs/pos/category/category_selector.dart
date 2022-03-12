@@ -11,11 +11,9 @@ import 'package:my_app/routes.dart';
 import 'package:my_app/services/category_service.dart';
 
 class CategorySelector extends StatefulWidget {
-  final BuildContext context;
   final Function(CategoryModel) callback;
   const CategorySelector({
     Key? key,
-    required this.context,
     required this.callback,
   }) : super(key: key);
   @override
@@ -50,7 +48,6 @@ class _CategorySelectorState extends State<CategorySelector> {
     CategoryPicker(
       onSelect: _onSelect,
       menuList: menuList,
-      context: widget.context,
     ).open();
   }
 

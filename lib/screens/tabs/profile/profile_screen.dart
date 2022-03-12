@@ -6,11 +6,11 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/routes.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/tabs/profile/profile_image.dart';
 import 'package:my_app/screens/tabs/profile/profile_menu.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
+import 'package:my_app/services/company_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -58,6 +58,7 @@ class ProfileScreen extends StatelessWidget {
       auth.user.value = user;
       tab.index.value = 0;
       tab.index.value = 3;
+      CompanyService.setColor(color);
     });
   }
 

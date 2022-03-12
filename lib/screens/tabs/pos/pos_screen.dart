@@ -45,7 +45,7 @@ class _PosScreenState extends State<PosScreen> {
     return Obx(
       () => Column(
         children: [
-          CategorySelector(context: context, callback: _categoryChanged),
+          CategorySelector(callback: _categoryChanged),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),

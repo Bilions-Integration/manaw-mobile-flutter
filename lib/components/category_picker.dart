@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 
 class CategoryPicker {
-  final BuildContext context;
   final double? height;
   final String? searchPlaceholder;
   final List<CategoryModel> menuList;
@@ -13,7 +13,6 @@ class CategoryPicker {
   final Function(String)? onSearch;
 
   CategoryPicker({
-    required this.context,
     required this.menuList,
     this.searchPlaceholder,
     this.onSearch,
@@ -22,6 +21,7 @@ class CategoryPicker {
   });
 
   void open() {
+    final context = currentContext();
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -29,12 +29,15 @@ class CategoryPicker {
       context: context,
       isScrollControlled: true,
       builder: (builder) {
-        return MyListView(
-          height: MediaQuery.of(context).size.height - 100,
-          context: context,
-          onSelect: onSelect,
-          searchPlaceholder: searchPlaceholder,
-          menuList: menuList,
+        return Container(
+          height: MediaQuery.of(context).size.height - 150,
+          padding: MediaQuery.of(context).viewInsets,
+          child: MyListView(
+            context: context,
+            onSelect: onSelect,
+            searchPlaceholder: searchPlaceholder,
+            menuList: menuList,
+          ),
         );
       },
     );
@@ -44,13 +47,11 @@ class CategoryPicker {
 // List View Widget
 class MyListView extends StatefulWidget {
   final BuildContext context;
-  final double? height;
   final List<CategoryModel> menuList;
   final String? searchPlaceholder;
   final Function(CategoryModel) onSelect;
   const MyListView({
     Key? key,
-    required this.height,
     this.searchPlaceholder,
     required this.context,
     required this.menuList,
@@ -74,64 +75,61 @@ class _MyListViewState extends State<MyListView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 30,
-          top: 7,
-          left: 10,
-          right: 10,
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 6,
-              width: 50,
-              child: Container(
-                decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 30,
+        top: 7,
+        left: 10,
+        right: 10,
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 6,
+            width: 50,
+            child: Container(
+              decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
             ),
-            AppWidget.marginBottom(1),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: MyTextInput(
-                placeholder: widget.searchPlaceholder ?? 'Search',
-                icon: Icons.search,
-                onChanged: _onSearch,
-              ),
+          ),
+          AppWidget.marginBottom(1),
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: MyTextInput(
+              placeholder: widget.searchPlaceholder ?? 'Search',
+              icon: Icons.search,
+              onChanged: _onSearch,
             ),
-            Expanded(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: chosenList
-                    .map(
-                      (CategoryModel item) => Container(
-                        decoration: BoxDecoration(color: AppColors.lightGrey, borderRadius: BorderRadius.circular(10)),
-                        margin: const EdgeInsets.all(4),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0.0,
-                            horizontal: 20.0,
-                          ),
-                          dense: true,
-                          onTap: () => {_selectModal(item, context)},
-                          trailing: const Icon(
-                            Icons.radio_button_checked,
-                            size: 20,
-                          ),
-                          title: Text(
-                            item.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+          ),
+          Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: chosenList
+                  .map(
+                    (CategoryModel item) => Container(
+                      decoration: BoxDecoration(color: AppColors.lightGrey, borderRadius: BorderRadius.circular(10)),
+                      margin: const EdgeInsets.all(4),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0.0,
+                          horizontal: 20.0,
+                        ),
+                        dense: true,
+                        onTap: () => {_selectModal(item, context)},
+                        trailing: const Icon(
+                          Icons.radio_button_checked,
+                          size: 20,
+                        ),
+                        title: Text(
+                          item.name,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                    )
-                    .toList(),
-              ),
+                    ),
+                  )
+                  .toList(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
