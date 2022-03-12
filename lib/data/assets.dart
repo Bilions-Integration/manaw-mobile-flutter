@@ -1,4 +1,5 @@
 class AppAssets {
+  static const placeholder = 'https://api.manawstore.com/placeholder.png';
   static const appLogo = "assets/images/logo.png";
   static const appLogoSvg = "assets/images/logo.svg";
   static const dashboard = 'assets/images/dashboard.svg';
@@ -16,5 +17,13 @@ class AppAssets {
   static const icPerson = 'assets/images/person.svg';
   static const icAccount = 'assets/images/account.svg';
   static const noItems = 'assets/images/no-items.svg';
-  static const placeholder = 'https://api.manawstore.com/placeholder.png';
+  static const icArrowRight = 'assets/images/arrow-right.svg';
+  static const bilions = 'assets/images/bilions.svg';
+  static const icEmail = 'assets/images/email.svg';
+  static const icPhone = 'assets/images/phone.svg';
+  static const icHelp = 'assets/images/help.svg';
+  static const icInfo = 'assets/images/info.svg';
+  static const icKey = 'assets/images/key.svg';
+  static const icTheme = 'assets/images/theme.svg';
+  static const icLogout = 'assets/images/logout.svg';
 }

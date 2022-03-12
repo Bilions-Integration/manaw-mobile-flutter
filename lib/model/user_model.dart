@@ -8,12 +8,16 @@ class User {
   final String? expiredDate;
   final String userType;
   final Company company;
+  final String? phone;
+  final String image;
 
   User({
     required this.name,
     required this.email,
     required this.plan,
     this.startDate,
+    this.phone,
+    required this.image,
     required this.company,
     required this.userType,
     this.expiredDate,
@@ -22,8 +26,10 @@ class User {
   User.fromJson(Map json)
       : name = json['full_name'],
         email = json['email'],
+        phone = json['phone'],
         startDate = json['start_date'],
         userType = json['user_type'],
+        image = json['profile_image'] ?? '',
         expiredDate = json['expired_date'],
         company = Company.fromJson(json['company']),
         plan = json['plan'];
@@ -31,6 +37,8 @@ class User {
   Map<String, dynamic> toJson() => {
         'name': name,
         'code': email,
+        'phone': phone,
+        'profile_image': image,
         'plan': plan,
         'start_date': startDate,
         'user_type': userType,

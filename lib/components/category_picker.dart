@@ -48,8 +48,14 @@ class MyListView extends StatefulWidget {
   final List<CategoryModel> menuList;
   final String? searchPlaceholder;
   final Function(CategoryModel) onSelect;
-  const MyListView({Key? key, required this.height, this.searchPlaceholder, required this.context, required this.menuList, required this.onSelect})
-      : super(key: key);
+  const MyListView({
+    Key? key,
+    required this.height,
+    this.searchPlaceholder,
+    required this.context,
+    required this.menuList,
+    required this.onSelect,
+  }) : super(key: key);
 
   @override
   State<MyListView> createState() => _MyListViewState();
