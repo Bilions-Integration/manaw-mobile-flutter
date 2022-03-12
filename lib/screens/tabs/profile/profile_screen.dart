@@ -48,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.icHelp), title: 'Help'),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.icInfo), title: 'Report a problem'),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.bilions), title: 'About us'),
+                  ProfileMenu(icon: SvgPicture.asset(AppAssets.bilions), title: 'About us', onPressed: _showAbout),
                   ProfileMenu(icon: SvgPicture.asset(AppAssets.icLogout), title: 'Logout', onPressed: _logout)
                 ])
               ],
@@ -56,6 +56,15 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  _showAbout() {
+    showAboutDialog(
+      context: currentContext(),
+      applicationName: 'Manaw Store',
+      applicationVersion: "1.0.0",
+      applicationLegalese: 'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
     );
   }
 

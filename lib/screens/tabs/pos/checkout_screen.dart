@@ -39,7 +39,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Checkout'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => {Get.back()},
@@ -88,14 +87,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             children: [const Text('Discount'), const Spacer(), Text(cartController.discount.value.toString())],
                           ),
                           mb(1),
-                          PrimaryButton(
-                            value: '',
-                            child: Text(
-                              '${currency()} ${cartController.totalPrice()} Checkout',
-                              style: TextStyle(color: AppColors.white),
-                            ),
-                            onPressed: _checkout,
-                          )
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '${currency()} ${cartController.totalPrice()}',
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              PrimaryButton(
+                                width: 150,
+                                value: '',
+                                child: Text(
+                                  'Checkout',
+                                  style: TextStyle(color: AppColors.white),
+                                ),
+                                onPressed: _checkout,
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     )),

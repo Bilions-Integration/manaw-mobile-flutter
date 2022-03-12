@@ -70,6 +70,8 @@ showCouponModal() {
   _onSubmit(String? value) {
     if (value != null) {
       cartController.discount.value = value;
+    } else {
+      cartController.discount.value = 0;
     }
   }
 
