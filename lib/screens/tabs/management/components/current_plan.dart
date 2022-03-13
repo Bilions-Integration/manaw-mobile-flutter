@@ -1,11 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/helpers/helper.dart';
 
 class CurrentPlan extends StatelessWidget {
-  const CurrentPlan({
+  CurrentPlan({
     Key? key,
   }) : super(key: key);
 
+  final auth = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -26,17 +32,17 @@ class CurrentPlan extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                'Bronze Plan',
-                style: TextStyle(
+                (auth.user.value?.plan.capitalize.toString() ?? '') + ' Plan',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
               Text(
-                'Expired in 22 Mar, 2022',
-                style: TextStyle(
+                'Expired in ' + (auth.user.value?.expiredDate ?? ''),
+                style: const TextStyle(
                   color: Colors.black45,
                 ),
               )

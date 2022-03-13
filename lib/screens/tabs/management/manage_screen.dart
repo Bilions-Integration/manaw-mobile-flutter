@@ -23,7 +23,7 @@ class ManageScreen extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
-          const CurrentPlan(),
+          CurrentPlan(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 5, right: 5),

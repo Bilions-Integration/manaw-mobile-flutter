@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/tabs/management/product/manage_product.dart';
 
 class LinkItem extends StatelessWidget {
   const LinkItem({
@@ -17,7 +18,7 @@ class LinkItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {console.log('link tapped')},
+      onTap: () => {Get.to(const ManageProduct())},
       child: Padding(
         padding: const EdgeInsets.only(left: 0, right: 0, top: 18, bottom: 18),
         child: Row(
@@ -27,7 +28,7 @@ class LinkItem extends StatelessWidget {
               name,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 17,
+                fontSize: 16,
               ),
             ),
             Row(

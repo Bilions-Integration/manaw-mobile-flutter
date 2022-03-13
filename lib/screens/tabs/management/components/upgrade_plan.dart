@@ -39,7 +39,7 @@ class UpgradePlan extends StatelessWidget {
                   runSpacing: 5,
                   children: const [
                     Text(
-                      'Bronze Plan',
+                      'Upgrade',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
