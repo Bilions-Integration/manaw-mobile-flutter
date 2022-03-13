@@ -12,4 +12,6 @@ class AppAssets {
   static const icPoweredBy = 'assets/images/powered-by.svg';
   static const icPlus = 'assets/images/plus.svg';
   static const icMinus = 'assets/images/minus.svg';
+  static const bronzeIcon = 'assets/images/plans/bronze.png';
+  static getImage(image) => 'assets/images/$image';
 }
