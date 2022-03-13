@@ -1,9 +1,5 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/management/components/current_plan.dart';
 import 'package:my_app/screens/tabs/management/components/link_item.dart';
 import 'package:my_app/screens/tabs/management/components/upgrade_plan.dart';
