@@ -26,7 +26,7 @@ class ManageScreen extends StatelessWidget {
           CurrentPlan(),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5),
+              padding: const EdgeInsets.only(left: 7, right: 7),
               child: ListView(
                 children: <Widget>[
                   for (var item in list.asMap().entries)

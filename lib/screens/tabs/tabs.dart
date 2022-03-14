@@ -16,6 +16,23 @@ class TabsScreen extends StatelessWidget {
     RouteName.profile,
   ];
 
+  final actions = [
+    Text(''),
+    Text(''),
+    IconButton(
+      icon: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+      onPressed: () {
+        // do something
+        // BottomTabsController.toggleModalPopup();
+      },
+    ),
+    // Obx(() =>
+    //     Text(BottomTabsController.newModalPopup.isTrue ? 'True' : 'False')),
+  ];
+
   TabsScreen({
     Key? key,
   }) : super(key: key);
@@ -27,7 +44,11 @@ class TabsScreen extends StatelessWidget {
         hideKeyboard();
       },
       child: Scaffold(
-        appBar: MyAppBar(),
+        appBar: MyAppBar(
+          actions: <Widget>[
+            Obx(() => actions[bottomTabController.index.value])
+          ],
+        ),
         body: Obx(() => screens[bottomTabController.index.value]),
         bottomNavigationBar: const BottomTab(),
       ),
