@@ -57,7 +57,7 @@ hr() {
     child: Container(
       height: 0,
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.line, width: 0.5)),
+        border: Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
       ),
     ),
   );

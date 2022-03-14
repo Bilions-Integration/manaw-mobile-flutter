@@ -61,7 +61,7 @@ class ProfileMenu extends StatelessWidget {
           height: 50,
           margin: const EdgeInsets.only(bottom: 0),
           decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppColors.line, width: 0.5)),
+            border: Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
           ),
         ),
       ),
