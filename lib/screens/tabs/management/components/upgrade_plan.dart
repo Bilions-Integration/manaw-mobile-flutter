@@ -28,7 +28,7 @@ class UpgradePlan extends StatelessWidget {
                 height: 70,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Image.asset(AppAssets.getImage("rocket.png")),
+                  child: Image.asset(AppAssets.rocket),
                 ),
               ),
               Container(

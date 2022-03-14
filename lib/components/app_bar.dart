@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -13,25 +14,28 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
 
   final bottomTabController = Get.find<BottomTabsController>();
 
+  final authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      titleSpacing: 0,
-      title: Obx(
-        () => Text(
+    return Obx(
+      () => AppBar(
+        titleSpacing: 0,
+        title: Text(
           titles[bottomTabController.index.value],
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: AppColors.white,
           ),
         ),
+        leading: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Image.asset(AppAssets.appLogo),
+        ),
+        centerTitle: false,
+        backgroundColor: AppColors.dark,
+        elevation: bottomTabController.index.value == 0 ? 0 : 4,
       ),
-      leading: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Image.asset(AppAssets.appLogo),
-      ),
-      centerTitle: false,
-      backgroundColor: AppColors.dark,
     );
   }
 

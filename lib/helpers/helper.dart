@@ -3,6 +3,7 @@
 import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
@@ -15,8 +16,7 @@ class console {
   static log(dynamic text, {dynamic payload}) {
     final fimber = FimberLog('');
     fimber.d('🔥🔥🔥 ===================');
-    fimber.d(text.toString(),
-        stacktrace: StackTrace.fromString(payload.toString()));
+    fimber.d(text.toString(), stacktrace: StackTrace.fromString(payload.toString()));
     fimber.d('END');
   }
 
@@ -36,10 +36,30 @@ currency() {
   return auth.user.value?.company.currency.toString() ?? '';
 }
 
+String cast(dynamic number) {
+  if (number >= 1000) {
+    var formatter = NumberFormat('#,##,000');
+    return formatter.format(number);
+  }
+  return number.toString();
+}
+
 logo(double? width) {
   return Image.asset(
     AppAssets.appLogo,
     width: width ?? 60,
+  );
+}
+
+hr() {
+  return Padding(
+    padding: const EdgeInsets.only(left: 3, right: 3),
+    child: Container(
+      height: 0,
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: AppColors.line, width: 0.5)),
+      ),
+    ),
   );
 }
 
@@ -102,7 +122,7 @@ hideLoading({String? title}) {
   Navigator.pop(currentContext());
 }
 
-alert({String? title, String? message}) {
+alert({String? title, String? message, Function()? onPressed}) {
   final context = currentContext();
   showDialog(
     context: context,
@@ -113,12 +133,12 @@ alert({String? title, String? message}) {
         mr(1),
         Text(
           title ?? 'Info',
-          style: TextStyle(color: AppColors.dark, fontSize: 18),
+          style: TextStyle(color: AppColors.black, fontSize: 18),
         )
       ]),
       content: Text(
         message ?? '',
-        style: TextStyle(color: AppColors.dark, fontSize: 14),
+        style: TextStyle(color: AppColors.black, fontSize: 14),
         textAlign: TextAlign.center,
       ),
       actions: [
@@ -129,6 +149,7 @@ alert({String? title, String? message}) {
               value: 'Ok',
               onPressed: () {
                 Navigator.pop(context);
+                onPressed != null ? onPressed() : null;
               },
               width: 100,
               height: 40,
@@ -153,19 +174,18 @@ confirm({
     barrierDismissible: true,
     builder: (context) => AlertDialog(
       actionsPadding: const EdgeInsets.all(10),
-      contentPadding:
-          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      contentPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       title: Row(children: [
         const Icon(Icons.info),
         mr(1),
         Text(
           title ?? 'Info',
-          style: TextStyle(color: AppColors.dark, fontSize: 18),
+          style: TextStyle(color: AppColors.black, fontSize: 18),
         )
       ]),
       content: Text(
         message ?? '',
-        style: TextStyle(color: AppColors.dark, fontSize: 14),
+        style: TextStyle(color: AppColors.black, fontSize: 14),
         textAlign: TextAlign.center,
       ),
       actions: [

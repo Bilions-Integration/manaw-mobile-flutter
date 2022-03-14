@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:my_app/controllers/cart_controller.dart';
+import 'package:my_app/model/category_model.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
@@ -28,9 +29,9 @@ class _PosScreenState extends State<PosScreen> {
     updateFirebaseToken();
     super.initState();
     _reset();
+    cartController.setAccount();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         console.log('ended');
         _loadMore();
       }
@@ -41,22 +42,24 @@ class _PosScreenState extends State<PosScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var crossCount = (MediaQuery.of(context).size.width / 200).ceil();
     return Obx(
       () => Column(
         children: [
-          CategorySelector(context: context),
+          CategorySelector(callback: _categoryChanged),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: MasonryGridView.count(
                 controller: _scrollController,
-                crossAxisCount: 2,
+                crossAxisCount: crossCount,
                 itemCount: posController.products.value.length,
                 itemBuilder: (BuildContext context, int index) {
                   final product = posController.products.value[index];
                   return ProductCard(
                     product: product,
                     index: index,
+                    crossCount: crossCount,
                     addCart: _addCart,
                   );
                 },
@@ -69,12 +72,13 @@ class _PosScreenState extends State<PosScreen> {
     );
   }
 
+  _categoryChanged(CategoryModel category) {
+    posController.getProducts(category: category.id);
+  }
+
   _addCart(Product product) {
     final newProduct = Product.fromJson(product.toJson());
-    cartController.products.value = [
-      ...cartController.products.value,
-      newProduct
-    ];
+    cartController.products.value = [...cartController.products.value, newProduct];
   }
 
   _reset() {

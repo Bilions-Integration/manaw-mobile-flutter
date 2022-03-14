@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/screens/forget_password/forget_password_screen.dart';
 import 'package:my_app/screens/forget_password/reset_password_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
+import 'package:my_app/screens/printer_setting/printer_setting.dart';
 import 'package:my_app/screens/register/register_screen.dart';
 import 'package:my_app/screens/tabs/pos/checkout_screen.dart';
 import 'package:my_app/screens/tabs/tabs.dart';
@@ -24,6 +25,7 @@ class RouteName {
   static const forgetPassword = ForgetPasswordScreen();
   static const resetPassword = ResetPasswordScreen();
   static const checkoutScreen = CheckoutScreen();
+  static const printerSettingScreen = PrinterSettingScreen();
 }
 
 class ARouter {

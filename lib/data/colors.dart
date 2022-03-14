@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_app/controllers/auth_controller.dart';
 
 @immutable
 class AppColors {
   const AppColors();
   static get darkRed => HexColor("#873e23");
   static get lightBlue => HexColor("#063970");
-  static get dark => HexColor('#1A1A1A');
+
+  static get dark {
+    final authController = Get.find<AuthController>();
+    return HexColor(authController.user.value?.company.hexColor ?? '#1A1A1A');
+  }
+
+  static get black => HexColor('#1A1A1A');
   static get blue => HexColor('#4C40F7');
   static get green => HexColor('#4ADB61');
   static get red => HexColor('#FF4D4D');
@@ -13,6 +21,7 @@ class AppColors {
   static get borderColor => HexColor('#EEEEEE');
   static get white => HexColor('#FFFFFF');
   static get lightGrey => HexColor('#F3F3F3');
+  static get line => HexColor('#BDBDBD');
 }
 
 class HexColor extends Color {

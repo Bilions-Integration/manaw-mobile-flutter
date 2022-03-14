@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:my_app/controllers/cart_controller.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
 
 class ProductCardCheckout extends StatefulWidget {
   final Product product;
-  final int index;
+  final Function(int?) removed;
 
   const ProductCardCheckout({
     Key? key,
-    required this.index,
+    required this.removed,
     required this.product,
   }) : super(key: key);
 
@@ -33,8 +33,12 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
 
   @override
   Widget build(BuildContext context) {
+    double top = (widget.product.index! == 0) ? 15.0 : 0.0;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.only(
+        bottom: 6,
+        top: top,
+      ),
       child: borderRadiusCard(
         10,
         Padding(
@@ -59,7 +63,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${currency()} ${widget.product.price} x $quantity',
+                        '${currency()} ${widget.product.price}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -88,26 +92,40 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
             ],
           ),
         ),
-        border: 2,
+        border: 0,
       ),
     );
   }
 
   _changeQuantity(String type) {
-    console.log(type);
     if (type == 'add') {
+      final newQuantity = quantity + 1;
       setState(() {
-        quantity = quantity + 1;
+        quantity = newQuantity;
       });
-      console.log(
-          'Product ID => ${cartController.products.value[widget.index].toJson()}');
-      cartController.products.value[widget.index].quantity = quantity;
+      cartController.products.value[widget.product.index!].quantity = quantity;
     } else {
-      setState(() {
-        quantity = quantity - 1;
-      });
-      console.log(cartController.products.value[widget.index]);
-      cartController.products.value[widget.index].quantity = quantity;
+      final newQuantity = quantity - 1;
+      if (newQuantity == 0) {
+        confirm(
+          onPressed: _confirmRemove,
+          title: 'Confirm',
+          message: 'Are you sure you want to remove ${widget.product.name}?',
+        );
+      } else {
+        setState(() {
+          quantity = newQuantity;
+        });
+        cartController.products.value[widget.product.index!].quantity = quantity;
+      }
+    }
+    cartController.reset();
+  }
+
+  _confirmRemove(bool confirm) {
+    if (confirm) {
+      cartController.products.value[widget.product.index!].quantity = 0;
+      widget.removed(widget.product.index!);
     }
   }
 }

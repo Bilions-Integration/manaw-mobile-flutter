@@ -11,33 +11,43 @@ class MyTextInput extends StatelessWidget {
 
   final String? column;
 
+  final bool? numberOnly;
+
+  final dynamic value;
+
   final Function(String, String?) onChanged;
 
-  _onChanged(value) {
-    onChanged(value, column);
+  _onChanged(v) {
+    onChanged(v, column);
   }
 
-  const MyTextInput(
-      {Key? key,
-      this.column,
-      required this.placeholder,
-      required this.icon,
-      required this.onChanged})
-      : super(key: key);
+  const MyTextInput({
+    Key? key,
+    this.column,
+    this.value,
+    required this.placeholder,
+    required this.icon,
+    required this.onChanged,
+    this.numberOnly = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      child: TextField(
+      child: TextFormField(
+        initialValue: '${value ?? ''}',
+        keyboardType: numberOnly == true ? TextInputType.number : TextInputType.text,
         onChanged: _onChanged,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColors.lightGrey,
           contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
           prefixIcon: Icon(icon),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.borderColor,
-              width: 1.5,
+              width: 2,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -61,13 +71,7 @@ class PasswordInput extends StatefulWidget {
   final String? column;
   final Function(String, String?) onChanged;
 
-  const PasswordInput(
-      {Key? key,
-      this.column,
-      required this.onChanged,
-      required this.placeholder,
-      required this.icon})
-      : super(key: key);
+  const PasswordInput({Key? key, this.column, required this.onChanged, required this.placeholder, required this.icon}) : super(key: key);
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();
@@ -95,6 +99,8 @@ class _PasswordInputState extends State<PasswordInput> {
         obscureText: showPassword,
         obscuringCharacter: "*",
         decoration: InputDecoration(
+          filled: true,
+          fillColor: AppColors.lightGrey,
           contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
           prefixIcon: Icon(widget.icon),
           suffixIcon: !showPassword
@@ -109,7 +115,7 @@ class _PasswordInputState extends State<PasswordInput> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.borderColor,
-              width: 1.5,
+              width: 2,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),

@@ -21,7 +21,8 @@ class CurrentPlan extends StatelessWidget {
           height: 55,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Image.asset(AppAssets.bronzeIcon),
+            child: Image.asset(
+                AppAssets.getPlanIcon(auth.user.value?.plan.toString())),
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
