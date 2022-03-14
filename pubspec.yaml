@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  syncfusion_flutter_charts: ^19.4.55
   pos_printer_manager: ^0.0.5
   flutter_svg: 1.0.3
   image_picker: ^0.8.4+10
