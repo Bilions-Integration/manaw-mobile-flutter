@@ -42,7 +42,7 @@ class UpgradePlan extends StatelessWidget {
                       'Upgrade',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 18,
                       ),
                     ),
                     Text(
@@ -65,11 +65,11 @@ class UpgradePlan extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          color: AppColors.blue,
+          color: AppColors.dark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-          height: 50,
+          height: 46,
           minWidth: double.infinity,
         )
       ],

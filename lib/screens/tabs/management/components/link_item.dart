@@ -20,7 +20,7 @@ class LinkItem extends StatelessWidget {
     return InkWell(
       onTap: () => {Get.to(const ManageProduct())},
       child: Padding(
-        padding: const EdgeInsets.only(left: 0, right: 0, top: 18, bottom: 18),
+        padding: const EdgeInsets.only(left: 0, right: 0, top: 14, bottom: 14),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,7 +28,6 @@ class LinkItem extends StatelessWidget {
               name,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
               ),
             ),
             Row(
