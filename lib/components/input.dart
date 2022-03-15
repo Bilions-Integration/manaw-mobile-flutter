@@ -5,13 +5,15 @@ import 'package:my_app/data/colors.dart';
 class MyTextInput extends StatelessWidget {
   final String placeholder;
 
-  final IconData icon;
+  final IconData? icon;
 
   final double radius = 10.0;
 
   final String? column;
 
   final bool? numberOnly;
+
+  final bool textarea;
 
   final dynamic value;
 
@@ -24,9 +26,10 @@ class MyTextInput extends StatelessWidget {
   const MyTextInput({
     Key? key,
     this.column,
+    this.textarea = false,
     this.value,
     required this.placeholder,
-    required this.icon,
+    this.icon,
     required this.onChanged,
     this.numberOnly = false,
   }) : super(key: key);
@@ -36,14 +39,15 @@ class MyTextInput extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        maxLines: textarea ? 5 : 1,
         initialValue: '${value ?? ''}',
         keyboardType: numberOnly == true ? TextInputType.number : TextInputType.text,
         onChanged: _onChanged,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.lightGrey,
-          contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
-          prefixIcon: Icon(icon),
+          contentPadding: EdgeInsets.symmetric(vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
+          prefixIcon: icon != null ? Icon(icon) : null,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.borderColor,

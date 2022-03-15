@@ -94,6 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.icInfo),
                     title: 'Report a problem',
+                    onPressed: _reportProblem,
                   ),
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.bilions),
@@ -116,6 +117,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _showChangePasswordModal() {
     changePassword();
+  }
+
+  _reportProblem() {
+    prompt(
+      onSubmit: (String? name) {
+        Get.snackbar(
+          'Success',
+          'Thanks for your feedback.',
+          icon: const Icon(Icons.check_circle),
+        );
+      },
+      confirmText: 'Submit',
+      title: 'Report',
+      placeholder: 'Write a message',
+      textarea: true,
+      height: 300,
+    );
   }
 
   _changeName() {
@@ -146,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Get.to(() => OTPScreen(type: 'change_email', email: email));
         }
       },
-      confirmText: 'Request',
+      confirmText: 'Request OTP',
       title: 'Change Email',
       placeholder: 'Enter new email address',
       icon: Icons.email,

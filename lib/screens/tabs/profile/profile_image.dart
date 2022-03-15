@@ -32,7 +32,13 @@ class ProfileImage extends StatelessWidget {
             Positioned(
               bottom: -5,
               right: 4,
-              child: borderRadiusCard(10, const Icon(Icons.photo_camera), border: 2),
+              child: borderRadiusCard(
+                  10,
+                  const Icon(
+                    Icons.photo_camera,
+                    size: 20,
+                  ),
+                  border: 2),
             )
           ]),
         ),
