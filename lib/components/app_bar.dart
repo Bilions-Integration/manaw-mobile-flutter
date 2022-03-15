@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/screens/tabs/management/manage_screen.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -8,10 +9,8 @@ import 'package:get/get.dart';
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   MyAppBar({
     Key? key,
-    this.actions,
   }) : super(key: key);
 
-  List<Widget>? actions = <Widget>[];
   final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
 
   final bottomTabController = Get.find<BottomTabsController>();
@@ -37,7 +36,18 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         centerTitle: false,
         backgroundColor: AppColors.dark,
         elevation: bottomTabController.index.value == 0 ? 0 : 4,
-        actions: actions,
+        actions: const [
+          InkWell(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+            onTap: ManageScreen.openCreatePopup,
+          ),
+        ],
       ),
     );
   }
