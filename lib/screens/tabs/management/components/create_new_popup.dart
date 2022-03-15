@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
+import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
+import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
+import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class CreateNewPopup {
   CreateNewPopup();
@@ -30,10 +35,18 @@ class MyPopup extends StatelessWidget {
     required this.context,
   }) : super(key: key);
   static const List<Map> popupItems = [
-    {"name": "Product", "icon": AppAssets.icProduct},
-    {"name": "Category", "icon": AppAssets.icCategory},
-    {"name": "Invoice", "icon": AppAssets.icInvoice},
-    {"name": "Discount", "icon": AppAssets.icDiscount},
+    {"name": "Product", "icon": AppAssets.icProduct, "page": CreateProduct()},
+    {
+      "name": "Category",
+      "icon": AppAssets.icCategory,
+      "page": CreateCategory()
+    },
+    {"name": "Invoice", "icon": AppAssets.icInvoice, "page": CreateInvoice()},
+    {
+      "name": "Discount",
+      "icon": AppAssets.icDiscount,
+      "page": CreateDiscount()
+    },
   ];
 
   @override
@@ -79,7 +92,7 @@ class MyPopup extends StatelessWidget {
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
-                    onTap: () => {console.log('New Tapped')},
+                    onTap: () => {Get.to(popupItems[index]["page"])},
                     child: Column(
                       children: [
                         Container(
