@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
 import 'package:my_app/screens/tabs/management/components/current_plan.dart';
@@ -18,8 +19,7 @@ class ManageScreen extends StatelessWidget {
     {"name": "Reports", "unit": "reports", "count": 8},
     {"name": "My Store", "unit": "", "count": 0},
   ];
-  void openCreatePopup() {
-    console.log('create popup');
+  static void openCreatePopup() {
     CreateNewPopup().open();
   }
 

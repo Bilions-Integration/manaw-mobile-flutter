@@ -4,6 +4,7 @@ import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/components/bottom_tab.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
+import 'package:my_app/screens/tabs/management/manage_screen.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
 
@@ -20,15 +21,15 @@ class TabsScreen extends StatelessWidget {
   final actions = [
     const Text(''),
     const Text(''),
-    IconButton(
-      icon: const Icon(
-        Icons.add,
-        color: Colors.white,
+    const InkWell(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
-      onPressed: () {
-        console.log("Tapped");
-        RouteName.manage.openCreatePopup();
-      },
+      onTap: ManageScreen.openCreatePopup,
     ),
     // Obx(() =>
     //     Text(BottomTabsController.newModalPopup.isTrue ? 'True' : 'False')),
