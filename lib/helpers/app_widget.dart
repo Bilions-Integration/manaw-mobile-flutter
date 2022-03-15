@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
 
 class AppWidget {
@@ -17,21 +18,17 @@ class AppWidget {
   static showFileUpload({ImageSource source = ImageSource.gallery}) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: source);
-    final blob =
-        await MultipartFile.fromFile(image!.path, filename: image.name);
+    final blob = await MultipartFile.fromFile(image!.path, filename: image.name);
     return MyFile(blob: blob, path: image.path, name: image.name);
   }
 
-  static void showMenu(
-      {required BuildContext context,
-      required List<Menu> menuList,
-      double height = 1000,
-      required Function(Menu) onSelect}) {
+  static void showMenu({required List<Menu> menuList, double height = 1000, required Function(Menu) onSelect}) {
     void _selectModal(type, context) {
       Navigator.pop(context);
       onSelect(type);
     }
 
+    final context = currentContext();
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

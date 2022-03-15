@@ -43,7 +43,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          ProfileImage(),
+          ProfileImage(
+            image: user?.image,
+            callback: (User newUser) => {
+              setState(() {
+                user = newUser;
+              })
+            },
+          ),
           Expanded(
             child: ListView(
               children: [
