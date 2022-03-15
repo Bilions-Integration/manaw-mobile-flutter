@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ManageProduct extends StatelessWidget {
-  const ManageProduct({
+class ManageCategory extends StatelessWidget {
+  const ManageCategory({
     Key? key,
   }) : super(key: key);
 
@@ -9,10 +9,10 @@ class ManageProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Manage Product"),
+        title: const Text("Manage Category"),
       ),
       body: const Center(
-        child: Text("Manage Product Screen"),
+        child: Text("Manage Category Screen"),
       ),
     );
   }

@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
-import 'package:my_app/screens/tabs/management/product/manage_product.dart';
 
 class LinkItem extends StatelessWidget {
-  const LinkItem({
-    Key? key,
-    required this.name,
-    required this.count,
-    required this.unit,
-  }) : super(key: key);
+  const LinkItem(
+      {Key? key,
+      required this.name,
+      required this.count,
+      required this.unit,
+      required this.page})
+      : super(key: key);
 
   final String name;
   final int count;
   final String unit;
+  final Widget page;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => {Get.to(const ManageProduct())},
-      // onTap: () => {CreateNewPopup().open()},
-
+      onTap: () => {Get.to(page)},
       child: Padding(
         padding: const EdgeInsets.only(left: 0, right: 0, top: 14, bottom: 14),
         child: Row(
