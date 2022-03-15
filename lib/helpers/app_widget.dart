@@ -18,7 +18,10 @@ class AppWidget {
   static showFileUpload({ImageSource source = ImageSource.gallery}) async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: source);
-    final blob = await MultipartFile.fromFile(image!.path, filename: image.name);
+    if (image == null) {
+      return null;
+    }
+    final blob = await MultipartFile.fromFile(image.path, filename: image.name);
     return MyFile(blob: blob, path: image.path, name: image.name);
   }
 
