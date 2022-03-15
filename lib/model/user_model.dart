@@ -1,15 +1,15 @@
 import 'package:my_app/model/company_model.dart';
 
 class User {
-  final String name;
-  final String email;
-  final String plan;
-  final String? startDate;
-  final String? expiredDate;
-  final String userType;
-  final Company company;
-  final String? phone;
-  final String image;
+  String name;
+  String email;
+  String plan;
+  String? startDate;
+  String? expiredDate;
+  String userType;
+  Company company;
+  String? phone;
+  String image;
 
   User({
     required this.name,
@@ -25,7 +25,7 @@ class User {
 
   User.fromJson(Map json)
       : name = json['full_name'],
-        email = json['email'],
+        email = json['email'] ?? '',
         phone = json['phone'],
         startDate = json['start_date'],
         userType = json['user_type'],
@@ -35,13 +35,14 @@ class User {
         plan = json['plan'];
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'code': email,
+        'full_name': name,
+        'email': email,
         'phone': phone,
         'profile_image': image,
         'plan': plan,
         'start_date': startDate,
         'user_type': userType,
         'expired_date': expiredDate,
+        'company': company.toJson()
       };
 }

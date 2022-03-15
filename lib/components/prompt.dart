@@ -8,9 +8,12 @@ prompt({
   String? title,
   dynamic value,
   String? confirmText,
+  String? placeholder,
   String? cancelText,
   bool? numberOnly,
+  double? height,
   required Function(String?) onSubmit,
+  required IconData icon,
 }) {
   final context = currentContext();
   showDialog(
@@ -21,8 +24,11 @@ prompt({
       confirmText: confirmText,
       cancelText: cancelText,
       numberOnly: numberOnly,
+      icon: icon,
       value: value,
+      placeholder: placeholder,
       title: title,
+      height: height,
     ),
   );
 }
@@ -31,15 +37,21 @@ class PromptWidget extends StatefulWidget {
   final String? title;
   final dynamic value;
   final String? confirmText;
+  final String? placeholder;
   final String? cancelText;
   final Function(String?) onSubmit;
   final bool? numberOnly;
+  final IconData icon;
+  final double? height;
 
   const PromptWidget({
     Key? key,
     this.value,
+    this.height,
     required this.title,
     this.confirmText,
+    required this.icon,
+    this.placeholder,
     this.cancelText,
     this.numberOnly = false,
     required this.onSubmit,
@@ -54,43 +66,52 @@ class _PromptWidgetState extends State<PromptWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      actionsPadding: const EdgeInsets.all(10),
-      contentPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
-      title: Row(children: [
-        Text(
-          widget.title ?? 'Info',
-          style: TextStyle(color: AppColors.black, fontSize: 18),
-        )
-      ]),
-      content: MyTextInput(
-        icon: Icons.discount,
-        placeholder: 'Discount',
-        onChanged: _inputChanged,
-        value: widget.value,
-        numberOnly: widget.numberOnly,
+    return Dialog(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+      insetPadding: const EdgeInsets.all(10),
+      child: Container(
+        height: widget.height ?? 215,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
-              onTap: () => {Navigator.pop(context)},
-              child: Text(widget.cancelText ?? 'Cancel'),
+            Text(
+              widget.title ?? 'Prompt',
+              style: TextStyle(color: AppColors.black, fontSize: 18),
             ),
-            mr(3),
-            PrimaryButton(
-              value: widget.confirmText ?? 'Confirm',
-              onPressed: () {
-                widget.onSubmit(inputValue);
-                Navigator.pop(context);
-              },
-              width: 100,
-              height: 40,
-            )
+            mb(2),
+            MyTextInput(
+              icon: widget.icon,
+              placeholder: widget.placeholder ?? '',
+              onChanged: _inputChanged,
+              value: widget.value,
+              numberOnly: widget.numberOnly,
+            ),
+            mb(2),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () => {Navigator.pop(context)},
+                  child: Text((widget.cancelText ?? 'Cancel').toUpperCase()),
+                ),
+                mr(3),
+                PrimaryButton(
+                  value: widget.confirmText ?? 'Confirm',
+                  onPressed: () {
+                    widget.onSubmit(inputValue);
+                    Navigator.pop(context);
+                  },
+                  width: 100,
+                  height: 40,
+                )
+              ],
+            ),
           ],
         ),
-      ],
+      ),
     );
   }
 

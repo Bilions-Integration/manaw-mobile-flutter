@@ -76,6 +76,8 @@ showCouponModal() {
   }
 
   prompt(
+    icon: Icons.discount,
+    placeholder: 'Discount',
     onSubmit: _onSubmit,
     title: 'Discount Amount',
     confirmText: 'Submit',

@@ -2,22 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/color_picker.dart';
+import 'package:my_app/components/prompt.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/tabs/profile/profile_image.dart';
 import 'package:my_app/screens/tabs/profile/profile_menu.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/services/company_service.dart';
+import 'package:my_app/services/profile_service.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final auth = Get.find<AuthController>();
   final tab = Get.find<BottomTabsController>();
+
+  User? user;
+
+  @override
+  void initState() {
+    setState(() {
+      user = auth.user.value;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +49,26 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Column(children: [
                   hr(),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.icUser), title: 'Name', value: auth.user.value!.name),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.icEmail), title: 'Email', value: auth.user.value!.email),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icUser),
+                    title: 'Name',
+                    value: user?.name ?? '',
+                    onPressed: _changeName,
+                  ),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icEmail),
+                    title: 'Email',
+                    value: user?.email ?? '',
+                  ),
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.icTheme),
                     title: 'Appearance',
                     onPressed: _showColorPicker,
                   ),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.icKey), title: 'Password'),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icKey),
+                    title: 'Password',
+                  ),
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.icPrinter),
                     title: 'Printer Setting',
@@ -56,6 +86,26 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  _changeName() {
+    prompt(
+      onSubmit: (String? name) {
+        if (name != null && name != '') {
+          final User newUser = auth.user.value!;
+          newUser.name = name;
+          auth.user.value = newUser;
+          setState(() {
+            user = newUser;
+          });
+          ProfileService.setName(name);
+        }
+      },
+      confirmText: 'Change',
+      title: 'Change Name',
+      placeholder: 'Enter your Full name',
+      icon: Icons.person,
     );
   }
 
