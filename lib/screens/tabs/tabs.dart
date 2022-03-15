@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/components/bottom_tab.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
+import 'package:my_app/screens/tabs/management/manage_screen.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
 
@@ -16,6 +18,23 @@ class TabsScreen extends StatelessWidget {
     RouteName.profile,
   ];
 
+  final actions = [
+    const Text(''),
+    const Text(''),
+    const InkWell(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      onTap: ManageScreen.openCreatePopup,
+    ),
+    // Obx(() =>
+    //     Text(BottomTabsController.newModalPopup.isTrue ? 'True' : 'False')),
+  ];
+
   TabsScreen({
     Key? key,
   }) : super(key: key);
@@ -27,7 +46,11 @@ class TabsScreen extends StatelessWidget {
         hideKeyboard();
       },
       child: Scaffold(
-        appBar: MyAppBar(),
+        appBar: MyAppBar(
+          actions: <Widget>[
+            Obx(() => actions[bottomTabController.index.value])
+          ],
+        ),
         body: Obx(() => screens[bottomTabController.index.value]),
         bottomNavigationBar: const BottomTab(),
       ),

@@ -8,8 +8,10 @@ import 'package:get/get.dart';
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   MyAppBar({
     Key? key,
+    this.actions,
   }) : super(key: key);
 
+  List<Widget>? actions = <Widget>[];
   final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
 
   final bottomTabController = Get.find<BottomTabsController>();
@@ -35,6 +37,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         centerTitle: false,
         backgroundColor: AppColors.dark,
         elevation: bottomTabController.index.value == 0 ? 0 : 4,
+        actions: actions,
       ),
     );
   }
