@@ -88,7 +88,9 @@ class _MyListViewState extends State<MyListView> {
             height: 6,
             width: 50,
             child: Container(
-              decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(
+                  color: AppColors.dark,
+                  borderRadius: BorderRadius.circular(10)),
             ),
           ),
           AppWidget.marginBottom(1),
@@ -106,7 +108,9 @@ class _MyListViewState extends State<MyListView> {
               children: chosenList
                   .map(
                     (CategoryModel item) => Container(
-                      decoration: BoxDecoration(color: AppColors.lightGrey, borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          color: AppColors.lightGrey,
+                          borderRadius: BorderRadius.circular(10)),
                       margin: const EdgeInsets.all(4),
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(

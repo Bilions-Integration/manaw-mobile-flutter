@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/components/bottom_tab.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
 
@@ -17,16 +18,16 @@ class TabsScreen extends StatelessWidget {
   ];
 
   final actions = [
-    Text(''),
-    Text(''),
+    const Text(''),
+    const Text(''),
     IconButton(
       icon: const Icon(
         Icons.add,
         color: Colors.white,
       ),
       onPressed: () {
-        // do something
-        // BottomTabsController.toggleModalPopup();
+        console.log("Tapped");
+        RouteName.manage.openCreatePopup();
       },
     ),
     // Obx(() =>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
 import 'package:my_app/screens/tabs/management/product/manage_product.dart';
 
 class LinkItem extends StatelessWidget {
@@ -19,6 +20,8 @@ class LinkItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => {Get.to(const ManageProduct())},
+      // onTap: () => {CreateNewPopup().open()},
+
       child: Padding(
         padding: const EdgeInsets.only(left: 0, right: 0, top: 14, bottom: 14),
         child: Row(
