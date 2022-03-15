@@ -11,20 +11,20 @@ changePassword() {
   showDialog(
     context: context,
     barrierDismissible: true,
-    builder: (context) => PromptWidget(),
+    builder: (context) => const ChangePasswordModalWidget(),
   );
 }
 
-class PromptWidget extends StatefulWidget {
-  const PromptWidget({
+class ChangePasswordModalWidget extends StatefulWidget {
+  const ChangePasswordModalWidget({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<PromptWidget> createState() => _PromptWidgetState();
+  State<ChangePasswordModalWidget> createState() => _ChangePasswordModalWidgetState();
 }
 
-class _PromptWidgetState extends State<PromptWidget> {
+class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
   Map<String, dynamic> params = {"password": '', "confirm_password": ''};
 
   @override
