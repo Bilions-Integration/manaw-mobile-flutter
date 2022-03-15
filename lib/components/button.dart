@@ -30,10 +30,9 @@ class PrimaryButton extends StatelessWidget {
       onPressed: () => {disabled ? null : onPressed()},
       child: child ??
           Text(
-            value,
+            value.toUpperCase(),
             style: const TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.bold,
             ),
           ),
       color: disabled ? AppColors.lightDark : AppColors.dark,

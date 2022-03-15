@@ -74,18 +74,24 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      _changeQuantity('minus');
-                    },
-                    icon: SvgPicture.asset(AppAssets.icMinus),
+                  Material(
+                    color: Colors.transparent,
+                    child: IconButton(
+                      onPressed: () {
+                        _changeQuantity('minus');
+                      },
+                      icon: SvgPicture.asset(AppAssets.icMinus),
+                    ),
                   ),
                   Text('$quantity'),
-                  IconButton(
-                    onPressed: () {
-                      _changeQuantity('add');
-                    },
-                    icon: SvgPicture.asset(AppAssets.icPlus),
+                  Material(
+                    color: Colors.transparent,
+                    child: IconButton(
+                      onPressed: () {
+                        _changeQuantity('add');
+                      },
+                      icon: SvgPicture.asset(AppAssets.icPlus),
+                    ),
                   ),
                 ],
               ))

@@ -90,20 +90,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           mb(1),
                           Row(
                             children: [
-                              Expanded(
+                              Container(
+                                constraints: const BoxConstraints(minWidth: 100),
                                 child: Text(
                                   '${currency()} ${cartController.totalPrice()}',
                                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              PrimaryButton(
-                                width: 150,
-                                value: '',
-                                child: Text(
-                                  'Checkout',
-                                  style: TextStyle(color: AppColors.white),
+                              mr(2),
+                              Expanded(
+                                child: PrimaryButton(
+                                  width: 250,
+                                  value: '',
+                                  child: Text(
+                                    'CHECKOUT',
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
+                                  onPressed: _checkout,
                                 ),
-                                onPressed: _checkout,
                               )
                             ],
                           ),

@@ -194,11 +194,11 @@ confirm({
           children: [
             InkWell(
               onTap: () => {onPressed(false), Navigator.pop(context)},
-              child: Text(cancelText ?? 'Cancel'),
+              child: Text(cancelText ?? 'CANCEL'),
             ),
             mr(3),
             PrimaryButton(
-              value: confirmText ?? 'Confirm',
+              value: confirmText ?? 'CONFIRM',
               onPressed: () {
                 onPressed(true);
                 Navigator.pop(context);

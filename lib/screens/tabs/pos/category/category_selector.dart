@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/common_widget.dart';
 import 'package:my_app/model/category_model.dart';
@@ -63,50 +64,77 @@ class _CategorySelectorState extends State<CategorySelector> {
     return Card(
       margin: EdgeInsets.zero,
       elevation: 2,
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          color: AppColors.dark,
-          border: Border(
-            top: BorderSide(color: AppColors.white, width: 0.2),
+      child: Material(
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            color: AppColors.dark,
+            border: Border(
+              top: BorderSide(color: AppColors.white, width: 0.2),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                onTap: _showList,
-                child: Row(
-                  children: [
-                    Text(
-                      selectedList?.name ?? 'Select Category',
-                      style: TextStyle(color: AppColors.white),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _showList,
+                  child: Container(
+                    height: 50,
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      children: [
+                        Text(
+                          selectedList?.name ?? 'Select Category',
+                          style: TextStyle(color: AppColors.white),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: AppColors.white,
+                        ),
+                      ],
                     ),
-                    Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: AppColors.white,
-                    ),
-                  ],
+                  ),
                 ),
               ),
               Row(
                 children: [
-                  const IconTapper(icon: AppAssets.icSearch),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        child: SvgPicture.asset(
+                          AppAssets.icSearch,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                   Obx(
-                    () => (InkWell(
-                      onTap: _showCheckout,
-                      child: cartController.total() > 0
-                          ? Badge(
-                              badgeContent: Text(
-                                cartController.total().toString(),
-                                style: TextStyle(color: AppColors.white),
-                              ),
-                              child: const IconTapper(icon: AppAssets.icCart),
-                            )
-                          : const IconTapper(icon: AppAssets.icCart),
-                    )),
+                    () => Material(
+                      color: Colors.transparent,
+                      child: (InkWell(
+                        onTap: _showCheckout,
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          padding: const EdgeInsets.all(10),
+                          child: cartController.total() > 0
+                              ? Badge(
+                                  badgeContent: Text(
+                                    cartController.total().toString(),
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
+                                  child: const IconTapper(icon: AppAssets.icCart),
+                                )
+                              : const IconTapper(icon: AppAssets.icCart),
+                        ),
+                      )),
+                    ),
                   ),
                 ],
               )
