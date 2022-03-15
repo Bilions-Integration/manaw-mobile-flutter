@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
-import 'package:my_app/helpers/helper.dart';
 
 class CurrentPlan extends StatelessWidget {
   CurrentPlan({
@@ -21,8 +18,7 @@ class CurrentPlan extends StatelessWidget {
           height: 55,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Image.asset(
-                AppAssets.getPlanIcon(auth.user.value?.plan.toString())),
+            child: Image.asset(AppAssets.getPlanIcon(auth.user.value?.plan.toString())),
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),

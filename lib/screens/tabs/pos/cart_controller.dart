@@ -45,7 +45,9 @@ class CartController extends GetxController {
     var discountPrice = 0;
     try {
       discountPrice = int.parse(discount.value.toString());
-    } catch (e) {}
+    } catch (e) {
+      discountPrice = 0;
+    }
 
     return cast(price - discountPrice - (price * (tax / 100)));
   }

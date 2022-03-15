@@ -39,6 +39,7 @@ class Api {
       return response.data;
     } catch (e) {
       console.log("API =>  GET => ERROR ${e.toString()}");
+      hideLoading();
       rethrow;
     }
   }
@@ -67,6 +68,7 @@ class Api {
       return response.data;
     } catch (e) {
       console.log("API =>  POST => ERROR $e");
+      hideLoading();
       rethrow;
     }
   }
@@ -95,6 +97,7 @@ class Api {
       return response;
     } catch (e) {
       console.log("API =>  PUT => ERROR $e");
+      hideLoading();
       rethrow;
     }
   }
@@ -119,6 +122,7 @@ class Api {
       return response.data;
     } catch (e) {
       console.log("API =>  DELETE => ERROR $e");
+      hideLoading();
       rethrow;
     }
   }

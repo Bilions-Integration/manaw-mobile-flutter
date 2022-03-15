@@ -8,11 +8,31 @@ class ProfileService {
   }
 
   static Future setImage(MyFile image) async {
-    console.log(image.blob);
     return await Api.post(
       '/change/profile_image',
       data: {"profile_image": image.blob},
       formData: true,
     );
+  }
+
+  static Future requestChangeEmailOTP(String email) async {
+    return await Api.post('/change/email', data: {"email": email});
+  }
+
+  static Future verifyChangeEmailOTP(String? email, String code) async {
+    try {
+      if (email != null) {
+        var res = await Api.post('/change/email/enter_code', data: {
+          "email": email,
+          "code": code,
+        });
+        console.log(res);
+        if (res['code'] != 200) {
+          throw res['error'];
+        }
+      }
+    } catch (e) {
+      alert(title: e.toString());
+    }
   }
 }

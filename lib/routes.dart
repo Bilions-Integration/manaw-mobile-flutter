@@ -17,7 +17,7 @@ class RouteName {
   static const pos = PosScreen();
   static const dashboard = DashboardScreen();
   static const manage = ManageScreen();
-  static final profile = ProfileScreen();
+  static const profile = ProfileScreen();
   static const login = LoginScreen();
   static const register = RegisterScreen();
   static final home = TabsScreen();

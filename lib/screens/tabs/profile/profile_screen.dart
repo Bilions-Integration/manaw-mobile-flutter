@@ -10,6 +10,7 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/login/login_screen.dart';
+import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/tabs/profile/profile_image.dart';
 import 'package:my_app/screens/tabs/profile/profile_menu.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
@@ -66,6 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     icon: SvgPicture.asset(AppAssets.icEmail),
                     title: 'Email',
                     value: user?.email ?? '',
+                    onPressed: _changeEmail,
                   ),
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.icTheme),
@@ -83,10 +85,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(RouteName.printerSettingScreen);
                     },
                   ),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.icHelp), title: 'Help'),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.icInfo), title: 'Report a problem'),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.bilions), title: 'About us', onPressed: _showAbout),
-                  ProfileMenu(icon: SvgPicture.asset(AppAssets.icLogout), title: 'Logout', onPressed: _logout)
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icHelp),
+                    title: 'Help',
+                  ),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icInfo),
+                    title: 'Report a problem',
+                  ),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.bilions),
+                    title: 'About us',
+                    onPressed: _showAbout,
+                  ),
+                  ProfileMenu(
+                    icon: SvgPicture.asset(AppAssets.icLogout),
+                    title: 'Logout',
+                    onPressed: _logout,
+                  )
                 ])
               ],
             ),
@@ -113,6 +129,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Change Name',
       placeholder: 'Enter your Full name',
       icon: Icons.person,
+    );
+  }
+
+  _changeEmail() {
+    prompt(
+      onSubmit: (String? email) async {
+        if (email != null && email != '') {
+          await ProfileService.requestChangeEmailOTP(email);
+          Get.to(() => OTPScreen(type: 'change_email', email: email));
+        }
+      },
+      confirmText: 'Request',
+      title: 'Change Email',
+      placeholder: 'Enter new email address',
+      icon: Icons.email,
     );
   }
 

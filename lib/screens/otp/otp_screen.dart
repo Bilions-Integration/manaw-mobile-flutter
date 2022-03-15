@@ -10,11 +10,13 @@ import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/forget_password/forget_password_controller.dart';
 import 'package:my_app/screens/register/register_controller.dart';
+import 'package:my_app/services/profile_service.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
   final String type;
-  const OTPScreen({Key? key, this.type = 'register'}) : super(key: key);
+  final String? email;
+  const OTPScreen({Key? key, this.type = 'register', this.email}) : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -28,8 +30,13 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+
+    final length = widget.type == 'change_email' ? 6 : 4;
+    final divide = widget.type == 'change_email' ? 7.5 : 5;
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.dark,
         title: const Text('Verify OTP'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -52,7 +59,7 @@ class _OTPScreenState extends State<OTPScreen> {
             const Text('Enter OTP which sent to your email!'),
             mb(2),
             PinCodeTextField(
-              length: 4,
+              length: length,
               keyboardType: TextInputType.number,
               appContext: context,
               obscureText: false,
@@ -63,7 +70,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 borderRadius: BorderRadius.circular(5),
                 fieldHeight: 60,
                 borderWidth: 1,
-                fieldWidth: width / 5,
+                fieldWidth: width / divide,
                 inactiveFillColor: Colors.grey.withAlpha(30),
                 selectedFillColor: Colors.white,
                 activeFillColor: Colors.white,
@@ -101,8 +108,10 @@ class _OTPScreenState extends State<OTPScreen> {
   _submit() async {
     if (widget.type == 'register') {
       await _register();
-    } else {
+    } else if (widget.type == 'forget_password') {
       await _passwordReset();
+    } else {
+      await ProfileService.verifyChangeEmailOTP(widget.email, code);
     }
   }
 
@@ -135,8 +144,7 @@ class _OTPScreenState extends State<OTPScreen> {
   _passwordReset() async {
     try {
       final forgetPasswordController = Get.find<ForgetPasswordController>();
-      ForgetPasswordParams? paramsToSent =
-          forgetPasswordController.params.value;
+      ForgetPasswordParams? paramsToSent = forgetPasswordController.params.value;
       if (paramsToSent != null) {
         paramsToSent.code = code;
 
@@ -146,8 +154,7 @@ class _OTPScreenState extends State<OTPScreen> {
           data: newParams,
         );
         if (res['success'] == true) {
-          forgetPasswordController.params.value =
-              ForgetPasswordParams.fromJson(newParams);
+          forgetPasswordController.params.value = ForgetPasswordParams.fromJson(newParams);
           Get.to(RouteName.resetPassword);
         } else {
           _showError();
