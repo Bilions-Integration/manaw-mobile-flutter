@@ -200,8 +200,8 @@ confirm({
             PrimaryButton(
               value: confirmText ?? 'CONFIRM',
               onPressed: () {
-                onPressed(true);
                 Navigator.pop(context);
+                onPressed(true);
               },
               width: 100,
               height: 40,

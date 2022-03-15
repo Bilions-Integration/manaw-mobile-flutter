@@ -106,12 +106,18 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   _submit() async {
+    if (code.isEmpty) {
+      return false;
+    }
     if (widget.type == 'register') {
       await _register();
     } else if (widget.type == 'forget_password') {
       await _passwordReset();
     } else {
-      await ProfileService.verifyChangeEmailOTP(widget.email, code);
+      var res = await ProfileService.verifyChangeEmailOTP(widget.email, code);
+      if (res) {
+        Get.back();
+      }
     }
   }
 

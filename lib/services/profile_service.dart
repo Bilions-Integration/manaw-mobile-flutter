@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
@@ -15,6 +17,24 @@ class ProfileService {
     );
   }
 
+  static Future changePassword({
+    required String? password,
+    required String? confirmPassword,
+  }) async {
+    if ((password != null && password.isEmpty) || password == null || password != confirmPassword) {
+      Get.snackbar(
+        'Error',
+        'Password Required or the two passwords did not match!',
+        icon: const Icon(Icons.info),
+      );
+      return false;
+    }
+    return await Api.post('/change/password', data: {
+      "password": password,
+      "confirm_password": confirmPassword,
+    });
+  }
+
   static Future requestChangeEmailOTP(String email) async {
     return await Api.post('/change/email', data: {"email": email});
   }
@@ -26,13 +46,14 @@ class ProfileService {
           "email": email,
           "code": code,
         });
-        console.log(res);
         if (res['code'] != 200) {
           throw res['error'];
         }
+        return true;
       }
     } catch (e) {
       alert(title: e.toString());
+      return false;
     }
   }
 }

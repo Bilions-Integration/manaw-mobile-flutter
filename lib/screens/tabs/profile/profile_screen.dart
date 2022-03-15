@@ -11,6 +11,7 @@ import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
+import 'package:my_app/screens/tabs/profile/components/change_password_modal.dart';
 import 'package:my_app/screens/tabs/profile/profile_image.dart';
 import 'package:my_app/screens/tabs/profile/profile_menu.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
@@ -77,6 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.icKey),
                     title: 'Password',
+                    onPressed: _showChangePasswordModal,
                   ),
                   ProfileMenu(
                     icon: SvgPicture.asset(AppAssets.icPrinter),
@@ -110,6 +112,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  _showChangePasswordModal() {
+    changePassword();
   }
 
   _changeName() {
@@ -173,11 +179,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       message: 'Are you sure to logout?',
       onPressed: (confirm) {
         if (confirm) {
-          Future.delayed(const Duration(milliseconds: 500), () {
-            auth.user.value = null;
-            tab.index.value = 0;
-            AppWidget.storeToken('');
+          loading();
+          tab.index.value = 0;
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            hideLoading();
             Get.offAll(() => const LoginScreen());
+            AppWidget.storeToken('');
           });
         }
       },
