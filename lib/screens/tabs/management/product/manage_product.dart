@@ -4,6 +4,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
+import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ManageProduct extends StatefulWidget {
@@ -81,17 +82,21 @@ class _ManageProductState extends State<ManageProduct> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                  height: 500,
-                  child: ListView(
+            Expanded(
+              // padding: const EdgeInsets.all(20.0),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20),
+                child: Obx(
+                  () => ListView(
                     controller: _scrollController,
                     children: [
-                      for (var item in productController.products.value)
-                        Text('Product : ' + item.name)
+                      for (var item
+                          in productController.products.value.asMap().entries)
+                        ProductItem(product: item.value, index: item.key + 1),
                     ],
-                  )),
+                  ),
+                ),
+              ),
             ),
           ],
         ));

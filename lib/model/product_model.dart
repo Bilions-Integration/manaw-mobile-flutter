@@ -27,7 +27,7 @@ class Product {
         productId = json['id'],
         instock = json['instock'],
         price = json['price'] ?? 0,
-        retailPrice = json['retail_price'] ?? 0,
+        retailPrice = json['retail_price'] ?? '',
         type = json['type'],
         quantity = json['quantity'] ?? 1,
         units = json['units'] ?? [];
