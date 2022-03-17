@@ -37,7 +37,7 @@ class OptionsMenu {
       ),
       builder: (builder) {
         return Container(
-          height: MediaQuery.of(context).size.height - 480,
+          height: MediaQuery.of(context).size.height * 0.35,
           padding: MediaQuery.of(context).viewInsets,
           child: Padding(
             padding: const EdgeInsets.only(
@@ -57,7 +57,7 @@ class OptionsMenu {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
                 height: 12,
               ),
@@ -72,7 +72,7 @@ class OptionsMenu {
                         child: Row(
                           children: [
                             SvgPicture.asset(option["icon"]),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                               height: 20,
                             ),

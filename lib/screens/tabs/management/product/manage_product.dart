@@ -30,7 +30,6 @@ class _ManageProductState extends State<ManageProduct> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        console.log('Reached bottom');
         _loadMore();
       }
     });

@@ -55,8 +55,8 @@ class ProductItem extends StatelessWidget {
                   children: [
                     Text(
                       product.name,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(product.retailPrice.toString()),
                   ],
