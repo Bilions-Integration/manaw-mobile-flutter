@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
@@ -40,16 +42,21 @@ class _ManageProductState extends State<ManageProduct> {
           backgroundColor: AppColors.dark,
           title: const Text("Product"),
           actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  console.log('Action 1 pressed');
-                },
-                icon: const Icon(Icons.search)),
+            InkWell(
+              onTap: () {
+                console.log('Action 1 pressed');
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12, left: 12),
+                child: SvgPicture.asset(AppAssets.icSearch,
+                    color: AppColors.white),
+              ),
+            ),
             IconButton(
                 onPressed: () {
                   console.log('Action 2 pressed');
                 },
-                icon: const Icon(Icons.add)),
+                icon: const Icon(Icons.add_rounded)),
             IconButton(
                 onPressed: () {
                   console.log('Action 3 pressed');
@@ -84,7 +91,6 @@ class _ManageProductState extends State<ManageProduct> {
               ),
             ),
             Expanded(
-              // padding: const EdgeInsets.all(20.0),
               child: Padding(
                 padding: const EdgeInsets.only(left: 20.0, right: 20),
                 child: Obx(
@@ -107,7 +113,6 @@ class _ManageProductState extends State<ManageProduct> {
     productController.page.value = 1;
     productController.products.value = [];
     productController.getProducts();
-    console.log('Reset products : ');
   }
 
   _loadMore() {
@@ -116,7 +121,6 @@ class _ManageProductState extends State<ManageProduct> {
   }
 
   _categoryChanged(CategoryModel category) {
-    // posController.getProducts(category: category.id);
     productController.getProducts(category: category.id ?? '');
   }
 }
