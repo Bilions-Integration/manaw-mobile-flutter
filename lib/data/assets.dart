@@ -39,4 +39,9 @@ class AppAssets {
   static const icCategory = 'assets/images/manage/category.svg';
   static const icInvoice = 'assets/images/manage/invoice.svg';
   static const icDiscount = 'assets/images/manage/discount.svg';
+  //product
+  static const icSelling = 'assets/images/manage/selling.svg';
+  static const icNegativeStock = 'assets/images/manage/negativestock.svg';
+  static const icEdit = 'assets/images/edit.svg';
+  static const icDelete = 'assets/images/delete.svg';
 }
