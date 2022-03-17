@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -13,18 +11,18 @@ class ProductController extends GetxController {
 
   getProducts({bool showLoading = false, dynamic category}) async {
     try {
+      if (category != null || category != '') {
+        products.value = [];
+      }
       var res = await Api.get('/products', showLoading: showLoading, data: {
         'page': page.value,
         'limit': limit.value,
+        'category': category,
       });
-      console.log('just after got ');
       final resProducts = (res['data']['data'] as List)
           .map((e) => Product.fromJson(e as Map))
           .toList();
-      console.log(' after convert ');
       products.value = [...products.value, ...resProducts];
-      console.log('Got products : ');
-      console.log(products.value);
     } catch (e) {
       console.warn(e.toString());
     }

@@ -61,7 +61,8 @@ class _ManageProductState extends State<ManageProduct> {
           children: [
             CategorySelector(callback: _categoryChanged),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 20, bottom: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -116,6 +117,6 @@ class _ManageProductState extends State<ManageProduct> {
 
   _categoryChanged(CategoryModel category) {
     // posController.getProducts(category: category.id);
-    console.log('Category Changed');
+    productController.getProducts(category: category.id ?? '');
   }
 }
