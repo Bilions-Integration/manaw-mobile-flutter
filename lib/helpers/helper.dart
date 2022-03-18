@@ -101,7 +101,7 @@ Widget borderRadiusCard(radius, child, {double border = 0}) {
     child: child,
     decoration: BoxDecoration(
       border: Border.all(color: AppColors.borderColor, width: border),
-      color: AppColors.lightGrey,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(10),
     ),
   );
