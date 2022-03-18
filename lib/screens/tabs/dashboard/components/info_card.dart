@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 
@@ -8,9 +6,11 @@ class InfoCard extends StatelessWidget {
   final double percent;
   final double balance;
   final String title;
+  final Widget icon;
 
   const InfoCard({
     Key? key,
+    required this.icon,
     required this.percent,
     required this.balance,
     required this.title,
@@ -35,9 +35,7 @@ class InfoCard extends StatelessWidget {
                   color: AppColors.black,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: SvgPicture.asset(
-                  AppAssets.icRevenue,
-                ),
+                child: icon,
               ),
               mb(1),
               Row(

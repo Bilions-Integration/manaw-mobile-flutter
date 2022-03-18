@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/moment.dart';
+import 'package:my_app/screens/tabs/dashboard/dashboard_controller.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({Key? key}) : super(key: key);
+  final Function(String, String) onDateChanged;
+
+  const DatePicker({Key? key, required this.onDateChanged}) : super(key: key);
 
   @override
   State<DatePicker> createState() => _DatePickerState();
 }
 
 class _DatePickerState extends State<DatePicker> {
+  final dashboardController = Get.find<DashboardController>();
+
   DateTime now = DateTime.now();
-  String startDate = DateTime.now().toString();
-  String endDate = DateTime.now().toString();
+  String startDate = moment.string(DateTime.now());
+  String endDate = moment.string(DateTime.now());
 
   @override
   void initState() {
     setState(() {
-      endDate = now.toString();
-      startDate = DateTime(now.year, now.month - 1, now.day).toString();
+      endDate = moment.string(now);
+      startDate = moment.string(DateTime(now.year, now.month - 1, now.day));
     });
+    dashboardController.startDate.value = startDate;
+    dashboardController.endDate.value = endDate;
     super.initState();
   }
 
@@ -106,9 +114,13 @@ class _DatePickerState extends State<DatePicker> {
 
     if (result != null) {
       setState(() {
-        startDate = result.start.toString();
-        endDate = result.end.toString();
+        startDate = moment.string(result.start);
+        endDate = moment.string(result.end);
       });
+      dashboardController.startDate.value = startDate;
+      dashboardController.endDate.value = endDate;
+
+      widget.onDateChanged(startDate, endDate);
     }
   }
 }

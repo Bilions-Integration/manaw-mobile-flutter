@@ -6,6 +6,14 @@ class moment {
 
   const moment(this.date);
 
+  static string(DateTime date) {
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(date);
+  }
+
+  static onlyDate(String date) {
+    return moment(date).format(format: 'yyyy-MM-dd');
+  }
+
   format({String? format = 'dd MMM yyyy'}) {
     try {
       DateTime parsedDate;
