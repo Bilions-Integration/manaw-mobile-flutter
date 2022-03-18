@@ -37,11 +37,14 @@ currency() {
 }
 
 String cast(dynamic number) {
+  dynamic result;
   if (number >= 1000) {
-    var formatter = NumberFormat('#,##,000');
-    return formatter.format(number);
+    var formatter = NumberFormat('#,###,###.##');
+    result = formatter.format(number);
+  } else {
+    result = number.toString();
   }
-  return number.toString();
+  return result.toString();
 }
 
 logo(double? width) {
@@ -107,10 +110,12 @@ Widget borderRadiusCard(radius, child, {double border = 0}) {
   );
 }
 
-loading({String? title}) {
+loading({String? title}) async {
+  await Future.delayed(const Duration(milliseconds: 50));
   final context = currentContext();
   showDialog(
     context: context,
+    useRootNavigator: true,
     barrierDismissible: false,
     builder: (context) => LoadingWidget(
       title: title,

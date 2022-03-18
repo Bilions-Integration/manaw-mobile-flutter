@@ -122,7 +122,8 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
         setState(() {
           quantity = newQuantity;
         });
-        cartController.products.value[widget.product.index!].quantity = quantity;
+        cartController.products.value[widget.product.index!].quantity =
+            quantity;
       }
     }
     cartController.reset();

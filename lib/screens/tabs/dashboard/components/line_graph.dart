@@ -14,13 +14,15 @@ class LineGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 250,
       padding: const EdgeInsets.only(left: 3, top: 20, right: 20, bottom: 3),
       child: SfCartesianChart(
         plotAreaBorderWidth: 0,
         enableAxisAnimation: true,
-        tooltipBehavior: TooltipBehavior(enable: true, header: 'Revenue'),
+        tooltipBehavior: TooltipBehavior(enable: true, header: 'Sale'),
         primaryXAxis: CategoryAxis(
+          isVisible: true,
+          // labelStyle: TextStyle(color: AppColors.white),
           majorGridLines: const MajorGridLines(width: 0),
           axisLine: AxisLine(color: AppColors.borderColor, width: 3),
         ),

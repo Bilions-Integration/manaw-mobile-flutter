@@ -1,5 +1,4 @@
 import 'package:fimber/fimber.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,7 +13,6 @@ import 'package:my_app/screens/splash/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  debugPrintHitTestResults = true;
   Fimber.plantTree(DebugTree.elapsed());
   WidgetsFlutterBinding.ensureInitialized();
   GetStorage.init();

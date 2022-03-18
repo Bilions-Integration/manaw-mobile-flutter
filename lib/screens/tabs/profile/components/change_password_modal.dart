@@ -21,7 +21,8 @@ class ChangePasswordModalWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ChangePasswordModalWidget> createState() => _ChangePasswordModalWidgetState();
+  State<ChangePasswordModalWidget> createState() =>
+      _ChangePasswordModalWidgetState();
 }
 
 class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
@@ -84,7 +85,9 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
                       }
                     } catch (e) {
                       Navigator.pop(context);
-                      alert(title: 'Error', message: 'Something went wrong. Please try again!.');
+                      alert(
+                          title: 'Error',
+                          message: 'Something went wrong. Please try again!.');
                     }
                   },
                   width: 100,

@@ -59,7 +59,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: (ListView(
                       children: carItems.mapIndexed((Product product, index) {
                         product.index = index;
-                        return ProductCardCheckout(product: product, removed: _removed);
+                        return ProductCardCheckout(
+                            product: product, removed: _removed);
                       }).toList(),
                     )),
                   ),
@@ -70,31 +71,51 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         children: [
                           Container(
                             padding: const EdgeInsets.only(bottom: 10),
-                            child: cartController.customer.value != null && cartController.customer.value!.id != null
+                            child: cartController.customer.value != null &&
+                                    cartController.customer.value!.id != null
                                 ? Row(
-                                    children: [const Text('Customer'), const Spacer(), Text(cartController.customer.value!.name)],
+                                    children: [
+                                      const Text('Customer'),
+                                      const Spacer(),
+                                      Text(cartController.customer.value!.name)
+                                    ],
                                   )
                                 : null,
                           ),
                           Row(
-                            children: [const Text('Sub Total'), const Spacer(), Text(cartController.subTotalPrice().toString())],
+                            children: [
+                              const Text('Sub Total'),
+                              const Spacer(),
+                              Text(cartController.subTotalPrice().toString())
+                            ],
                           ),
                           mb(1),
                           Row(
-                            children: [Text('Tax (${auth.user.value?.company.tax}%)'), const Spacer(), Text(cartController.tax().toString())],
+                            children: [
+                              Text('Tax (${auth.user.value?.company.tax}%)'),
+                              const Spacer(),
+                              Text(cartController.tax().toString())
+                            ],
                           ),
                           mb(1),
                           Row(
-                            children: [const Text('Discount'), const Spacer(), Text(cartController.discount.value.toString())],
+                            children: [
+                              const Text('Discount'),
+                              const Spacer(),
+                              Text(cartController.discount.value.toString())
+                            ],
                           ),
                           mb(1),
                           Row(
                             children: [
                               Container(
-                                constraints: const BoxConstraints(minWidth: 100),
+                                constraints:
+                                    const BoxConstraints(minWidth: 100),
                                 child: Text(
                                   '${currency()} ${cartController.totalPrice()}',
-                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               mr(2),
