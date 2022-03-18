@@ -71,6 +71,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
             ),
           ),
           LineGraph(chartData: widget.sale?.graph ?? []),
+          mb(1.5),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -20,6 +20,7 @@ class DashboardService {
     var res = await Api.get(
       '/dashboard/graph/profit',
       data: DashboardService._getDates(),
+      showLoading: false,
     );
     final data = res['data'];
     List graph = data['chartData']['data'];
@@ -33,6 +34,7 @@ class DashboardService {
     var res = await Api.get(
       '/dashboard/graph/income',
       data: DashboardService._getDates(),
+      showLoading: false,
     );
     final data = res['data'];
     List graph = data['graph'];
@@ -48,6 +50,7 @@ class DashboardService {
     var res = await Api.get(
       '/dashboard/graph/expense',
       data: DashboardService._getDates(),
+      showLoading: false,
     );
     final data = res['data'];
     return DashboardInfo(
