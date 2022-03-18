@@ -8,6 +8,7 @@ import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
+import 'package:my_app/screens/tabs/management/product/components/product_create_sheet.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class CreateNewPopup {
@@ -33,18 +34,26 @@ class MyPopup extends StatelessWidget {
     Key? key,
     required this.context,
   }) : super(key: key);
-  static const List<Map> popupItems = [
-    {"name": "Product", "icon": AppAssets.icProduct, "page": CreateProduct()},
+  static List<Map> popupItems = [
+    {
+      "name": "Product",
+      "icon": AppAssets.icProduct,
+      "onTap": () => {ProductCreateSheet().open()}
+    },
     {
       "name": "Category",
       "icon": AppAssets.icCategory,
-      "page": CreateCategory()
+      "onTap": () => {Get.to(CreateCategory())},
     },
-    {"name": "Invoice", "icon": AppAssets.icInvoice, "page": CreateInvoice()},
+    {
+      "name": "Invoice",
+      "icon": AppAssets.icInvoice,
+      "onTap": () => {Get.to(CreateInvoice())},
+    },
     {
       "name": "Discount",
       "icon": AppAssets.icDiscount,
-      "page": CreateDiscount()
+      "onTap": () => {Get.to(CreateDiscount())},
     },
   ];
 
@@ -90,7 +99,7 @@ class MyPopup extends StatelessWidget {
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
-                    onTap: () => {Get.to(popupItems[index]["page"])},
+                    onTap: popupItems[index]["onTap"],
                     child: Column(
                       children: [
                         Container(
