@@ -46,6 +46,7 @@ class Company {
 }
 
 String getCurrency(String code) {
-  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: code);
+  var format =
+      NumberFormat.simpleCurrency(locale: Platform.localeName, name: code);
   return format.currencySymbol;
 }

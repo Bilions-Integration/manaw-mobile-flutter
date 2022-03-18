@@ -13,7 +13,8 @@ class ProfileImage extends StatelessWidget {
 
   final String? image;
 
-  ProfileImage({Key? key, required this.callback, this.image}) : super(key: key);
+  ProfileImage({Key? key, required this.callback, this.image})
+      : super(key: key);
 
   final auth = Get.find<AuthController>();
 
@@ -64,13 +65,15 @@ class ProfileImage extends StatelessWidget {
       height: 150,
       onSelect: (Menu menu) async {
         if (menu.key == 'camera') {
-          final MyFile? image = await AppWidget.showFileUpload(source: ImageSource.camera);
+          final MyFile? image =
+              await AppWidget.showFileUpload(source: ImageSource.camera);
           if (image == null) {
             return;
           }
           _uploadImage(image);
         } else {
-          final MyFile? image = await AppWidget.showFileUpload(source: ImageSource.gallery);
+          final MyFile? image =
+              await AppWidget.showFileUpload(source: ImageSource.gallery);
           if (image == null) {
             return;
           }

@@ -21,7 +21,9 @@ class ProfileService {
     required String? password,
     required String? confirmPassword,
   }) async {
-    if ((password != null && password.isEmpty) || password == null || password != confirmPassword) {
+    if ((password != null && password.isEmpty) ||
+        password == null ||
+        password != confirmPassword) {
       Get.snackbar(
         'Error',
         'Password Required or the two passwords did not match!',

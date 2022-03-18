@@ -16,7 +16,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class OTPScreen extends StatefulWidget {
   final String type;
   final String? email;
-  const OTPScreen({Key? key, this.type = 'register', this.email}) : super(key: key);
+  const OTPScreen({Key? key, this.type = 'register', this.email})
+      : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -150,7 +151,8 @@ class _OTPScreenState extends State<OTPScreen> {
   _passwordReset() async {
     try {
       final forgetPasswordController = Get.find<ForgetPasswordController>();
-      ForgetPasswordParams? paramsToSent = forgetPasswordController.params.value;
+      ForgetPasswordParams? paramsToSent =
+          forgetPasswordController.params.value;
       if (paramsToSent != null) {
         paramsToSent.code = code;
 
@@ -160,7 +162,8 @@ class _OTPScreenState extends State<OTPScreen> {
           data: newParams,
         );
         if (res['success'] == true) {
-          forgetPasswordController.params.value = ForgetPasswordParams.fromJson(newParams);
+          forgetPasswordController.params.value =
+              ForgetPasswordParams.fromJson(newParams);
           Get.to(RouteName.resetPassword);
         } else {
           _showError();

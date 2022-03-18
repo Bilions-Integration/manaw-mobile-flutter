@@ -90,7 +90,9 @@ class _MyListViewState extends State<MyListView> {
               height: 6,
               width: 50,
               child: Container(
-                decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                    color: AppColors.dark,
+                    borderRadius: BorderRadius.circular(10)),
               ),
             ),
             mb(1),
@@ -113,21 +115,26 @@ class _MyListViewState extends State<MyListView> {
                           dense: true,
                           onTap: () => {_selectModal(item, context)},
                           trailing: widget.selectedAccount?.id == item.id
-                              ? Icon(Icons.radio_button_checked, size: 20, color: AppColors.green)
-                              : const Icon(Icons.radio_button_checked, size: 20),
-                          title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Text(
-                              item.name,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Balance # ${currency()} ${cast(item.currentBalance ?? 0)} ',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ]),
+                              ? Icon(Icons.radio_button_checked,
+                                  size: 20, color: AppColors.green)
+                              : const Icon(Icons.radio_button_checked,
+                                  size: 20),
+                          title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'Balance # ${currency()} ${cast(item.currentBalance ?? 0)} ',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ]),
                         ),
                       ),
                     )

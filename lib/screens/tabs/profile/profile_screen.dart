@@ -176,7 +176,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: currentContext(),
       applicationName: 'Manaw Store',
       applicationVersion: "1.0.0",
-      applicationLegalese: 'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+      applicationLegalese:
+          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
     );
   }
 

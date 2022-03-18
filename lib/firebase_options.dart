@@ -43,7 +43,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '571631180991',
     projectId: 'bilions-pos',
     authDomain: 'bilions-pos.firebaseapp.com',
-    databaseURL: 'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'bilions-pos.appspot.com',
     measurementId: 'G-5GP5GL5XCB',
   );
@@ -53,7 +54,8 @@ class DefaultFirebaseOptions {
     appId: '1:571631180991:android:c5c1de8c33e6b4059d7a0a',
     messagingSenderId: '571631180991',
     projectId: 'bilions-pos',
-    databaseURL: 'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'bilions-pos.appspot.com',
   );
 
@@ -62,10 +64,13 @@ class DefaultFirebaseOptions {
     appId: '1:571631180991:ios:c6200a70c59e51219d7a0a',
     messagingSenderId: '571631180991',
     projectId: 'bilions-pos',
-    databaseURL: 'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'bilions-pos.appspot.com',
-    androidClientId: '571631180991-n515f142slu0453l1pjovpqarrlplaqg.apps.googleusercontent.com',
-    iosClientId: '571631180991-k2vqp1893p3llagbfscnemnvgpejcp7t.apps.googleusercontent.com',
+    androidClientId:
+        '571631180991-n515f142slu0453l1pjovpqarrlplaqg.apps.googleusercontent.com',
+    iosClientId:
+        '571631180991-k2vqp1893p3llagbfscnemnvgpejcp7t.apps.googleusercontent.com',
     iosBundleId: 'org.bilions.manaw',
   );
 }
