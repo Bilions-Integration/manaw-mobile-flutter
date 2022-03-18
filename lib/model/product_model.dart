@@ -7,6 +7,7 @@ class Product {
   final int price;
   final String type;
   final List units;
+  String? retailPrice;
   int quantity;
 
   Product({
@@ -25,10 +26,11 @@ class Product {
         images = json['images'],
         productId = json['id'],
         instock = json['instock'],
-        price = json['price'],
+        price = json['price'] ?? 0,
+        retailPrice = json['retail_price'] ?? '',
         type = json['type'],
         quantity = json['quantity'] ?? 1,
-        units = json['units'];
+        units = json['units'] ?? [];
 
   Map<String, dynamic> toJson() => {
         'index': index,

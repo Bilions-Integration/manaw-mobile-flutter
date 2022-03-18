@@ -8,8 +8,12 @@ class DioWrapper {
   static init() {
     final box = GetStorage();
     final token = box.read('@bearerToken');
-    BaseOptions options =
-        BaseOptions(baseUrl: 'https://api.manawstore.com/api', headers: {"authorization": "Bearer $token", "Accept": "application/json"});
+    BaseOptions options = BaseOptions(
+        baseUrl: 'https://api.manawstore.com/api',
+        headers: {
+          "authorization": "Bearer $token",
+          "Accept": "application/json"
+        });
     return Dio(options);
   }
 }

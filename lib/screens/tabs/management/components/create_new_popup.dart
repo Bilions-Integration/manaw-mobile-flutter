@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
+import 'package:my_app/screens/tabs/management/product/components/product_create_sheet.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class CreateNewPopup {
@@ -16,12 +18,10 @@ class CreateNewPopup {
     final context = currentContext();
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+        shape: Styles.topOnlyBorderRadius(15),
         builder: (builder) {
           return Container(
-              height: MediaQuery.of(context).size.height - 150,
+              height: MediaQuery.of(context).size.height * 0.55,
               padding: MediaQuery.of(context).viewInsets,
               child: MyPopup(context: context));
         });
@@ -34,18 +34,26 @@ class MyPopup extends StatelessWidget {
     Key? key,
     required this.context,
   }) : super(key: key);
-  static const List<Map> popupItems = [
-    {"name": "Product", "icon": AppAssets.icProduct, "page": CreateProduct()},
+  static List<Map> popupItems = [
+    {
+      "name": "Product",
+      "icon": AppAssets.icProduct,
+      "onTap": () => {ProductCreateSheet().open()}
+    },
     {
       "name": "Category",
       "icon": AppAssets.icCategory,
-      "page": CreateCategory()
+      "onTap": () => {Get.to(CreateCategory())},
     },
-    {"name": "Invoice", "icon": AppAssets.icInvoice, "page": CreateInvoice()},
+    {
+      "name": "Invoice",
+      "icon": AppAssets.icInvoice,
+      "onTap": () => {Get.to(CreateInvoice())},
+    },
     {
       "name": "Discount",
       "icon": AppAssets.icDiscount,
-      "page": CreateDiscount()
+      "onTap": () => {Get.to(CreateDiscount())},
     },
   ];
 
@@ -53,7 +61,6 @@ class MyPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        bottom: 30,
         top: 7,
         left: 10,
         right: 10,
@@ -92,7 +99,7 @@ class MyPopup extends StatelessWidget {
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
-                    onTap: () => {Get.to(popupItems[index]["page"])},
+                    onTap: popupItems[index]["onTap"],
                     child: Column(
                       children: [
                         Container(
@@ -102,7 +109,11 @@ class MyPopup extends StatelessWidget {
                             border: Border.all(
                                 color: AppColors.borderColor, width: 1),
                           ),
-                          child: SvgPicture.asset(popupItems[index]["icon"]),
+                          child: SizedBox(
+                              width: 25,
+                              height: 25,
+                              child:
+                                  SvgPicture.asset(popupItems[index]["icon"])),
                         ),
                         const SizedBox(
                           width: 1,
@@ -113,7 +124,7 @@ class MyPopup extends StatelessWidget {
                     ),
                   );
                 }),
-          )
+          ),
         ],
       ),
     );
