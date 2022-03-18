@@ -37,11 +37,14 @@ currency() {
 }
 
 String cast(dynamic number) {
+  dynamic result;
   if (number >= 1000) {
-    var formatter = NumberFormat('#,##,000');
-    return formatter.format(number);
+    var formatter = NumberFormat('#,###,###.##');
+    result = formatter.format(number);
+  } else {
+    result = number.toString();
   }
-  return number.toString();
+  return result.toString();
 }
 
 logo(double? width) {

@@ -19,7 +19,7 @@ class LineGraph extends StatelessWidget {
       child: SfCartesianChart(
         plotAreaBorderWidth: 0,
         enableAxisAnimation: true,
-        tooltipBehavior: TooltipBehavior(enable: true, header: 'Revenue'),
+        tooltipBehavior: TooltipBehavior(enable: true, header: 'Gross Profit'),
         primaryXAxis: CategoryAxis(
           majorGridLines: const MajorGridLines(width: 0),
           axisLine: AxisLine(color: AppColors.borderColor, width: 3),

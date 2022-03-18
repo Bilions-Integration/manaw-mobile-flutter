@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/dashboard/components/dashboard_upper_tabs.dart';
+import 'package:my_app/screens/tabs/dashboard/components/date_picker.dart';
 import 'package:my_app/screens/tabs/dashboard/screens/dashboard_overview.dart';
 import 'package:my_app/screens/tabs/dashboard/screens/dashboard_summary.dart';
 import 'package:my_app/screens/tabs/dashboard/screens/dashboard_top_customers.dart';
@@ -28,23 +29,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor('#F0F0F0'),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
-        child: Column(children: [
-          mb(1.5),
-          DashboardUpperTabs(
+      body: Column(children: [
+        DatePicker(),
+        mb(1.5),
+        Padding(
+          padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
+          child: DashboardUpperTabs(
             screenChanged: (String s) {
               setState(() {
                 screen = s;
               });
             },
           ),
-          mb(2),
-          Expanded(
+        ),
+        mb(2),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
             child: ListView(children: [screens[screen]]),
-          )
-        ]),
-      ),
+          ),
+        )
+      ]),
     );
   }
 }

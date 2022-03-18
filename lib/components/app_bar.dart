@@ -35,7 +35,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
         centerTitle: false,
         backgroundColor: AppColors.dark,
-        elevation: bottomTabController.index.value == 0 ? 0 : 4,
+        elevation: bottomTabController.index.value == 0 || bottomTabController.index.value == 1 ? 0 : 4,
         actions: const [
           InkWell(
             child: Padding(
