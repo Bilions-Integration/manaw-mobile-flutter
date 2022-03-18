@@ -1,47 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/tabs/dashboard/components/dashboard_upper_tabs.dart';
+import 'package:my_app/screens/tabs/dashboard/screens/dashboard_overview.dart';
+import 'package:my_app/screens/tabs/dashboard/screens/dashboard_summary.dart';
+import 'package:my_app/screens/tabs/dashboard/screens/dashboard_top_customers.dart';
+import 'package:my_app/screens/tabs/dashboard/screens/dashboard_top_products.dart';
 
-class ChartData {
-  ChartData(this.x, this.y);
-  final int x;
-  final double? y;
-}
-
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  String screen = 'overview';
+
+  Map screens = {
+    "overview": const DashboardOverview(),
+    "summary": const DashboardSummary(),
+    "top_products": const DashboardTopProducts(),
+    "top_customers": const DashboardTopCustomers(),
+  };
+
+  @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData = [
-      ChartData(2010, 35),
-      ChartData(2011, 13),
-      ChartData(2012, 34),
-      ChartData(2013, 27),
-      ChartData(2014, 40),
-    ];
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: 300,
-          child: SfCartesianChart(
-            enableAxisAnimation: true,
-            tooltipBehavior: TooltipBehavior(enable: true),
-            primaryXAxis: NumericAxis(
-              axisLine: AxisLine(color: AppColors.dark, width: 2),
-            ),
-            series: <ChartSeries>[
-              // Renders spline chart
-              SplineSeries<ChartData, int>(
-                enableTooltip: true,
-                dataSource: chartData,
-                xValueMapper: (ChartData data, _) => data.x,
-                yValueMapper: (ChartData data, _) => data.y,
-                markerSettings: const MarkerSettings(isVisible: true),
-              )
-            ],
+      backgroundColor: HexColor('#F0F0F0'),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
+        child: Column(children: [
+          mb(1.5),
+          DashboardUpperTabs(
+            screenChanged: (String s) {
+              setState(() {
+                screen = s;
+              });
+            },
           ),
-        ),
+          mb(2),
+          Expanded(
+            child: ListView(children: [screens[screen]]),
+          )
+        ]),
       ),
     );
   }
