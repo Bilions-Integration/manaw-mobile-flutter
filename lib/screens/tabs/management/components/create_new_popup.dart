@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
@@ -16,12 +17,10 @@ class CreateNewPopup {
     final context = currentContext();
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+        shape: Styles.topOnlyBorderRadius(15),
         builder: (builder) {
           return Container(
-              height: MediaQuery.of(context).size.height - 150,
+              height: MediaQuery.of(context).size.height * 0.55,
               padding: MediaQuery.of(context).viewInsets,
               child: MyPopup(context: context));
         });
@@ -53,7 +52,6 @@ class MyPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        bottom: 30,
         top: 7,
         left: 10,
         right: 10,
@@ -102,7 +100,11 @@ class MyPopup extends StatelessWidget {
                             border: Border.all(
                                 color: AppColors.borderColor, width: 1),
                           ),
-                          child: SvgPicture.asset(popupItems[index]["icon"]),
+                          child: SizedBox(
+                              width: 25,
+                              height: 25,
+                              child:
+                                  SvgPicture.asset(popupItems[index]["icon"])),
                         ),
                         const SizedBox(
                           width: 1,
@@ -113,7 +115,7 @@ class MyPopup extends StatelessWidget {
                     ),
                   );
                 }),
-          )
+          ),
         ],
       ),
     );

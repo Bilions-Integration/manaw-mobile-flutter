@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 
 class OptionsMenu {
   final List<Map> options = [
@@ -32,9 +33,7 @@ class OptionsMenu {
     final context = currentContext();
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
+      shape: Styles.topOnlyBorderRadius(15),
       builder: (builder) {
         return Container(
           height: MediaQuery.of(context).size.height * 0.35,
