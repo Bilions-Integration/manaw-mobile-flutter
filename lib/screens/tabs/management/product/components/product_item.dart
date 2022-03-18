@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
+import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -17,7 +19,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () =>
-          console.log('tapped product : ' + product.productId.toString()),
+          Get.to(CreateProduct(type: 'edit', productId: product.productId)),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Row(
