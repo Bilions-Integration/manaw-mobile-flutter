@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ManageInvoice extends StatelessWidget {
-  const ManageInvoice({
+class ManageSaleInvoice extends StatelessWidget {
+  const ManageSaleInvoice({
     Key? key,
   }) : super(key: key);
 
