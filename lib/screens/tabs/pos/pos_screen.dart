@@ -31,8 +31,7 @@ class _PosScreenState extends State<PosScreen> {
     _reset();
     cartController.setAccount();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         console.log('ended');
         _loadMore();
       }
@@ -79,10 +78,7 @@ class _PosScreenState extends State<PosScreen> {
 
   _addCart(Product product) {
     final newProduct = Product.fromJson(product.toJson());
-    cartController.products.value = [
-      ...cartController.products.value,
-      newProduct
-    ];
+    cartController.products.value = [...cartController.products.value, newProduct];
   }
 
   _reset() {
@@ -94,6 +90,5 @@ class _PosScreenState extends State<PosScreen> {
   _loadMore() {
     posController.page.value++;
     posController.getProducts();
-    console.log(posController.products.value.length.toString());
   }
 }

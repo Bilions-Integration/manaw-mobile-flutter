@@ -8,7 +8,7 @@ import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
-import 'package:my_app/screens/tabs/management/product/components/product_create_sheet.dart';
+import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class CreateNewPopup {
   CreateNewPopup();
@@ -38,7 +38,7 @@ class MyPopup extends StatelessWidget {
     {
       "name": "Product",
       "icon": AppAssets.icProduct,
-      "onTap": () => {ProductCreateSheet().open()}
+      "onTap": () => {Get.to(() => const CreateProduct(type: 'single'))}
     },
     {
       "name": "Category",

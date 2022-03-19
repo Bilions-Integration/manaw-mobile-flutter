@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
-import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
+import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   final Product product;
   final int index;
   const ProductItem({
@@ -14,63 +15,91 @@ class ProductItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  bool enableSelling = false;
+
+  @override
+  void initState() {
+    setState(() {
+      enableSelling = widget.product.enableSelling;
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(CreateProduct(type: 'edit', productId: product.productId)),
+      onTap: () {
+        OptionsMenu().open();
+      },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: EdgeInsets.only(bottom: 10, top: (widget.index == 1) ? 0 : 10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               children: [
-                Text(
-                  index.toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  width: 7,
-                  height: 5,
-                ),
-                SizedBox(
-                  width: 45,
-                  height: 45,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(color: AppColors.lightGrey, borderRadius: BorderRadius.circular(5)),
-                    child: Image.network(product.images[0]),
-                  ),
-                ),
-                const SizedBox(
-                  width: 7,
-                  height: 5,
-                ),
+                borderRadiusCard(
+                    10,
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      child: Image.network(
+                        widget.product.images[0],
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    border: 1),
+                mr(1),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    SizedBox(
+                      width: 160,
+                      child: Text(
+                        widget.product.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    Text(product.retailPrice.toString()),
+                    Text(
+                      widget.product.retailPrice.toString(),
+                      style: TextStyle(color: AppColors.grey),
+                    ),
                   ],
                 ),
               ],
             ),
-            product.instock <= 0
+            const Spacer(),
+            widget.product.instock <= 0
                 ? Text(
-                    'Out of stock',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.red, fontSize: 13),
+                    'Out',
+                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.red),
                   )
                 : Text(
-                    product.instock.toString(),
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    widget.product.instock.toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
+            mr(1),
+            Switch(
+              value: enableSelling,
+              onChanged: _enableSelling,
+            ),
           ],
         ),
       ),
     );
+  }
+
+  _enableSelling(value) async {
+    setState(() {
+      enableSelling = value;
+    });
+    await Api.post('/products/enable/${widget.product.productId}');
   }
 }

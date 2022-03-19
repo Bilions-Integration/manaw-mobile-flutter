@@ -76,39 +76,10 @@ class ProductCreateSheet {
                             width: 1,
                             height: 8,
                           ),
-                          const Text("Single Product"),
+                          const Text("Create A Product"),
                         ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () => {
-                        Navigator.pop(context),
-                        Get.to(const CreateProduct(
-                          type: 'Create',
-                        ))
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(9),
-                              border: Border.all(color: AppColors.borderColor, width: 1),
-                            ),
-                            child: SizedBox(
-                              width: 70,
-                              height: 70,
-                              child: SvgPicture.asset(AppAssets.icGroupProduct),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 1,
-                            height: 8,
-                          ),
-                          const Text("Group Product"),
-                        ],
-                      ),
-                    )
                   ],
                 )
               ],

@@ -7,6 +7,7 @@ class Product {
   final int price;
   final String type;
   final List units;
+  bool enableSelling;
   String? retailPrice;
   int quantity;
 
@@ -18,6 +19,7 @@ class Product {
     required this.price,
     required this.type,
     required this.units,
+    required this.enableSelling,
     this.quantity = 1,
   });
 
@@ -29,6 +31,7 @@ class Product {
         price = json['price'] ?? 0,
         retailPrice = json['retail_price'] ?? '',
         type = json['type'],
+        enableSelling = json['enable_selling'] ?? false,
         quantity = json['quantity'] ?? 1,
         units = json['units'] ?? [];
 
@@ -42,6 +45,7 @@ class Product {
         'price': price,
         'type': type,
         'units': units,
+        'enable_selling': enableSelling,
         'quantity': quantity,
         "discount": 0,
         "discount_type": "fixed"

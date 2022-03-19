@@ -24,7 +24,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: (index <= crossCount) ? 15.0 : 0,
+        top: (index < crossCount) ? 15.0 : 0,
         bottom: 15,
       ),
       child: borderRadiusCard(

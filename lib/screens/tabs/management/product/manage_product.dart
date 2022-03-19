@@ -29,8 +29,7 @@ class _ManageProductState extends State<ManageProduct> {
     super.initState();
     _reset();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         _loadMore();
       }
     });
@@ -40,6 +39,7 @@ class _ManageProductState extends State<ManageProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: AppColors.dark,
           title: const Text("Product"),
           actions: <Widget>[
@@ -49,32 +49,25 @@ class _ManageProductState extends State<ManageProduct> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 12, left: 12),
-                child: SvgPicture.asset(AppAssets.icSearch,
-                    color: AppColors.white),
+                child: SvgPicture.asset(AppAssets.icSearch, color: AppColors.white),
               ),
             ),
             IconButton(
-                onPressed: () {
-                  console.log('Action 2 pressed');
-                  ProductCreateSheet().open();
-                },
-                icon: const Icon(Icons.add_rounded)),
-            IconButton(
-                onPressed: () {
-                  console.log('Action 3 pressed');
-                  OptionsMenu().open();
-                },
-                icon: const Icon(Icons.more_horiz)),
+              onPressed: () {
+                console.log('Action 2 pressed');
+                ProductCreateSheet().open();
+              },
+              icon: const Icon(Icons.add_rounded),
+            ),
           ],
         ),
         body: Column(
           children: [
             CategorySelector(callback: _categoryChanged),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     'Product Name',
@@ -83,8 +76,17 @@ class _ManageProductState extends State<ManageProduct> {
                       color: AppColors.lightDark,
                     ),
                   ),
+                  const Spacer(),
                   Text(
-                    "Instock",
+                    "Stock",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.lightDark,
+                    ),
+                  ),
+                  mr(2),
+                  Text(
+                    "Sell",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppColors.lightDark,
@@ -95,14 +97,12 @@ class _ManageProductState extends State<ManageProduct> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20),
+                padding: const EdgeInsets.only(left: 20.0, right: 5),
                 child: Obx(
                   () => ListView(
                     controller: _scrollController,
                     children: [
-                      for (var item
-                          in productController.products.value.asMap().entries)
-                        ProductItem(product: item.value, index: item.key + 1),
+                      for (var item in productController.products.value.asMap().entries) ProductItem(product: item.value, index: item.key + 1),
                     ],
                   ),
                 ),

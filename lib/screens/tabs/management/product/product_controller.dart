@@ -11,17 +11,16 @@ class ProductController extends GetxController {
 
   getProducts({bool showLoading = false, dynamic category}) async {
     try {
-      if (category != null || category != '') {
+      if (category != null) {
         products.value = [];
+        page.value = 1;
       }
       var res = await Api.get('/products', showLoading: showLoading, data: {
         'page': page.value,
         'limit': limit.value,
         'category': category,
       });
-      final resProducts = (res['data']['data'] as List)
-          .map((e) => Product.fromJson(e as Map))
-          .toList();
+      final resProducts = (res['data']['data'] as List).map((e) => Product.fromJson(e as Map)).toList();
       products.value = [...products.value, ...resProducts];
     } catch (e) {
       console.warn(e.toString());

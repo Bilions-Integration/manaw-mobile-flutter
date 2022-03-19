@@ -63,7 +63,7 @@ class _CategorySelectorState extends State<CategorySelector> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: AppColors.white,
+            color: AppColors.dark,
             border: Border(
               top: BorderSide(color: AppColors.white, width: 0.2),
             ),
@@ -77,9 +77,11 @@ class _CategorySelectorState extends State<CategorySelector> {
                 children: [
                   Text(
                     selectedList?.name ?? 'Select Category',
+                    style: TextStyle(color: AppColors.white),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.keyboard_arrow_down_rounded,
+                    color: AppColors.white,
                   ),
                 ],
               ),
