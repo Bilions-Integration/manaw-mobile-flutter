@@ -21,6 +21,8 @@ class AppAssets {
   static const icWallet = 'assets/images/wallet.svg';
   static const icSaleTax = 'assets/images/sale-tax.svg';
   static const icPurchaseTax = 'assets/images/purchase-tax.svg';
+  static const noProducts = 'assets/images/no-products.svg';
+  static const noCustomers = 'assets/images/no-customers.svg';
 
   static const icCoupon = 'assets/images/coupon.svg';
   static const icPerson = 'assets/images/person.svg';

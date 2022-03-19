@@ -3,9 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/dashboard_summary_model.dart';
 
 class DashboardSummary extends StatefulWidget {
-  const DashboardSummary({Key? key}) : super(key: key);
+  final DashboardSummaryModel? summary;
+  const DashboardSummary({Key? key, this.summary}) : super(key: key);
 
   @override
   State<DashboardSummary> createState() => _DashboardSummaryState();
@@ -35,17 +37,18 @@ class _DashboardSummaryState extends State<DashboardSummary> {
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icCapital),
                   title: 'Capital',
-                  value: 10000,
+                  value: (widget.summary?.assets ?? 0) -
+                      (widget.summary?.liability ?? 0),
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icAssets),
                   title: 'Assets',
-                  value: 10000,
+                  value: widget.summary?.assets ?? 0,
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icWallet),
                   title: 'Total Liability',
-                  value: 10000,
+                  value: widget.summary?.liability ?? 0,
                 ),
               ],
             ),
@@ -71,17 +74,17 @@ class _DashboardSummaryState extends State<DashboardSummary> {
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icSaleTax),
                   title: 'Sale Tax',
-                  value: 10000,
+                  value: widget.summary?.saleTax ?? 0,
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icPurchaseTax),
                   title: 'Purchase Tax',
-                  value: 10000,
+                  value: widget.summary?.purchaseTax ?? 0,
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icSaleTax),
                   title: 'Withholding Tax',
-                  value: 10000,
+                  value: widget.summary?.wht ?? 0,
                 ),
               ],
             ),

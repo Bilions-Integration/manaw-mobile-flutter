@@ -3,7 +3,8 @@ import 'package:my_app/screens/tabs/dashboard/components/badge.dart';
 
 class DashboardUpperTabs extends StatefulWidget {
   final Function(int) screenChanged;
-  const DashboardUpperTabs({Key? key, required this.screenChanged}) : super(key: key);
+  const DashboardUpperTabs({Key? key, required this.screenChanged})
+      : super(key: key);
 
   @override
   State<DashboardUpperTabs> createState() => _DashboardUpperTabsState();

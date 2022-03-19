@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/screens/tabs/dashboard/components/chart_data_model.dart';
+import 'package:my_app/model/chart_data_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineGraph extends StatelessWidget {

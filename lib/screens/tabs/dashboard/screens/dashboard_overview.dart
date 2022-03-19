@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/screens/tabs/dashboard/components/chart_data_model.dart';
+import 'package:my_app/model/chart_data_model.dart';
 import 'package:my_app/screens/tabs/dashboard/components/info_card.dart';
 import 'package:my_app/screens/tabs/dashboard/components/line_graph.dart';
 

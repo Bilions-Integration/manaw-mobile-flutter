@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/screens/tabs/dashboard/components/chart_data_model.dart';
+import 'package:my_app/model/chart_data_model.dart';
+import 'package:my_app/model/dashboard_summary_model.dart';
+import 'package:my_app/model/top_customers_model.dart';
+import 'package:my_app/model/top_products_model.dart';
 import 'package:my_app/screens/tabs/dashboard/components/dashboard_upper_tabs.dart';
 import 'package:my_app/screens/tabs/dashboard/components/date_picker.dart';
 import 'package:my_app/screens/tabs/dashboard/dashboard_controller.dart';
@@ -25,6 +28,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   double profit = 0;
   DashboardInfo? sale;
   DashboardInfo? expense;
+  DashboardSummaryModel? summary;
+  List<TopProductsModel> topProducts = [];
+  List<TopCustomersModel> topCustomers = [];
 
   final dashboardController = Get.put(DashboardController());
 
@@ -66,9 +72,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     sale: sale,
                     expense: expense,
                   ),
-                  const DashboardSummary(),
-                  const DashboardTopProducts(),
-                  const DashboardTopCustomers()
+                  DashboardSummary(summary: summary),
+                  DashboardTopProducts(topProducts: topProducts),
+                  DashboardTopCustomers(topCustomers: topCustomers)
                 ],
               )
             ]),
@@ -87,6 +93,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       _getGrossProfit();
       _getSale();
       _getExpense();
+      _getSummary();
+      _getTopProducts();
+      _getTopCustomers();
     });
   }
 
@@ -108,6 +117,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
     DashboardInfo res = await DashboardService.getExpense();
     setState(() {
       expense = res;
+    });
+  }
+
+  _getSummary() async {
+    DashboardSummaryModel res = await DashboardService.getSummary();
+    setState(() {
+      summary = res;
+    });
+  }
+
+  _getTopProducts() async {
+    List<TopProductsModel> res = await DashboardService.getTopProducts();
+    setState(() {
+      topProducts = res;
+    });
+  }
+
+  _getTopCustomers() async {
+    List<TopCustomersModel> res = await DashboardService.getTopCustomers();
+    setState(() {
+      topCustomers = res;
     });
   }
 }

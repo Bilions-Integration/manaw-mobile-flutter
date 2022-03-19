@@ -3,9 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/top_products_model.dart';
 
 class DashboardTopProducts extends StatefulWidget {
-  const DashboardTopProducts({Key? key}) : super(key: key);
+  final List<TopProductsModel> topProducts;
+  const DashboardTopProducts({Key? key, required this.topProducts}) : super(key: key);
 
   @override
   State<DashboardTopProducts> createState() => _DashboardTopProductsState();
@@ -23,34 +25,49 @@ class _DashboardTopProductsState extends State<DashboardTopProducts> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Top Products',
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                mb(2),
-                const ProductCard(
-                  number: 1,
-                  title: 'iPhone 12 pro',
-                  count: 10000,
-                  percent: 10,
-                ),
-                const ProductCard(
-                  number: 2,
-                  title: 'iPhone 12 pro',
-                  count: 10000,
-                  percent: 10,
-                ),
-                const ProductCard(
-                  number: 3,
-                  title: 'iPhone 12 pro',
-                  count: 10000,
-                  percent: 10,
-                ),
-              ],
+              children: widget.topProducts.isEmpty
+                  ? [
+                      Text(
+                        'Top Products',
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      mb(10),
+                      Center(
+                        child: SvgPicture.asset(AppAssets.noProducts),
+                      ),
+                      mb(1),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Text(
+                            'No product sold yet',
+                          )
+                        ],
+                      ),
+                      mb(8),
+                    ]
+                  : [
+                      Text(
+                        'Top Products',
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      mb(2),
+                      ...widget.topProducts
+                          .mapIndexed(
+                            (TopProductsModel product, index) => ProductCard(
+                              number: index + 1,
+                              product: product,
+                            ),
+                          )
+                          .toList(),
+                    ],
             ),
           ),
         ),
@@ -60,19 +77,13 @@ class _DashboardTopProductsState extends State<DashboardTopProducts> {
 }
 
 class ProductCard extends StatelessWidget {
-  final Widget? image;
-  final String title;
+  final TopProductsModel product;
   final int number;
-  final double count;
-  final double percent;
 
   const ProductCard({
     Key? key,
-    this.image,
-    required this.title,
+    required this.product,
     required this.number,
-    required this.count,
-    required this.percent,
   }) : super(key: key);
 
   @override
@@ -94,7 +105,7 @@ class ProductCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.network(
-                  'https://www.zdnet.com/a/img/resize/b2677166f21490f76917908d251bdc3365525d65/2021/04/19/16cfc8be-eaf5-4e37-b1f9-ec3e13d1081c/image-2.jpg?width=1200&height=900&fit=crop&auto=webp',
+                  product.image,
                   width: 40,
                   height: 40,
                   fit: BoxFit.cover,
@@ -105,14 +116,14 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    product.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                     ),
                   ),
                   Text(
-                    count.round().toString(),
+                    product.totalQuantity.round().toString(),
                     style: TextStyle(
                       color: AppColors.grey,
                     ),
@@ -124,7 +135,7 @@ class ProductCard extends StatelessWidget {
           const Spacer(),
           Column(
             children: [
-              Text('${cast(percent.round())} %'),
+              Text('${cast(product.percent)} %'),
               const Text(''),
             ],
           )
