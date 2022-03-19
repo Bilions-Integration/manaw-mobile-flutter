@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/components/category_picker.dart';
-import 'package:my_app/routes.dart';
 import 'package:my_app/services/category_service.dart';
 
 class CategorySelector extends StatefulWidget {
@@ -90,9 +88,5 @@ class _CategorySelectorState extends State<CategorySelector> {
         ),
       ),
     );
-  }
-
-  _showCheckout() {
-    Get.to(() => RouteName.checkoutScreen);
   }
 }

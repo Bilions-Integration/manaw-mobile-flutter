@@ -9,7 +9,6 @@ import 'package:my_app/screens/tabs/management/category/create_edit_category.dar
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_create_sheet.dart';
-import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class CreateNewPopup {
   CreateNewPopup();
@@ -21,9 +20,7 @@ class CreateNewPopup {
         shape: Styles.topOnlyBorderRadius(15),
         builder: (builder) {
           return Container(
-              height: MediaQuery.of(context).size.height * 0.55,
-              padding: MediaQuery.of(context).viewInsets,
-              child: MyPopup(context: context));
+              height: MediaQuery.of(context).size.height * 0.55, padding: MediaQuery.of(context).viewInsets, child: MyPopup(context: context));
         });
   }
 }
@@ -43,17 +40,17 @@ class MyPopup extends StatelessWidget {
     {
       "name": "Category",
       "icon": AppAssets.icCategory,
-      "onTap": () => {Get.to(CreateCategory())},
+      "onTap": () => {Get.to(() => const CreateCategory())},
     },
     {
       "name": "Invoice",
       "icon": AppAssets.icInvoice,
-      "onTap": () => {Get.to(CreateInvoice())},
+      "onTap": () => {Get.to(() => const CreateInvoice())},
     },
     {
       "name": "Discount",
       "icon": AppAssets.icDiscount,
-      "onTap": () => {Get.to(CreateDiscount())},
+      "onTap": () => {Get.to(() => const CreateDiscount())},
     },
   ];
 
@@ -92,10 +89,7 @@ class MyPopup extends StatelessWidget {
             height: 300,
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 2 / 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20),
+                    maxCrossAxisExtent: 200, childAspectRatio: 2 / 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
@@ -106,14 +100,9 @@ class MyPopup extends StatelessWidget {
                           padding: const EdgeInsets.all(30),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(9),
-                            border: Border.all(
-                                color: AppColors.borderColor, width: 1),
+                            border: Border.all(color: AppColors.borderColor, width: 1),
                           ),
-                          child: SizedBox(
-                              width: 25,
-                              height: 25,
-                              child:
-                                  SvgPicture.asset(popupItems[index]["icon"])),
+                          child: SizedBox(width: 25, height: 25, child: SvgPicture.asset(popupItems[index]["icon"])),
                         ),
                         const SizedBox(
                           width: 1,

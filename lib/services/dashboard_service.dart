@@ -4,7 +4,6 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/model/chart_data_model.dart';
 import 'package:my_app/model/dashboard_summary_model.dart';
-import 'package:my_app/model/product_model.dart';
 import 'package:my_app/model/top_customers_model.dart';
 import 'package:my_app/model/top_products_model.dart';
 import 'package:my_app/screens/tabs/dashboard/dashboard_controller.dart';

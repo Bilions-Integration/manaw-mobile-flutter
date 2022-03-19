@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
@@ -18,8 +16,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          Get.to(CreateProduct(type: 'edit', productId: product.productId)),
+      onTap: () => Get.to(CreateProduct(type: 'edit', productId: product.productId)),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Row(
@@ -42,9 +39,7 @@ class ProductItem extends StatelessWidget {
                   height: 45,
                   child: Container(
                     padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: AppColors.lightGrey,
-                        borderRadius: BorderRadius.circular(5)),
+                    decoration: BoxDecoration(color: AppColors.lightGrey, borderRadius: BorderRadius.circular(5)),
                     child: Image.network(product.images[0]),
                   ),
                 ),
@@ -57,8 +52,7 @@ class ProductItem extends StatelessWidget {
                   children: [
                     Text(
                       product.name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(product.retailPrice.toString()),
                   ],
@@ -68,14 +62,11 @@ class ProductItem extends StatelessWidget {
             product.instock <= 0
                 ? Text(
                     'Out of stock',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.red,
-                        fontSize: 13),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.red, fontSize: 13),
                   )
                 : Text(
                     product.instock.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
           ],
         ),

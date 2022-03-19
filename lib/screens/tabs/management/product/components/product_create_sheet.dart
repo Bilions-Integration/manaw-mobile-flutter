@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -64,8 +63,7 @@ class ProductCreateSheet {
                               padding: const EdgeInsets.all(30),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(9),
-                                border: Border.all(
-                                    color: AppColors.borderColor, width: 1),
+                                border: Border.all(color: AppColors.borderColor, width: 1),
                               ),
                               child: SizedBox(
                                 width: 30,
@@ -93,14 +91,12 @@ class ProductCreateSheet {
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(9),
-                                border: Border.all(
-                                    color: AppColors.borderColor, width: 1),
+                                border: Border.all(color: AppColors.borderColor, width: 1),
                               ),
                               child: SizedBox(
                                 width: 70,
                                 height: 70,
-                                child:
-                                    SvgPicture.asset(AppAssets.icGroupProduct),
+                                child: SvgPicture.asset(AppAssets.icGroupProduct),
                               ),
                             ),
                             const SizedBox(
