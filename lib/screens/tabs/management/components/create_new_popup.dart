@@ -20,7 +20,10 @@ class CreateNewPopup {
         shape: Styles.topOnlyBorderRadius(15),
         builder: (builder) {
           return Container(
-              height: MediaQuery.of(context).size.height * 0.55, padding: MediaQuery.of(context).viewInsets, child: MyPopup(context: context));
+            height: MediaQuery.of(context).size.height * 0.55,
+            padding: MediaQuery.of(context).viewInsets,
+            child: MyPopup(context: context),
+          );
         });
   }
 }
@@ -89,11 +92,18 @@ class MyPopup extends StatelessWidget {
             height: 300,
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200, childAspectRatio: 2 / 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 2 / 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
-                    onTap: popupItems[index]["onTap"],
+                    onTap: () {
+                      Navigator.pop(context);
+                      popupItems[index]["onTap"]();
+                    },
                     child: Column(
                       children: [
                         Container(
