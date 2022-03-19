@@ -53,7 +53,11 @@ class ProductCreateSheet {
                     runSpacing: 30,
                     children: [
                       InkWell(
-                        onTap: () => {Get.to(const CreateProduct())},
+                        onTap: () => {
+                          Get.to(const CreateProduct(
+                            type: 'create',
+                          ))
+                        },
                         child: Column(
                           children: [
                             Container(
@@ -78,7 +82,11 @@ class ProductCreateSheet {
                         ),
                       ),
                       InkWell(
-                        onTap: () => {Get.to(const CreateProduct())},
+                        onTap: () => {
+                          Get.to(const CreateProduct(
+                            type: 'Create',
+                          ))
+                        },
                         child: Column(
                           children: [
                             Container(
