@@ -34,6 +34,7 @@ class _CreateProductState extends State<CreateProduct> {
     "buy_price": null,
     "images": [],
     "unit": null,
+    'units': []
   };
 
   @override
@@ -97,7 +98,9 @@ class _CreateProductState extends State<CreateProduct> {
                         onChanged: _setParams,
                         label: 'Product Unit',
                       ),
-                      ProductPackages(),
+                      ProductPackages(
+                        onChanged: _setPackages,
+                      ),
                     ],
                   ),
                 ),
@@ -115,6 +118,10 @@ class _CreateProductState extends State<CreateProduct> {
         ],
       ),
     );
+  }
+
+  _setPackages(List<Map> packages) {
+    params['units'] = packages;
   }
 
   _onNewImages(List<MultipartFile> newImages) {

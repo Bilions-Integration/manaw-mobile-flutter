@@ -5,18 +5,42 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/management/product/components/new_package_modal.dart';
 
 class ProductPackages extends StatefulWidget {
-  const ProductPackages({Key? key}) : super(key: key);
+  final Function(List<Map>) onChanged;
+  const ProductPackages({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<ProductPackages> createState() => _ProductPackagesState();
 }
 
 class _ProductPackagesState extends State<ProductPackages> {
+  List<Map> packages = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         hr(height: 15),
+        ...packages
+            .mapIndexed((e, i) => Stack(
+                  children: [
+                    PackageViewCard(package: e),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: InkWell(
+                        onTap: () {
+                          _remove(i);
+                        },
+                        child: Icon(
+                          Icons.remove_circle,
+                          color: AppColors.red,
+                        ),
+                      ),
+                    )
+                  ],
+                ))
+            .toList(),
+        mb(1),
         SecondaryButton(
           height: 40,
           value: '+ Add new variation',
@@ -26,7 +50,90 @@ class _ProductPackagesState extends State<ProductPackages> {
     );
   }
 
+  _remove(i) {
+    List<Map> p = packages;
+    p.removeAt(i);
+    setState(() {
+      packages = p;
+    });
+    widget.onChanged(packages);
+  }
+
   _showAddPackageModal() {
-    NewPackageModal().open();
+    NewPackageModal().open((Map package) {
+      setState(() {
+        packages = [...packages, package];
+      });
+      widget.onChanged(packages);
+    });
+  }
+}
+
+class PackageViewCard extends StatelessWidget {
+  final Map package;
+  const PackageViewCard({
+    Key? key,
+    required this.package,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.lightGrey,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+            child: Text(package['unit'] ?? ''),
+          ),
+          hr(),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    'Sell Price',
+                    style: TextStyle(color: AppColors.grey),
+                  ),
+                ),
+                Text(
+                  'Buy Price',
+                  style: TextStyle(color: AppColors.grey),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: Text('${currency()} ${cast(package['sale_price'] ?? 0)}'),
+                ),
+                Text('${currency()} ${cast(package['purchase_price'] ?? 0)}'),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+            child: Row(
+              children: [
+                Text('Coefficient : ${package['coefficient'] ?? 1}'),
+              ],
+            ),
+          ),
+          mb(1.5),
+        ],
+      ),
+    );
   }
 }

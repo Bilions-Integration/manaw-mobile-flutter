@@ -33,16 +33,14 @@ currency() {
   return auth.user.value?.company.currency.toString() ?? '';
 }
 
-String cast(dynamic number) {
-  num fixedNumber = double.parse(number.toStringAsFixed(2));
-
-  dynamic result;
-  if (fixedNumber >= 1000) {
-    var formatter = NumberFormat('#,###,###.##');
-    result = formatter.format(fixedNumber);
-  } else {
-    result = fixedNumber;
+String cast(dynamic input) {
+  if (input.toString().isEmpty) {
+    return '0';
   }
+  String number = input.toString();
+  num fixedNumber = num.parse(num.parse(number).toStringAsFixed(2));
+  var formatter = NumberFormat('#,###,###.##');
+  dynamic result = formatter.format(fixedNumber);
   return result.toString();
 }
 
