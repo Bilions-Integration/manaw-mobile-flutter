@@ -20,52 +20,69 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 100,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
+    return pickedImages.isEmpty
+        ? Column(
             children: [
-              Row(
-                children: [
-                  InkWell(
-                    onTap: _showFileUpload,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      padding: const EdgeInsets.all(40),
-                      decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
-                      child: const Icon(Icons.add_rounded),
-                    ),
-                  ),
-                  ...pickedImages
-                      .mapIndexed(
-                        (MyFile e, index) => Padding(
-                          padding: const EdgeInsets.only(right: 5),
-                          child: ImagePreview(
-                            image: e.path,
-                            height: 100,
-                            onRemoved: () {
-                              _imageRemoved(index);
-                            },
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ],
+              InkWell(
+                onTap: _showFileUpload,
+                child: Container(
+                  margin: const EdgeInsets.only(right: 5),
+                  padding: const EdgeInsets.all(40),
+                  decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
+                  child: const Icon(Icons.add_rounded),
+                ),
+              ),
+              mb(1),
+              Text(
+                'Add Product Image',
+                style: TextStyle(color: AppColors.grey),
               )
             ],
-          ),
-        ),
-        mb(1),
-        Text(
-          'Add Product Image',
-          style: TextStyle(color: AppColors.grey),
-        ),
-      ],
-    );
+          )
+        : Column(
+            children: [
+              SizedBox(
+                height: 100,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: _showFileUpload,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 5),
+                            padding: const EdgeInsets.all(40),
+                            decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
+                            child: const Icon(Icons.add_rounded),
+                          ),
+                        ),
+                        ...pickedImages
+                            .mapIndexed(
+                              (MyFile e, index) => Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: ImagePreview(
+                                  image: e.path,
+                                  height: 100,
+                                  onRemoved: () {
+                                    _imageRemoved(index);
+                                  },
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              mb(1),
+              Text(
+                'Add Product Image',
+                style: TextStyle(color: AppColors.grey),
+              ),
+            ],
+          );
   }
 
   _imageRemoved(index) {
