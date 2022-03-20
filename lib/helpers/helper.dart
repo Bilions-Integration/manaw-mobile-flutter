@@ -53,8 +53,9 @@ logo(double? width) {
   );
 }
 
-hr() {
-  return Padding(
+hr({double height = 0}) {
+  return Container(
+    margin: EdgeInsets.only(bottom: height, top: height),
     padding: const EdgeInsets.only(left: 3, right: 3),
     child: Container(
       height: 0,

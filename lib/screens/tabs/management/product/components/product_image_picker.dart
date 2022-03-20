@@ -7,8 +7,8 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
 
 class ProductImagePicker extends StatefulWidget {
-  final Function(List<MultipartFile>) onNewImages;
-  const ProductImagePicker({Key? key, required this.onNewImages}) : super(key: key);
+  final Function(List<MultipartFile>) onChanged;
+  const ProductImagePicker({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<ProductImagePicker> createState() => _ProductImagePickerState();
@@ -96,7 +96,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
       pickedBlobs = blobs;
     });
 
-    widget.onNewImages(blobs);
+    widget.onChanged(blobs);
   }
 
   _showFileUpload({ImageSource source = ImageSource.gallery}) async {
@@ -119,6 +119,6 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
       pickedBlobs = blobs;
     });
 
-    widget.onNewImages(blobs);
+    widget.onChanged(blobs);
   }
 }

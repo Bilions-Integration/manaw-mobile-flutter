@@ -8,6 +8,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
+import 'package:my_app/screens/tabs/management/product/components/product_packages.dart';
 import 'package:my_app/services/category_service.dart';
 
 class CreateProduct extends StatefulWidget {
@@ -51,7 +52,7 @@ class _CreateProductState extends State<CreateProduct> {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      ProductImagePicker(onNewImages: _onNewImages),
+                      ProductImagePicker(onChanged: _onNewImages),
                       mb(2),
                       hr(),
                       mb(2),
@@ -95,7 +96,8 @@ class _CreateProductState extends State<CreateProduct> {
                         placeholder: 'pcs',
                         onChanged: _setParams,
                         label: 'Product Unit',
-                      )
+                      ),
+                      ProductPackages(),
                     ],
                   ),
                 ),
