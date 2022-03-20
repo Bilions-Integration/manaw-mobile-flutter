@@ -87,6 +87,7 @@ class _ProductItemState extends State<ProductItem> {
                   ),
             mr(1),
             Switch(
+              activeColor: AppColors.dark,
               value: enableSelling,
               onChanged: _enableSelling,
             ),

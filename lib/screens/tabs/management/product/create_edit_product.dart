@@ -1,72 +1,98 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:my_app/components/image_preview.dart';
+import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/common_model.dart';
+import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
 
-class CreateProduct extends StatelessWidget {
+class CreateProduct extends StatefulWidget {
   final String type;
   final int? productId;
   const CreateProduct({Key? key, required this.type, this.productId}) : super(key: key);
 
   @override
+  State<CreateProduct> createState() => _CreateProductState();
+}
+
+class _CreateProductState extends State<CreateProduct> {
+  Map params = {
+    "name": "Hello",
+    "category_id": null,
+    "retail_price": null,
+    "enable_selling": 1,
+    "barcode": null,
+    "buy_price": null,
+    "images": [],
+    "unit": null,
+  };
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(type.capitalize.toString() + " Product"),
+        backgroundColor: AppColors.dark,
+        title: Text(widget.type.toString() + " Product"),
       ),
-      body: Column(
+      body: ListView(
         children: [
-          Center(
-            child: Wrap(
-              direction: Axis.vertical,
-              crossAxisAlignment: WrapCrossAlignment.center,
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(30),
-                  decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
-                  child: const Icon(Icons.add_rounded),
+                ProductImagePicker(onNewImages: _onNewImages),
+                mb(2),
+                hr(),
+                mb(2),
+                MyTextInput(
+                  value: params['name'],
+                  placeholder: 'Enter Product Name',
+                  onChanged: _setParams,
+                  label: 'Product Name *',
                 ),
-                const Text('Add Product Image'),
+                MyTextInput(
+                  value: params['barcode'],
+                  placeholder: 'ABC-1234567890',
+                  onChanged: _setParams,
+                  label: 'Barcode',
+                ),
+                MyTextInput(
+                  value: params['retail_price'],
+                  placeholder: '0',
+                  onChanged: _setParams,
+                  label: 'Sale Price *',
+                ),
+                MyTextInput(
+                  value: params['buy_price'],
+                  placeholder: '0',
+                  onChanged: _setParams,
+                  label: 'Purchase Price *',
+                ),
+                MyTextInput(
+                  value: params['unit'],
+                  placeholder: 'pcs',
+                  onChanged: _setParams,
+                  label: 'Product Unit *',
+                )
               ],
             ),
           ),
-          Wrap(
-            children: const [
-              Text('Product Name'),
-              TextField(
-                  decoration: InputDecoration(
-                hintText: 'Enter Product Name',
-              )),
-            ],
-          ),
-          Wrap(
-            children: const [
-              Text('Barcode'),
-              TextField(
-                  decoration: InputDecoration(
-                hintText: 'Enter Barcode Name',
-              )),
-            ],
-          ),
-          Wrap(
-            children: const [
-              Text('Price'),
-              TextField(
-                  decoration: InputDecoration(
-                hintText: 'Enter Product Name',
-              )),
-            ],
-          ),
-          Wrap(
-            children: const [
-              Text('Stock'),
-              TextField(
-                  decoration: InputDecoration(
-                hintText: 'Enter Product Name',
-              )),
-            ],
-          )
         ],
       ),
     );
+  }
+
+  _onNewImages(List<MultipartFile> newImages) {
+    setState(() {
+      params['images'] = newImages;
+    });
+  }
+
+  _setParams(val, String? column) {
+    setState(() {
+      params[column] = val;
+    });
   }
 }

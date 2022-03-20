@@ -25,10 +25,7 @@ class AppWidget {
     return MyFile(blob: blob, path: image.path, name: image.name);
   }
 
-  static void showMenu(
-      {required List<Menu> menuList,
-      double height = 1000,
-      required Function(Menu) onSelect}) {
+  static void showMenu({required List<Menu> menuList, double height = 1000, required Function(Menu) onSelect}) {
     void _selectModal(type, context) {
       Navigator.pop(context);
       onSelect(type);
