@@ -1,9 +1,8 @@
 // ignore_for_file: camel_case_types
-
-import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
@@ -13,18 +12,15 @@ import 'package:my_app/helpers/current_context.dart';
 import 'dart:core';
 
 class console {
-  static log(dynamic text, {dynamic payload}) {
-    final fimber = FimberLog('');
-    fimber.d('🔥🔥🔥 ===================');
-    fimber.d(text.toString(),
-        stacktrace: StackTrace.fromString(payload.toString()));
-    fimber.d('END');
+  static log(dynamic text, {dynamic payload = ''}) {
+    var logger = Logger(printer: PrettyPrinter(colors: true, methodCount: 0));
+    logger.d("${text.toString()} \n ${payload.toString()}");
   }
 
   static warn(dynamic text, {dynamic payload}) {
-    final fimber = FimberLog('');
-    fimber.d(text);
-    fimber.d('', ex: payload);
+    final logger = Logger();
+    logger.d(text.toString());
+    logger.d(payload.toString());
   }
 }
 
@@ -63,8 +59,7 @@ hr() {
     child: Container(
       height: 0,
       decoration: BoxDecoration(
-        border:
-            Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
+        border: Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
       ),
     ),
   );
@@ -183,8 +178,7 @@ confirm({
     barrierDismissible: true,
     builder: (context) => AlertDialog(
       actionsPadding: const EdgeInsets.all(10),
-      contentPadding:
-          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      contentPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       title: Row(children: [
         const Icon(Icons.info),
         mr(1),
