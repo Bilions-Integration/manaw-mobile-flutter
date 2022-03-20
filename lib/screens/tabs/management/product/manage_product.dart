@@ -6,7 +6,6 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
-import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_create_sheet.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';

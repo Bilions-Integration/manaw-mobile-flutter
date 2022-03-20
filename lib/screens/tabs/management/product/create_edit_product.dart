@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/category_picker.dart';
-import 'package:my_app/components/image_preview.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/components/select_box.dart';
 import 'package:my_app/data/colors.dart';
