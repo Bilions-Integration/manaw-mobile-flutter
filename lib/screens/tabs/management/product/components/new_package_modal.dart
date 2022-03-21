@@ -5,7 +5,8 @@ import 'package:my_app/components/text_tapper.dart';
 import 'package:my_app/helpers/helper.dart';
 
 class NewPackageModal {
-  NewPackageModal();
+  final Map? params;
+  NewPackageModal({this.params});
 
   void open(Function(Map) onSubmit) {
     BuildContext context = currentContext();
@@ -21,6 +22,7 @@ class NewPackageModal {
           padding: MediaQuery.of(context).viewInsets,
           child: NewPackageForm(
             onSubmit: onSubmit,
+            params: params,
           ),
         );
       },
@@ -31,7 +33,8 @@ class NewPackageModal {
 // List View Widget
 class NewPackageForm extends StatefulWidget {
   final Function(Map) onSubmit;
-  const NewPackageForm({Key? key, required this.onSubmit}) : super(key: key);
+  final Map? params;
+  const NewPackageForm({Key? key, required this.onSubmit, this.params}) : super(key: key);
 
   @override
   State<NewPackageForm> createState() => _NewPackageFormState();
@@ -44,6 +47,16 @@ class _NewPackageFormState extends State<NewPackageForm> {
     "sale_price": 0,
     "purchase_price": 0,
   };
+
+  @override
+  void initState() {
+    if (widget.params != null) {
+      setState(() {
+        params = widget.params ?? {};
+      });
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +121,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: PrimaryButton(value: 'Create', onPressed: _submit),
+              child: PrimaryButton(value: widget.params != null ? 'Update' : 'Create', onPressed: _submit),
             )
           ],
         ),

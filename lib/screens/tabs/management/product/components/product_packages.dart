@@ -23,10 +23,15 @@ class _ProductPackagesState extends State<ProductPackages> {
         ...packages
             .mapIndexed((e, i) => Stack(
                   children: [
-                    PackageViewCard(package: e),
+                    InkWell(
+                      onTap: () {
+                        _edit(i);
+                      },
+                      child: PackageViewCard(package: e),
+                    ),
                     Positioned(
                       right: 10,
-                      top: 10,
+                      top: 7,
                       child: InkWell(
                         onTap: () {
                           _remove(i);
@@ -48,6 +53,18 @@ class _ProductPackagesState extends State<ProductPackages> {
         )
       ],
     );
+  }
+
+  _edit(i) {
+    List<Map> clonePackages = packages;
+    Map package = packages[i];
+    NewPackageModal(params: package).open((Map package) {
+      clonePackages[i] = package;
+      setState(() {
+        packages = clonePackages;
+      });
+      widget.onChanged(packages);
+    });
   }
 
   _remove(i) {
@@ -89,7 +106,7 @@ class PackageViewCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
             child: Text(package['unit'] ?? ''),
           ),
           hr(),
@@ -112,7 +129,7 @@ class PackageViewCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+            padding: const EdgeInsets.only(left: 20, right: 10, top: 2),
             child: Row(
               children: [
                 SizedBox(
@@ -124,7 +141,7 @@ class PackageViewCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 10),
+            padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
             child: Row(
               children: [
                 Text('Coefficient : ${package['coefficient'] ?? 1}'),
