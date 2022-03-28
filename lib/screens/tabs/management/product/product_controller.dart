@@ -5,6 +5,7 @@ import 'package:my_app/model/product_model.dart';
 
 class ProductController extends GetxController {
   var products = Rx<List<Product>>([]);
+  var product = Rxn<Product>();
 
   var page = 1.obs;
   var limit = 20.obs;
@@ -32,7 +33,9 @@ class ProductController extends GetxController {
   getProduct({bool showLoading = false, int? productId}) async {
     try {
       var res = await Api.get('/products/$productId');
-      console.log(res);
+      final resProduct = Product.fromJson(res['data']);
+      console.log(resProduct);
+      product.value = resProduct;
     } catch (e) {
       console.warn(e.toString());
     }

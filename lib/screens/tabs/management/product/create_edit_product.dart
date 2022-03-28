@@ -8,6 +8,7 @@ import 'package:my_app/components/select_box.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
+import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_packages.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
@@ -31,7 +32,7 @@ class _CreateProductState extends State<CreateProduct> {
   final productController = Get.put(ProductController());
 
   Map params = {
-    "name": "Hello",
+    "name": "",
     "category_id": null,
     "retail_price": null,
     "enable_selling": 1,
@@ -176,6 +177,18 @@ class _CreateProductState extends State<CreateProduct> {
     console.log('Get product run : ' + widget.productId.toString());
     if (widget.productId != null) {
       productController.getProduct(productId: widget.productId);
+      Product? product = productController.product.value;
+      params = {
+        "name": product?.name,
+        "category_id": product?.categoryId,
+        "retail_price": product?.retailPrice,
+        "enable_selling": 1,
+        "barcode": product?.barcode,
+        "buy_price": product?.purchasePrice,
+        "images": product?.images,
+        "unit": product?.unit,
+        'units': product?.units
+      };
     }
   }
 }
