@@ -58,7 +58,8 @@ hr({double height = 0}) {
     child: Container(
       height: 0,
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
+        border:
+            Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
       ),
     ),
   );
@@ -177,7 +178,8 @@ confirm({
     barrierDismissible: true,
     builder: (context) => AlertDialog(
       actionsPadding: const EdgeInsets.all(10),
-      contentPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      contentPadding:
+          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       title: Row(children: [
         const Icon(Icons.info),
         mr(1),

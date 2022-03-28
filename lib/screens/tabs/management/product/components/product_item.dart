@@ -33,7 +33,7 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        OptionsMenu().open();
+        OptionsMenu(productId: widget.product.productId).open();
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10, top: (widget.index == 1) ? 0 : 10),
@@ -79,7 +79,8 @@ class _ProductItemState extends State<ProductItem> {
             widget.product.instock <= 0
                 ? Text(
                     'Out',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.red),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: AppColors.red),
                   )
                 : Text(
                     widget.product.instock.toString(),

@@ -20,8 +20,19 @@ class ProductController extends GetxController {
         'limit': limit.value,
         'category': category,
       });
-      final resProducts = (res['data']['data'] as List).map((e) => Product.fromJson(e as Map)).toList();
+      final resProducts = (res['data']['data'] as List)
+          .map((e) => Product.fromJson(e as Map))
+          .toList();
       products.value = [...products.value, ...resProducts];
+    } catch (e) {
+      console.warn(e.toString());
+    }
+  }
+
+  getProduct({bool showLoading = false, int? productId}) async {
+    try {
+      var res = await Api.get('/products/$productId');
+      console.log(res);
     } catch (e) {
       console.warn(e.toString());
     }

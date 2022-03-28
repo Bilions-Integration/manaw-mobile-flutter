@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/category_picker.dart';
 import 'package:my_app/components/input.dart';
@@ -9,13 +10,14 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_packages.dart';
+import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 import 'package:my_app/services/category_service.dart';
 
 class CreateProduct extends StatefulWidget {
   final String type;
   final int? productId;
 
-  const CreateProduct({Key? key, required this.type, this.productId})
+  CreateProduct({Key? key, required this.type, this.productId})
       : super(key: key);
 
   @override
@@ -25,6 +27,8 @@ class CreateProduct extends StatefulWidget {
 class _CreateProductState extends State<CreateProduct> {
   List<CategoryModel> categoryList = [];
   CategoryModel? selectedCategory;
+
+  final productController = Get.put(ProductController());
 
   Map params = {
     "name": "Hello",
@@ -39,11 +43,18 @@ class _CreateProductState extends State<CreateProduct> {
   };
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getProduct();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.dark,
-        title: Text(widget.type.toString() + " Product"),
+        title: Text(widget.type.capitalize.toString() + " Product"),
       ),
       body: Column(
         children: [
@@ -126,7 +137,7 @@ class _CreateProductState extends State<CreateProduct> {
     params['units'] = packages;
   }
 
-  _onNewImages(List<MultipartFile> newImages) {
+  _onNewImages(List<dio.MultipartFile> newImages) {
     setState(() {
       params['images'] = newImages;
     });
@@ -159,5 +170,12 @@ class _CreateProductState extends State<CreateProduct> {
     setState(() {
       params[column] = val;
     });
+  }
+
+  _getProduct() {
+    console.log('Get product run : ' + widget.productId.toString());
+    if (widget.productId != null) {
+      productController.getProduct(productId: widget.productId);
+    }
   }
 }

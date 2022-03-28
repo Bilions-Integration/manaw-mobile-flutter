@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart';
+import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class OptionsMenu {
+  final int? productId;
+  OptionsMenu({this.productId});
   final List<Options> options = [
     Options(
       name: "Edit",
@@ -56,7 +60,7 @@ class OptionsMenu {
                     padding:
                         const EdgeInsets.only(left: 20, right: 20, top: 10),
                     child: InkWell(
-                      onTap: () => handleOnTap(option.action),
+                      onTap: () => handleOnTap(option.action, productId),
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Row(
@@ -94,7 +98,15 @@ class OptionsMenu {
     );
   }
 
-  void handleOnTap(String action) {
+  void handleOnTap(String action, int? productId) {
     console.log('Handle On tap : ' + action);
+    switch (action) {
+      case 'edit':
+        Get.to(() => CreateProduct(
+              type: "edit",
+              productId: productId,
+            ));
+        break;
+    }
   }
 }

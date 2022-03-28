@@ -38,7 +38,7 @@ class MyPopup extends StatelessWidget {
     {
       "name": "Product",
       "icon": AppAssets.icProduct,
-      "onTap": () => {Get.to(() => const CreateProduct(type: 'single'))}
+      "onTap": () => {Get.to(() => CreateProduct(type: 'single'))}
     },
     {
       "name": "Category",
@@ -110,9 +110,14 @@ class MyPopup extends StatelessWidget {
                           padding: const EdgeInsets.all(30),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(9),
-                            border: Border.all(color: AppColors.borderColor, width: 1),
+                            border: Border.all(
+                                color: AppColors.borderColor, width: 1),
                           ),
-                          child: SizedBox(width: 25, height: 25, child: SvgPicture.asset(popupItems[index]["icon"])),
+                          child: SizedBox(
+                              width: 25,
+                              height: 25,
+                              child:
+                                  SvgPicture.asset(popupItems[index]["icon"])),
                         ),
                         const SizedBox(
                           width: 1,
