@@ -15,7 +15,8 @@ class CreateProduct extends StatefulWidget {
   final String type;
   final int? productId;
 
-  const CreateProduct({Key? key, required this.type, this.productId}) : super(key: key);
+  const CreateProduct({Key? key, required this.type, this.productId})
+      : super(key: key);
 
   @override
   State<CreateProduct> createState() => _CreateProductState();
@@ -98,9 +99,10 @@ class _CreateProductState extends State<CreateProduct> {
                         onChanged: _setParams,
                         label: 'Product Unit',
                       ),
-                      ProductPackages(
-                        onChanged: _setPackages,
-                      ),
+                      if (widget.type == 'edit')
+                        ProductPackages(
+                          onChanged: _setPackages,
+                        ),
                     ],
                   ),
                 ),
