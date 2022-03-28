@@ -9,3 +9,11 @@ class Options {
       required this.action,
       this.type});
 }
+
+class PopupItem {
+  final String name;
+  final String icon;
+  dynamic onTap;
+
+  PopupItem({required this.name, required this.icon, this.onTap});
+}
