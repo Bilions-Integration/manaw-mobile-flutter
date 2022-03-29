@@ -59,12 +59,15 @@ class MyTextInput extends StatelessWidget {
           TextFormField(
             maxLines: textarea ? 5 : 1,
             initialValue: '${value ?? ''}',
-            keyboardType: numberOnly == true ? TextInputType.number : TextInputType.text,
+            key: Key(value.toString()),
+            keyboardType:
+                numberOnly == true ? TextInputType.number : TextInputType.text,
             onChanged: _onChanged,
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.lightGrey,
-              contentPadding: EdgeInsets.symmetric(vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
               prefixIcon: icon != null ? Icon(icon) : null,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -96,7 +99,13 @@ class PasswordInput extends StatefulWidget {
   final String? column;
   final Function(String, String?) onChanged;
 
-  const PasswordInput({Key? key, this.column, required this.onChanged, required this.placeholder, required this.icon}) : super(key: key);
+  const PasswordInput(
+      {Key? key,
+      this.column,
+      required this.onChanged,
+      required this.placeholder,
+      required this.icon})
+      : super(key: key);
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();

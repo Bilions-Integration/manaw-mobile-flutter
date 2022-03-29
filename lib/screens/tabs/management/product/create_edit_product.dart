@@ -45,7 +45,6 @@ class _CreateProductState extends State<CreateProduct> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getProduct();
   }
@@ -173,22 +172,41 @@ class _CreateProductState extends State<CreateProduct> {
     });
   }
 
-  _getProduct() {
+  _getProduct() async {
     console.log('Get product run : ' + widget.productId.toString());
     if (widget.productId != null) {
-      productController.getProduct(productId: widget.productId);
-      Product? product = productController.product.value;
-      params = {
-        "name": product?.name,
-        "category_id": product?.categoryId,
-        "retail_price": product?.retailPrice,
-        "enable_selling": 1,
-        "barcode": product?.barcode,
-        "buy_price": product?.purchasePrice,
-        "images": product?.images,
-        "unit": product?.unit,
-        'units': product?.units
-      };
+      Product product =
+          await productController.getProduct(productId: widget.productId);
+      // Product? product = productController.product.value;
+      console.log('_getProduct : ');
+      console.log(product.name);
+      // setState(() {
+      //   params = {
+      //     "name": product?.name,
+      //     "category_id": product?.categoryId,
+      //     "retail_price": product?.retailPrice,
+      //     "enable_selling": 1,
+      //     "barcode": product?.barcode,
+      //     "buy_price": product?.purchasePrice,
+      //     "images": product?.images,
+      //     "unit": product?.unit,
+      //     'units': product?.units
+      //   };
+      // });
+
+      setState(() {
+        params = {
+          "name": product.name,
+          "category_id": product.categoryId,
+          "retail_price": product.retailPrice,
+          "enable_selling": 1,
+          "barcode": product.barcode,
+          "buy_price": product.purchasePrice,
+          "images": product.images,
+          "unit": product.unit,
+          'units': product.units
+        };
+      });
     }
   }
 }
