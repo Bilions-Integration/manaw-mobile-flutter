@@ -39,6 +39,7 @@ class _CreateProductState extends State<CreateProduct> {
     "barcode": null,
     "buy_price": null,
     "images": [],
+    "old_image": [],
     "unit": null,
     'units': []
   };
@@ -65,7 +66,10 @@ class _CreateProductState extends State<CreateProduct> {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      ProductImagePicker(onChanged: _onNewImages),
+                      ProductImagePicker(
+                        onChanged: _onNewImages,
+                        netImages: params['old_image'],
+                      ),
                       mb(2),
                       hr(),
                       mb(2),
@@ -177,24 +181,11 @@ class _CreateProductState extends State<CreateProduct> {
     if (widget.productId != null) {
       Product product =
           await productController.getProduct(productId: widget.productId);
-      // Product? product = productController.product.value;
       console.log('_getProduct : ');
       console.log(product.name);
-      // setState(() {
-      //   params = {
-      //     "name": product?.name,
-      //     "category_id": product?.categoryId,
-      //     "retail_price": product?.retailPrice,
-      //     "enable_selling": 1,
-      //     "barcode": product?.barcode,
-      //     "buy_price": product?.purchasePrice,
-      //     "images": product?.images,
-      //     "unit": product?.unit,
-      //     'units': product?.units
-      //   };
-      // });
 
       setState(() {
+        selectedCategory = product.category;
         params = {
           "name": product.name,
           "category_id": product.categoryId,
@@ -202,7 +193,7 @@ class _CreateProductState extends State<CreateProduct> {
           "enable_selling": 1,
           "barcode": product.barcode,
           "buy_price": product.purchasePrice,
-          "images": product.images,
+          "old_image": product.images,
           "unit": product.unit,
           'units': product.units
         };

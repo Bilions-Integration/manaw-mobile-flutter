@@ -8,7 +8,9 @@ import 'package:my_app/model/common_model.dart';
 
 class ProductImagePicker extends StatefulWidget {
   final Function(List<MultipartFile>) onChanged;
-  const ProductImagePicker({Key? key, required this.onChanged}) : super(key: key);
+  final List<dynamic>? netImages;
+  const ProductImagePicker({Key? key, required this.onChanged, this.netImages})
+      : super(key: key);
 
   @override
   State<ProductImagePicker> createState() => _ProductImagePickerState();
@@ -17,6 +19,14 @@ class ProductImagePicker extends StatefulWidget {
 class _ProductImagePickerState extends State<ProductImagePicker> {
   List<MyFile> pickedImages = [];
   List<MultipartFile> pickedBlobs = [];
+  List<dynamic> images = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    images = widget.netImages!;
+    console.log("images : " + images.length.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,9 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                 child: Container(
                   margin: const EdgeInsets.only(right: 5),
                   padding: const EdgeInsets.all(40),
-                  decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(
+                      color: AppColors.borderColor,
+                      borderRadius: BorderRadius.circular(10)),
                   child: const Icon(Icons.add_rounded),
                 ),
               ),
@@ -53,7 +65,9 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                           child: Container(
                             margin: const EdgeInsets.only(right: 5),
                             padding: const EdgeInsets.all(40),
-                            decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
+                            decoration: BoxDecoration(
+                                color: AppColors.borderColor,
+                                borderRadius: BorderRadius.circular(10)),
                             child: const Icon(Icons.add_rounded),
                           ),
                         ),
@@ -94,6 +108,14 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     setState(() {
       pickedImages = files;
       pickedBlobs = blobs;
+      files.forEach((element) {
+        console.log('Files: ');
+        console.log(element.toString());
+      });
+      blobs.forEach((element) {
+        console.log('Blob: ');
+        console.log(element.length);
+      });
     });
 
     widget.onChanged(blobs);
@@ -109,8 +131,12 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     List<MultipartFile> blobs = [...pickedBlobs];
 
     for (var image in images) {
-      final blob = await MultipartFile.fromFile(image.path, filename: image.name);
-      files = [MyFile(blob: blob, path: image.path, name: image.name), ...files];
+      final blob =
+          await MultipartFile.fromFile(image.path, filename: image.name);
+      files = [
+        MyFile(blob: blob, path: image.path, name: image.name),
+        ...files
+      ];
       blobs = [blob, ...blobs];
     }
 
