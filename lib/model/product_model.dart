@@ -5,6 +5,7 @@ class Product {
   int? index;
   final String name;
   final List<dynamic> images;
+  List<dynamic>? oldImages;
   final int instock;
   final int price;
   final String type;
@@ -29,11 +30,14 @@ class Product {
     required this.enableSelling,
     required this.categoryId,
     this.quantity = 1,
+    this.oldImages,
+    this.unit = '1 x Pcs',
   });
 
   Product.fromJson(Map json)
       : name = json['name'],
         images = json['images'],
+        oldImages = json['images'],
         productId = json['id'],
         instock = json['instock'] ?? 0,
         price = json['price'] ?? 0,
@@ -56,10 +60,14 @@ class Product {
         'product_id': productId,
         'id': productId,
         'images': images,
+        'old_images[]': oldImages,
         'instock': instock,
         'price': price,
+        'retail_price': price,
         'type': type,
         'units': units,
+        'unit': unit,
+        'category_id': categoryId,
         'enable_selling': enableSelling,
         'quantity': quantity,
         "discount": 0,

@@ -8,8 +8,8 @@ import 'package:my_app/model/common_model.dart';
 
 class ProductImagePicker extends StatefulWidget {
   final Function(List<MultipartFile>) onChanged;
-  final List<dynamic>? netImages;
-  const ProductImagePicker({Key? key, required this.onChanged, this.netImages})
+  // final List<dynamic>? netImages;
+  const ProductImagePicker({Key? key, required this.onChanged})
       : super(key: key);
 
   @override
@@ -23,9 +23,10 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
   @override
   void initState() {
     // TODO: implement initState
+    console.log('product image picker invoked : ');
     super.initState();
-    images = widget.netImages!;
-    console.log("images : " + images.length.toString());
+    // images = widget.netImages!;
+    // console.log("images : " + images.length.toString());
   }
 
   @override

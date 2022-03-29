@@ -41,4 +41,20 @@ class ProductController extends GetxController {
       rethrow;
     }
   }
+
+  Future<void> saveProduct(
+      {bool showLoading = false,
+      String type = 'create',
+      required Product product}) async {
+    String url = type == 'create'
+        ? '/products'
+        : '/products/' + product.productId.toString() + '?_method=PUT';
+    try {
+      var res = await Api.post(url,
+          data: product.toJson(), formData: true, showLoading: showLoading);
+      console.log("Post complete : " + res.toString());
+    } catch (e) {
+      console.warn(e.toString());
+    }
+  }
 }

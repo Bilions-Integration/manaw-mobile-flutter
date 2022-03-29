@@ -39,8 +39,10 @@ class _CreateProductState extends State<CreateProduct> {
     "barcode": null,
     "buy_price": null,
     "images": [],
-    "old_image": [],
+    "type": null,
+    "old_images": [],
     "unit": null,
+    'instock': null,
     'units': []
   };
 
@@ -68,7 +70,6 @@ class _CreateProductState extends State<CreateProduct> {
                     children: [
                       ProductImagePicker(
                         onChanged: _onNewImages,
-                        netImages: params['old_image'],
                       ),
                       mb(2),
                       hr(),
@@ -129,7 +130,11 @@ class _CreateProductState extends State<CreateProduct> {
             child: Container(
               color: AppColors.lightGrey,
               padding: const EdgeInsets.all(20),
-              child: PrimaryButton(value: 'CRATE PRODUCT', onPressed: () {}),
+              child: PrimaryButton(
+                  value: widget.type.toUpperCase() + ' PRODUCT',
+                  onPressed: () {
+                    _saveProduct();
+                  }),
             ),
           )
         ],
@@ -176,6 +181,41 @@ class _CreateProductState extends State<CreateProduct> {
     });
   }
 
+  _saveProduct() {
+    late Product product;
+    if (widget.type == 'create') {
+      console.log("params[retailprice] : " +
+          int.parse(params['retail_price']).runtimeType.toString());
+      product = Product(
+          productId: 0,
+          name: params['name'],
+          images: [],
+          instock: 0,
+          price: int.parse(params['retail_price']),
+          type: params['type'] ?? '',
+          unit: params['unit'],
+          units: params['units'],
+          enableSelling: params['enable_selling'] == 1 ? true : false,
+          categoryId: params['category_id']);
+      productController.saveProduct(product: product, type: widget.type);
+    } else {
+      product = Product(
+          productId: widget.productId!,
+          name: params['name'],
+          images: [],
+          oldImages: params['old_images'],
+          instock: params['instock'],
+          price: params['retail_price'],
+          type: params['type'],
+          units: params['units'],
+          unit: params['unit'],
+          enableSelling: params['enable_selling'] == 1 ? true : false,
+          categoryId: params['category_id']);
+      console.log('product update : ' + product.toString());
+      productController.saveProduct(product: product, type: widget.type);
+    }
+  }
+
   _getProduct() async {
     console.log('Get product run : ' + widget.productId.toString());
     if (widget.productId != null) {
@@ -193,10 +233,14 @@ class _CreateProductState extends State<CreateProduct> {
           "enable_selling": 1,
           "barcode": product.barcode,
           "buy_price": product.purchasePrice,
+          "type": product.type,
           "old_image": product.images,
+          'instock': product.instock,
           "unit": product.unit,
           'units': product.units
         };
+        console.log(
+            'setState old iamges : ' + params["old_image"].length.toString());
       });
     }
   }
