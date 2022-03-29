@@ -199,6 +199,8 @@ class _CreateProductState extends State<CreateProduct> {
           categoryId: params['category_id']);
       productController.saveProduct(product: product, type: widget.type);
     } else {
+      console.log(
+          "update old image ; " + params['old_images'].runtimeType.toString());
       product = Product(
           productId: widget.productId!,
           name: params['name'],
@@ -206,7 +208,7 @@ class _CreateProductState extends State<CreateProduct> {
           oldImages: params['old_images'],
           instock: params['instock'],
           price: params['retail_price'],
-          type: params['type'],
+          type: params['type'] ?? '',
           units: params['units'],
           unit: params['unit'],
           enableSelling: params['enable_selling'] == 1 ? true : false,
@@ -234,13 +236,13 @@ class _CreateProductState extends State<CreateProduct> {
           "barcode": product.barcode,
           "buy_price": product.purchasePrice,
           "type": product.type,
-          "old_image": product.images,
+          "old_images": product.images,
           'instock': product.instock,
           "unit": product.unit,
           'units': product.units
         };
         console.log(
-            'setState old iamges : ' + params["old_image"].length.toString());
+            'setState old iamges : ' + params["old_images"].length.toString());
       });
     }
   }

@@ -60,7 +60,7 @@ class Product {
         'product_id': productId,
         'id': productId,
         'images': images,
-        'old_images[]': oldImages,
+        'old_images': oldImages,
         'instock': instock,
         'price': price,
         'retail_price': price,

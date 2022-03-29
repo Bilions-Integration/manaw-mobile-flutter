@@ -22,6 +22,13 @@ class Api {
   static _convertFormData(data) {
     return FormData.fromMap(data);
   }
+  // TODO: transform old image data
+  // static _testDataIter({Map<String, dynamic>? data}) {
+  //   Map<String, dynamic> newData = data ?? {'hello': 'world'};
+  //   for (var i in newData.entries) {
+  //     console.log('Iter entries data: ' + i.key, payload: i.value.runtimeType);
+  //   }
+  // }
 
   // get method
   static Future<dynamic> get(
@@ -51,6 +58,7 @@ class Api {
   // post method
   static Future<dynamic> post(
     String url, {
+    // Map<String, dynamic>? data,
     dynamic data,
     bool formData = false,
     bool showLoading = true,
@@ -63,7 +71,9 @@ class Api {
       Dio dio = DioWrapper.init();
       if (formData) {
         data = _convertFormData(data);
+        // _testDataIter(data: data);
       }
+      return;
       var response = await dio.post(url, data: data);
       if (showLoading) {
         hideLoading();
