@@ -8,6 +8,7 @@ import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_create_sheet.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
+import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ManageProduct extends StatefulWidget {
@@ -28,7 +29,8 @@ class _ManageProductState extends State<ManageProduct> {
     super.initState();
     _reset();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         _loadMore();
       }
     });
@@ -48,13 +50,16 @@ class _ManageProductState extends State<ManageProduct> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 12, left: 12),
-                child: SvgPicture.asset(AppAssets.icSearch, color: AppColors.white),
+                child: SvgPicture.asset(AppAssets.icSearch,
+                    color: AppColors.white),
               ),
             ),
             IconButton(
               onPressed: () {
-                console.log('Action 2 pressed');
-                ProductCreateSheet().open();
+                // ProductCreateSheet().open();
+                Get.to(CreateProduct(
+                  type: 'create',
+                ));
               },
               icon: const Icon(Icons.add_rounded),
             ),
@@ -64,7 +69,8 @@ class _ManageProductState extends State<ManageProduct> {
           children: [
             CategorySelector(callback: _categoryChanged),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 20, bottom: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -101,7 +107,9 @@ class _ManageProductState extends State<ManageProduct> {
                   () => ListView(
                     controller: _scrollController,
                     children: [
-                      for (var item in productController.products.value.asMap().entries) ProductItem(product: item.value, index: item.key + 1),
+                      for (var item
+                          in productController.products.value.asMap().entries)
+                        ProductItem(product: item.value, index: item.key + 1),
                     ],
                   ),
                 ),
