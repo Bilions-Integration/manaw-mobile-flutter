@@ -11,7 +11,7 @@ class ProductController extends GetxController {
   var page = 1.obs;
   var limit = 20.obs;
 
-  getProducts({bool showLoading = false, dynamic category}) async {
+  Future<void> getProducts({bool showLoading = false, dynamic category}) async {
     try {
       if (category != null) {
         products.value = [];

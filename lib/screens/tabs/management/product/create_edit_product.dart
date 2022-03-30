@@ -223,7 +223,7 @@ class _CreateProductState extends State<CreateProduct> {
         .saveProduct(product: product, type: widget.type)
         .then((product) {
       if (widget.type == 'edit') {
-        Get.to(const ManageProduct());
+        Get.off(const ManageProduct());
         // Navigator.push(currentContext(),
         //     MaterialPageRoute(builder: (context) => ManageProduct()));
       } else if (widget.type == 'create') {

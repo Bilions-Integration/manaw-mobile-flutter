@@ -22,6 +22,7 @@ class ManageProduct extends StatefulWidget {
 
 class _ManageProductState extends State<ManageProduct> {
   final productController = Get.put(ProductController());
+  bool hasFinishedLoading = false;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -101,20 +102,17 @@ class _ManageProductState extends State<ManageProduct> {
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 5),
-                child: Obx(
-                  () => ListView(
-                    controller: _scrollController,
-                    children: [
-                      for (var item
-                          in productController.products.value.asMap().entries)
-                        ProductItem(product: item.value, index: item.key + 1),
-                    ],
-                  ),
-                ),
+                child: Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 5),
+              child: ListView(
+                controller: _scrollController,
+                children: [
+                  for (var item
+                      in productController.products.value.asMap().entries)
+                    ProductItem(product: item.value, index: item.key + 1),
+                ],
               ),
-            ),
+            )),
           ],
         ));
   }
@@ -122,12 +120,20 @@ class _ManageProductState extends State<ManageProduct> {
   _reset() {
     productController.page.value = 1;
     productController.products.value = [];
-    productController.getProducts();
+    productController.getProducts().then((value) {
+      setState(() {
+        hasFinishedLoading = true;
+      });
+    });
   }
 
   _loadMore() {
     productController.page.value++;
-    productController.getProducts();
+    productController.getProducts().then((value) {
+      setState(() {
+        hasFinishedLoading = true;
+      });
+    });
   }
 
   _categoryChanged(CategoryModel category) {
