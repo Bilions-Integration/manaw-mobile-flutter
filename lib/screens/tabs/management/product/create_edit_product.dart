@@ -45,6 +45,7 @@ class _CreateProductState extends State<CreateProduct> {
     'instock': null,
     'units': []
   };
+  String productName = '';
 
   @override
   void initState() {
@@ -67,6 +68,7 @@ class _CreateProductState extends State<CreateProduct> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
+                    key: ValueKey<String>(productName),
                     children: [
                       ProductImagePicker(
                         onChanged: _onNewImages,
@@ -227,6 +229,7 @@ class _CreateProductState extends State<CreateProduct> {
       console.log(product.name);
 
       setState(() {
+        productName = product.name;
         selectedCategory = product.category;
         params = {
           "name": product.name,

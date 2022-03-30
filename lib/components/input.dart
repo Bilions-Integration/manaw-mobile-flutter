@@ -59,7 +59,7 @@ class MyTextInput extends StatelessWidget {
           TextFormField(
             maxLines: textarea ? 5 : 1,
             initialValue: '${value ?? ''}',
-            key: Key(value.toString()),
+            // key: Key(value.toString()),
             keyboardType:
                 numberOnly == true ? TextInputType.number : TextInputType.text,
             onChanged: _onChanged,
