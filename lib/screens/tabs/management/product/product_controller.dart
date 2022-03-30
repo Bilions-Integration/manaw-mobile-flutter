@@ -52,6 +52,18 @@ class ProductController extends GetxController {
     try {
       var res = await Api.post(url,
           data: product.toJson(), formData: true, showLoading: showLoading);
+      console.log('type of productId', payload: res['data']['id'].runtimeType);
+      console.log('type of index', payload: res['data']['index'].runtimeType);
+      console.log('type of instock',
+          payload: res['data']['instock'].runtimeType);
+      console.log('type of retail_price',
+          payload: res['data']['retail_price'].runtimeType);
+      console.log('type of buy_price',
+          payload: res['data']['buy_price'].runtimeType);
+      console.log('type of category_id',
+          payload: res['data']['category_id'].runtimeType);
+      console.log('type of quantity',
+          payload: res['data']['quantity'].runtimeType);
       return Product.fromJson(res['data']);
       // console.log("Post complete : " + res.toString());
     } catch (e) {

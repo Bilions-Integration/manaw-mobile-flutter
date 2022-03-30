@@ -14,7 +14,7 @@ class Product {
   dynamic retailPrice;
   int? purchasePrice;
   String? barcode;
-  final int categoryId;
+  final int? categoryId;
   CategoryModel? category;
   String? unit;
   int quantity;
@@ -43,7 +43,7 @@ class Product {
         price = json['price'] ?? 0,
         retailPrice = json['retail_price'] ?? '',
         purchasePrice = json['buy_price'],
-        categoryId = json['category_id'] ?? 0,
+        categoryId = int.parse(json['category_id']),
         category = json['category'] != null
             ? CategoryModel.fromJson(json['category'])
             : null,
