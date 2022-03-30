@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/category_picker.dart';
@@ -11,6 +12,7 @@ import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_packages.dart';
+import 'package:my_app/screens/tabs/management/product/manage_product.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 import 'package:my_app/services/category_service.dart';
 
@@ -199,7 +201,6 @@ class _CreateProductState extends State<CreateProduct> {
           units: params['units'],
           enableSelling: params['enable_selling'] == 1 ? true : false,
           categoryId: params['category_id']);
-      productController.saveProduct(product: product, type: widget.type);
     } else {
       console.log(
           "update old image ; " + params['old_images'].runtimeType.toString());
@@ -216,8 +217,22 @@ class _CreateProductState extends State<CreateProduct> {
           enableSelling: params['enable_selling'] == 1 ? true : false,
           categoryId: params['category_id']);
       console.log('product update : ' + product.toString());
-      productController.saveProduct(product: product, type: widget.type);
     }
+
+    productController
+        .saveProduct(product: product, type: widget.type)
+        .then((product) {
+      if (widget.type == 'edit') {
+        Get.to(const ManageProduct());
+        // Navigator.push(currentContext(),
+        //     MaterialPageRoute(builder: (context) => ManageProduct()));
+      } else if (widget.type == 'create') {
+        Get.to(CreateProduct(
+          type: 'edit',
+          productId: product.productId,
+        ));
+      }
+    }).catchError((e) {});
   }
 
   _getProduct() async {

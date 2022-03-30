@@ -42,7 +42,7 @@ class ProductController extends GetxController {
     }
   }
 
-  Future<void> saveProduct(
+  Future<Product> saveProduct(
       {bool showLoading = false,
       String type = 'create',
       required Product product}) async {
@@ -52,9 +52,11 @@ class ProductController extends GetxController {
     try {
       var res = await Api.post(url,
           data: product.toJson(), formData: true, showLoading: showLoading);
-      console.log("Post complete : " + res.toString());
+      return Product.fromJson(res['data']);
+      // console.log("Post complete : " + res.toString());
     } catch (e) {
       console.warn(e.toString());
+      return product;
     }
   }
 }
