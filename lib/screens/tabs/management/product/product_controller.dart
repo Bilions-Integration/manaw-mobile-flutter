@@ -38,6 +38,7 @@ class ProductController extends GetxController {
       final resProduct = Product.fromJson(res['data']);
       return resProduct;
     } catch (e) {
+      inspect(e);
       console.warn(e.toString());
       rethrow;
     }

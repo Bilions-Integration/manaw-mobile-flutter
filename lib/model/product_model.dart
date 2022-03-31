@@ -42,10 +42,10 @@ class Product {
         oldImages = json['images'],
         productId = json['id'],
         instock = json['instock'] ?? 0,
-        price = json['price'] ?? json['retail_price'] ?? 0,
+        price = json['price'] ?? 0,
         retailPrice = json['retail_price'] ?? 0,
         buyPrice = json['buy_price'],
-        categoryId = int.tryParse(json['category_id'] ?? ''),
+        categoryId = json['category_id'],
         category = json['category'] != null
             ? CategoryModel.fromJson(json['category'])
             : null,
