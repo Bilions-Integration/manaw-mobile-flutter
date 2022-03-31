@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -21,12 +23,21 @@ class POSController extends GetxController {
         "category": category,
       });
       final resProducts = res['data']['data'];
+      console.log("resproducts : ", payload: resProducts);
+      (resProducts as List).map((e) {
+        var emap = (e as Map);
+        for (var i in emap.entries) {
+          console.log(i.key.toString(), payload: i.value);
+          // console.log('type', payload: i.value.runtimeType);
+        }
+        return e;
+      }).toList();
       final mapProducts =
           (resProducts as List).map((e) => Product.fromJson(e as Map)).toList();
-
+      console.log("mapProducts : ", payload: mapProducts);
       products.value = [...products.value, ...mapProducts];
     } catch (e) {
-      console.log(e.toString());
+      inspect(e);
     }
   }
 }

@@ -252,7 +252,7 @@ class _CreateProductState extends State<CreateProduct> {
           "retail_price": product.retailPrice,
           "enable_selling": 1,
           "barcode": product.barcode,
-          "buy_price": product.purchasePrice,
+          "buy_price": product.buyPrice,
           "type": product.type,
           "old_images": product.images,
           'instock': product.instock,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
@@ -27,7 +28,7 @@ class ProductController extends GetxController {
           .toList();
       products.value = [...products.value, ...resProducts];
     } catch (e) {
-      console.warn(e.toString());
+      inspect(e);
     }
   }
 
