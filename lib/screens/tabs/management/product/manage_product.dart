@@ -127,12 +127,15 @@ class _ManageProductState extends State<ManageProduct> {
   }
 
   _loadMore() {
-    productController.page.value++;
-    productController.getProducts().then((value) {
-      setState(() {
-        hasFinishedLoading = true;
+    if (productController.total.value >
+        productController.products.value.length) {
+      productController.page.value++;
+      productController.getProducts().then((value) {
+        setState(() {
+          hasFinishedLoading = true;
+        });
       });
-    });
+    }
   }
 
   _categoryChanged(CategoryModel category) {

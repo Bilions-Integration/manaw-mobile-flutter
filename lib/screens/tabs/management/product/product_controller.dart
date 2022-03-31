@@ -10,7 +10,8 @@ class ProductController extends GetxController {
   var products = Rx<List<Product>>([]);
 
   var page = 1.obs;
-  var limit = 20.obs;
+  var limit = 10.obs;
+  var total = 0.obs;
 
   Future<void> getProducts({bool showLoading = false, dynamic category}) async {
     try {
@@ -23,6 +24,7 @@ class ProductController extends GetxController {
         'limit': limit.value,
         'category': category,
       });
+      total.value = res['data']['total'];
       final resProducts = (res['data']['data'] as List)
           .map((e) => Product.fromJson(e as Map))
           .toList();
