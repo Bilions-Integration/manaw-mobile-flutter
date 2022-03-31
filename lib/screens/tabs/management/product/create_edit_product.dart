@@ -188,29 +188,29 @@ class _CreateProductState extends State<CreateProduct> {
   _saveProduct() {
     late Product product;
     if (widget.type == 'create') {
-      console.log("params[retailprice] : " +
-          int.parse(params['retail_price']).runtimeType.toString());
       product = Product(
           productId: 0,
           name: params['name'],
           images: [],
           instock: 0,
           price: int.parse(params['retail_price']),
+          buyPrice: int.parse(params['buy_price']),
+          barcode: params['barcode'],
           type: params['type'] ?? '',
           unit: params['unit'],
           units: params['units'],
           enableSelling: params['enable_selling'] == 1 ? true : false,
           categoryId: params['category_id']);
     } else {
-      console.log(
-          "update old image ; " + params['old_images'].runtimeType.toString());
       product = Product(
           productId: widget.productId!,
           name: params['name'],
           images: [],
           oldImages: params['old_images'],
           instock: params['instock'],
-          price: params['retail_price'],
+          price: int.parse(params['retail_price']),
+          buyPrice: int.parse(params['buy_price']),
+          barcode: params['barcode'],
           type: params['type'] ?? '',
           units: params['units'],
           unit: params['unit'],
@@ -218,14 +218,11 @@ class _CreateProductState extends State<CreateProduct> {
           categoryId: params['category_id']);
       console.log('product update : ' + product.toString());
     }
-
     productController
         .saveProduct(product: product, type: widget.type)
         .then((product) {
       if (widget.type == 'edit') {
         Get.off(const ManageProduct());
-        // Navigator.push(currentContext(),
-        //     MaterialPageRoute(builder: (context) => ManageProduct()));
       } else if (widget.type == 'create') {
         Get.to(CreateProduct(
           type: 'edit',
@@ -236,31 +233,31 @@ class _CreateProductState extends State<CreateProduct> {
   }
 
   _getProduct() async {
-    console.log('Get product run : ' + widget.productId.toString());
     if (widget.productId != null) {
-      Product product =
-          await productController.getProduct(productId: widget.productId);
-      console.log('_getProduct : ');
-      console.log(product.name);
-
-      setState(() {
-        productName = product.name;
-        selectedCategory = product.category;
-        params = {
-          "name": product.name,
-          "category_id": product.categoryId,
-          "retail_price": product.retailPrice,
-          "enable_selling": 1,
-          "barcode": product.barcode,
-          "buy_price": product.buyPrice,
-          "type": product.type,
-          "old_images": product.images,
-          'instock': product.instock,
-          "unit": product.unit,
-          'units': product.units
-        };
-        console.log(
-            'setState old iamges : ' + params["old_images"].length.toString());
+      productController.getProduct(productId: widget.productId).then((product) {
+        setState(() {
+          productName = product.name;
+          selectedCategory = product.category;
+          params = {
+            "name": product.name,
+            "category_id": product.categoryId,
+            "retail_price": product.retailPrice,
+            "enable_selling": 1,
+            "barcode": product.barcode,
+            "buy_price": product.buyPrice,
+            "type": product.type,
+            "old_images": product.images,
+            'instock': product.instock,
+            "unit": product.unit,
+            'units': product.units
+          };
+          console.log('setState old iamges : ' +
+              params["old_images"].length.toString());
+        });
+        return product;
+      }).catchError((e) {
+        console.log(e.toString());
+        return Product.emptyProduct();
       });
     }
   }

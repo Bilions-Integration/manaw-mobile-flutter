@@ -16,7 +16,7 @@ class Product {
   final String type;
   final List units;
   String? unit;
-  final int? categoryId;
+  dynamic categoryId;
   CategoryModel? category;
   int quantity;
 
@@ -27,6 +27,8 @@ class Product {
     required this.instock,
     required this.price,
     this.retailPrice,
+    this.buyPrice,
+    this.barcode,
     required this.type,
     required this.units,
     required this.enableSelling,
@@ -55,6 +57,18 @@ class Product {
         quantity = json['quantity'] ?? 1,
         units = json['units'] ?? [],
         unit = json['unit'];
+
+  Product.emptyProduct()
+      : productId = 0,
+        name = '',
+        images = [],
+        instock = 0,
+        price = 0,
+        type = 'single',
+        units = [],
+        enableSelling = false,
+        categoryId = 0,
+        quantity = 1;
 
   Map<String, dynamic> toJson() => {
         'index': index,
