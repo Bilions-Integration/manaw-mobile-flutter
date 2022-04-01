@@ -60,7 +60,10 @@ class OptionsMenu {
                     padding:
                         const EdgeInsets.only(left: 20, right: 20, top: 10),
                     child: InkWell(
-                      onTap: () => handleOnTap(option.action, productId),
+                      onTap: () => {
+                        Navigator.pop(context),
+                        handleOnTap(option.action, productId)
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Row(

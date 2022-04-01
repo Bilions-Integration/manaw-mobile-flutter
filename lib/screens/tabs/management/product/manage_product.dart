@@ -27,6 +27,7 @@ class _ManageProductState extends State<ManageProduct> {
   @override
   void initState() {
     super.initState();
+    console.log("manage product init state");
     _reset();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==

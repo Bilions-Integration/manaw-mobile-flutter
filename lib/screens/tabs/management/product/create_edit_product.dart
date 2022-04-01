@@ -227,7 +227,7 @@ class _CreateProductState extends State<CreateProduct> {
       console.log('product update : ' + product.toString());
     }
     productController
-        .saveProduct(product: product, type: widget.type)
+        .saveProduct(product: product, type: widget.type, showLoading: true)
         .then((product) {
       if (widget.type == 'edit') {
         Get.back();
