@@ -181,7 +181,11 @@ class _CreateProductState extends State<CreateProduct> {
 
   _setParams(val, String? column) {
     setState(() {
-      params[column] = val;
+      if (column == 'retail_price' || column == 'buy_price') {
+        params[column] = int.parse(val);
+      } else {
+        params[column] = val;
+      }
     });
   }
 
@@ -193,8 +197,8 @@ class _CreateProductState extends State<CreateProduct> {
           name: params['name'],
           images: [],
           instock: 0,
-          price: int.parse(params['retail_price']),
-          buyPrice: int.tryParse(params['buy_price'] ?? ''),
+          price: params['retail_price'],
+          buyPrice: params['buy_price'],
           barcode: params['barcode'],
           type: params['type'] ?? '',
           unit: params['unit'],
@@ -208,8 +212,8 @@ class _CreateProductState extends State<CreateProduct> {
           images: [],
           oldImages: params['old_images'],
           instock: params['instock'],
-          price: int.parse(params['retail_price']),
-          buyPrice: int.tryParse(params['buy_price'] ?? ''),
+          price: params['retail_price'],
+          buyPrice: params['buy_price'],
           barcode: params['barcode'],
           type: params['type'] ?? '',
           units: params['units'],
@@ -222,12 +226,14 @@ class _CreateProductState extends State<CreateProduct> {
         .saveProduct(product: product, type: widget.type)
         .then((product) {
       if (widget.type == 'edit') {
-        Get.off(const ManageProduct());
+        Get.back();
+        // Get.off(const ManageProduct());
       } else if (widget.type == 'create') {
-        Get.to(CreateProduct(
-          type: 'edit',
-          productId: product.productId,
-        ));
+        Get.back();
+        // Get.to(CreateProduct(
+        //   type: 'edit',
+        //   productId: product.productId,
+        // ));
       }
     }).catchError((e) {});
   }
