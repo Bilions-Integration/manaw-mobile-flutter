@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/category_picker.dart';
 import 'package:my_app/components/input.dart';
+import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/components/select_box.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -47,7 +48,7 @@ class _CreateProductState extends State<CreateProduct> {
     'instock': null,
     'units': []
   };
-  String productName = '';
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -62,87 +63,90 @@ class _CreateProductState extends State<CreateProduct> {
         backgroundColor: AppColors.dark,
         title: Text(widget.type.capitalize.toString() + " Product"),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
+      body: isLoading
+          ? const Center(
+              child: LoadingWidget(),
+            )
+          : Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    key: ValueKey<String>(productName),
+                Expanded(
+                  child: ListView(
                     children: [
-                      ProductImagePicker(
-                        onChanged: _onNewImages,
-                      ),
-                      mb(2),
-                      hr(),
-                      mb(2),
-                      MyTextInput(
-                        value: params['name'],
-                        column: 'name',
-                        placeholder: 'Enter Product Name',
-                        onChanged: _setParams,
-                        label: 'Product Name *',
-                      ),
-                      MyTextInput(
-                        column: 'retail_price',
-                        value: params['retail_price'],
-                        placeholder: '0',
-                        onChanged: _setParams,
-                        label: 'Sale Price *',
-                      ),
-                      SelectBox(
-                        placeholder: 'Select Category',
-                        label: 'Category',
-                        value: selectedCategory?.name,
-                        onClick: _showCategoryPicker,
-                      ),
-                      MyTextInput(
-                        value: params['barcode'],
-                        column: 'barcode',
-                        placeholder: 'ABC-1234567890',
-                        onChanged: _setParams,
-                        label: 'Barcode',
-                      ),
-                      MyTextInput(
-                        column: 'buy_price',
-                        value: params['buy_price'],
-                        placeholder: '0',
-                        onChanged: _setParams,
-                        label: 'Purchase Price',
-                      ),
-                      MyTextInput(
-                        column: 'unit',
-                        value: params['unit'],
-                        placeholder: 'pcs',
-                        onChanged: _setParams,
-                        label: 'Product Unit',
-                      ),
-                      if (widget.type == 'edit')
-                        ProductPackages(
-                          onChanged: _setPackages,
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            ProductImagePicker(
+                              onChanged: _onNewImages,
+                            ),
+                            mb(2),
+                            hr(),
+                            mb(2),
+                            MyTextInput(
+                              value: params['name'],
+                              column: 'name',
+                              placeholder: 'Enter Product Name',
+                              onChanged: _setParams,
+                              label: 'Product Name *',
+                            ),
+                            MyTextInput(
+                              column: 'retail_price',
+                              value: params['retail_price'],
+                              placeholder: '0',
+                              onChanged: _setParams,
+                              label: 'Sale Price *',
+                            ),
+                            SelectBox(
+                              placeholder: 'Select Category',
+                              label: 'Category',
+                              value: selectedCategory?.name,
+                              onClick: _showCategoryPicker,
+                            ),
+                            MyTextInput(
+                              value: params['barcode'],
+                              column: 'barcode',
+                              placeholder: 'ABC-1234567890',
+                              onChanged: _setParams,
+                              label: 'Barcode',
+                            ),
+                            MyTextInput(
+                              column: 'buy_price',
+                              value: params['buy_price'],
+                              placeholder: '0',
+                              onChanged: _setParams,
+                              label: 'Purchase Price',
+                            ),
+                            MyTextInput(
+                              column: 'unit',
+                              value: params['unit'],
+                              placeholder: 'pcs',
+                              onChanged: _setParams,
+                              label: 'Product Unit',
+                            ),
+                            if (widget.type == 'edit')
+                              ProductPackages(
+                                onChanged: _setPackages,
+                              ),
+                          ],
                         ),
+                      ),
                     ],
                   ),
                 ),
+                Material(
+                  elevation: 20,
+                  child: Container(
+                    color: AppColors.lightGrey,
+                    padding: const EdgeInsets.all(20),
+                    child: PrimaryButton(
+                        value: widget.type.toUpperCase() + ' PRODUCT',
+                        onPressed: () {
+                          _saveProduct();
+                        }),
+                  ),
+                )
               ],
             ),
-          ),
-          Material(
-            elevation: 20,
-            child: Container(
-              color: AppColors.lightGrey,
-              padding: const EdgeInsets.all(20),
-              child: PrimaryButton(
-                  value: widget.type.toUpperCase() + ' PRODUCT',
-                  onPressed: () {
-                    _saveProduct();
-                  }),
-            ),
-          )
-        ],
-      ),
     );
   }
 
@@ -242,7 +246,6 @@ class _CreateProductState extends State<CreateProduct> {
     if (widget.productId != null) {
       productController.getProduct(productId: widget.productId).then((product) {
         setState(() {
-          productName = product.name;
           selectedCategory = product.category;
           params = {
             "name": product.name,
@@ -259,6 +262,7 @@ class _CreateProductState extends State<CreateProduct> {
           };
           console.log('setState old iamges : ' +
               params["old_images"].length.toString());
+          isLoading = false;
         });
         return product;
       }).catchError((e) {
