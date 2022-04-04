@@ -9,9 +9,11 @@ import 'package:my_app/screens/tabs/management/product/components/options_menu.d
 class ProductItem extends StatefulWidget {
   final ProductDetail product;
   final int index;
+  final Function handler;
   const ProductItem({
     Key? key,
     required this.product,
+    required this.handler,
     required this.index,
   }) : super(key: key);
 
@@ -34,7 +36,9 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        OptionsMenu(productId: widget.product.productId).open();
+        OptionsMenu(
+                productId: widget.product.productId, handler: widget.handler)
+            .open();
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10, top: (widget.index == 1) ? 0 : 10),

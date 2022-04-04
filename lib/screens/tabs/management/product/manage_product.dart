@@ -113,14 +113,32 @@ class _ManageProductState extends State<ManageProduct> {
                               .asMap()
                               .entries)
                             ProductItem(
-                                product: item.value, index: item.key + 1),
+                              product: item.value,
+                              index: item.key + 1,
+                              handler: _handleNavigation,
+                            ),
                         ],
                       ),
                     ),
                   )
-                : LoadingWidget(),
+                : const LoadingWidget(),
           ],
         ));
+  }
+
+  _handleNavigation(String action, int? productId) {
+    console.log('Handle On tap : ' + action);
+    switch (action) {
+      case 'edit':
+        Get.to(() => CreateProduct(
+              type: "edit",
+              productId: productId,
+            ))?.then((value) {
+          _reset();
+          console.log("navigaton back : ", payload: value);
+        });
+        break;
+    }
   }
 
   _reset() {

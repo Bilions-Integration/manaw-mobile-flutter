@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -22,7 +24,7 @@ class CreateProduct extends StatefulWidget {
   final String type;
   final int? productId;
 
-  CreateProduct({Key? key, required this.type, this.productId})
+  const CreateProduct({Key? key, required this.type, this.productId})
       : super(key: key);
 
   @override
@@ -156,7 +158,12 @@ class _CreateProductState extends State<CreateProduct> {
   }
 
   _onNewImages(List<dio.MultipartFile> newImages) {
+    List oldImages = (params['old_images'] as List);
     setState(() {
+      oldImages.isNotEmpty
+          ? oldImages.removeWhere(
+              (element) => element.toString().contains('placeholder.png'))
+          : null;
       params['images'] = newImages;
     });
   }
@@ -201,7 +208,7 @@ class _CreateProductState extends State<CreateProduct> {
       product = ProductDetail(
           productId: 0,
           name: params['name'],
-          images: [],
+          images: params['images'] ?? [],
           instock: 0,
           retailPrice: params['retail_price'],
           buyPrice: params['buy_price'],
@@ -215,7 +222,7 @@ class _CreateProductState extends State<CreateProduct> {
       product = ProductDetail(
           productId: widget.productId!,
           name: params['name'],
-          images: [],
+          images: params['images'] ?? [],
           oldImages: params['old_images'],
           instock: params['instock'],
           retailPrice: params['retail_price'],

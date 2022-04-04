@@ -80,7 +80,7 @@ class ProductDetail {
         'name': name,
         'product_id': productId,
         'id': productId,
-        'images': images,
+        'images[]': images,
         'old_images[]': oldImages,
         'instock': instock,
         'retail_price': retailPrice,

@@ -7,10 +7,12 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
+import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class OptionsMenu {
   final int? productId;
-  OptionsMenu({this.productId});
+  final Function handler;
+  OptionsMenu({this.productId, required this.handler});
   final List<Options> options = [
     Options(
       name: "Edit",
@@ -62,7 +64,7 @@ class OptionsMenu {
                     child: InkWell(
                       onTap: () => {
                         Navigator.pop(context),
-                        handleOnTap(option.action, productId)
+                        handler(option.action, productId)
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -99,17 +101,5 @@ class OptionsMenu {
         );
       },
     );
-  }
-
-  void handleOnTap(String action, int? productId) {
-    console.log('Handle On tap : ' + action);
-    switch (action) {
-      case 'edit':
-        Get.to(() => CreateProduct(
-              type: "edit",
-              productId: productId,
-            ));
-        break;
-    }
   }
 }
