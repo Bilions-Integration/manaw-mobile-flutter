@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
@@ -16,14 +17,13 @@ class CreateNewPopup {
     final context = currentContext();
     showModalBottomSheet(
         context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+        shape: Styles.topOnlyBorderRadius(15),
         builder: (builder) {
           return Container(
-              height: MediaQuery.of(context).size.height - 150,
-              padding: MediaQuery.of(context).viewInsets,
-              child: MyPopup(context: context));
+            height: MediaQuery.of(context).size.height * 0.55,
+            padding: MediaQuery.of(context).viewInsets,
+            child: MyPopup(context: context),
+          );
         });
   }
 }
@@ -34,18 +34,26 @@ class MyPopup extends StatelessWidget {
     Key? key,
     required this.context,
   }) : super(key: key);
-  static const List<Map> popupItems = [
-    {"name": "Product", "icon": AppAssets.icProduct, "page": CreateProduct()},
+  static List<Map> popupItems = [
+    {
+      "name": "Product",
+      "icon": AppAssets.icProduct,
+      "onTap": () => {Get.to(() => const CreateProduct(type: 'single'))}
+    },
     {
       "name": "Category",
       "icon": AppAssets.icCategory,
-      "page": CreateCategory()
+      "onTap": () => {Get.to(() => const CreateCategory())},
     },
-    {"name": "Invoice", "icon": AppAssets.icInvoice, "page": CreateInvoice()},
+    {
+      "name": "Invoice",
+      "icon": AppAssets.icInvoice,
+      "onTap": () => {Get.to(() => const CreateInvoice())},
+    },
     {
       "name": "Discount",
       "icon": AppAssets.icDiscount,
-      "page": CreateDiscount()
+      "onTap": () => {Get.to(() => const CreateDiscount())},
     },
   ];
 
@@ -53,7 +61,6 @@ class MyPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        bottom: 30,
         top: 7,
         left: 10,
         right: 10,
@@ -85,24 +92,27 @@ class MyPopup extends StatelessWidget {
             height: 300,
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 2 / 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20),
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 2 / 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
-                    onTap: () => {Get.to(popupItems[index]["page"])},
+                    onTap: () {
+                      Navigator.pop(context);
+                      popupItems[index]["onTap"]();
+                    },
                     child: Column(
                       children: [
                         Container(
                           padding: const EdgeInsets.all(30),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(9),
-                            border: Border.all(
-                                color: AppColors.borderColor, width: 1),
+                            border: Border.all(color: AppColors.borderColor, width: 1),
                           ),
-                          child: SvgPicture.asset(popupItems[index]["icon"]),
+                          child: SizedBox(width: 25, height: 25, child: SvgPicture.asset(popupItems[index]["icon"])),
                         ),
                         const SizedBox(
                           width: 1,
@@ -113,7 +123,7 @@ class MyPopup extends StatelessWidget {
                     ),
                   );
                 }),
-          )
+          ),
         ],
       ),
     );

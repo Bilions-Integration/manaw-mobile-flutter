@@ -71,21 +71,20 @@ class SecondaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: 50,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
+      width: double.infinity,
+      height: height,
+      child: MaterialButton(
+        elevation: 0,
+        color: AppColors.lightGrey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
         onPressed: () => {disabled ? null : onPressed()},
         child: child ??
             Text(
-              value,
+              value.toUpperCase(),
               style: TextStyle(
-                color: AppColors.dark,
-                fontWeight: FontWeight.bold,
+                color: AppColors.black,
               ),
             ),
       ),

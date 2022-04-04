@@ -10,7 +10,9 @@ class CustomerService {
           "keyword": keyword,
         },
         showLoading: false);
-    List<CustomerModel> categories = (res["data"]["customers"] as List).map((e) => CustomerModel.fromJson(e)).toList();
+    List<CustomerModel> categories = (res["data"]["customers"] as List)
+        .map((e) => CustomerModel.fromJson(e))
+        .toList();
 
     final result = [CustomerModel(name: 'No Customer', id: null, image: null)];
     return [...result, ...categories];

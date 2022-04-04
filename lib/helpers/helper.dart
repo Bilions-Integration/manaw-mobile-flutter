@@ -1,9 +1,8 @@
 // ignore_for_file: camel_case_types
-
-import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
@@ -13,17 +12,15 @@ import 'package:my_app/helpers/current_context.dart';
 import 'dart:core';
 
 class console {
-  static log(dynamic text, {dynamic payload}) {
-    final fimber = FimberLog('');
-    fimber.d('🔥🔥🔥 ===================');
-    fimber.d(text.toString(), stacktrace: StackTrace.fromString(payload.toString()));
-    fimber.d('END');
+  static log(dynamic text, {dynamic payload = ''}) {
+    var logger = Logger(printer: PrettyPrinter(colors: true, methodCount: 0));
+    logger.d("${text.toString()} \n ${payload.toString()}");
   }
 
   static warn(dynamic text, {dynamic payload}) {
-    final fimber = FimberLog('');
-    fimber.d(text);
-    fimber.d('', ex: payload);
+    final logger = Logger();
+    logger.d(text.toString());
+    logger.d(payload.toString());
   }
 }
 
@@ -36,12 +33,15 @@ currency() {
   return auth.user.value?.company.currency.toString() ?? '';
 }
 
-String cast(dynamic number) {
-  if (number >= 1000) {
-    var formatter = NumberFormat('#,##,000');
-    return formatter.format(number);
+String cast(dynamic input) {
+  if (input.toString().isEmpty) {
+    return '0';
   }
-  return number.toString();
+  String number = input.toString();
+  num fixedNumber = num.parse(num.parse(number).toStringAsFixed(2));
+  var formatter = NumberFormat('#,###,###.##');
+  dynamic result = formatter.format(fixedNumber);
+  return result.toString();
 }
 
 logo(double? width) {
@@ -51,8 +51,9 @@ logo(double? width) {
   );
 }
 
-hr() {
-  return Padding(
+hr({double height = 0}) {
+  return Container(
+    margin: EdgeInsets.only(bottom: height, top: height),
     padding: const EdgeInsets.only(left: 3, right: 3),
     child: Container(
       height: 0,
@@ -101,16 +102,18 @@ Widget borderRadiusCard(radius, child, {double border = 0}) {
     child: child,
     decoration: BoxDecoration(
       border: Border.all(color: AppColors.borderColor, width: border),
-      color: AppColors.lightGrey,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(10),
     ),
   );
 }
 
-loading({String? title}) {
+loading({String? title}) async {
+  await Future.delayed(const Duration(milliseconds: 50));
   final context = currentContext();
   showDialog(
     context: context,
+    useRootNavigator: true,
     barrierDismissible: false,
     builder: (context) => LoadingWidget(
       title: title,

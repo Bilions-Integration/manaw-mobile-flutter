@@ -39,19 +39,23 @@ class _BottomTabState extends State<BottomTab> {
       showUnselectedLabels: true,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.pos, width: 10, height: 10, color: _getColor(0)),
+          icon: SvgPicture.asset(AppAssets.pos,
+              width: 20, height: 20, color: _getColor(0)),
           label: 'POS',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.dashboard, width: 20, height: 20, color: _getColor(1)),
+          icon: SvgPicture.asset(AppAssets.dashboard,
+              width: 20, height: 20, color: _getColor(1)),
           label: 'Dashboard',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.manage, width: 20, height: 20, color: _getColor(2)),
+          icon: SvgPicture.asset(AppAssets.manage,
+              width: 20, height: 20, color: _getColor(2)),
           label: 'Manage',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.profile, width: 20, height: 20, color: _getColor(3)),
+          icon: SvgPicture.asset(AppAssets.profile,
+              width: 20, height: 20, color: _getColor(3)),
           label: 'Profile',
         ),
       ],

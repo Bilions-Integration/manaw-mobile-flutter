@@ -97,7 +97,9 @@ class _CustomerListViewState extends State<CustomerListView> {
               height: 6,
               width: 50,
               child: Container(
-                decoration: BoxDecoration(color: AppColors.dark, borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                    color: AppColors.dark,
+                    borderRadius: BorderRadius.circular(10)),
               ),
             ),
             AppWidget.marginBottom(1),
@@ -115,7 +117,9 @@ class _CustomerListViewState extends State<CustomerListView> {
                 children: chosenList
                     .map(
                       (CustomerModel item) => Container(
-                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+                        decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(10)),
                         margin: const EdgeInsets.all(4),
                         child: ListTile(
                           contentPadding: const EdgeInsets.symmetric(
@@ -125,8 +129,10 @@ class _CustomerListViewState extends State<CustomerListView> {
                           dense: true,
                           onTap: () => {_selectModal(item, context)},
                           trailing: widget.selectedCustomer?.id == item.id
-                              ? Icon(Icons.radio_button_checked, size: 20, color: AppColors.green)
-                              : const Icon(Icons.radio_button_checked, size: 20),
+                              ? Icon(Icons.radio_button_checked,
+                                  size: 20, color: AppColors.green)
+                              : const Icon(Icons.radio_button_checked,
+                                  size: 20),
                           title: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -143,11 +149,13 @@ class _CustomerListViewState extends State<CustomerListView> {
                               mr(1),
                               item.email != null && item.email != ''
                                   ? Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           item.name,
-                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           'Email - ${item.email ?? ''}',
@@ -160,7 +168,8 @@ class _CustomerListViewState extends State<CustomerListView> {
                                     )
                                   : Text(
                                       item.name,
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                             ],
                           ),

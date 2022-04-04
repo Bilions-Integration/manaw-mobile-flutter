@@ -90,6 +90,5 @@ class _PosScreenState extends State<PosScreen> {
   _loadMore() {
     posController.page.value++;
     posController.getProducts();
-    console.log(posController.products.value.length.toString());
   }
 }

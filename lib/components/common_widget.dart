@@ -7,7 +7,8 @@ class IconTapper extends StatelessWidget {
   final IconData? iconDefault;
   final Function()? onTap;
 
-  const IconTapper({Key? key, this.iconDefault, this.icon, this.onTap}) : super(key: key);
+  const IconTapper({Key? key, this.iconDefault, this.icon, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

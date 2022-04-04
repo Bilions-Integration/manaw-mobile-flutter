@@ -3,6 +3,7 @@ import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/category_model.dart';
 
 class CategoryPicker {
@@ -23,9 +24,7 @@ class CategoryPicker {
   void open() {
     final context = currentContext();
     showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
+      shape: Styles.topOnlyBorderRadius(15),
       context: context,
       isScrollControlled: true,
       builder: (builder) {

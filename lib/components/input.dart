@@ -5,6 +5,8 @@ import 'package:my_app/data/colors.dart';
 class MyTextInput extends StatelessWidget {
   final String placeholder;
 
+  final String? label;
+
   final IconData? icon;
 
   final double radius = 10.0;
@@ -26,6 +28,7 @@ class MyTextInput extends StatelessWidget {
   const MyTextInput({
     Key? key,
     this.column,
+    this.label,
     this.textarea = false,
     this.value,
     required this.placeholder,
@@ -38,32 +41,50 @@ class MyTextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      child: TextFormField(
-        maxLines: textarea ? 5 : 1,
-        initialValue: '${value ?? ''}',
-        keyboardType: numberOnly == true ? TextInputType.number : TextInputType.text,
-        onChanged: _onChanged,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: AppColors.lightGrey,
-          contentPadding: EdgeInsets.symmetric(vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
-          prefixIcon: icon != null ? Icon(icon) : null,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.borderColor,
-              width: 2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (label != null)
+            SizedBox(
+              height: 18,
+              child: Text(
+                label!.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.grey,
+                ),
+              ),
             ),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.dark,
-              width: 1.0,
+          TextFormField(
+            maxLines: textarea ? 5 : 1,
+            initialValue: '${value ?? ''}',
+            keyboardType: numberOnly == true ? TextInputType.number : TextInputType.text,
+            onChanged: _onChanged,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: AppColors.lightGrey,
+              contentPadding: EdgeInsets.symmetric(vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
+              prefixIcon: icon != null ? Icon(icon) : null,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColors.borderColor,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColors.dark,
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(radius),
+              ),
+              hintText: placeholder,
+              hintStyle: TextStyle(color: AppColors.lightDark),
             ),
-            borderRadius: BorderRadius.circular(radius),
           ),
-          hintText: placeholder,
-        ),
+        ],
       ),
     );
   }

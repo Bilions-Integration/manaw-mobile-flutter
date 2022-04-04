@@ -13,6 +13,17 @@ class AppAssets {
   static const icPoweredBy = 'assets/images/powered-by.svg';
   static const icPlus = 'assets/images/plus.svg';
   static const icMinus = 'assets/images/minus.svg';
+  static const icRevenue = 'assets/images/revenue.svg';
+  static const icExpense = 'assets/images/expense.svg';
+  static const icCalendar = 'assets/images/calendar.svg';
+  static const icCapital = 'assets/images/capital.svg';
+  static const icAssets = 'assets/images/assets.svg';
+  static const icWallet = 'assets/images/wallet.svg';
+  static const icSaleTax = 'assets/images/sale-tax.svg';
+  static const icPurchaseTax = 'assets/images/purchase-tax.svg';
+  static const noProducts = 'assets/images/no-products.svg';
+  static const noCustomers = 'assets/images/no-customers.svg';
+  static const icAddStock = 'assets/images/add.svg';
 
   static const icCoupon = 'assets/images/coupon.svg';
   static const icPerson = 'assets/images/person.svg';
@@ -46,4 +57,10 @@ class AppAssets {
   static const search = 'assets/images/manage/search.svg';
   static const edit = 'assets/images/manage/edit.svg';
   static const trash = 'assets/images/manage/trash.svg';
+  //product
+  static const icSelling = 'assets/images/manage/selling.svg';
+  static const icGroupProduct = 'assets/images/manage/group-product.svg';
+  static const icNegativeStock = 'assets/images/manage/negative-stock.svg';
+  static const icEdit = 'assets/images/edit.svg';
+  static const icDelete = 'assets/images/delete.svg';
 }

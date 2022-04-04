@@ -41,7 +41,9 @@ class CustomerModel {
 
 String _getData(json, column) {
   try {
-    return json[column] != null && !empty(json[column][0]) ? json[column][0] : '';
+    return json[column] != null && !empty(json[column][0])
+        ? json[column][0]
+        : '';
   } catch (e) {
     return '';
   }
