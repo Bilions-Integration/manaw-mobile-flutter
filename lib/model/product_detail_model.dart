@@ -7,15 +7,14 @@ class ProductDetail {
   final List<dynamic> images;
   List<dynamic>? oldImages;
   final int instock;
-  final int price;
-  dynamic retailPrice;
-  int? buyPrice;
+  final dynamic retailPrice;
+  final int? buyPrice;
 
-  String? barcode;
-  bool enableSelling;
+  final String? barcode;
+  final bool enableSelling;
   final String type;
   final List units;
-  String? unit;
+  final String? unit;
   dynamic categoryId;
   CategoryModel? category;
   int quantity;
@@ -25,14 +24,13 @@ class ProductDetail {
     required this.name,
     required this.images,
     required this.instock,
-    required this.price,
-    this.retailPrice,
-    this.buyPrice,
-    this.barcode,
+    required this.retailPrice,
     required this.type,
     required this.units,
     required this.enableSelling,
     required this.categoryId,
+    this.buyPrice,
+    this.barcode,
     this.quantity = 1,
     this.oldImages,
     this.unit = '1 x Pcs',
@@ -44,7 +42,6 @@ class ProductDetail {
         oldImages = json['images'],
         productId = json['id'],
         instock = json['instock'] ?? 0,
-        price = json['price'] ?? 0,
         retailPrice = json['retail_price'] ?? 0,
         buyPrice = json['buy_price'],
         categoryId = json['category_id'],
@@ -63,7 +60,10 @@ class ProductDetail {
         name = '',
         images = [],
         instock = 0,
-        price = 0,
+        retailPrice = 0,
+        barcode = '',
+        buyPrice = 0,
+        unit = '',
         type = 'single',
         units = [],
         enableSelling = false,
@@ -78,15 +78,12 @@ class ProductDetail {
         'images': images,
         'old_images[]': oldImages,
         'instock': instock,
-        'price': price,
-        'retail_price': price,
+        'retail_price': retailPrice,
         'type': type,
         'units': units,
         'unit': unit,
         'category_id': categoryId,
         'enable_selling': enableSelling,
         'quantity': quantity,
-        "discount": -1,
-        "discount_type": "fixed"
       };
 }

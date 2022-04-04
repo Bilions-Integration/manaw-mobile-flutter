@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -101,18 +102,23 @@ class _ManageProductState extends State<ManageProduct> {
                 ],
               ),
             ),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 5),
-              child: ListView(
-                controller: _scrollController,
-                children: [
-                  for (var item
-                      in productController.products.value.asMap().entries)
-                    ProductItem(product: item.value, index: item.key + 1),
-                ],
-              ),
-            )),
+            hasFinishedLoading
+                ? Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 5),
+                      child: ListView(
+                        controller: _scrollController,
+                        children: [
+                          for (var item in productController.products.value
+                              .asMap()
+                              .entries)
+                            ProductItem(
+                                product: item.value, index: item.key + 1),
+                        ],
+                      ),
+                    ),
+                  )
+                : LoadingWidget(),
           ],
         ));
   }
