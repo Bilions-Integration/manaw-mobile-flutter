@@ -10,6 +10,7 @@ import 'package:my_app/components/select_box.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
+import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_packages.dart';
@@ -163,7 +164,7 @@ class _CreateProductState extends State<CreateProduct> {
   _getCategory() async {
     if (categoryList.isEmpty) {
       List<CategoryModel> initialCategories = [];
-      var res = await CategoryService.get({'page' : 1, 'limit' : 10});
+      var res = await CategoryService.get({'page': 1, 'limit': 10});
       List<CategoryModel> categories = res['categories'];
       setState(() {
         categoryList = [...initialCategories, ...categories];
@@ -195,9 +196,9 @@ class _CreateProductState extends State<CreateProduct> {
   }
 
   _saveProduct() {
-    late Product product;
+    late ProductDetail product;
     if (widget.type == 'create') {
-      product = Product(
+      product = ProductDetail(
           productId: 0,
           name: params['name'],
           images: [],
@@ -211,7 +212,7 @@ class _CreateProductState extends State<CreateProduct> {
           enableSelling: params['enable_selling'] == 1 ? true : false,
           categoryId: params['category_id']);
     } else {
-      product = Product(
+      product = ProductDetail(
           productId: widget.productId!,
           name: params['name'],
           images: [],
@@ -268,7 +269,7 @@ class _CreateProductState extends State<CreateProduct> {
         return product;
       }).catchError((e) {
         console.log(e.toString());
-        return Product.emptyProduct();
+        return ProductDetail.emptyProduct();
       });
     }
   }

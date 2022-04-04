@@ -4,10 +4,11 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
 
 class ProductController extends GetxController {
-  var products = Rx<List<Product>>([]);
+  var products = Rx<List<ProductDetail>>([]);
 
   var page = 1.obs;
   var limit = 10.obs;
@@ -26,7 +27,7 @@ class ProductController extends GetxController {
       });
       total.value = res['data']['total'];
       final resProducts = (res['data']['data'] as List)
-          .map((e) => Product.fromJson(e as Map))
+          .map((e) => ProductDetail.fromJson(e as Map))
           .toList();
       products.value = [...products.value, ...resProducts];
     } catch (e) {
@@ -34,10 +35,11 @@ class ProductController extends GetxController {
     }
   }
 
-  Future<Product> getProduct({bool showLoading = false, int? productId}) async {
+  Future<ProductDetail> getProduct(
+      {bool showLoading = false, int? productId}) async {
     try {
       var res = await Api.get('/products/$productId');
-      final resProduct = Product.fromJson(res['data']);
+      final resProduct = ProductDetail.fromJson(res['data']);
       return resProduct;
     } catch (e) {
       inspect(e);
@@ -46,17 +48,17 @@ class ProductController extends GetxController {
     }
   }
 
-  Future<Product> saveProduct(
+  Future<ProductDetail> saveProduct(
       {bool showLoading = false,
       String type = 'create',
-      required Product product}) async {
+      required ProductDetail product}) async {
     String url = type == 'create'
         ? '/products'
         : '/products/' + product.productId.toString() + '?_method=PUT';
     try {
       var res = await Api.post(url,
           data: product.toJson(), formData: true, showLoading: showLoading);
-      return Product.fromJson(res['data']);
+      return ProductDetail.fromJson(res['data']);
     } catch (e) {
       console.warn(e.toString());
       inspect(e);

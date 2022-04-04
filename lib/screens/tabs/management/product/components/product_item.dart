@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
 
 class ProductItem extends StatefulWidget {
-  final Product product;
+  final ProductDetail product;
   final int index;
   const ProductItem({
     Key? key,
