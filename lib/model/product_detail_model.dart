@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 
 class ProductDetail {
@@ -5,7 +8,7 @@ class ProductDetail {
   final int productId;
   final String name;
   final List<dynamic> images;
-  List<dynamic>? oldImages;
+  final List? oldImages;
   final int instock;
   final dynamic retailPrice;
   final int? buyPrice;
@@ -59,6 +62,7 @@ class ProductDetail {
       : productId = 0,
         name = '',
         images = [],
+        oldImages = [],
         instock = 0,
         retailPrice = 0,
         barcode = '',
@@ -86,4 +90,15 @@ class ProductDetail {
         'enable_selling': enableSelling,
         'quantity': quantity,
       };
+
+  _serializeStringList(List list) {
+    Map map = list.asMap();
+    Map nMap = {};
+    for (var item in map.entries) {
+      nMap[item.key.toString()] = item.value;
+    }
+    console.log('logging nmap : ');
+    inspect(nMap);
+    return nMap;
+  }
 }

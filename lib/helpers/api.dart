@@ -1,6 +1,9 @@
+import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:get/get_connect.dart' as GetC;
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:http/http.dart' as http;
 
 class DioWrapper {
   DioWrapper();
@@ -19,9 +22,14 @@ class DioWrapper {
 }
 
 class Api {
+  static var net = http.Client();
   static _convertFormData(data) {
-    return FormData.fromMap(data);
+    FormData fd = FormData.fromMap(data);
+    // var fd = GetC.FormData(data);
+    inspect(fd);
+    return fd;
   }
+
   // TODO: transform old image data
   // static _testDataIter({Map<String, dynamic>? data}) {
   //   Map<String, dynamic> newData = data ?? {'hello': 'world'};
@@ -29,7 +37,6 @@ class Api {
   //     console.log('Iter entries data: ' + i.key, payload: i.value.runtimeType);
   //   }
   // }
-
   // get method
   static Future<dynamic> get(
     String url, {
@@ -72,16 +79,19 @@ class Api {
       Dio dio = DioWrapper.init();
       if (formData) {
         data = _convertFormData(data);
-        // _testDataIter(data: data);
       }
       // return;
       var response = await dio.post(url, data: data);
       if (showLoading) {
         hideLoading();
       }
+      console.log('textget finished');
+      inspect(response);
       console.log('POST RESPONSE => $url =>', payload: response.data);
       return response.data;
+      // return null;
     } catch (e) {
+      inspect(e);
       console.log("API =>  POST => ERROR $e");
       hideLoading();
       rethrow;
