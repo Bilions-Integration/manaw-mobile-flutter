@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:my_app/helpers/helper.dart';
@@ -84,21 +85,9 @@ class ProductDetail {
         'instock': instock,
         'retail_price': retailPrice,
         'type': type,
-        'units': units,
         'unit': unit,
         'category_id': categoryId,
         'enable_selling': enableSelling,
         'quantity': quantity,
       };
-
-  _serializeStringList(List list) {
-    Map map = list.asMap();
-    Map nMap = {};
-    for (var item in map.entries) {
-      nMap[item.key.toString()] = item.value;
-    }
-    console.log('logging nmap : ');
-    inspect(nMap);
-    return nMap;
-  }
 }

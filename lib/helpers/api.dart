@@ -24,20 +24,9 @@ class DioWrapper {
 class Api {
   static var net = http.Client();
   static _convertFormData(data) {
-    FormData fd = FormData.fromMap(data);
-    // var fd = GetC.FormData(data);
-    inspect(fd);
-    return fd;
+    return FormData.fromMap(data);
   }
 
-  // TODO: transform old image data
-  // static _testDataIter({Map<String, dynamic>? data}) {
-  //   Map<String, dynamic> newData = data ?? {'hello': 'world'};
-  //   for (var i in newData.entries) {
-  //     console.log('Iter entries data: ' + i.key, payload: i.value.runtimeType);
-  //   }
-  // }
-  // get method
   static Future<dynamic> get(
     String url, {
     Map<String, dynamic>? data,
@@ -85,13 +74,9 @@ class Api {
       if (showLoading) {
         hideLoading();
       }
-      console.log('textget finished');
-      inspect(response);
       console.log('POST RESPONSE => $url =>', payload: response.data);
       return response.data;
-      // return null;
     } catch (e) {
-      inspect(e);
       console.log("API =>  POST => ERROR $e");
       hideLoading();
       rethrow;
