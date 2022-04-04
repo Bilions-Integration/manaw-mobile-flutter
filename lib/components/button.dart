@@ -71,7 +71,7 @@ class SecondaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width,
       height: 50,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(

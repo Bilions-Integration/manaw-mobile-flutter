@@ -39,10 +39,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(textTheme: GoogleFonts.readexProTextTheme()).copyWith(
+      theme: ThemeData(
+        textTheme: GoogleFonts.readexProTextTheme()
+      ).copyWith(
         colorScheme: ThemeData().colorScheme.copyWith(
-              primary: AppColors.dark,
-            ),
+          primary: AppColors.dark,
+        ),
       ),
       navigatorKey: CurrentContext.navigatorKey,
       key: CurrentContext.scaffoldKey,

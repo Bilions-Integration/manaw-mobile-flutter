@@ -39,4 +39,11 @@ class AppAssets {
   static const icCategory = 'assets/images/manage/category.svg';
   static const icInvoice = 'assets/images/manage/invoice.svg';
   static const icDiscount = 'assets/images/manage/discount.svg';
+  static const emptyCategory = 'assets/images/manage/empty-category.svg';
+  static const plus = 'assets/images/manage/plus.svg';
+  static const leftArrow = 'assets/images/manage/left-arrow.svg';
+  static const dotAction = 'assets/images/manage/dot-action.svg';
+  static const search = 'assets/images/manage/search.svg';
+  static const edit = 'assets/images/manage/edit.svg';
+  static const trash = 'assets/images/manage/trash.svg';
 }

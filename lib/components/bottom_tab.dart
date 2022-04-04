@@ -39,7 +39,7 @@ class _BottomTabState extends State<BottomTab> {
       showUnselectedLabels: true,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.pos, width: 20, height: 20, color: _getColor(0)),
+          icon: SvgPicture.asset(AppAssets.pos, width: 10, height: 10, color: _getColor(0)),
           label: 'POS',
         ),
         BottomNavigationBarItem(
