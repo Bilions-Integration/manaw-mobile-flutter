@@ -40,6 +40,7 @@ class Api {
       if (showLoading) {
         hideLoading();
       }
+      console.log(response.data);
       return response.data;
     } catch (e) {
       console.log("API =>  GET => ERROR ${e.toString()}");

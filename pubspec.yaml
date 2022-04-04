@@ -49,6 +49,7 @@ dependencies:
   intl: ^0.17.0
   badges: ^2.0.2
   flutter_material_color_picker: ^1.1.0+2
+  image_cropper: ^1.5.0
 
 dev_dependencies:
   flutter_test:
