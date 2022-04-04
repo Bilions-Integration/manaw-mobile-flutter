@@ -163,7 +163,8 @@ class _CreateProductState extends State<CreateProduct> {
   _getCategory() async {
     if (categoryList.isEmpty) {
       List<CategoryModel> initialCategories = [];
-      List<CategoryModel> categories = await CategoryService.get();
+      var res = await CategoryService.get({'page' : 1, 'limit' : 10});
+      List<CategoryModel> categories = res['categories'];
       setState(() {
         categoryList = [...initialCategories, ...categories];
       });

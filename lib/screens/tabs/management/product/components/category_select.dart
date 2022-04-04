@@ -32,7 +32,8 @@ class _CategorySelectorState extends State<CategorySelector> {
           image: [],
         )
       ];
-      List<CategoryModel> categories = await CategoryService.get();
+      var res = await CategoryService.get({'page' : 1, 'limit' : 10});
+      List<CategoryModel> categories = res['categories'];
       setState(() {
         menuList = [...initialCategories, ...categories];
       });
