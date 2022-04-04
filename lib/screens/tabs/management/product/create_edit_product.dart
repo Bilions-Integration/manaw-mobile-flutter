@@ -78,8 +78,8 @@ class _CreateProductState extends State<CreateProduct> {
                         child: Column(
                           children: [
                             ProductImagePicker(
-                              onChanged: _onNewImages,
-                            ),
+                                onChanged: _onNewImages,
+                                oldImages: params['old_images']),
                             mb(2),
                             hr(),
                             mb(2),

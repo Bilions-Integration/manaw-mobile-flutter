@@ -5,11 +5,13 @@ import 'package:my_app/components/image_preview.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
+import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class ProductImagePicker extends StatefulWidget {
   final Function(List<MultipartFile>) onChanged;
-  // final List<dynamic>? netImages;
-  const ProductImagePicker({Key? key, required this.onChanged})
+  final List oldImages;
+  const ProductImagePicker(
+      {Key? key, required this.onChanged, required this.oldImages})
       : super(key: key);
 
   @override
@@ -19,11 +21,12 @@ class ProductImagePicker extends StatefulWidget {
 class _ProductImagePickerState extends State<ProductImagePicker> {
   List<MyFile> pickedImages = [];
   List<MultipartFile> pickedBlobs = [];
-  List<dynamic> images = [];
+  bool isImageUpdated = false;
+
   @override
   void initState() {
     // TODO: implement initState
-    console.log('product image picker invoked : ');
+    console.log('product image picker invoked : ', payload: widget.oldImages);
     super.initState();
     // images = widget.netImages!;
     // console.log("images : " + images.length.toString());
@@ -31,7 +34,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return pickedImages.isEmpty
+    return pickedImages.isEmpty && widget.oldImages.isEmpty
         ? Column(
             children: [
               InkWell(
@@ -72,6 +75,23 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                             child: const Icon(Icons.add_rounded),
                           ),
                         ),
+                        ...widget.oldImages.mapIndexed((e, i) {
+                          console.log("old image : ", payload: e);
+                          return Padding(
+                            key: ValueKey<String>(
+                                i.toString() + isImageUpdated.toString()),
+                            padding: const EdgeInsets.only(right: 5),
+                            child: ImagePreview(
+                              image: e,
+                              height: 100,
+                              isNetImage: true,
+                              onRemoved: () {
+                                console.log('image remove', payload: i);
+                                _oldImageRemove(i);
+                              },
+                            ),
+                          );
+                        }),
                         ...pickedImages
                             .mapIndexed(
                               (MyFile e, index) => Padding(
@@ -120,6 +140,14 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     });
 
     widget.onChanged(blobs);
+  }
+
+  _oldImageRemove(int index) {
+    widget.oldImages.removeAt(index);
+    console.log("widge.oldimage: ", payload: widget.oldImages);
+    setState(() {
+      isImageUpdated = !isImageUpdated;
+    });
   }
 
   _showFileUpload({ImageSource source = ImageSource.gallery}) async {
