@@ -51,12 +51,15 @@ class _CreateProductState extends State<CreateProduct> {
     'instock': null,
     'units': []
   };
-  bool isLoading = true;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _getProduct();
+    if (widget.type == 'edit') {
+      isLoading = true;
+      _getProduct();
+    }
   }
 
   @override
