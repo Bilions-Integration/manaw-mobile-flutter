@@ -127,6 +127,7 @@ class _CreateProductState extends State<CreateProduct> {
                             ),
                             if (widget.type == 'edit')
                               ProductPackages(
+                                productId: widget.productId,
                                 onChanged: _setPackages,
                               ),
                           ],

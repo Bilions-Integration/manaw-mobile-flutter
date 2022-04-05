@@ -12,7 +12,7 @@ class DioWrapper {
     final box = GetStorage();
     final token = box.read('@bearerToken');
     BaseOptions options = BaseOptions(
-        baseUrl: 'https://api.manawstore.com/api',
+        baseUrl: 'https://api.manawstore.xyz/api',
         headers: {
           "authorization": "Bearer $token",
           "Accept": "application/json"
@@ -22,7 +22,6 @@ class DioWrapper {
 }
 
 class Api {
-  static var net = http.Client();
   static _convertFormData(data) {
     return FormData.fromMap(data);
   }

@@ -6,7 +6,9 @@ import 'package:my_app/screens/tabs/management/product/components/new_package_mo
 
 class ProductPackages extends StatefulWidget {
   final Function(List<Map>) onChanged;
-  const ProductPackages({Key? key, required this.onChanged}) : super(key: key);
+  final int? productId;
+  const ProductPackages({Key? key, required this.onChanged, this.productId})
+      : super(key: key);
 
   @override
   State<ProductPackages> createState() => _ProductPackagesState();
@@ -58,13 +60,15 @@ class _ProductPackagesState extends State<ProductPackages> {
   _edit(i) {
     List<Map> clonePackages = packages;
     Map package = packages[i];
-    NewPackageModal(params: package).open((Map package) {
+    NewPackageModal(
+      params: package,
+    ).open((Map package) {
       clonePackages[i] = package;
       setState(() {
         packages = clonePackages;
       });
       widget.onChanged(packages);
-    });
+    }, widget.productId);
   }
 
   _remove(i) {
@@ -82,7 +86,7 @@ class _ProductPackagesState extends State<ProductPackages> {
         packages = [...packages, package];
       });
       widget.onChanged(packages);
-    });
+    }, widget.productId);
   }
 }
 
@@ -106,7 +110,8 @@ class PackageViewCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+            padding:
+                const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
             child: Text(package['unit'] ?? ''),
           ),
           hr(),
@@ -134,7 +139,8 @@ class PackageViewCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 150,
-                  child: Text('${currency()} ${cast(package['sale_price'] ?? 0)}'),
+                  child:
+                      Text('${currency()} ${cast(package['sale_price'] ?? 0)}'),
                 ),
                 Text('${currency()} ${cast(package['purchase_price'] ?? 0)}'),
               ],

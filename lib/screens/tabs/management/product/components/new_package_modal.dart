@@ -3,12 +3,14 @@ import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/components/text_tapper.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_option_model.dart';
+import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class NewPackageModal {
   final Map? params;
   NewPackageModal({this.params});
 
-  void open(Function(Map) onSubmit) {
+  void open(Function(Map) onSubmit, int? productId) {
     BuildContext context = currentContext();
     showModalBottomSheet(
       isScrollControlled: true,
@@ -23,6 +25,7 @@ class NewPackageModal {
           child: NewPackageForm(
             onSubmit: onSubmit,
             params: params,
+            productId: productId,
           ),
         );
       },
@@ -33,19 +36,24 @@ class NewPackageModal {
 // List View Widget
 class NewPackageForm extends StatefulWidget {
   final Function(Map) onSubmit;
+  final int? productId;
   final Map? params;
-  const NewPackageForm({Key? key, required this.onSubmit, this.params}) : super(key: key);
+  const NewPackageForm(
+      {Key? key, required this.onSubmit, this.params, this.productId})
+      : super(key: key);
 
   @override
   State<NewPackageForm> createState() => _NewPackageFormState();
 }
 
 class _NewPackageFormState extends State<NewPackageForm> {
+  var productOptionController = ProductOptionController();
   Map params = {
     "unit": null,
     "coefficient": 1,
     "sale_price": 0,
     "purchase_price": 0,
+    "active": true,
   };
 
   @override
@@ -121,7 +129,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: PrimaryButton(value: widget.params != null ? 'Update' : 'Create', onPressed: _submit),
+              child: PrimaryButton(
+                  value: widget.params != null ? 'Update' : 'Create',
+                  onPressed: _submit),
             )
           ],
         ),
@@ -136,7 +146,15 @@ class _NewPackageFormState extends State<NewPackageForm> {
   }
 
   _submit() {
-    widget.onSubmit(params);
+    // widget.onSubmit(params)
+    //;
+    var productOption = ProductOption.fromJson(params);
+    productOptionController
+        .createOption(
+            productOption: productOption, productId: widget.productId!)
+        .then((value) {
+      console.log("Create Success : ", payload: value);
+    });
     setState(() {
       params = {
         "unit": null,

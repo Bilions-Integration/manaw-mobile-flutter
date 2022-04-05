@@ -24,8 +24,9 @@ class ProductOption {
         name = json['unit'],
         active = json['active'],
         image = json['image'],
-        salePrice = json['sale_price'],
-        purchasePrice = json['purchase_price'],
+        salePrice = int.tryParse(json['sale_price']) ?? json['sale_price'],
+        purchasePrice =
+            int.tryParse(json['purchase_price']) ?? json['purchase_price'],
         description = json['description'],
         coefficient = json['coefficient'];
 
