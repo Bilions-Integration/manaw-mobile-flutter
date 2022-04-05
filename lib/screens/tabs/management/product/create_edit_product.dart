@@ -129,6 +129,7 @@ class _CreateProductState extends State<CreateProduct> {
                               ProductPackages(
                                 productId: widget.productId,
                                 onChanged: _setPackages,
+                                options: params['units'],
                               ),
                           ],
                         ),

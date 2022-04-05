@@ -1,4 +1,5 @@
 import 'package:my_app/model/category_model.dart';
+import 'package:my_app/model/product_option_model.dart';
 
 class ProductDetail {
   int? index;
@@ -13,7 +14,7 @@ class ProductDetail {
   final String? barcode;
   final bool enableSelling;
   final String type;
-  final List units;
+  final List<ProductOption> units;
   final String? unit;
   dynamic categoryId;
   CategoryModel? category;
@@ -52,7 +53,9 @@ class ProductDetail {
         type = json['type'] ?? "",
         enableSelling = json['enable_selling'] ?? false,
         quantity = json['quantity'] ?? 1,
-        units = json['units'] ?? [],
+        units = (json['units'] as List)
+            .map((e) => ProductOption.fromJson(e))
+            .toList(),
         unit = json['unit'];
 
   ProductDetail.emptyProduct()

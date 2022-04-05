@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/new_package_modal.dart';
 
 class ProductPackages extends StatefulWidget {
   final Function(List<Map>) onChanged;
   final int? productId;
-  const ProductPackages({Key? key, required this.onChanged, this.productId})
+  final List<ProductOption>? options;
+  const ProductPackages(
+      {Key? key, required this.onChanged, this.productId, this.options})
       : super(key: key);
 
   @override
@@ -22,14 +25,14 @@ class _ProductPackagesState extends State<ProductPackages> {
     return Column(
       children: [
         hr(height: 15),
-        ...packages
-            .mapIndexed((e, i) => Stack(
+        ...?widget.options
+            ?.mapIndexed((e, i) => Stack(
                   children: [
                     InkWell(
                       onTap: () {
                         _edit(i);
                       },
-                      child: PackageViewCard(package: e),
+                      child: PackageViewCard(option: e),
                     ),
                     Positioned(
                       right: 10,
@@ -82,19 +85,16 @@ class _ProductPackagesState extends State<ProductPackages> {
 
   _showAddPackageModal() {
     NewPackageModal().open((Map package) {
-      setState(() {
-        packages = [...packages, package];
-      });
       widget.onChanged(packages);
     }, widget.productId);
   }
 }
 
 class PackageViewCard extends StatelessWidget {
-  final Map package;
+  final ProductOption option;
   const PackageViewCard({
     Key? key,
-    required this.package,
+    required this.option,
   }) : super(key: key);
 
   @override
@@ -112,7 +112,7 @@ class PackageViewCard extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            child: Text(package['unit'] ?? ''),
+            child: Text(option.name),
           ),
           hr(),
           Padding(
@@ -139,10 +139,9 @@ class PackageViewCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 150,
-                  child:
-                      Text('${currency()} ${cast(package['sale_price'] ?? 0)}'),
+                  child: Text('${currency()} ${cast(option.salePrice)}'),
                 ),
-                Text('${currency()} ${cast(package['purchase_price'] ?? 0)}'),
+                Text('${currency()} ${cast(option.purchasePrice)}'),
               ],
             ),
           ),
@@ -150,7 +149,7 @@ class PackageViewCard extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
             child: Row(
               children: [
-                Text('Coefficient : ${package['coefficient'] ?? 1}'),
+                Text('Coefficient : ${option.coefficient}'),
               ],
             ),
           ),
