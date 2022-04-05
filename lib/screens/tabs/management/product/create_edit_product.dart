@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/category_picker.dart';
@@ -14,10 +11,8 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_detail_model.dart';
-import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_image_picker.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_packages.dart';
-import 'package:my_app/screens/tabs/management/product/manage_product.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 import 'package:my_app/services/category_service.dart';
 

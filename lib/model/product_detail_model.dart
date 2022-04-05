@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 
 class ProductDetail {
