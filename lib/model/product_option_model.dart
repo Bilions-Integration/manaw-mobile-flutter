@@ -28,7 +28,7 @@ class ProductOption {
         purchasePrice =
             int.tryParse(json['purchase_price']) ?? json['purchase_price'],
         description = json['description'],
-        coefficient = json['coefficient'];
+        coefficient = int.tryParse(json['coefficient']) ?? json['coefficient'];
 
   Map<String, dynamic> toJson() => {
         'unit': name,
