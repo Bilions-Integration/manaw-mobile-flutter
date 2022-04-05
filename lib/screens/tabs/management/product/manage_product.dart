@@ -5,7 +5,6 @@ import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
@@ -172,6 +171,13 @@ class _ManageProductState extends State<ManageProduct> {
   }
 
   _categoryChanged(CategoryModel category) {
-    productController.getProducts(category: category.id ?? '');
+    setState(() {
+      hasFinishedLoading = false;
+    });
+    productController.getProducts(category: category.id ?? '').then((value) {
+      setState(() {
+        hasFinishedLoading = true;
+      });
+    });
   }
 }

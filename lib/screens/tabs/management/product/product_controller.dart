@@ -11,7 +11,7 @@ class ProductController extends GetxController {
   var products = Rx<List<ProductDetail>>([]);
 
   var page = 1.obs;
-  var limit = 10.obs;
+  var limit = 20.obs;
   var total = 0.obs;
 
   Future<void> getProducts({bool showLoading = false, dynamic category}) async {
