@@ -5,6 +5,7 @@ import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
@@ -59,9 +60,7 @@ class _ManageProductState extends State<ManageProduct> {
             IconButton(
               onPressed: () {
                 // ProductCreateSheet().open();
-                Get.to(CreateProduct(
-                  type: 'create',
-                ));
+                _handleNavigation("create", null);
               },
               icon: const Icon(Icons.add_rounded),
             ),
@@ -129,15 +128,24 @@ class _ManageProductState extends State<ManageProduct> {
   _handleNavigation(String action, int? productId) {
     console.log('Handle On tap : ' + action);
     switch (action) {
+      case 'create':
       case 'edit':
         Get.to(() => CreateProduct(
-              type: "edit",
+              type: action,
               productId: productId,
-            ))?.then((value) {
-          _reset();
-          console.log("navigaton back : ", payload: value);
-        });
+            ))?.then(_afterMutation);
         break;
+    }
+  }
+
+  _afterMutation(result) {
+    if (result?.type == 'create') {
+      console.log("result create : ", payload: result.id);
+      Get.to(CreateProduct(type: 'edit', productId: result.id))
+          ?.then(_afterMutation);
+    }
+    if (result?.type != null) {
+      _reset();
     }
   }
 

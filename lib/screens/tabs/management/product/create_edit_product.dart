@@ -11,6 +11,7 @@ import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/components/select_box.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
@@ -241,16 +242,9 @@ class _CreateProductState extends State<CreateProduct> {
     productController
         .saveProduct(product: product, type: widget.type, showLoading: true)
         .then((product) {
-      if (widget.type == 'edit') {
-        Get.back();
-        // Get.off(const ManageProduct());
-      } else if (widget.type == 'create') {
-        Get.back();
-        // Get.to(CreateProduct(
-        //   type: 'edit',
-        //   productId: product.productId,
-        // ));
-      }
+      var result =
+          ProductMutationResult(type: widget.type, id: product.productId);
+      Get.back(result: result);
     }).catchError((e) {});
   }
 

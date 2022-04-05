@@ -17,3 +17,10 @@ class PopupItem {
 
   PopupItem({required this.name, required this.icon, this.onTap});
 }
+
+class ProductMutationResult {
+  final String type;
+  int? id;
+
+  ProductMutationResult({required this.type, this.id});
+}
