@@ -62,9 +62,8 @@ class _ProductPackagesState extends State<ProductPackages> {
   }
 
   _edit(ProductOption unit) {
-    NewPackageModal(params: unit.toJson()).open((Map units) {
-      widget.afterMutation();
-    }, widget.productId);
+    NewPackageModal(params: unit.toJson())
+        .open(widget.afterMutation, widget.productId);
   }
 
   _remove(ProductOption unit) async {
@@ -81,9 +80,7 @@ class _ProductPackagesState extends State<ProductPackages> {
   }
 
   _showAddPackageModal() {
-    NewPackageModal().open((Map units) {
-      widget.afterMutation();
-    }, widget.productId);
+    NewPackageModal().open(widget.afterMutation, widget.productId);
   }
 }
 

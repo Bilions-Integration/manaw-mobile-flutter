@@ -10,7 +10,7 @@ class NewPackageModal {
   final Map? params;
   NewPackageModal({this.params});
 
-  void open(Function(Map) afterSubmit, int? productId) {
+  void open(Function() afterSubmit, int? productId) {
     BuildContext context = currentContext();
     showModalBottomSheet(
       isScrollControlled: true,
@@ -35,7 +35,7 @@ class NewPackageModal {
 
 // List View Widget
 class NewPackageForm extends StatefulWidget {
-  final Function(Map) afterSubmit;
+  final Function() afterSubmit;
   final int? productId;
   final Map? params;
   const NewPackageForm(
@@ -147,20 +147,15 @@ class _NewPackageFormState extends State<NewPackageForm> {
 
   _submit() async {
     try {
-      console.log("params : ", payload: params);
       var productOption = ProductOption.fromJson(params);
-      console.log('after to form json', payload: productOption.productId);
       if (widget.params != null) {
-        var res = await productOptionController.updateOption(
+        await productOptionController.updateOption(
             productOption: productOption);
-        console.log('Update success : ', payload: res);
-        widget.afterSubmit(res);
       } else {
-        var res = await productOptionController.createOption(
+        await productOptionController.createOption(
             productOption: productOption, productId: widget.productId!);
-        console.log("Create Success : ", payload: res);
-        widget.afterSubmit(res);
       }
+      widget.afterSubmit();
       setState(() {
         params = {
           "unit": null,

@@ -1,9 +1,6 @@
-import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:get/get_connect.dart' as GetC;
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:http/http.dart' as http;
 
 class DioWrapper {
   DioWrapper();
