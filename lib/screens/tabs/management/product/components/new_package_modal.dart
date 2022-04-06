@@ -8,7 +8,6 @@ import 'package:my_app/components/text_tapper.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
-import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class NewPackageModal {

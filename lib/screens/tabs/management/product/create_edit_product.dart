@@ -207,8 +207,8 @@ class _CreateProductState extends State<CreateProduct> {
             productId: widget.productId,
             showLoading: true)
         .then((ProductDetail product) {
-      var result = {'type': widget.type, 'id': product.productId};
-      console.log('before get back : ', payload: result);
+      var result =
+          ProductMutationResult(type: widget.type, id: product.productId);
       Get.back(result: result);
     }).catchError((e) {});
   }
