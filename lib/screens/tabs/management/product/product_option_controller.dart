@@ -12,10 +12,14 @@ class ProductOptionController {
   }
 
   Future updateOption({required ProductOption productOption}) async {
-    var res = await Api.post(
-        '/products/${productOption.productId}/product_units/${productOption.id}?_method=PUT',
-        data: productOption.toJson(),
-        formData: true);
+    var res = await Api.post('?_method=PUT',
+        data: productOption.toJson(), formData: true);
+    return res;
+  }
+
+  Future deleteOption({required int id, required productId}) async {
+    var res = await Api.delete('/products/$productId/product_units/$id',
+        showLoading: false);
     return res;
   }
 }

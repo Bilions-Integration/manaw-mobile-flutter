@@ -44,19 +44,3 @@ class ProductOption {
         'active': active,
       };
 }
-
-/*
- "id": 201,
- "product_id": 11,
- "type": "product",
- "company_id": 3,
- "unit": "Stay",
- "coefficient": 1,
- "image": "https:\/\/api.manawstore.xyz\/image\/product_units\/FqCROryAmlyYBIJQACGRzD0SkGheWC5zMbbBffwX.jpg",
- "sale_price": 1000,
- "purchase_price": 1000,
- "description": null,
- "is_default": false,
- "created_at": "2022-04-05T07:51:59.000000Z",  "updated_at": "2022-04-05T07:51:59.000000Z",
- "active": true
- */

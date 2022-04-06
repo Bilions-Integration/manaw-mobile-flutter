@@ -4,6 +4,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/new_package_modal.dart';
+import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class ProductPackages extends StatefulWidget {
   final Function() afterMutation;
@@ -60,23 +61,27 @@ class _ProductPackagesState extends State<ProductPackages> {
     );
   }
 
-  _edit(ProductOption package) {
-    NewPackageModal(params: package.toJson()).open((Map packages) {
+  _edit(ProductOption unit) {
+    NewPackageModal(params: unit.toJson()).open((Map units) {
       widget.afterMutation();
     }, widget.productId);
   }
 
-  _remove(i) {
-    List<Map> p = packages;
-    p.removeAt(i);
-    setState(() {
-      packages = p;
-    });
-    widget.afterMutation();
+  _remove(ProductOption unit) async {
+    var optionController = ProductOptionController();
+    try {
+      var res = await optionController.deleteOption(
+          id: unit.id!, productId: unit.productId);
+      if (res['success']) {
+        widget.afterMutation();
+      }
+    } catch (e) {
+      console.warn(e.toString());
+    }
   }
 
   _showAddPackageModal() {
-    NewPackageModal().open((Map package) {
+    NewPackageModal().open((Map units) {
       widget.afterMutation();
     }, widget.productId);
   }
