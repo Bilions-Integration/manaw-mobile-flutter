@@ -1,20 +1,19 @@
 import 'package:my_app/helpers/api.dart';
-import 'package:my_app/model/product_option_model.dart';
 
 class ProductOptionController {
   Future createOption(
       {showLoading = false,
-      required ProductOption productOption,
+      required Map<String, dynamic> productOption,
       required int productId}) async {
     var res = await Api.post('/products/$productId/product_units',
-        data: productOption.toJson(), formData: true, showLoading: showLoading);
+        data: productOption, formData: true, showLoading: showLoading);
     return res;
   }
 
-  Future updateOption({required ProductOption productOption}) async {
+  Future updateOption({required Map<String, dynamic> productOption}) async {
     var res = await Api.post(
-        '/products/${productOption.productId}/product_units/${productOption.id}/?_method=PUT',
-        data: productOption.toJson(),
+        '/products/${productOption['product_id']}/product_units/${productOption['id']}/?_method=PUT',
+        data: productOption,
         formData: true);
     return res;
   }

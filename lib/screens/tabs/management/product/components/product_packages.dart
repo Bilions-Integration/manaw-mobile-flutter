@@ -27,20 +27,20 @@ class _ProductPackagesState extends State<ProductPackages> {
       children: [
         hr(height: 15),
         ...?widget.options
-            ?.mapIndexed((e, i) => Stack(
+            ?.mapIndexed((option, i) => Stack(
                   children: [
                     InkWell(
                       onTap: () {
-                        _edit(e);
+                        _edit(option);
                       },
-                      child: PackageViewCard(option: e),
+                      child: PackageViewCard(option: option),
                     ),
                     Positioned(
                       right: 10,
                       top: 7,
                       child: InkWell(
                         onTap: () {
-                          _remove(e);
+                          _remove(option);
                         },
                         child: Icon(
                           Icons.remove_circle,

@@ -12,7 +12,7 @@ import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class NewPackageModal {
-  final Map? params;
+  final Map<String, dynamic>? params;
   NewPackageModal({this.params});
 
   void open(Function() afterSubmit, int? productId) {
@@ -42,7 +42,7 @@ class NewPackageModal {
 class NewPackageForm extends StatefulWidget {
   final Function() afterSubmit;
   final int? productId;
-  final Map? params;
+  final Map<String, dynamic>? params;
   const NewPackageForm(
       {Key? key, required this.afterSubmit, this.params, this.productId})
       : super(key: key);
@@ -53,7 +53,7 @@ class NewPackageForm extends StatefulWidget {
 
 class _NewPackageFormState extends State<NewPackageForm> {
   var productOptionController = ProductOptionController();
-  Map params = {
+  Map<String, dynamic> params = {
     "unit": null,
     "coefficient": 1,
     "sale_price": 0,
@@ -188,19 +188,17 @@ class _NewPackageFormState extends State<NewPackageForm> {
 
   _valueChanged(val, String? col) {
     setState(() {
-      params[col] = val;
+      params[col.toString()] = val;
     });
   }
 
   _submit() async {
     try {
-      var productOption = ProductOption.fromJson(params);
       if (widget.params != null) {
-        await productOptionController.updateOption(
-            productOption: productOption);
+        await productOptionController.updateOption(productOption: params);
       } else {
         await productOptionController.createOption(
-            productOption: productOption, productId: widget.productId!);
+            productOption: params, productId: widget.productId!);
       }
       widget.afterSubmit();
       setState(() {
