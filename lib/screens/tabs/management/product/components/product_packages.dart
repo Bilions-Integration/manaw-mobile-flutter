@@ -6,11 +6,11 @@ import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/new_package_modal.dart';
 
 class ProductPackages extends StatefulWidget {
-  final Function(List<Map>) onChanged;
+  final Function() afterMutation;
   final int? productId;
   final List<ProductOption>? options;
   const ProductPackages(
-      {Key? key, required this.onChanged, this.productId, this.options})
+      {Key? key, required this.afterMutation, this.productId, this.options})
       : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class _ProductPackagesState extends State<ProductPackages> {
                   children: [
                     InkWell(
                       onTap: () {
-                        _edit(i);
+                        _edit(e);
                       },
                       child: PackageViewCard(option: e),
                     ),
@@ -39,7 +39,7 @@ class _ProductPackagesState extends State<ProductPackages> {
                       top: 7,
                       child: InkWell(
                         onTap: () {
-                          _remove(i);
+                          _remove(e);
                         },
                         child: Icon(
                           Icons.remove_circle,
@@ -60,17 +60,9 @@ class _ProductPackagesState extends State<ProductPackages> {
     );
   }
 
-  _edit(i) {
-    List<Map> clonePackages = packages;
-    Map package = packages[i];
-    NewPackageModal(
-      params: package,
-    ).open((Map package) {
-      clonePackages[i] = package;
-      setState(() {
-        packages = clonePackages;
-      });
-      widget.onChanged(packages);
+  _edit(ProductOption package) {
+    NewPackageModal(params: package.toJson()).open((Map packages) {
+      widget.afterMutation();
     }, widget.productId);
   }
 
@@ -80,12 +72,12 @@ class _ProductPackagesState extends State<ProductPackages> {
     setState(() {
       packages = p;
     });
-    widget.onChanged(packages);
+    widget.afterMutation();
   }
 
   _showAddPackageModal() {
     NewPackageModal().open((Map package) {
-      widget.onChanged(packages);
+      widget.afterMutation();
     }, widget.productId);
   }
 }

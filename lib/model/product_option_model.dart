@@ -33,6 +33,8 @@ class ProductOption {
             int.tryParse(json['coefficient'].toString()) ?? json['coefficient'];
 
   Map<String, dynamic> toJson() => {
+        'id': id,
+        'product_id': productId,
         'unit': name,
         'image': image,
         'sale_price': salePrice,

@@ -10,7 +10,7 @@ class NewPackageModal {
   final Map? params;
   NewPackageModal({this.params});
 
-  void open(Function(Map) onSubmit, int? productId) {
+  void open(Function(Map) afterSubmit, int? productId) {
     BuildContext context = currentContext();
     showModalBottomSheet(
       isScrollControlled: true,
@@ -23,7 +23,7 @@ class NewPackageModal {
           height: MediaQuery.of(context).size.height - 50,
           padding: MediaQuery.of(context).viewInsets,
           child: NewPackageForm(
-            onSubmit: onSubmit,
+            afterSubmit: afterSubmit,
             params: params,
             productId: productId,
           ),
@@ -35,11 +35,11 @@ class NewPackageModal {
 
 // List View Widget
 class NewPackageForm extends StatefulWidget {
-  final Function(Map) onSubmit;
+  final Function(Map) afterSubmit;
   final int? productId;
   final Map? params;
   const NewPackageForm(
-      {Key? key, required this.onSubmit, this.params, this.productId})
+      {Key? key, required this.afterSubmit, this.params, this.productId})
       : super(key: key);
 
   @override
@@ -145,24 +145,33 @@ class _NewPackageFormState extends State<NewPackageForm> {
     });
   }
 
-  _submit() {
-    // widget.onSubmit(params)
-    //;
-    var productOption = ProductOption.fromJson(params);
-    productOptionController
-        .createOption(
-            productOption: productOption, productId: widget.productId!)
-        .then((value) {
-      console.log("Create Success : ", payload: value);
-    });
-    setState(() {
-      params = {
-        "unit": null,
-        "coefficient": 1,
-        "sale_price": 0,
-        "purchase_price": 0,
-      };
-    });
-    Navigator.pop(context);
+  _submit() async {
+    try {
+      console.log("params : ", payload: params);
+      var productOption = ProductOption.fromJson(params);
+      console.log('after to form json', payload: productOption.productId);
+      if (widget.params != null) {
+        var res = await productOptionController.updateOption(
+            productOption: productOption);
+        console.log('Update success : ', payload: res);
+        widget.afterSubmit(res);
+      } else {
+        var res = await productOptionController.createOption(
+            productOption: productOption, productId: widget.productId!);
+        console.log("Create Success : ", payload: res);
+        widget.afterSubmit(res);
+      }
+      setState(() {
+        params = {
+          "unit": null,
+          "coefficient": 1,
+          "sale_price": 0,
+          "purchase_price": 0,
+        };
+      });
+      Navigator.pop(context);
+    } catch (e) {
+      console.warn('Error mutation : ', payload: e.toString());
+    }
   }
 }

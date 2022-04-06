@@ -13,7 +13,7 @@ class ProductOptionController {
 
   Future updateOption({required ProductOption productOption}) async {
     var res = await Api.post(
-        '/products/${productOption.productId}/product_units/${productOption.id}',
+        '/products/${productOption.productId}/product_units/${productOption.id}?_method=PUT',
         data: productOption.toJson(),
         formData: true);
     return res;
