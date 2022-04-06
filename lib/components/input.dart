@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/components/common_widget.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
 
 class MyTextInput extends StatelessWidget {
   final String placeholder;
@@ -21,6 +22,8 @@ class MyTextInput extends StatelessWidget {
 
   final Function(String, String?) onChanged;
 
+  final Map? error;
+
   _onChanged(v) {
     onChanged(v, column);
   }
@@ -35,6 +38,7 @@ class MyTextInput extends StatelessWidget {
     this.icon,
     required this.onChanged,
     this.numberOnly = false,
+    this.error,
   }) : super(key: key);
 
   @override
@@ -45,16 +49,34 @@ class MyTextInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (label != null)
-            SizedBox(
-              height: 18,
-              child: Text(
-                label!.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.grey,
+            Row(
+              children: [
+                SizedBox(
+                  height: 18,
+                  child: Text(
+                    label!.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.grey,
+                    ),
+                  ),
                 ),
-              ),
+                mr(2),
+                error?[column] != null
+                    ? SizedBox(
+                        height: 18,
+                        child: Text(
+                          error?[column],
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.red,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
             ),
           TextFormField(
             maxLines: textarea ? 5 : 1,
@@ -71,7 +93,9 @@ class MyTextInput extends StatelessWidget {
               prefixIcon: icon != null ? Icon(icon) : null,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: AppColors.borderColor,
+                  color: error?[column] != null
+                      ? AppColors.red
+                      : AppColors.borderColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(10.0),

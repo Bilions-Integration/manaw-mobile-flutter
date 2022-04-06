@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -61,6 +63,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
   };
   MyFile? image;
   MultipartFile? imgBlob;
+  Map? errors;
 
   @override
   void initState() {
@@ -125,6 +128,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         value: params['unit'],
                         column: 'unit',
                         label: 'Name',
+                        error: errors,
                         placeholder: 'Red Color',
                         onChanged: _valueChanged,
                       ),
@@ -188,6 +192,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
   _valueChanged(val, String? col) {
     setState(() {
       params[col.toString()] = val;
+      errors?[col] = null;
     });
   }
 
@@ -211,6 +216,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
       Navigator.pop(context);
     } catch (e) {
       console.warn('Error mutation : ', payload: e.toString());
+      setState(() {
+        errors = e as Map?;
+      });
     }
   }
 }

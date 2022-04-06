@@ -7,7 +7,11 @@ class ProductOptionController {
       required int productId}) async {
     var res = await Api.post('/products/$productId/product_units',
         data: productOption, formData: true, showLoading: showLoading);
-    return res;
+    if (res['success']) {
+      return res;
+    } else {
+      throw res['error'];
+    }
   }
 
   Future updateOption({required Map<String, dynamic> productOption}) async {
@@ -15,7 +19,11 @@ class ProductOptionController {
         '/products/${productOption['product_id']}/product_units/${productOption['id']}/?_method=PUT',
         data: productOption,
         formData: true);
-    return res;
+    if (res['success']) {
+      return res;
+    } else {
+      throw res['error'];
+    }
   }
 
   Future deleteOption({required int id, required productId}) async {
