@@ -51,18 +51,18 @@ class ProductController extends GetxController {
   Future<ProductDetail> saveProduct(
       {bool showLoading = false,
       String type = 'create',
-      required ProductDetail product}) async {
+      int? productId,
+      required Map<String, dynamic> product}) async {
     String url = type == 'create'
         ? '/products'
-        : '/products/' + product.productId.toString() + '?_method=PUT';
+        : '/products/' + productId.toString() + '?_method=PUT';
     try {
       var res = await Api.post(url,
-          data: product.toJson(), formData: true, showLoading: showLoading);
-      return ProductDetail.fromJson(res['data']);
+          data: product, formData: true, showLoading: showLoading);
+      return ProductDetail.fromJson(res['data'] as Map);
     } catch (e) {
       console.warn(e.toString());
-      inspect(e);
-      return product;
+      rethrow;
     }
   }
 }

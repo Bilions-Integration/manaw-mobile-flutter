@@ -33,16 +33,16 @@ class _CreateProductState extends State<CreateProduct> {
 
   final productController = Get.put(ProductController());
 
-  Map params = {
+  Map<String, dynamic> params = {
     "name": "",
     "category_id": null,
     "retail_price": null,
     "enable_selling": 1,
     "barcode": null,
     "buy_price": null,
-    "images": [],
+    "images[]": [],
     "type": null,
-    "old_images": [],
+    "old_images[]": [],
     "unit": null,
     'instock': null,
     'units': []
@@ -80,7 +80,7 @@ class _CreateProductState extends State<CreateProduct> {
                           children: [
                             ProductImagePicker(
                                 onChanged: _onNewImages,
-                                oldImages: params['old_images']),
+                                oldImages: params['old_images[]']),
                             mb(2),
                             hr(),
                             mb(2),
@@ -155,13 +155,13 @@ class _CreateProductState extends State<CreateProduct> {
   }
 
   _onNewImages(List<dio.MultipartFile> newImages) {
-    List oldImages = (params['old_images'] as List);
+    List oldImages = (params['old_images[]'] as List);
     setState(() {
       oldImages.isNotEmpty
           ? oldImages.removeWhere(
               (element) => element.toString().contains('placeholder.png'))
           : null;
-      params['images'] = newImages;
+      params['images[]'] = newImages;
     });
   }
 
@@ -192,51 +192,23 @@ class _CreateProductState extends State<CreateProduct> {
   _setParams(val, String? column) {
     setState(() {
       if (column == 'retail_price' || column == 'buy_price') {
-        params[column] = int.parse(val);
+        params[column.toString()] = int.parse(val);
       } else {
-        params[column] = val;
+        params[column.toString()] = val;
       }
     });
   }
 
   _saveProduct() {
-    late ProductDetail product;
-    if (widget.type == 'create') {
-      product = ProductDetail(
-          productId: 0,
-          name: params['name'],
-          images: params['images'] ?? [],
-          instock: 0,
-          retailPrice: params['retail_price'],
-          buyPrice: params['buy_price'],
-          barcode: params['barcode'],
-          type: params['type'] ?? '',
-          unit: params['unit'],
-          units: params['units'],
-          enableSelling: params['enable_selling'] == 1 ? true : false,
-          categoryId: params['category_id']);
-    } else {
-      product = ProductDetail(
-          productId: widget.productId!,
-          name: params['name'],
-          images: params['images'] ?? [],
-          oldImages: params['old_images'],
-          instock: params['instock'],
-          retailPrice: params['retail_price'],
-          buyPrice: params['buy_price'],
-          barcode: params['barcode'],
-          type: params['type'] ?? '',
-          units: params['units'],
-          unit: params['unit'],
-          enableSelling: params['enable_selling'] == 1 ? true : false,
-          categoryId: params['category_id']);
-      console.log('product update : ' + product.toString());
-    }
     productController
-        .saveProduct(product: product, type: widget.type, showLoading: true)
-        .then((product) {
-      var result =
-          ProductMutationResult(type: widget.type, id: product.productId);
+        .saveProduct(
+            product: params,
+            type: widget.type,
+            productId: widget.productId,
+            showLoading: true)
+        .then((ProductDetail product) {
+      var result = {'type': widget.type, 'id': product.productId};
+      console.log('before get back : ', payload: result);
       Get.back(result: result);
     }).catchError((e) {});
   }
@@ -246,21 +218,8 @@ class _CreateProductState extends State<CreateProduct> {
       productController.getProduct(productId: widget.productId).then((product) {
         setState(() {
           selectedCategory = product.category;
-          params = {
-            "name": product.name,
-            "category_id": product.categoryId,
-            "retail_price": product.retailPrice,
-            "enable_selling": 1,
-            "barcode": product.barcode,
-            "buy_price": product.buyPrice,
-            "type": product.type,
-            "old_images": product.images,
-            'instock': product.instock,
-            "unit": product.unit,
-            'units': product.units
-          };
-          console.log('setState old iamges : ' +
-              params["old_images"].length.toString());
+          params = product.toJson();
+          params['units'] = product.units;
           isLoading = false;
         });
         return product;

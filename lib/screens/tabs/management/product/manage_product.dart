@@ -138,12 +138,12 @@ class _ManageProductState extends State<ManageProduct> {
   }
 
   _afterMutation(result) {
-    if (result?.type == 'create') {
-      console.log("result create : ", payload: result.id);
-      Get.to(() => CreateProduct(type: 'edit', productId: result.id))
+    if (result?['type'] == 'create') {
+      console.log("result create : ", payload: result?['id']);
+      Get.to(() => CreateProduct(type: 'edit', productId: result?['id']))
           ?.then(_afterMutation);
     }
-    if (result?.type != null) {
+    if (result?['type'] != null) {
       _reset();
     }
   }
