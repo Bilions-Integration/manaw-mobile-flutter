@@ -154,10 +154,6 @@ class _CreateProductState extends State<CreateProduct> {
     );
   }
 
-  _setPackages(List<Map> packages) {
-    params['units'] = packages;
-  }
-
   _onNewImages(List<dio.MultipartFile> newImages) {
     List oldImages = (params['old_images'] as List);
     setState(() {

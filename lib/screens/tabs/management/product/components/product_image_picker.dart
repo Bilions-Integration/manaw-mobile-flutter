@@ -5,7 +5,6 @@ import 'package:my_app/components/image_preview.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
-import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class ProductImagePicker extends StatefulWidget {
   final Function(List<MultipartFile>) onChanged;
@@ -25,11 +24,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    console.log('product image picker invoked : ', payload: widget.oldImages);
     super.initState();
-    // images = widget.netImages!;
-    // console.log("images : " + images.length.toString());
   }
 
   @override
@@ -76,7 +71,6 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                           ),
                         ),
                         ...widget.oldImages.mapIndexed((e, i) {
-                          console.log("old image : ", payload: e);
                           return Padding(
                             key: ValueKey<String>(
                                 i.toString() + isImageUpdated.toString()),
@@ -86,7 +80,6 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                               height: 100,
                               isNetImage: true,
                               onRemoved: () {
-                                console.log('image remove', payload: i);
                                 _oldImageRemove(i);
                               },
                             ),
@@ -144,7 +137,6 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
 
   _oldImageRemove(int index) {
     widget.oldImages.removeAt(index);
-    console.log("widge.oldimage: ", payload: widget.oldImages);
     setState(() {
       isImageUpdated = !isImageUpdated;
     });
