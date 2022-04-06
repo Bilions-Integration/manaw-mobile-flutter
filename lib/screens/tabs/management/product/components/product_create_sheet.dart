@@ -54,9 +54,9 @@ class ProductCreateSheet {
                     InkWell(
                       onTap: () => {
                         Navigator.pop(context),
-                        Get.to(CreateProduct(
-                          type: 'create',
-                        ))
+                        Get.to(() => const CreateProduct(
+                              type: 'create',
+                            ))
                       },
                       child: Column(
                         children: [

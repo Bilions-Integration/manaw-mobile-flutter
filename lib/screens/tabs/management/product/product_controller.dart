@@ -26,9 +26,9 @@ class ProductController extends GetxController {
         'category': category,
       });
       total.value = res['data']['total'];
-      final resProducts = (res['data']['data'] as List)
-          .map((e) => ProductDetail.fromJson(e as Map))
-          .toList();
+      final resProducts = (res['data']['data'] as List).map((e) {
+        return ProductDetail.fromJson(e as Map);
+      }).toList();
       products.value = [...products.value, ...resProducts];
     } catch (e) {
       inspect(e);

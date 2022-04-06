@@ -38,7 +38,7 @@ class ProductDetail {
   });
 
   ProductDetail.fromJson(Map json)
-      : name = json['name'] ?? "hello",
+      : name = json['name'] ?? "",
         images = json['images'],
         oldImages = json['images'],
         productId = json['id'],
@@ -53,8 +53,8 @@ class ProductDetail {
         type = json['type'] ?? "",
         enableSelling = json['enable_selling'] ?? false,
         quantity = json['quantity'] ?? 1,
-        units = (json['units'] as List)
-            .map((e) => ProductOption.fromJson(e))
+        units = ((json['units'] ?? []) as List)
+            .map((e) => ProductOption.fromJson(e as Map))
             .toList(),
         unit = json['unit'];
 
