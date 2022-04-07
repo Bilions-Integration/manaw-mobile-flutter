@@ -56,13 +56,12 @@ class ProductController extends GetxController {
     String url = type == 'create'
         ? '/products'
         : '/products/' + productId.toString() + '?_method=PUT';
-    try {
-      var res = await Api.post(url,
-          data: product, formData: true, showLoading: showLoading);
+    var res = await Api.post(url,
+        data: product, formData: true, showLoading: showLoading);
+    if (res['success']) {
       return ProductDetail.fromJson(res['data'] as Map);
-    } catch (e) {
-      console.warn(e.toString());
-      rethrow;
+    } else {
+      throw res['error'];
     }
   }
 }

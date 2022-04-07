@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,7 +34,7 @@ class _CreateProductState extends State<CreateProduct> {
   CategoryModel? selectedCategory;
 
   final productController = Get.put(ProductController());
-
+  Map? errors;
   Map<String, dynamic> params = {
     "name": "",
     "category_id": null,
@@ -89,6 +91,7 @@ class _CreateProductState extends State<CreateProduct> {
                               column: 'name',
                               placeholder: 'Enter Product Name',
                               onChanged: _setParams,
+                              error: errors,
                               label: 'Product Name *',
                             ),
                             MyTextInput(
@@ -96,6 +99,7 @@ class _CreateProductState extends State<CreateProduct> {
                               value: params['retail_price'],
                               placeholder: '0',
                               onChanged: _setParams,
+                              error: errors,
                               label: 'Sale Price *',
                             ),
                             SelectBox(
@@ -109,6 +113,7 @@ class _CreateProductState extends State<CreateProduct> {
                               column: 'barcode',
                               placeholder: 'ABC-1234567890',
                               onChanged: _setParams,
+                              error: errors,
                               label: 'Barcode',
                             ),
                             MyTextInput(
@@ -116,6 +121,7 @@ class _CreateProductState extends State<CreateProduct> {
                               value: params['buy_price'],
                               placeholder: '0',
                               onChanged: _setParams,
+                              error: errors,
                               label: 'Purchase Price',
                             ),
                             MyTextInput(
@@ -123,6 +129,7 @@ class _CreateProductState extends State<CreateProduct> {
                               value: params['unit'],
                               placeholder: 'pcs',
                               onChanged: _setParams,
+                              error: errors,
                               label: 'Product Unit',
                             ),
                             if (widget.type == 'edit')
@@ -210,7 +217,11 @@ class _CreateProductState extends State<CreateProduct> {
       var result =
           ProductMutationResult(type: widget.type, id: product.productId);
       Get.back(result: result);
-    }).catchError((e) {});
+    }).catchError((e) {
+      setState(() {
+        errors = e as Map?;
+      });
+    });
   }
 
   _getProduct() async {
