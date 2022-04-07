@@ -23,6 +23,12 @@ class MyFile {
     required this.path,
     required this.name,
   });
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return 'Path: ' + path + ", Name : " + name;
+  }
 }
 
 class ListItem {

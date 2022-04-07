@@ -7,12 +7,14 @@ class ImagePreview extends StatelessWidget {
   final String image;
   final double radius;
   final double height;
+  final bool isNetImage;
   final Function()? onRemoved;
   const ImagePreview({
     Key? key,
     required this.image,
     this.radius = 8.0,
     required this.height,
+    this.isNetImage = false,
     this.onRemoved,
   }) : super(key: key);
 
@@ -24,7 +26,7 @@ class ImagePreview extends StatelessWidget {
           height: 100,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
-            child: Image.file(File(image)),
+            child: isNetImage ? Image.network(image) : Image.file(File(image)),
           ),
         ),
         Positioned(

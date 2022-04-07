@@ -1,6 +1,6 @@
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
 
 class POSController extends GetxController {
@@ -23,10 +23,9 @@ class POSController extends GetxController {
       final resProducts = res['data']['data'];
       final mapProducts =
           (resProducts as List).map((e) => Product.fromJson(e as Map)).toList();
-
       products.value = [...products.value, ...mapProducts];
     } catch (e) {
-      console.log(e.toString());
+      inspect(e);
     }
   }
 }

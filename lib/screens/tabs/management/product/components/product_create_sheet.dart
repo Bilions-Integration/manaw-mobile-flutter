@@ -54,9 +54,9 @@ class ProductCreateSheet {
                     InkWell(
                       onTap: () => {
                         Navigator.pop(context),
-                        Get.to(const CreateProduct(
-                          type: 'create',
-                        ))
+                        Get.to(() => const CreateProduct(
+                              type: 'create',
+                            ))
                       },
                       child: Column(
                         children: [
@@ -64,7 +64,8 @@ class ProductCreateSheet {
                             padding: const EdgeInsets.all(30),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(9),
-                              border: Border.all(color: AppColors.borderColor, width: 1),
+                              border: Border.all(
+                                  color: AppColors.borderColor, width: 1),
                             ),
                             child: SizedBox(
                               width: 30,

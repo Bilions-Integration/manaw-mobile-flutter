@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
 import 'package:my_app/screens/tabs/management/components/current_plan.dart';
@@ -9,13 +10,13 @@ import 'package:my_app/screens/tabs/management/components/upgrade_plan.dart';
 class ManageScreen extends StatelessWidget {
   const ManageScreen({Key? key}) : super(key: key);
 
-  static const List<Map> list = [
-    {"name": "Products", "page": RouteName.product},
-    {"name": "Categories", "page": RouteName.category},
-    {"name": "Sale Invoices", "page": RouteName.saleInvoice},
-    {"name": "Purchase Invoices", "page": RouteName.purchaseInvoice},
-    {"name": "Reports", "page": RouteName.report},
-    {"name": "My Store", "page": RouteName.myStore},
+  static List<ManagePage> pageList = [
+    ManagePage(name: "Products", page: RouteName.product),
+    ManagePage(name: "Categories", page: RouteName.category),
+    ManagePage(name: "Sale Invoice", page: RouteName.saleInvoice),
+    ManagePage(name: "Purchase Invoices", page: RouteName.purchaseInvoice),
+    ManagePage(name: "Reports", page: RouteName.report),
+    ManagePage(name: "My Store", page: RouteName.myStore),
   ];
 
   static void openCreatePopup() {
@@ -36,16 +37,17 @@ class ManageScreen extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   mb(2),
-                  for (var item in list.asMap().entries)
-                    Stack(
+                  ...pageList.map((e) {
+                    return Stack(
                       children: <Widget>[
                         LinkItem(
-                          name: item.value['name'],
-                          page: item.value['page'],
+                          name: e.name,
+                          page: e.page,
                         ),
                         hr(),
                       ],
-                    ),
+                    );
+                  }),
                   hr()
                 ],
               ),

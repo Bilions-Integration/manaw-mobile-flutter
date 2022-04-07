@@ -8,7 +8,10 @@ import 'package:my_app/model/common_model.dart';
 
 class ProductImagePicker extends StatefulWidget {
   final Function(List<MultipartFile>) onChanged;
-  const ProductImagePicker({Key? key, required this.onChanged}) : super(key: key);
+  final List oldImages;
+  const ProductImagePicker(
+      {Key? key, required this.onChanged, required this.oldImages})
+      : super(key: key);
 
   @override
   State<ProductImagePicker> createState() => _ProductImagePickerState();
@@ -17,10 +20,16 @@ class ProductImagePicker extends StatefulWidget {
 class _ProductImagePickerState extends State<ProductImagePicker> {
   List<MyFile> pickedImages = [];
   List<MultipartFile> pickedBlobs = [];
+  bool isImageUpdated = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return pickedImages.isEmpty
+    return pickedImages.isEmpty && widget.oldImages.isEmpty
         ? Column(
             children: [
               InkWell(
@@ -28,7 +37,9 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                 child: Container(
                   margin: const EdgeInsets.only(right: 5),
                   padding: const EdgeInsets.all(40),
-                  decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(
+                      color: AppColors.borderColor,
+                      borderRadius: BorderRadius.circular(10)),
                   child: const Icon(Icons.add_rounded),
                 ),
               ),
@@ -53,10 +64,27 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
                           child: Container(
                             margin: const EdgeInsets.only(right: 5),
                             padding: const EdgeInsets.all(40),
-                            decoration: BoxDecoration(color: AppColors.borderColor, borderRadius: BorderRadius.circular(10)),
+                            decoration: BoxDecoration(
+                                color: AppColors.borderColor,
+                                borderRadius: BorderRadius.circular(10)),
                             child: const Icon(Icons.add_rounded),
                           ),
                         ),
+                        ...widget.oldImages.mapIndexed((e, i) {
+                          return Padding(
+                            key: ValueKey<String>(
+                                i.toString() + isImageUpdated.toString()),
+                            padding: const EdgeInsets.only(right: 5),
+                            child: ImagePreview(
+                              image: e,
+                              height: 100,
+                              isNetImage: true,
+                              onRemoved: () {
+                                _oldImageRemove(i);
+                              },
+                            ),
+                          );
+                        }),
                         ...pickedImages
                             .mapIndexed(
                               (MyFile e, index) => Padding(
@@ -94,9 +122,24 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     setState(() {
       pickedImages = files;
       pickedBlobs = blobs;
+      files.forEach((element) {
+        console.log('Files: ');
+        console.log(element.toString());
+      });
+      blobs.forEach((element) {
+        console.log('Blob: ');
+        console.log(element.length);
+      });
     });
 
     widget.onChanged(blobs);
+  }
+
+  _oldImageRemove(int index) {
+    widget.oldImages.removeAt(index);
+    setState(() {
+      isImageUpdated = !isImageUpdated;
+    });
   }
 
   _showFileUpload({ImageSource source = ImageSource.gallery}) async {
@@ -109,8 +152,12 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     List<MultipartFile> blobs = [...pickedBlobs];
 
     for (var image in images) {
-      final blob = await MultipartFile.fromFile(image.path, filename: image.name);
-      files = [MyFile(blob: blob, path: image.path, name: image.name), ...files];
+      final blob =
+          await MultipartFile.fromFile(image.path, filename: image.name);
+      files = [
+        MyFile(blob: blob, path: image.path, name: image.name),
+        ...files
+      ];
       blobs = [blob, ...blobs];
     }
 
