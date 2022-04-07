@@ -26,9 +26,9 @@ class ProductOptionController {
     }
   }
 
-  Future deleteOption({required int id, required productId}) async {
+  Future<bool> deleteOption({required int id, required productId}) async {
     var res = await Api.delete('/products/$productId/product_units/$id',
         showLoading: false);
-    return res;
+    return res['success'];
   }
 }

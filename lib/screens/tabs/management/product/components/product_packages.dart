@@ -69,9 +69,9 @@ class _ProductPackagesState extends State<ProductPackages> {
   _remove(ProductOption unit) async {
     var optionController = ProductOptionController();
     try {
-      var res = await optionController.deleteOption(
+      bool success = await optionController.deleteOption(
           id: unit.id!, productId: unit.productId);
-      if (res['success']) {
+      if (success) {
         widget.afterMutation();
       }
     } catch (e) {
