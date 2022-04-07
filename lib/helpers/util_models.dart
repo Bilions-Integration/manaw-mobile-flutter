@@ -19,8 +19,7 @@ class PopupItem {
 }
 
 class ProductMutationResult {
-  final String type;
-  int? id;
-
-  ProductMutationResult({required this.type, this.id});
+  final int? id;
+  final String? type;
+  ProductMutationResult({this.type, this.id});
 }

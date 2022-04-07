@@ -5,6 +5,7 @@ import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
@@ -28,7 +29,6 @@ class _ManageProductState extends State<ManageProduct> {
   @override
   void initState() {
     super.initState();
-    console.log("manage product init state");
     _reset();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -132,18 +132,18 @@ class _ManageProductState extends State<ManageProduct> {
         Get.to(() => CreateProduct(
               type: action,
               productId: productId,
-            ))?.then(_afterMutation);
+            ))?.then((res) => _afterMutation(res as ProductMutationResult));
         break;
     }
   }
 
-  _afterMutation(result) {
+  _afterMutation(ProductMutationResult? result) {
     if (result?.type == 'create') {
-      console.log("result create : ", payload: result.id);
-      Get.to(() => CreateProduct(type: 'edit', productId: result.id))
-          ?.then(_afterMutation);
+      Get.to(() => CreateProduct(type: 'edit', productId: result?.id))
+          ?.then((res) => _afterMutation(res as ProductMutationResult));
+      return null;
     }
-    if (result?.type != null) {
+    if (result != null) {
       _reset();
     }
   }

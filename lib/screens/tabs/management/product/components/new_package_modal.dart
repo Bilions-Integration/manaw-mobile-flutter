@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,11 +10,10 @@ import 'package:my_app/components/text_tapper.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
-import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class NewPackageModal {
-  final Map? params;
+  final Map<String, dynamic>? params;
   NewPackageModal({this.params});
 
   void open(Function() afterSubmit, int? productId) {
@@ -42,7 +43,7 @@ class NewPackageModal {
 class NewPackageForm extends StatefulWidget {
   final Function() afterSubmit;
   final int? productId;
-  final Map? params;
+  final Map<String, dynamic>? params;
   const NewPackageForm(
       {Key? key, required this.afterSubmit, this.params, this.productId})
       : super(key: key);
@@ -53,7 +54,7 @@ class NewPackageForm extends StatefulWidget {
 
 class _NewPackageFormState extends State<NewPackageForm> {
   var productOptionController = ProductOptionController();
-  Map params = {
+  Map<String, dynamic> params = {
     "unit": null,
     "coefficient": 1,
     "sale_price": 0,
@@ -62,6 +63,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
   };
   MyFile? image;
   MultipartFile? imgBlob;
+  Map? errors;
 
   @override
   void initState() {
@@ -126,6 +128,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         value: params['unit'],
                         column: 'unit',
                         label: 'Name',
+                        error: errors,
                         placeholder: 'Red Color',
                         onChanged: _valueChanged,
                       ),
@@ -188,19 +191,18 @@ class _NewPackageFormState extends State<NewPackageForm> {
 
   _valueChanged(val, String? col) {
     setState(() {
-      params[col] = val;
+      params[col.toString()] = val;
+      errors?[col] = null;
     });
   }
 
   _submit() async {
     try {
-      var productOption = ProductOption.fromJson(params);
       if (widget.params != null) {
-        await productOptionController.updateOption(
-            productOption: productOption);
+        await productOptionController.updateOption(productOption: params);
       } else {
         await productOptionController.createOption(
-            productOption: productOption, productId: widget.productId!);
+            productOption: params, productId: widget.productId!);
       }
       widget.afterSubmit();
       setState(() {
@@ -214,6 +216,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
       Navigator.pop(context);
     } catch (e) {
       console.warn('Error mutation : ', payload: e.toString());
+      setState(() {
+        errors = e as Map?;
+      });
     }
   }
 }
