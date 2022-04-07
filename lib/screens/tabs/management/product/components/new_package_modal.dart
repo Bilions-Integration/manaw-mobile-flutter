@@ -59,7 +59,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
     "coefficient": 1,
     "sale_price": 0,
     "purchase_price": 0,
-    "active": true,
+    "active": 0,
   };
   MyFile? image;
   MultipartFile? imgBlob;
@@ -86,6 +86,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
               child: ListView(
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -103,26 +104,28 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         ],
                       ),
                       mb(2),
-                      image != null
-                          ? Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: ImagePreview(
-                                  image: image?.path ?? '',
-                                  height: 100,
-                                  onRemoved: _removeImage),
-                            )
-                          : params['image'] != null
-                              ? Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: ImagePreview(
-                                      image: params['image'] ?? '',
-                                      height: 100,
-                                      isNetImage: true,
-                                      onRemoved: _removeImage),
-                                )
-                              : UnitImagePicker(
-                                  onChanged: _onImageChanged,
-                                ),
+                      Center(
+                        child: image != null
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: ImagePreview(
+                                    image: image?.path ?? '',
+                                    height: 100,
+                                    onRemoved: _removeImage),
+                              )
+                            : params['image'] != null
+                                ? Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: ImagePreview(
+                                        image: params['image'] ?? '',
+                                        height: 100,
+                                        isNetImage: true,
+                                        onRemoved: _removeImage),
+                                  )
+                                : UnitImagePicker(
+                                    onChanged: _onImageChanged,
+                                  ),
+                      ),
                       mb(2),
                       MyTextInput(
                         value: params['unit'],
@@ -156,6 +159,22 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         numberOnly: true,
                         onChanged: _valueChanged,
                       ),
+                      SizedBox(
+                        height: 18,
+                        child: Text(
+                          'ACTIVE',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.grey,
+                          ),
+                        ),
+                      ),
+                      Switch(
+                        activeColor: AppColors.dark,
+                        value: params['active'] == 1,
+                        onChanged: _toggleActive,
+                      )
                     ],
                   ),
                 ],
@@ -171,6 +190,12 @@ class _NewPackageFormState extends State<NewPackageForm> {
         ),
       ),
     );
+  }
+
+  _toggleActive(value) {
+    setState(() {
+      params['active'] = value ? 1 : 0;
+    });
   }
 
   _onImageChanged(MyFile file, MultipartFile blob) {

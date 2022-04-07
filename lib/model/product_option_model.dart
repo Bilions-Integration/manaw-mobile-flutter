@@ -41,6 +41,6 @@ class ProductOption {
         'purchase_price': purchasePrice,
         'description': description,
         'coefficient': coefficient,
-        'active': active,
+        'active': active ? 1 : 0,
       };
 }
