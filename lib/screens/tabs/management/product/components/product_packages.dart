@@ -24,8 +24,21 @@ class _ProductPackagesState extends State<ProductPackages> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         hr(height: 15),
+        SizedBox(
+          height: 24,
+          child: Text(
+            'VARIATIONS',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: AppColors.grey,
+            ),
+          ),
+        ),
         ...?widget.options
             ?.mapIndexed((option, i) => Stack(
                   children: [
@@ -106,7 +119,13 @@ class PackageViewCard extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            child: Text(option.name),
+            child: Text(
+              option.name,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           hr(),
           Padding(
@@ -139,11 +158,16 @@ class PackageViewCard extends StatelessWidget {
               ],
             ),
           ),
+          mb(1),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
             child: Row(
               children: [
-                Text('Coefficient : ${option.coefficient}'),
+                SizedBox(
+                  width: 150,
+                  child: Text('Coefficient : ${option.coefficient}'),
+                ),
+                Text(option.active ? 'Active' : 'Inactive'),
               ],
             ),
           ),
