@@ -5,6 +5,7 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
+import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ProductItem extends StatefulWidget {
   final ProductDetail product;
@@ -16,7 +17,6 @@ class ProductItem extends StatefulWidget {
     required this.handler,
     required this.index,
   }) : super(key: key);
-
   @override
   State<ProductItem> createState() => _ProductItemState();
 }
@@ -107,6 +107,7 @@ class _ProductItemState extends State<ProductItem> {
     setState(() {
       enableSelling = value;
     });
-    await Api.post('/products/enable/${widget.product.productId}');
+    await Api.post('/products/enable/${widget.product.productId}',
+        showLoading: false);
   }
 }

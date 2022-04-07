@@ -29,7 +29,6 @@ class _ManageProductState extends State<ManageProduct> {
   @override
   void initState() {
     super.initState();
-    console.log("manage product init state");
     _reset();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -142,6 +141,7 @@ class _ManageProductState extends State<ManageProduct> {
     if (result?.type == 'create') {
       Get.to(() => CreateProduct(type: 'edit', productId: result?.id))
           ?.then((res) => _afterMutation(res as ProductMutationResult));
+      return null;
     }
     if (result != null) {
       _reset();
