@@ -18,6 +18,12 @@ class PopupItem {
   PopupItem({required this.name, required this.icon, this.onTap});
 }
 
+class ManagePage {
+  final String name;
+  final dynamic page;
+  ManagePage({required this.name, required this.page});
+}
+
 class ProductMutationResult {
   final int? id;
   final String? type;

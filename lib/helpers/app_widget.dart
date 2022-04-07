@@ -80,7 +80,6 @@ class AppWidget {
       List<DialogAction>? actions,
       String? title,
       String? message}) {
-    console.log('actions params : ', payload: actions?.length);
     dismissDialog() {
       Navigator.of(context).pop();
     }
@@ -129,14 +128,13 @@ class AppWidget {
         ),
       );
     });
-    console.log('actions : ', payload: actionBtns.length);
     AlertDialog alert = AlertDialog(
       title: Text(title ?? "Are you sure?"),
       content: Text(message ?? "Are you sure to delete?"),
       actions: actionBtns.isNotEmpty ? actionBtns : defaultActions,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      insetPadding: EdgeInsets.all(15),
-      actionsPadding: EdgeInsets.only(right: 10),
+      insetPadding: const EdgeInsets.all(15),
+      actionsPadding: const EdgeInsets.only(right: 10),
     );
     showDialog(
         context: context,

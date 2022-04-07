@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart';
-import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
-import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class OptionsMenu {
   final int? productId;
