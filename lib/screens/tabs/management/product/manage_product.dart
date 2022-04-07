@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
@@ -58,8 +59,7 @@ class _ManageProductState extends State<ManageProduct> {
             ),
             IconButton(
               onPressed: () {
-                // ProductCreateSheet().open();
-                _handleNavigation("create", null);
+                _handleNavigation(action: 'create');
               },
               icon: const Icon(Icons.add_rounded),
             ),
@@ -124,8 +124,7 @@ class _ManageProductState extends State<ManageProduct> {
         ));
   }
 
-  _handleNavigation(String action, int? productId) {
-    console.log('Handle On tap : ' + action);
+  _handleNavigation({required String action, int? productId}) {
     switch (action) {
       case 'create':
       case 'edit':
@@ -134,6 +133,31 @@ class _ManageProductState extends State<ManageProduct> {
               productId: productId,
             ))?.then((res) => _afterMutation(res as ProductMutationResult));
         break;
+      case 'delete':
+        List<DialogAction> actions = [
+          DialogAction(name: 'Cancel', type: 'cancel'),
+          DialogAction(
+              name: 'Delete',
+              type: 'danger',
+              handler: () {
+                _deleteProduct(productId!);
+              })
+        ];
+        AppWidget.showAlertBox(
+            context: context,
+            actions: actions,
+            message: 'Are you sure to delete this product?');
+        break;
+    }
+  }
+
+  _deleteProduct(int productId) async {
+    bool success = await productController.deleteProduct(productId: productId);
+    var snackBar =
+        SnackBar(content: Text('Delete ' + (success ? 'success' : 'failed')));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    if (success) {
+      _reset();
     }
   }
 

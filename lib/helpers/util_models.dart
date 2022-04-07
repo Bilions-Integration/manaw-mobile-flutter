@@ -23,3 +23,10 @@ class ProductMutationResult {
   final String? type;
   ProductMutationResult({this.type, this.id});
 }
+
+class DialogAction {
+  final String name;
+  final Function? handler;
+  final String type;
+  DialogAction({required this.name, this.handler, required this.type});
+}

@@ -11,7 +11,7 @@ import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class OptionsMenu {
   final int? productId;
-  final Function handler;
+  final Function({required String action, int? productId}) handler;
   OptionsMenu({this.productId, required this.handler});
   final List<Options> options = [
     Options(
@@ -64,7 +64,7 @@ class OptionsMenu {
                     child: InkWell(
                       onTap: () => {
                         Navigator.pop(context),
-                        handler(option.action, productId)
+                        handler(action: option.action, productId: productId)
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10),

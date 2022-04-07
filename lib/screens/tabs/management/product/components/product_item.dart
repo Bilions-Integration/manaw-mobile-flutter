@@ -10,7 +10,7 @@ import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 class ProductItem extends StatefulWidget {
   final ProductDetail product;
   final int index;
-  final Function handler;
+  final Function({required String action, int? productId}) handler;
   const ProductItem({
     Key? key,
     required this.product,

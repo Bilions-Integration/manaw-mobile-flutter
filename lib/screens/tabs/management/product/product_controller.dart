@@ -64,4 +64,9 @@ class ProductController extends GetxController {
       throw res['error'];
     }
   }
+
+  Future<bool> deleteProduct({required int productId}) async {
+    return Api.delete('/products/$productId', showLoading: true)
+        .then((value) => value['success'] as bool);
+  }
 }
