@@ -40,19 +40,19 @@ class MyPopup extends StatelessWidget {
     util.PopupItem(
         icon: AppAssets.icProduct,
         name: "Product",
-        onTap: () => {Get.to(() => CreateProduct(type: 'single'))}),
+        onTap: () => {Get.to(() => const CreateProduct(type: 'create'))}),
     util.PopupItem(
         icon: AppAssets.icCategory,
         name: "Category",
-        onTap: () => Get.to(() => CreateCategory())),
+        onTap: () => Get.to(() => const CreateCategory())),
     util.PopupItem(
         icon: AppAssets.icInvoice,
         name: "Invoice",
-        onTap: () => Get.to(() => CreateInvoice())),
+        onTap: () => Get.to(() => const CreateInvoice())),
     util.PopupItem(
         icon: AppAssets.icDiscount,
         name: "Discount",
-        onTap: () => Get.to(() => CreateDiscount())),
+        onTap: () => Get.to(() => const CreateDiscount())),
   ];
 
   @override
