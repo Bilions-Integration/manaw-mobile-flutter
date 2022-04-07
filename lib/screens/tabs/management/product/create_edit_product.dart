@@ -203,6 +203,7 @@ class _CreateProductState extends State<CreateProduct> {
       } else {
         params[column.toString()] = val;
       }
+      errors?[column] = null;
     });
   }
 
