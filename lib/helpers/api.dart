@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/helpers/helper.dart';
 
@@ -9,7 +10,7 @@ class DioWrapper {
     final box = GetStorage();
     final token = box.read('@bearerToken');
     BaseOptions options = BaseOptions(
-        baseUrl: 'https://api.manawstore.com/api',
+        baseUrl: dotenv.env['APP_URL'].toString(),
         headers: {
           "authorization": "Bearer $token",
           "Accept": "application/json"

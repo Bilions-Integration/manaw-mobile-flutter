@@ -10,8 +10,10 @@ import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
 import 'firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   GetStorage.init();
   await Firebase.initializeApp(
