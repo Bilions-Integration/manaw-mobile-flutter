@@ -57,10 +57,14 @@ class AppAssets {
   static const search = 'assets/images/manage/search.svg';
   static const edit = 'assets/images/manage/edit.svg';
   static const trash = 'assets/images/manage/trash.svg';
+  static const clone = 'assets/images/manage/clone.svg';
   //product
   static const icSelling = 'assets/images/manage/selling.svg';
   static const icGroupProduct = 'assets/images/manage/group-product.svg';
   static const icNegativeStock = 'assets/images/manage/negative-stock.svg';
   static const icEdit = 'assets/images/edit.svg';
   static const icDelete = 'assets/images/delete.svg';
+  //invoice
+  static const invoiceIcon = 'assets/images/manage/invoice-icon.svg';
+
 }
