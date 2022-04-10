@@ -4,25 +4,24 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
+import 'package:my_app/helpers/util_models.dart';
 
 class OptionsMenu {
-  final List<Map> options = [
-    {
-      "name": "Edit",
-      "icon": AppAssets.icEdit,
-      "action": "edit",
-    },
-    {
-      "name": "Add Stock",
-      "icon": AppAssets.icAddStock,
-      "action": "enable_selling",
-    },
-    {
-      "name": "Delete Product",
-      "type": "danger",
-      "icon": AppAssets.icDelete,
-      "action": "remove_all",
-    },
+  final int? productId;
+  final Function({required String action, int? productId}) handler;
+  OptionsMenu({this.productId, required this.handler});
+  final List<Options> options = [
+    Options(
+      name: "Edit",
+      icon: AppAssets.icEdit,
+      action: "edit",
+    ),
+    Options(name: "Add Stock", icon: AppAssets.icAddStock, action: "add_stock"),
+    Options(
+        name: "Delete Product",
+        icon: AppAssets.icDelete,
+        action: "delete",
+        type: "danger"),
   ];
   void open() {
     final context = currentContext();
@@ -57,32 +56,41 @@ class OptionsMenu {
                 ),
                 for (var option in options)
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 10),
                     child: InkWell(
-                        onTap: () => console.log("Option tapped" + option['action']),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                option["icon"],
-                                width: 25,
-                                color: option['type'] == 'danger' ? AppColors.red : AppColors.black,
+                      onTap: () => {
+                        Navigator.pop(context),
+                        handler(action: option.action, productId: productId)
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              option.icon,
+                              width: 25,
+                              color: option.type == 'danger'
+                                  ? AppColors.red
+                                  : AppColors.black,
+                            ),
+                            const SizedBox(
+                              width: 20,
+                              height: 20,
+                            ),
+                            Text(
+                              option.name,
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: option.type == 'danger'
+                                    ? AppColors.red
+                                    : AppColors.black,
                               ),
-                              const SizedBox(
-                                width: 20,
-                                height: 20,
-                              ),
-                              Text(
-                                option["name"],
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: option['type'] == 'danger' ? AppColors.red : AppColors.black,
-                                ),
-                              )
-                            ],
-                          ),
-                        )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   )
               ],
             ),

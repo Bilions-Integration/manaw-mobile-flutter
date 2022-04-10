@@ -24,7 +24,6 @@ class Api {
     return FormData.fromMap(data);
   }
 
-  // get method
   static Future<dynamic> get(
     String url, {
     Map<String, dynamic>? data,
@@ -53,6 +52,7 @@ class Api {
   // post method
   static Future<dynamic> post(
     String url, {
+    // Map<String, dynamic>? data,
     dynamic data,
     bool formData = false,
     bool showLoading = true,
@@ -66,6 +66,7 @@ class Api {
       if (formData) {
         data = _convertFormData(data);
       }
+      // return;
       var response = await dio.post(url, data: data);
       if (showLoading) {
         hideLoading();

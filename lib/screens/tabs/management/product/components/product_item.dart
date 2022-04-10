@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
+import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ProductItem extends StatefulWidget {
-  final Product product;
+  final ProductDetail product;
   final int index;
+  final Function({required String action, int? productId}) handler;
   const ProductItem({
     Key? key,
     required this.product,
+    required this.handler,
     required this.index,
   }) : super(key: key);
-
   @override
   State<ProductItem> createState() => _ProductItemState();
 }
@@ -33,7 +36,9 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        OptionsMenu().open();
+        OptionsMenu(
+                productId: widget.product.productId, handler: widget.handler)
+            .open();
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10, top: (widget.index == 1) ? 0 : 10),
@@ -79,7 +84,8 @@ class _ProductItemState extends State<ProductItem> {
             widget.product.instock <= 0
                 ? Text(
                     'Out',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.red),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: AppColors.red),
                   )
                 : Text(
                     widget.product.instock.toString(),
@@ -101,6 +107,7 @@ class _ProductItemState extends State<ProductItem> {
     setState(() {
       enableSelling = value;
     });
-    await Api.post('/products/enable/${widget.product.productId}');
+    await Api.post('/products/enable/${widget.product.productId}',
+        showLoading: false);
   }
 }

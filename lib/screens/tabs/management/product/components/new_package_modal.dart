@@ -1,14 +1,22 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/components/image_preview.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/components/text_tapper.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/common_model.dart';
+import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class NewPackageModal {
-  final Map? params;
+  final Map<String, dynamic>? params;
   NewPackageModal({this.params});
 
-  void open(Function(Map) onSubmit) {
+  void open(Function() afterSubmit, int? productId) {
     BuildContext context = currentContext();
     showModalBottomSheet(
       isScrollControlled: true,
@@ -21,8 +29,9 @@ class NewPackageModal {
           height: MediaQuery.of(context).size.height - 50,
           padding: MediaQuery.of(context).viewInsets,
           child: NewPackageForm(
-            onSubmit: onSubmit,
+            afterSubmit: afterSubmit,
             params: params,
+            productId: productId,
           ),
         );
       },
@@ -32,21 +41,29 @@ class NewPackageModal {
 
 // List View Widget
 class NewPackageForm extends StatefulWidget {
-  final Function(Map) onSubmit;
-  final Map? params;
-  const NewPackageForm({Key? key, required this.onSubmit, this.params}) : super(key: key);
+  final Function() afterSubmit;
+  final int? productId;
+  final Map<String, dynamic>? params;
+  const NewPackageForm(
+      {Key? key, required this.afterSubmit, this.params, this.productId})
+      : super(key: key);
 
   @override
   State<NewPackageForm> createState() => _NewPackageFormState();
 }
 
 class _NewPackageFormState extends State<NewPackageForm> {
-  Map params = {
+  var productOptionController = ProductOptionController();
+  Map<String, dynamic> params = {
     "unit": null,
     "coefficient": 1,
     "sale_price": 0,
     "purchase_price": 0,
+    "active": 0,
   };
+  MyFile? image;
+  MultipartFile? imgBlob;
+  Map? errors;
 
   @override
   void initState() {
@@ -69,10 +86,14 @@ class _NewPackageFormState extends State<NewPackageForm> {
               child: ListView(
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Text('New Variation'.toUpperCase()),
+                          Text((widget.params != null
+                                  ? 'Edit Variation'
+                                  : 'New Variation')
+                              .toUpperCase()),
                           const Spacer(),
                           TextTapper(
                             title: 'CANCEL',
@@ -83,10 +104,34 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         ],
                       ),
                       mb(2),
+                      Center(
+                        child: image != null
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: ImagePreview(
+                                    image: image?.path ?? '',
+                                    height: 100,
+                                    onRemoved: _removeImage),
+                              )
+                            : params['image'] != null
+                                ? Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: ImagePreview(
+                                        image: params['image'] ?? '',
+                                        height: 100,
+                                        isNetImage: true,
+                                        onRemoved: _removeImage),
+                                  )
+                                : UnitImagePicker(
+                                    onChanged: _onImageChanged,
+                                  ),
+                      ),
+                      mb(2),
                       MyTextInput(
                         value: params['unit'],
                         column: 'unit',
                         label: 'Name',
+                        error: errors,
                         placeholder: 'Red Color',
                         onChanged: _valueChanged,
                       ),
@@ -114,6 +159,22 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         numberOnly: true,
                         onChanged: _valueChanged,
                       ),
+                      SizedBox(
+                        height: 18,
+                        child: Text(
+                          'ACTIVE',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.grey,
+                          ),
+                        ),
+                      ),
+                      Switch(
+                        activeColor: AppColors.dark,
+                        value: params['active'] == 1,
+                        onChanged: _toggleActive,
+                      )
                     ],
                   ),
                 ],
@@ -121,7 +182,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: PrimaryButton(value: widget.params != null ? 'Update' : 'Create', onPressed: _submit),
+              child: PrimaryButton(
+                  value: widget.params != null ? 'Update' : 'Create',
+                  onPressed: _submit),
             )
           ],
         ),
@@ -129,22 +192,100 @@ class _NewPackageFormState extends State<NewPackageForm> {
     );
   }
 
-  _valueChanged(val, String? col) {
+  _toggleActive(value) {
     setState(() {
-      params[col] = val;
+      params['active'] = value ? 1 : 0;
     });
   }
 
-  _submit() {
-    widget.onSubmit(params);
+  _onImageChanged(MyFile file, MultipartFile blob) {
     setState(() {
-      params = {
-        "unit": null,
-        "coefficient": 1,
-        "sale_price": 0,
-        "purchase_price": 0,
-      };
+      image = file;
+      imgBlob = blob;
+      params['image'] = blob;
     });
-    Navigator.pop(context);
+  }
+
+  _removeImage() {
+    setState(() {
+      image = null;
+      imgBlob = null;
+      params['image'] = null;
+    });
+  }
+
+  _valueChanged(val, String? col) {
+    setState(() {
+      params[col.toString()] = val;
+      errors?[col] = null;
+    });
+  }
+
+  _submit() async {
+    try {
+      if (widget.params != null) {
+        await productOptionController.updateOption(productOption: params);
+      } else {
+        await productOptionController.createOption(
+            productOption: params, productId: widget.productId!);
+      }
+      widget.afterSubmit();
+      setState(() {
+        params = {
+          "unit": null,
+          "coefficient": 1,
+          "sale_price": 0,
+          "purchase_price": 0,
+        };
+      });
+      Navigator.pop(context);
+    } catch (e) {
+      console.warn('Error mutation : ', payload: e.toString());
+      setState(() {
+        errors = e as Map?;
+      });
+    }
+  }
+}
+
+class UnitImagePicker extends StatelessWidget {
+  final Function(MyFile file, MultipartFile blob) onChanged;
+  const UnitImagePicker({Key? key, required this.onChanged}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: [
+        InkWell(
+          onTap: _showFileUpload,
+          child: Container(
+            margin: const EdgeInsets.only(right: 5),
+            padding: const EdgeInsets.all(40),
+            decoration: BoxDecoration(
+                color: AppColors.borderColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: const Icon(Icons.add_rounded),
+          ),
+        ),
+        mb(1),
+        Text(
+          'Add Unit Image',
+          style: TextStyle(color: AppColors.grey),
+        )
+      ],
+    );
+  }
+
+  _showFileUpload({ImageSource source = ImageSource.gallery}) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: source);
+    if (image == null) {
+      return null;
+    }
+    MultipartFile blob =
+        await MultipartFile.fromFile(image.path, filename: image.name);
+    MyFile file = MyFile(blob: blob, path: image.path, name: image.name);
+    onChanged(file, blob);
   }
 }

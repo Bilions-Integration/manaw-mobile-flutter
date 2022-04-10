@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/new_package_modal.dart';
+import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class ProductPackages extends StatefulWidget {
-  final Function(List<Map>) onChanged;
-  const ProductPackages({Key? key, required this.onChanged}) : super(key: key);
+  final Function() afterMutation;
+  final int? productId;
+  final List<ProductOption>? options;
+  const ProductPackages(
+      {Key? key, required this.afterMutation, this.productId, this.options})
+      : super(key: key);
 
   @override
   State<ProductPackages> createState() => _ProductPackagesState();
@@ -18,23 +24,36 @@ class _ProductPackagesState extends State<ProductPackages> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         hr(height: 15),
-        ...packages
-            .mapIndexed((e, i) => Stack(
+        SizedBox(
+          height: 24,
+          child: Text(
+            'VARIATIONS',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: AppColors.grey,
+            ),
+          ),
+        ),
+        ...?widget.options
+            ?.mapIndexed((option, i) => Stack(
                   children: [
                     InkWell(
                       onTap: () {
-                        _edit(i);
+                        _edit(option);
                       },
-                      child: PackageViewCard(package: e),
+                      child: PackageViewCard(option: option),
                     ),
                     Positioned(
                       right: 10,
                       top: 7,
                       child: InkWell(
                         onTap: () {
-                          _remove(i);
+                          _remove(option);
                         },
                         child: Icon(
                           Icons.remove_circle,
@@ -55,42 +74,34 @@ class _ProductPackagesState extends State<ProductPackages> {
     );
   }
 
-  _edit(i) {
-    List<Map> clonePackages = packages;
-    Map package = packages[i];
-    NewPackageModal(params: package).open((Map package) {
-      clonePackages[i] = package;
-      setState(() {
-        packages = clonePackages;
-      });
-      widget.onChanged(packages);
-    });
+  _edit(ProductOption unit) {
+    NewPackageModal(params: unit.toJson())
+        .open(widget.afterMutation, widget.productId);
   }
 
-  _remove(i) {
-    List<Map> p = packages;
-    p.removeAt(i);
-    setState(() {
-      packages = p;
-    });
-    widget.onChanged(packages);
+  _remove(ProductOption unit) async {
+    var optionController = ProductOptionController();
+    try {
+      bool success = await optionController.deleteOption(
+          id: unit.id!, productId: unit.productId);
+      if (success) {
+        widget.afterMutation();
+      }
+    } catch (e) {
+      console.warn(e.toString());
+    }
   }
 
   _showAddPackageModal() {
-    NewPackageModal().open((Map package) {
-      setState(() {
-        packages = [...packages, package];
-      });
-      widget.onChanged(packages);
-    });
+    NewPackageModal().open(widget.afterMutation, widget.productId);
   }
 }
 
 class PackageViewCard extends StatelessWidget {
-  final Map package;
+  final ProductOption option;
   const PackageViewCard({
     Key? key,
-    required this.package,
+    required this.option,
   }) : super(key: key);
 
   @override
@@ -106,8 +117,15 @@ class PackageViewCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            child: Text(package['unit'] ?? ''),
+            padding:
+                const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+            child: Text(
+              option.name,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           hr(),
           Padding(
@@ -134,17 +152,22 @@ class PackageViewCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 150,
-                  child: Text('${currency()} ${cast(package['sale_price'] ?? 0)}'),
+                  child: Text('${currency()} ${cast(option.salePrice)}'),
                 ),
-                Text('${currency()} ${cast(package['purchase_price'] ?? 0)}'),
+                Text('${currency()} ${cast(option.purchasePrice)}'),
               ],
             ),
           ),
+          mb(1),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
             child: Row(
               children: [
-                Text('Coefficient : ${package['coefficient'] ?? 1}'),
+                SizedBox(
+                  width: 150,
+                  child: Text('Coefficient : ${option.coefficient}'),
+                ),
+                Text(option.active ? 'Active' : 'Inactive'),
               ],
             ),
           ),

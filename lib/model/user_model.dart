@@ -24,7 +24,7 @@ class User {
   });
 
   User.fromJson(Map json)
-      : name = json['full_name'],
+      : name = json['full_name'] ?? '',
         email = json['email'] ?? '',
         phone = json['phone'],
         startDate = json['start_date'],

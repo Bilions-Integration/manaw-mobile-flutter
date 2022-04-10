@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/common_model.dart';
 
 class AppWidget {
@@ -25,7 +27,10 @@ class AppWidget {
     return MyFile(blob: blob, path: image.path, name: image.name);
   }
 
-  static void showMenu({required List<Menu> menuList, double height = 1000, required Function(Menu) onSelect}) {
+  static void showMenu(
+      {required List<Menu> menuList,
+      double height = 1000,
+      required Function(Menu) onSelect}) {
     void _selectModal(type, context) {
       Navigator.pop(context);
       onSelect(type);
@@ -68,5 +73,73 @@ class AppWidget {
         );
       },
     );
+  }
+
+  static void showAlertBox(
+      {required BuildContext context,
+      List<DialogAction>? actions,
+      String? title,
+      String? message}) {
+    dismissDialog() {
+      Navigator.of(context).pop();
+    }
+
+    List<Widget> actionBtns = [];
+    List<Widget> defaultActions = [
+      TextButton(
+        child: const Text("Cancel"),
+        onPressed: dismissDialog,
+      ),
+      TextButton(
+        child: const Text("Ok"),
+        onPressed: dismissDialog,
+      ),
+    ];
+
+    actions?.forEach((action) {
+      Color color;
+      switch (action.type) {
+        case 'danger':
+          color = AppColors.red;
+          break;
+        case 'primary':
+          color = AppColors.dark;
+          break;
+        case 'cancel':
+          color = AppColors.grey;
+          break;
+        default:
+          color = AppColors.lightDark;
+      }
+      actionBtns.add(
+        TextButton(
+          onPressed: action.handler == null
+              ? dismissDialog
+              : () {
+                  action.handler!();
+                  dismissDialog();
+                },
+          child: Text(
+            action.name,
+            style: TextStyle(
+              color: color,
+            ),
+          ),
+        ),
+      );
+    });
+    AlertDialog alert = AlertDialog(
+      title: Text(title ?? "Are you sure?"),
+      content: Text(message ?? "Are you sure to delete?"),
+      actions: actionBtns.isNotEmpty ? actionBtns : defaultActions,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      insetPadding: const EdgeInsets.all(15),
+      actionsPadding: const EdgeInsets.only(right: 10),
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext buildContext) {
+          return alert;
+        });
   }
 }

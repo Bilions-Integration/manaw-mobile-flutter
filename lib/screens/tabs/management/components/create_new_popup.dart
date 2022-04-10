@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
+import 'package:my_app/helpers/util_models.dart' as util;
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
+import 'package:my_app/screens/tabs/management/components/popup_item.dart';
 import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
 import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
@@ -30,31 +31,28 @@ class CreateNewPopup {
 
 class MyPopup extends StatelessWidget {
   final BuildContext context;
-  const MyPopup({
+  MyPopup({
     Key? key,
     required this.context,
   }) : super(key: key);
-  static List<Map> popupItems = [
-    {
-      "name": "Product",
-      "icon": AppAssets.icProduct,
-      "onTap": () => {Get.to(() => const CreateProduct(type: 'single'))}
-    },
-    {
-      "name": "Category",
-      "icon": AppAssets.icCategory,
-      "onTap": () => {Get.to(() => const CreateCategory())},
-    },
-    {
-      "name": "Invoice",
-      "icon": AppAssets.icInvoice,
-      "onTap": () => {Get.to(() => const CreateInvoice())},
-    },
-    {
-      "name": "Discount",
-      "icon": AppAssets.icDiscount,
-      "onTap": () => {Get.to(() => const CreateDiscount())},
-    },
+
+  final List<util.PopupItem> popupItems = [
+    util.PopupItem(
+        icon: AppAssets.icProduct,
+        name: "Product",
+        onTap: () => {Get.to(() => const CreateProduct(type: 'create'))}),
+    util.PopupItem(
+        icon: AppAssets.icCategory,
+        name: "Category",
+        onTap: () => Get.to(() => const CreateCategory())),
+    util.PopupItem(
+        icon: AppAssets.icInvoice,
+        name: "Invoice",
+        onTap: () => Get.to(() => const CreateInvoice())),
+    util.PopupItem(
+        icon: AppAssets.icDiscount,
+        name: "Discount",
+        onTap: () => Get.to(() => const CreateDiscount())),
   ];
 
   @override
@@ -100,28 +98,13 @@ class MyPopup extends StatelessWidget {
                 itemCount: popupItems.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      popupItems[index]["onTap"]();
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(30),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(9),
-                            border: Border.all(color: AppColors.borderColor, width: 1),
-                          ),
-                          child: SizedBox(width: 25, height: 25, child: SvgPicture.asset(popupItems[index]["icon"])),
-                        ),
-                        const SizedBox(
-                          width: 1,
-                          height: 8,
-                        ),
-                        Text(popupItems[index]["name"]),
-                      ],
-                    ),
-                  );
+                      onTap: () {
+                        Navigator.pop(context);
+                        popupItems[index].onTap();
+                      },
+                      child: PopupItem(
+                          icon: popupItems[index].icon,
+                          name: popupItems[index].name));
                 }),
           ),
         ],
