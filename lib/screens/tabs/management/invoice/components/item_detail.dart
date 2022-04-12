@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 
 void actionPopup({
   required BuildContext context,
   required dynamic invoice,
-  // required Function(int? id) edit,
-  required Future<dynamic> Function(int? id) delete
+  required String type,
+  required Future<dynamic> Function(int? id) delete,
+  required Future<dynamic> Function(int? id) print
 }) {
   showModalBottomSheet(
     shape: const RoundedRectangleBorder(
@@ -20,7 +22,7 @@ void actionPopup({
     isScrollControlled: true,
     builder : (BuildContext context) => SizedBox(
       height: MediaQuery.of(context).size.height * 0.95,
-      child: ItemDetailCard(invoice : invoice, delete : delete)
+      child: ItemDetailCard(invoice : invoice, delete : delete, print : print, type : type)
     )
   );
 }
@@ -28,29 +30,36 @@ void actionPopup({
 class ItemDetailCard extends StatelessWidget {
   final dynamic invoice;
   final Future<dynamic> Function(int? id) delete;
+  final Future<dynamic> Function(int? id) print;
+  final String type;
 
   const ItemDetailCard({
     Key? key, 
     required this.invoice,
-    required this.delete,
+    required this.delete, 
+    required this.print,
+    required this.type,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color : AppColors.white,
       padding: const EdgeInsets.all(20),
-      child: Column(
+      child: Stack(
         children: [
-          titleAndActions(invoice, delete),
-          invoiceInfo(invoice),
-          productLists(context, invoice.products),
+          Column( children: [
+            titleAndActions(invoice, delete, type),
+            invoiceInfo(invoice),
+            productLists(context, invoice.products),
+          ],),
           priceDetail(invoice)
         ],
       ), 
     );
   }
 
-  Widget titleAndActions(invoice, delete) {
+  Widget titleAndActions(invoice, delete, type) {
     return Column(
       children: [
         Row( 
@@ -59,7 +68,7 @@ class ItemDetailCard extends StatelessWidget {
             Row( children: [
               SvgPicture.asset(AppAssets.invoiceIcon,width: 47, height: 47),
               mr(1),
-              const Text('Sale Invoice', style: TextStyle(
+              Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice', style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold
               )),
@@ -127,153 +136,96 @@ class ItemDetailCard extends StatelessWidget {
             ]
           )
         ]),
-        mb(1.5),
-        hr(height : 1),
+        hr(height : 1, mt : 1.5),
       ],
     );
   }
 
   Widget productLists(context, products) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 220,
-          child: ListView.builder(
-            // shrinkWrap: true,
-            itemCount: products.length ,
-            itemBuilder: (context, index) {
-              var product = products[index];
-              return Column(
+    return Expanded(
+      child: ListView.builder(
+        // shrinkWrap: true,
+        itemCount: products.length ,
+        itemBuilder: (context, index) {
+          var product = products[index];
+          return Column(
+            children: [
+              mb(1),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  mb(1),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text('${product.id}'),
-                          mr(1),
-                          Text('x ${product.quantity}', style: const TextStyle(
-                            color : Color.fromRGBO(0,0,0,0.5)
-                          )),
-                        ],
-                      ),
-                      Text('\$${product.quantity * product.price}'),
+                      Text('${product.id}'),
+                      mr(1),
+                      Text('x ${product.quantity}', style: const TextStyle(
+                        color : Color.fromRGBO(0,0,0,0.5)
+                      )),
                     ],
                   ),
-                ]
-              );
-            }
-          ),
-        ),
-        // SizedBox(
-        //   height: 260,
-        //   child: SingleChildScrollView(
-        //     child: Column(
-        //       children: [
-        //         Row(
-        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //           children: [
-        //             Row(
-        //               children: [
-        //                 const Text('Macbook Pro'),
-        //                 mr(1),
-        //                 const Text('x2', style: TextStyle(
-        //                   color : Color.fromRGBO(0,0,0,0.5)
-        //                 )),
-        //               ],
-        //             ),
-        //             const Text('\$650'),
-        //           ],
-        //         ),
-        //         mb(1),
-        //         Row(
-        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //           children: [
-        //             Row(
-        //               children: [
-        //                 const Text('iphone 13'),
-        //                 mr(1),
-        //                 const Text('x2', style: TextStyle(
-        //                   color : Color.fromRGBO(0,0,0,0.5)
-        //                 )),
-        //               ],
-        //             ),
-        //             const Text('\$650'),
-        //           ],
-        //         ),
-        //         mb(1),
-        //         Row(
-        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //           children: [
-        //             Row(
-        //               children: [
-        //                 const Text('Apple Watch'),
-        //                 mr(1),
-        //                 const Text('x2', style: TextStyle(
-        //                   color : Color.fromRGBO(0,0,0,0.5)
-        //                 )),
-        //               ],
-        //             ),
-        //             const Text('\$650'),
-        //           ],
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-       
-        mb(1),
-        hr(height: 1),
-      ],
+                  Text('\$${product.quantity * product.price}'),
+                ],
+              ),
+            ]
+          );
+        }
+      ),
     );
   }
 
   Widget priceDetail(invoice) {
-    return Column(
-      children: [
-        mb(1),
-        Column(
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        color: AppColors.white,
+        child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            hr(height: 1, mt : 1, mb : 1),
+            Column(
               children: [
-                const Text('SubTotal', style: TextStyle(
-                  color : Color.fromRGBO(0,0,0,0.5)
-                )),
-                Text('\$${invoice.total}'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('SubTotal', style: TextStyle(
+                      color : Color.fromRGBO(0,0,0,0.5)
+                    )),
+                    Text('\$${invoice.total}'),
+                  ],
+                ),
+                mb(1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Tax', style: TextStyle(
+                      color : Color.fromRGBO(0,0,0,0.5)
+                    )),
+                    Text('\$${invoice.tax_value}'),
+                  ],
+                ),
+                mb(1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Total', style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    )),
+                    Text('\$${invoice.grand_total}', style: const TextStyle(
+                      fontWeight: FontWeight.bold
+                    )),
+                  ],
+                ),
+                mb(1.5),
+                PrimaryButton(
+                  value: 'Print',
+                  onPressed: () => print(invoice.id),
+                )
               ],
             ),
-            mb(1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Tax', style: TextStyle(
-                  color : Color.fromRGBO(0,0,0,0.5)
-                )),
-                Text('\$${invoice.tax_value}'),
-              ],
-            ),
-            mb(1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Total', style: TextStyle(
-                  fontWeight: FontWeight.bold
-                )),
-                Text('\$${invoice.grand_total}', style: const TextStyle(
-                  fontWeight: FontWeight.bold
-                )),
-              ],
-            ),
-            mb(1.5),
-            PrimaryButton(
-              value: 'Print',
-              onPressed: () {},
-            )
           ],
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
 
 void actionPopup({
   int? id, 
@@ -27,7 +28,7 @@ void actionPopup({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton.icon(
-              icon : SvgPicture.asset(AppAssets.edit,width: 18, height: 18),
+              icon : SvgPicture.asset(AppAssets.edit,width: 18, height: 18, color: AppColors.dark),
               label : const Text('Edit'),
               onPressed: () {
                 Navigator.pop(context);

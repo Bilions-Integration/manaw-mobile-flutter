@@ -1,6 +1,7 @@
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/invoice_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InvoiceServices {
   static Future<Map<String, dynamic>> get(Map<String, dynamic> params) async {
@@ -8,6 +9,12 @@ class InvoiceServices {
     console.log('testingbejay $res');
     var data = InvoiceDataModel.fromJson(res["data"]).toJson();
     return data;
+  }
+
+  static Future print(int? id) async {
+    var res = await Api.get('/invoice/$id/print_request');
+    String url = res["data"]["redirect_url"];
+    await launch(url);
   }
 
   // static Future create(Map params) async {
