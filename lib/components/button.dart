@@ -32,6 +32,7 @@ class PrimaryButton extends StatelessWidget {
           Text(
             value.toUpperCase(),
             style: const TextStyle(
+              fontSize: 13,
               color: Colors.white,
             ),
           ),
@@ -71,7 +72,7 @@ class SecondaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width,
       height: height,
       child: MaterialButton(
         elevation: 0,
@@ -84,6 +85,7 @@ class SecondaryButton extends StatelessWidget {
             Text(
               value.toUpperCase(),
               style: TextStyle(
+                fontSize: 13,
                 color: AppColors.black,
               ),
             ),

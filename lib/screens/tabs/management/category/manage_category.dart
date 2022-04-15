@@ -4,10 +4,12 @@ import 'package:my_app/data/assets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/services/category_service.dart';
 import 'components/list_items.dart';
+import 'package:my_app/helpers/helper.dart';
 
 class ManageCategory extends StatefulWidget {
   const ManageCategory({
@@ -57,7 +59,24 @@ class _ManageCategoryState extends State<ManageCategory> {
   }
 
   Future deleteData(int? id) async {
-    await CategoryService.delete(id);
+    confirm(
+      onPressed: (result) async {
+        if(result) {
+          await CategoryService.delete(id);
+          setState(() {
+            categories.removeWhere((category) => category.id == id);
+          });
+          Get.snackbar(
+            'Success',
+            'Successfully Deleted',
+            icon: const Icon(Icons.check_circle),
+          );
+        }
+      },
+      title: 'Delete',
+      message: "Are you sure, you want to delete?",
+      confirmText: 'Yes',
+    );
   }
 
   @override
@@ -107,10 +126,7 @@ class _ManageCategoryState extends State<ManageCategory> {
   Widget titleAndSearch() {
     return isSearch
     ? TextFormField(
-      style : TextStyle(
-        color : AppColors.white, 
-        fontSize : 17
-      ),
+      style : Styles.t2Light,
       onFieldSubmitted : (value) => search(value),
       decoration: const InputDecoration(
         border: InputBorder.none
@@ -118,10 +134,7 @@ class _ManageCategoryState extends State<ManageCategory> {
       cursorColor : AppColors.white,
       autofocus : true,
     )
-    :Text("Manage Category", style: TextStyle(
-      fontSize: 17,
-      color: AppColors.white
-    ));
+    :Text("Manage Category", style: Styles.t2Light);
   }
 
   Widget openAndCloseSearch() {

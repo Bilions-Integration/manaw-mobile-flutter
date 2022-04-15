@@ -181,13 +181,13 @@ confirm({
     builder: (context) => AlertDialog(
       actionsPadding: const EdgeInsets.all(10),
       contentPadding:
-          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+      const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       title: Row(children: [
         const Icon(Icons.info),
         mr(1),
         Text(
           title ?? 'Info',
-          style: TextStyle(color: AppColors.black, fontSize: 18),
+          style: TextStyle(color: AppColors.black, fontSize: 17),
         )
       ]),
       content: Text(
@@ -201,7 +201,7 @@ confirm({
           children: [
             InkWell(
               onTap: () => {onPressed(false), Navigator.pop(context)},
-              child: Text(cancelText ?? 'CANCEL'),
+              child: Text(cancelText ?? 'CANCEL', style : const TextStyle(fontSize: 13)),
             ),
             mr(3),
             PrimaryButton(

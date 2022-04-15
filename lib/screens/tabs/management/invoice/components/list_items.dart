@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model.dart';
 
+import '../create_edit_invoice.dart';
 import 'item_detail.dart';
 
 class ListItems extends StatelessWidget {
@@ -28,21 +31,31 @@ class ListItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: isLoading ?
-        const Text('hi') : ListView.builder(
+      child: isLoading ? Styles.loading
+        : invoices.isEmpty
+        ? Styles.emptyList('No invoice yet', AppAssets.emptyInvoice, 'Create new Invoice', const CreateInvoice())
+        : ListView.builder(
         controller: scrollController,
         itemCount: invoices.length,
         itemBuilder: (context,int index) => Column(
           children: [
             InkWell(
-              onTap : () => actionPopup(
-                context : context,
-                invoice : invoices[index],
-                delete : delete,
-                print : print,
-                type : type
+              onTap : () => Styles.customBottomSheet(context, 95,
+                ItemDetailCard(
+                  invoice : invoices[index],
+                  delete : delete,
+                  print : print,
+                  type : type
+                )
               ),
-              child : listItem(invoices[index])
+              // onTap : () => actionPopup(
+              //   context : context,
+              //   invoice : invoices[index],
+              //   delete : delete,
+              //   print : print,
+              //   type : type
+              // ),
+              child : listItem(invoices[index], context)
             ),
             mb(1.2),
           ],
@@ -51,7 +64,7 @@ class ListItems extends StatelessWidget {
     );
   }
 
-  Widget listItem(invoice) {
+  Widget listItem(invoice, context) {
     return Container(
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
@@ -65,35 +78,24 @@ class ListItems extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(invoice.invoice_number, style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16
-              )),
+              Text(invoice.invoice_number, style: Styles.h3),
               Text(invoice.created_at),
             ]
           ),
           mb(2),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('Customer', style: TextStyle(
-                color: Color.fromRGBO(0,0,0,0.5)
-              )),
-              Text('Account', style: TextStyle(
-                color: Color.fromRGBO(0,0,0,0.5)
-              )),
+            children: [
+              Text('Customer', style: Styles.label),
+              Text('Account', style: Styles.label),
             ]
           ),
           mb(0.5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(invoice.receiver["name"], style: const TextStyle(
-                fontWeight: FontWeight.bold
-              )),
-              Text(invoice.account["bank_name"], style: const TextStyle(
-                fontWeight: FontWeight.bold
-              )),
+              Text(invoice.receiver["name"], style: Styles.textBold),
+              Text(invoice.account["bank_name"], style: Styles.textBold),
             ]
           ),
           hr(height: 0.5, mt : 1.5, mb : 1.5),
@@ -101,10 +103,7 @@ class ListItems extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Total'),
-              Text('\$${invoice.grand_total}', style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              )),
+              Text('\$${invoice.grand_total}', style: Styles.h4),
             ]
           ),
         ],

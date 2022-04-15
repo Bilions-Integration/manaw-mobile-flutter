@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/components/date_picker.dart';
 import 'package:my_app/model/invoice_model.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/list_items.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/top_app_bar.dart';
 import 'package:my_app/services/invoice_services.dart';
-import 'package:my_app/components/confirm_popup.dart';
+import 'package:my_app/helpers/moment.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:get/get.dart';
 
 class ManageInvoice extends StatefulWidget {
@@ -27,8 +29,8 @@ class _ManageInvoiceState extends State<ManageInvoice> {
   Map<String,dynamic> params = {
     'page' : 1,
     'limit' : 10,
-    'start_data' : '2020-02-01',
-    'end_date' : '2022-12-04',
+    'end_date' : moment.string(DateTime.now()),
+    'start_date' : moment.string(DateTime(DateTime.now().year, DateTime.now().month - 1, DateTime.now().day)),
     'keyword' : ''
   };
 
@@ -55,21 +57,38 @@ class _ManageInvoiceState extends State<ManageInvoice> {
           });
         }
       ),
-      body: ListItems(
-        type : widget.type,
-        isLoading : isLoading,
-        invoices : invoices,
-        delete : (id) => deleteData(id),
-        print : (id) => printData(id),
-        getData: () => getData(),
-        scrollController: scrollController,
+      body: Column(
+        children: [
+          DatePicker(
+            startDate: params['start_date'],
+            endDate: params['end_date'],
+            onDateChanged: (startDate, endDate) {
+              setState(() {
+                params['start_date'] = startDate;
+                params['end_date'] = endDate;
+              });
+              getData();
+            },
+          ),
+          Expanded(
+            child : ListItems(
+              type : widget.type,
+              isLoading : isLoading,
+              invoices : invoices,
+              delete : (id) => deleteData(id),
+              print : (id) => printData(id),
+              getData: () => getData(),
+              scrollController: scrollController,
+            ),
+          )
+        ],
       ),
     );
   }
 
   deleteData(int? id) {
-    confirmPopup(
-      onSubmit: (result) {
+    confirm(
+      onPressed: (result) {
         if(result) {
           setState(() {
             invoices.removeWhere((invoice) => invoice.id == id);
@@ -82,6 +101,9 @@ class _ManageInvoiceState extends State<ManageInvoice> {
           );
         }
       },
+      title: 'Delete',
+      message: "Are you sure, you want to delete?",
+      confirmText: 'Yes',
     );
   }
 

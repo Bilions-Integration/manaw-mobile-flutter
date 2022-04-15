@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/styles.dart';
 import '../create_edit_invoice.dart';
 
 topAppBar({
@@ -16,6 +17,7 @@ topAppBar({
     title: titleAndSearchInput(isSearch, title, search),
     backgroundColor: AppColors.dark,
     titleSpacing: 0,
+    elevation: 0,
     leading:IconButton(
       icon: SvgPicture.asset(AppAssets.leftArrow,width: 23, height: 23, color: AppColors.white),
       onPressed: () {
@@ -35,10 +37,7 @@ topAppBar({
 Widget titleAndSearchInput(isSearch, title, search) {
   return isSearch
   ? TextFormField(
-    style : TextStyle(
-      color : AppColors.white, 
-      fontSize : 17
-    ),
+    style : Styles.t2Light,
     onFieldSubmitted : (value) => search(value),
     decoration: const InputDecoration(
       border: InputBorder.none
@@ -46,10 +45,7 @@ Widget titleAndSearchInput(isSearch, title, search) {
     cursorColor : AppColors.white,
     autofocus : true,
   )
-  :Text(title, style: TextStyle(
-    fontSize: 17,
-    color: AppColors.white
-  ));
+  :Text(title, style: Styles.t2Light);
 }
 
 Widget openAndCloseSearch(isSearch, toggleSearch) {

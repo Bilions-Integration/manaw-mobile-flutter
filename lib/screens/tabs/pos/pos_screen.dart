@@ -42,7 +42,7 @@ class _PosScreenState extends State<PosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var crossCount = (MediaQuery.of(context).size.width / 200).ceil();
+    var crossCount = (MediaQuery.of(context).size.width / 300).ceil();
     return Obx(
       () => Column(
         children: [

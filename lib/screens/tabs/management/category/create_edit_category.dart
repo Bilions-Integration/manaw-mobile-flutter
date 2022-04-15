@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/category/manage_category.dart';
 import 'package:my_app/services/category_service.dart';
 
@@ -43,8 +44,18 @@ class _CreateCategoryState extends State<CreateCategory> {
   Future submit() async {
     if(widget.id == null) {
       await CategoryService.create(params);
+      Get.snackbar(
+        'Success',
+        'Successfully Created',
+        icon: const Icon(Icons.check_circle),
+      );
     } else {
       await CategoryService.update(widget.id, params);
+      Get.snackbar(
+        'Success',
+        'Successfully Updated',
+        icon: const Icon(Icons.check_circle),
+      );
     }
     Get.to(const ManageCategory());
   }
@@ -65,10 +76,7 @@ class _CreateCategoryState extends State<CreateCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Create New Category", 
-          style: TextStyle(fontSize : 17)
-        ),
+        title: Text("Create New Category", style: Styles.t2Light),
         leading:IconButton(
           icon: SvgPicture.asset(AppAssets.leftArrow,width: 23, height: 23, color: AppColors.white),
           onPressed: () {

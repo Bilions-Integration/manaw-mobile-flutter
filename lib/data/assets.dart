@@ -66,5 +66,6 @@ class AppAssets {
   static const icDelete = 'assets/images/delete.svg';
   //invoice
   static const invoiceIcon = 'assets/images/manage/invoice-icon.svg';
+  static const emptyInvoice = 'assets/images/manage/empty-invoice.svg';
 
 }

@@ -4,6 +4,7 @@ import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 
 void actionPopup({
   required BuildContext context,
@@ -43,19 +44,16 @@ class ItemDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color : AppColors.white,
-      padding: const EdgeInsets.all(20),
-      child: Stack(
-        children: [
-          Column( children: [
-            titleAndActions(invoice, delete, type),
-            invoiceInfo(invoice),
-            productLists(context, invoice.products),
-          ],),
-          priceDetail(invoice)
-        ],
-      ), 
+    return Stack(
+      children: [
+        Column( children: [
+          titleAndActions(invoice, delete, type),
+          invoiceInfo(invoice),
+          productLists(context, invoice.products),
+          mb(17),
+        ],),
+        priceDetail(invoice)
+      ],
     );
   }
 
@@ -68,10 +66,7 @@ class ItemDetailCard extends StatelessWidget {
             Row( children: [
               SvgPicture.asset(AppAssets.invoiceIcon,width: 47, height: 47),
               mr(1),
-              Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice', style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-              )),
+              Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice', style: Styles.h3),
             ]),
             Row( children: [
               InkWell(
@@ -91,8 +86,7 @@ class ItemDetailCard extends StatelessWidget {
             ])
           ]
         ),
-        mb(1),
-        hr(height : 1),
+        hr(height : 1, mt : 1),
       ],
     );
   }
@@ -102,26 +96,17 @@ class ItemDetailCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         mb(1),
-        Text(invoice.invoice_number, style : const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        )),
+        Text(invoice.invoice_number, style : Styles.h3),
         mb(1.5),
         Row( children: [
           Column( 
             crossAxisAlignment : CrossAxisAlignment.start,
             children: [
-              const Text('Invoice Date', style : TextStyle(
-                color : Color.fromRGBO(0,0,0,0.5)
-              )),
+              Text('Invoice Date', style : Styles.label),
               mb(1),
-              const Text('Due Date', style : TextStyle(
-                color : Color.fromRGBO(0,0,0,0.5)
-              )),
+              Text('Due Date', style : Styles.label),
               mb(1),
-              const Text('From', style : TextStyle(
-                color : Color.fromRGBO(0,0,0,0.5)
-              )),
+              Text('From', style : Styles.label),
             ]
           ),
           mr(3),
@@ -158,9 +143,7 @@ class ItemDetailCard extends StatelessWidget {
                     children: [
                       Text('${product.id}'),
                       mr(1),
-                      Text('x ${product.quantity}', style: const TextStyle(
-                        color : Color.fromRGBO(0,0,0,0.5)
-                      )),
+                      Text('x ${product.quantity}', style: Styles.label),
                     ],
                   ),
                   Text('\$${product.quantity * product.price}'),
@@ -178,8 +161,7 @@ class ItemDetailCard extends StatelessWidget {
       bottom: 0,
       left: 0,
       right: 0,
-      child: Container(
-        color: AppColors.white,
+      child: SizedBox(
         child: Column(
           children: [
             hr(height: 1, mt : 1, mb : 1),
@@ -188,9 +170,7 @@ class ItemDetailCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('SubTotal', style: TextStyle(
-                      color : Color.fromRGBO(0,0,0,0.5)
-                    )),
+                    Text('SubTotal', style: Styles.label),
                     Text('\$${invoice.total}'),
                   ],
                 ),
@@ -198,9 +178,7 @@ class ItemDetailCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Tax', style: TextStyle(
-                      color : Color.fromRGBO(0,0,0,0.5)
-                    )),
+                    Text('Tax', style: Styles.label),
                     Text('\$${invoice.tax_value}'),
                   ],
                 ),
@@ -208,12 +186,8 @@ class ItemDetailCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Total', style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    )),
-                    Text('\$${invoice.grand_total}', style: const TextStyle(
-                      fontWeight: FontWeight.bold
-                    )),
+                    Text('Total', style: Styles.textBold),
+                    Text('\$${invoice.grand_total}', style: Styles.textBold),
                   ],
                 ),
                 mb(1.5),
