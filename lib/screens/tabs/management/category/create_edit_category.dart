@@ -24,7 +24,7 @@ class _CreateCategoryState extends State<CreateCategory> {
   Map<String, dynamic> params = {
     "name": null,
     "image" : null,
-    "enable_selling" : true,
+    // "enable_selling" : true,
   };
 
   bool loading = false;
@@ -52,7 +52,7 @@ class _CreateCategoryState extends State<CreateCategory> {
   Future fetchData() async {
     var res = await CategoryService.fetch(widget.id);
     Map<String, dynamic> data = res;
-    data['enable_selling'] = true;
+    // data['enable_selling'] = true;
     data['old_image'] = data['image'];
     data['image'] = null;
     setState(() {
@@ -69,6 +69,7 @@ class _CreateCategoryState extends State<CreateCategory> {
           "Create New Category", 
           style: TextStyle(fontSize : 17)
         ),
+        backgroundColor: AppColors.dark,
         leading:IconButton(
           icon: SvgPicture.asset(AppAssets.leftArrow,width: 23, height: 23, color: AppColors.white),
           onPressed: () {
