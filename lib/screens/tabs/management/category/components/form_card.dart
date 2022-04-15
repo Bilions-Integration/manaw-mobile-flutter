@@ -45,20 +45,20 @@ class _FormCardState extends State<FormCard> {
               column: 'name',
               placeholder: 'Enter Category Name',
             ),
-            Row(
-              mainAxisAlignment : MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Enable Selling', style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold
-                ),),
-                Switch.adaptive(
-                  activeColor: AppColors.dark,
-                  value: widget.params['enable_selling'],
-                  onChanged: (value) =>_onValueChanged(value, 'enable_selling')
-                )
-              ]
-            ),
+            // Row(
+            //   mainAxisAlignment : MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text('Enable Selling', style: TextStyle(
+            //       fontSize: 15,
+            //       fontWeight: FontWeight.bold
+            //     ),),
+            //     Switch.adaptive(
+            //       activeColor: AppColors.dark,
+            //       value: widget.params['enable_selling'],
+            //       onChanged: (value) =>_onValueChanged(value, 'enable_selling')
+            //     )
+            //   ]
+            // ),
             const SizedBox(height: 7),
             PrimaryButton(
               value: widget.editId == null ? 'Create' : 'Update',
