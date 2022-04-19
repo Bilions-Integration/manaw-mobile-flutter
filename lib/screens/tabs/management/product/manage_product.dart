@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -26,6 +27,7 @@ class _ManageProductState extends State<ManageProduct> {
   final productController = Get.put(ProductController());
   bool hasFinishedLoading = false;
   final ScrollController _scrollController = ScrollController();
+  bool isSearch = false;
 
   @override
   void initState() {
@@ -42,29 +44,37 @@ class _ManageProductState extends State<ManageProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.dark,
-          title: const Text("Product"),
-          actions: <Widget>[
-            InkWell(
-              onTap: () {
-                console.log('Action 1 pressed');
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 12, left: 12),
-                child: SvgPicture.asset(AppAssets.icSearch,
-                    color: AppColors.white),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                _handleNavigation(action: 'create');
-              },
-              icon: const Icon(Icons.add_rounded),
-            ),
-          ],
-        ),
+      appBar: customAppBar2(
+        context: context, 
+        title: 'Manage Products', 
+        isSearch: isSearch, 
+        toggleSearch: () {}, 
+        search: () {}, 
+        add: () { _handleNavigation(action: 'create'); }
+      ),
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   backgroundColor: AppColors.dark,
+        //   title: const Text("Product"),
+        //   actions: <Widget>[
+        //     InkWell(
+        //       onTap: () {
+        //         console.log('Action 1 pressed');
+        //       },
+        //       child: Padding(
+        //         padding: const EdgeInsets.only(right: 12, left: 12),
+        //         child: SvgPicture.asset(AppAssets.icSearch,
+        //             color: AppColors.white),
+        //       ),
+        //     ),
+        //     IconButton(
+        //       onPressed: () {
+        //         _handleNavigation(action: 'create');
+        //       },
+        //       icon: const Icon(Icons.add_rounded),
+        //     ),
+        //   ],
+        // ),
         body: Column(
           children: [
             CategorySelector(callback: _categoryChanged),

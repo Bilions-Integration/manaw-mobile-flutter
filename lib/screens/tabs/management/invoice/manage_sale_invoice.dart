@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'components/manage_invoice.dart';
+
 class ManageSaleInvoice extends StatelessWidget {
   const ManageSaleInvoice({
     Key? key,
@@ -7,13 +9,6 @@ class ManageSaleInvoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Manage Invoice"),
-      ),
-      body: const Center(
-        child: Text("Manage Invoice Screen"),
-      ),
-    );
+    return const ManageInvoice(type : 'sale');
   }
 }

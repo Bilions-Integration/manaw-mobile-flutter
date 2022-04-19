@@ -11,7 +11,7 @@ class Company {
   final Color? color;
   String? hexColor;
   final String? logo;
-  final double tax;
+  final num tax;
 
   Company({
     required this.id,

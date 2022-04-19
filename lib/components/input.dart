@@ -20,6 +20,8 @@ class MyTextInput extends StatelessWidget {
 
   final dynamic value;
 
+  final bool readOnly;
+
   final Function(String, String?) onChanged;
 
   final Map? error;
@@ -37,7 +39,8 @@ class MyTextInput extends StatelessWidget {
     required this.placeholder,
     this.icon,
     required this.onChanged,
-    this.numberOnly = false,
+    this.numberOnly = false, 
+    this.readOnly = false,
     this.error,
   }) : super(key: key);
 
@@ -79,6 +82,7 @@ class MyTextInput extends StatelessWidget {
               ],
             ),
           TextFormField(
+            readOnly: readOnly,
             maxLines: textarea ? 5 : 1,
             initialValue: '${value ?? ''}',
             // key: Key(value.toString()),
