@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
-import 'package:my_app/model/invoice_model.dart';
+import 'package:my_app/model/invoice_model/invoice_model.dart';
 
 import '../create_edit_invoice.dart';
 import 'item_detail.dart';
@@ -94,7 +94,7 @@ class ListItems extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(invoice.receiver["name"], style: Styles.textBold),
+              Text(invoice.receiver["receiver_name"], style: Styles.textBold),
               Text(invoice.account["bank_name"], style: Styles.textBold),
             ]
           ),

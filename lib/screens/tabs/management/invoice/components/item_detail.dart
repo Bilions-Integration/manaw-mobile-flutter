@@ -141,7 +141,7 @@ class ItemDetailCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text('${product.id}'),
+                      Text('${product.product_id}'),
                       mr(1),
                       Text('x ${product.quantity}', style: Styles.label),
                     ],

@@ -1,6 +1,6 @@
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/invoice_model.dart';
+import 'package:my_app/model/invoice_model/invoice_data_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InvoiceServices {
@@ -15,6 +15,10 @@ class InvoiceServices {
     var res = await Api.get('/invoice/$id/print_request');
     String url = res["data"]["redirect_url"];
     await launch(url);
+  }
+
+  static Future create(Map params) async {
+    var res = await Api.post('/invoices/sale', data : params);
   }
 
   // static Future create(Map params) async {

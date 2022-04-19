@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/components/date_picker.dart';
-import 'package:my_app/model/invoice_model.dart';
+import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/list_items.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/top_app_bar.dart';
 import 'package:my_app/services/invoice_services.dart';

@@ -7,6 +7,7 @@ import 'package:my_app/model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
+import 'package:my_app/services/invoice_services.dart';
 
 class CartController extends GetxController {
   final auth = Get.find<AuthController>();
@@ -89,7 +90,7 @@ class CartController extends GetxController {
     }
   }
 
-  _submit() {
+  _submit() async {
     List list = [];
     for (Product product in products.value) {
       list = [
@@ -103,7 +104,9 @@ class CartController extends GetxController {
         }
       ];
     }
-    Map params = {
+    Map<String, dynamic> params = {
+      "invoice_date": "2021-11-07",
+      "due_date": "2021-11-07",
       "receiver_id": customer.value?.id,
       "receiver_name": customer.value?.name,
       "receiver_email": customer.value?.email,
@@ -111,11 +114,17 @@ class CartController extends GetxController {
       "shipping_address": customer.value?.address,
       "billing_address": customer.value?.address,
       "receiver_tax_id": customer.value?.taxId,
-      "discount": discount,
+      "discount": int.parse(discount.toString()),
       "discount_type": "fixed",
       "account_id": account.value?.id,
       "products": list,
+      "receiver_auto_create" : true,
+      "paid_amount" : 0,
     };
     console.log('PARAMS to SUBMIT => $params');
+    var res = await InvoiceServices.create(params);
+
   }
 }
+
+
