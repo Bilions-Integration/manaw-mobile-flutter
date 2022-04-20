@@ -14,6 +14,8 @@ class ProductController extends GetxController {
   var limit = 20.obs;
   var total = 0.obs;
 
+  var purchaseCart = Rx<List<ProductDetail>>([]);
+
   Future<void> getProducts({bool showLoading = false, dynamic category}) async {
     try {
       if (category != null) {

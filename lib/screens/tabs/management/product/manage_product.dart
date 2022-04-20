@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/button.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/assets.dart';
@@ -45,93 +46,116 @@ class _ManageProductState extends State<ManageProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar2(
-        context: context, 
-        title: 'Manage Products', 
-        isSearch: isSearch, 
-        toggleSearch: () {}, 
-        search: () {}, 
-        add: () { _handleNavigation(action: 'create'); }
-      ),
-        // appBar: AppBar(
-        //   elevation: 0,
-        //   backgroundColor: AppColors.dark,
-        //   title: const Text("Product"),
-        //   actions: <Widget>[
-        //     InkWell(
-        //       onTap: () {
-        //         console.log('Action 1 pressed');
-        //       },
-        //       child: Padding(
-        //         padding: const EdgeInsets.only(right: 12, left: 12),
-        //         child: SvgPicture.asset(AppAssets.icSearch,
-        //             color: AppColors.white),
-        //       ),
-        //     ),
-        //     IconButton(
-        //       onPressed: () {
-        //         _handleNavigation(action: 'create');
-        //       },
-        //       icon: const Icon(Icons.add_rounded),
-        //     ),
-        //   ],
-        // ),
-        body: Column(
-          children: [
-            CategorySelector(callback: _categoryChanged),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Product Name',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.lightDark,
-                    ),
+          context: context,
+          title: 'Manage Products',
+          isSearch: isSearch,
+          toggleSearch: () {},
+          search: () {},
+          add: () {
+            _handleNavigation(action: 'create');
+          }),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: AppColors.dark,
+      //   title: const Text("Product"),
+      //   actions: <Widget>[
+      //     InkWell(
+      //       onTap: () {
+      //         console.log('Action 1 pressed');
+      //       },
+      //       child: Padding(
+      //         padding: const EdgeInsets.only(right: 12, left: 12),
+      //         child: SvgPicture.asset(AppAssets.icSearch,
+      //             color: AppColors.white),
+      //       ),
+      //     ),
+      //     IconButton(
+      //       onPressed: () {
+      //         _handleNavigation(action: 'create');
+      //       },
+      //       icon: const Icon(Icons.add_rounded),
+      //     ),
+      //   ],
+      // ),
+      body: Column(
+        children: [
+          CategorySelector(callback: _categoryChanged),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Product Name',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.lightDark,
                   ),
-                  const Spacer(),
-                  Text(
-                    "Stock",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.lightDark,
-                    ),
+                ),
+                const Spacer(),
+                Text(
+                  "Stock",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.lightDark,
                   ),
-                  mr(2),
-                  Text(
-                    "Sell",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.lightDark,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                mr(2),
+                Text(
+                  "Sell",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.lightDark,
+                  ),
+                )
+              ],
             ),
-            hasFinishedLoading
-                ? Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 5),
-                      child: ListView(
-                        controller: _scrollController,
-                        children: [
-                          for (var item in productController.products.value
-                              .asMap()
-                              .entries)
-                            ProductItem(
-                              product: item.value,
-                              index: item.key + 1,
-                              handler: _handleNavigation,
-                            ),
-                        ],
-                      ),
+          ),
+          hasFinishedLoading
+              ? Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5.0, right: 5),
+                    child: ListView(
+                      controller: _scrollController,
+                      children: [
+                        for (var item
+                            in productController.products.value.asMap().entries)
+                          ProductItem(
+                            product: item.value,
+                            index: item.key + 1,
+                            handler: _handleNavigation,
+                            onSelect: _onItemSelection,
+                          ),
+                      ],
                     ),
-                  )
-                : const LoadingWidget(),
-          ],
-        ));
+                  ),
+                )
+              : const Center(
+                  child: LoadingWidget(
+                    title: 'Loading',
+                  ),
+                ),
+          productController.purchaseCart.value.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: PrimaryButton(
+                    onPressed: () => {console.log('mat pressed ')},
+                    value: 'Add Stock',
+                  ),
+                )
+              : const SizedBox(
+                  width: 10,
+                  height: 0,
+                ),
+        ],
+      ),
+    );
+  }
+
+  _onItemSelection() {
+    console.log('products purchase cart : ',
+        payload: productController.purchaseCart.value);
   }
 
   _handleNavigation({required String action, int? productId}) {

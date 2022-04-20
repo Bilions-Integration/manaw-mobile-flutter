@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -11,18 +12,23 @@ class ProductItem extends StatefulWidget {
   final ProductDetail product;
   final int index;
   final Function({required String action, int? productId}) handler;
+  final Function() onSelect;
   const ProductItem({
     Key? key,
     required this.product,
     required this.handler,
     required this.index,
+    required this.onSelect,
   }) : super(key: key);
   @override
   State<ProductItem> createState() => _ProductItemState();
 }
 
 class _ProductItemState extends State<ProductItem> {
+  final productController = Get.put(ProductController());
+
   bool enableSelling = false;
+  bool selected = false;
 
   @override
   void initState() {
@@ -45,6 +51,7 @@ class _ProductItemState extends State<ProductItem> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Checkbox(value: selected, onChanged: _onCheckBoxChange),
             Row(
               children: [
                 borderRadiusCard(
@@ -101,6 +108,22 @@ class _ProductItemState extends State<ProductItem> {
         ),
       ),
     );
+  }
+
+  _onCheckBoxChange(bool? value) {
+    setState(() {
+      selected = value as bool;
+    });
+    if (value!) {
+      productController.purchaseCart.value.add(widget.product);
+    } else {
+      productController.purchaseCart.value.removeWhere(
+          (ProductDetail element) =>
+              element.productId == widget.product.productId);
+    }
+    // console.log('products purchase cart : ',
+    //     payload: productController.purchaseCart.value);
+    widget.onSelect();
   }
 
   _enableSelling(value) async {
