@@ -29,6 +29,7 @@ class _ManageProductState extends State<ManageProduct> {
   bool hasFinishedLoading = false;
   final ScrollController _scrollController = ScrollController();
   bool isSearch = false;
+  int selectedProductCount = 0;
 
   @override
   void initState() {
@@ -136,26 +137,30 @@ class _ManageProductState extends State<ManageProduct> {
                     title: 'Loading',
                   ),
                 ),
-          productController.purchaseCart.value.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: PrimaryButton(
-                    onPressed: () => {console.log('mat pressed ')},
-                    value: 'Add Stock',
+          Container(
+            key: Key(selectedProductCount.toString()),
+            child: productController.purchaseCart.value.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: PrimaryButton(
+                      onPressed: () => {console.log('mat pressed ')},
+                      value: 'Add Stock',
+                    ),
+                  )
+                : const SizedBox(
+                    width: 10,
+                    height: 0,
                   ),
-                )
-              : const SizedBox(
-                  width: 10,
-                  height: 0,
-                ),
+          )
         ],
       ),
     );
   }
 
   _onItemSelection() {
-    console.log('products purchase cart : ',
-        payload: productController.purchaseCart.value);
+    setState(() {
+      selectedProductCount = productController.purchaseCart.value.length;
+    });
   }
 
   _handleNavigation({required String action, int? productId}) {

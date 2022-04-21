@@ -121,8 +121,6 @@ class _ProductItemState extends State<ProductItem> {
           (ProductDetail element) =>
               element.productId == widget.product.productId);
     }
-    // console.log('products purchase cart : ',
-    //     payload: productController.purchaseCart.value);
     widget.onSelect();
   }
 
