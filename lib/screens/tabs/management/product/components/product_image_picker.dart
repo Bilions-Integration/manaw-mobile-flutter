@@ -122,14 +122,14 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
     setState(() {
       pickedImages = files;
       pickedBlobs = blobs;
-      files.forEach((element) {
+      for(var element in files) {
         console.log('Files: ');
         console.log(element.toString());
-      });
-      blobs.forEach((element) {
+      }
+      for(var element in blobs) {
         console.log('Blob: ');
         console.log(element.length);
-      });
+      }
     });
 
     widget.onChanged(blobs);

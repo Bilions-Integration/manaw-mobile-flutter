@@ -18,6 +18,7 @@ class ManageScreen extends StatelessWidget {
     ManagePage(name: "Reports", page: RouteName.report),
     ManagePage(name: "My Store", page: RouteName.myStore),
     ManagePage(name: "Coupons", page: RouteName.coupon),
+    ManagePage(name: "Accounts", page: RouteName.account),
   ];
 
   static void openCreatePopup() {

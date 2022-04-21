@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/data/colors.dart';
 
 import 'image_uploader.dart';
 

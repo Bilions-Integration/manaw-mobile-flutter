@@ -13,7 +13,6 @@ class PopupItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: [
         Container(
@@ -28,7 +27,7 @@ class PopupItem extends StatelessWidget {
             child: SvgPicture.asset(icon),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 1,
           height: 8,
         ),

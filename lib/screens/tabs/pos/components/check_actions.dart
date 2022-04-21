@@ -10,7 +10,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/components/account_picker.dart';
 import 'package:my_app/components/customer_picker.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/account_model.dart';
+import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/services/account_service.dart';
@@ -88,8 +88,10 @@ showCouponModal() {
 
 showAccountModal({Function()? callback}) async {
   final cartController = Get.find<CartController>();
-  List<Account> accounts = await AccountService.get();
-  _onSelect(Account account) {
+  Map<String,dynamic> params = {'page' : 1, 'limit' : 100, 'select' : true};
+  var res = await AccountService.get(params);
+  List<AccountModel> accounts  = res['data'];
+  _onSelect(AccountModel account) {
     cartController.account.value = account;
     final box = GetStorage();
     box.write('@account', jsonEncode(account.toJson()));

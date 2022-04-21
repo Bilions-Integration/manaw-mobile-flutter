@@ -27,7 +27,7 @@ class CustomItemList extends StatefulWidget {
 
 class _CustomItemListState extends State<CustomItemList> {
   ScrollController scrollController = ScrollController();
-  bool isScrollLoading = true;
+  bool isScrollLoading = false;
 
   void scrollListener() async {
     if(scrollController.offset >= scrollController.position.maxScrollExtent && !widget.isLastPage) {
@@ -72,10 +72,11 @@ class _CustomItemListState extends State<CustomItemList> {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child : widget.isLastPage 
+                  child : isScrollLoading
+                  ? Styles.loading
+                  : widget.isLastPage && widget.params['page'] != 1
                   ? Text('End of results .', style: Styles.l5)
-                  : isScrollLoading == true  ? Styles.loading
-                  : const SizedBox()
+                  : const SizedBox(height: 0.5)
                 ),
               );
             }

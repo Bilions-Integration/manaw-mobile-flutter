@@ -26,7 +26,6 @@ class MyFile {
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Path: ' + path + ", Name : " + name;
   }
 }
