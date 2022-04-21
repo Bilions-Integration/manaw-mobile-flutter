@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/loading_widget.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -13,6 +11,7 @@ import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
+import 'package:my_app/screens/tabs/management/product/product_add_stock.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ManageProduct extends StatefulWidget {
@@ -55,29 +54,6 @@ class _ManageProductState extends State<ManageProduct> {
           add: () {
             _handleNavigation(action: 'create');
           }),
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: AppColors.dark,
-      //   title: const Text("Product"),
-      //   actions: <Widget>[
-      //     InkWell(
-      //       onTap: () {
-      //         console.log('Action 1 pressed');
-      //       },
-      //       child: Padding(
-      //         padding: const EdgeInsets.only(right: 12, left: 12),
-      //         child: SvgPicture.asset(AppAssets.icSearch,
-      //             color: AppColors.white),
-      //       ),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {
-      //         _handleNavigation(action: 'create');
-      //       },
-      //       icon: const Icon(Icons.add_rounded),
-      //     ),
-      //   ],
-      // ),
       body: Column(
         children: [
           CategorySelector(callback: _categoryChanged),
@@ -143,7 +119,7 @@ class _ManageProductState extends State<ManageProduct> {
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: PrimaryButton(
-                      onPressed: () => {console.log('mat pressed ')},
+                      onPressed: () => {Get.to(() => ProductAddStock())},
                       value: 'Add Stock',
                     ),
                   )
