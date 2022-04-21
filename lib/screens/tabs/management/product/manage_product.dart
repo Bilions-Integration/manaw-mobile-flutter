@@ -168,9 +168,10 @@ class _ManageProductState extends State<ManageProduct> {
 
   _deleteProduct(int productId) async {
     bool success = await productController.deleteProduct(productId: productId);
-    var snackBar =
-        SnackBar(content: Text('Delete ' + (success ? 'success' : 'failed')));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // var snackBar =
+    //     SnackBar(content: Text('Delete ' + (success ? 'success' : 'failed')));
+    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Get.snackbar('Success', "Delete Success", icon: Icon(Icons.delete));
     if (success) {
       _reset();
     }
