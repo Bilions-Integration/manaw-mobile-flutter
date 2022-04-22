@@ -30,7 +30,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
       final box = GetStorage();
       final address = box.read('@printer');
       setState(() {
-        defaultPrinter = address;
+        defaultPrinter = (address != null) ? address : '';
       });
     }
   }
@@ -102,8 +102,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
         }
       },
       title: '${printer.name}',
-      message:
-          'Are you sure you want to set ${printer.name} as default printer?',
+      message: 'Are you sure you want to set ${printer.name} as default printer?',
     );
   }
 }
