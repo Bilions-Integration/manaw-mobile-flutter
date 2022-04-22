@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
@@ -15,7 +16,7 @@ class AddStockProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<AddStockProductItem> {
-  int count = 0;
+  int count = 1;
 
   @override
   void initState() {
@@ -46,7 +47,7 @@ class _ProductItemState extends State<AddStockProductItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 160,
+                  width: 100,
                   child: Text(
                     widget.product.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
@@ -66,7 +67,16 @@ class _ProductItemState extends State<AddStockProductItem> {
         Row(
           children: [
             IconButton(onPressed: _decrease, icon: Icon(Icons.remove_circle)),
-            SizedBox(width: 20, child: Text(count.toString())),
+            // SizedBox(width: 20, child: Text(count.toString())),
+            SizedBox(
+                width: 60,
+                child: MyTextInput(
+                  placeholder: '',
+                  onChanged: _onChanged,
+                  value: count,
+                  key: Key(count.toString()),
+                  numberOnly: true,
+                )),
             IconButton(onPressed: _increase, icon: Icon(Icons.add_circle)),
           ],
         )
@@ -85,6 +95,15 @@ class _ProductItemState extends State<AddStockProductItem> {
   _increase() {
     setState(() {
       count++;
+    });
+  }
+
+  _onChanged(String text, String? e) {
+    int? num = int.tryParse(text);
+    setState(() {
+      if (num != null) {
+        count = num;
+      }
     });
   }
 }
