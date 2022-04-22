@@ -18,6 +18,7 @@ class ProductAddStock extends StatefulWidget {
 
 class _AddStockState extends State<ProductAddStock> {
   var productController = Get.put(ProductController());
+  double total = 0;
 
   @override
   void initState() {
@@ -40,13 +41,14 @@ class _AddStockState extends State<ProductAddStock> {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 15, right: 20, top: 12),
-                    child: AddStockProductItem(product: product),
+                    child: AddStockProductItem(
+                        product: product, onChange: _onChange),
                   )
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 mb(1),
@@ -58,7 +60,7 @@ class _AddStockState extends State<ProductAddStock> {
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      getTotalAmount().toString(),
+                      total.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -97,13 +99,18 @@ class _AddStockState extends State<ProductAddStock> {
   }
 
   _handler({required String action, int? productId}) {}
-  _onSelect() {}
+  _onChange() {
+    getTotalAmount();
+  }
 
   getTotalAmount() {
-    double total = 0;
+    double totalAmt = 0;
     for (var product in productController.purchaseCart.value) {
-      total += product.quantity;
+      console.log('price : ', payload: product.retailPrice);
+      totalAmt += product.quantity * (int.tryParse(product.retailPrice) ?? 1);
     }
-    return total;
+    setState(() {
+      total = totalAmt;
+    });
   }
 }

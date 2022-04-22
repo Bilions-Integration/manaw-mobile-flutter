@@ -6,7 +6,9 @@ import 'package:my_app/model/product_detail_model.dart';
 
 class AddStockProductItem extends StatefulWidget {
   final ProductDetail product;
-  const AddStockProductItem({Key? key, required this.product})
+  final Function onChange;
+  const AddStockProductItem(
+      {Key? key, required this.product, required this.onChange})
       : super(key: key);
 
   @override
@@ -92,6 +94,7 @@ class _ProductItemState extends State<AddStockProductItem> {
         widget.product.quantity--;
       }
     });
+    widget.onChange();
   }
 
   _increase() {
@@ -99,6 +102,7 @@ class _ProductItemState extends State<AddStockProductItem> {
       count++;
       widget.product.quantity++;
     });
+    widget.onChange();
   }
 
   _onChanged(String text, String? e) {
@@ -109,5 +113,6 @@ class _ProductItemState extends State<AddStockProductItem> {
         widget.product.quantity = num;
       }
     });
+    widget.onChange();
   }
 }
