@@ -20,6 +20,7 @@ class _ProductItemState extends State<AddStockProductItem> {
 
   @override
   void initState() {
+    widget.product.quantity = 1;
     super.initState();
   }
 
@@ -88,6 +89,7 @@ class _ProductItemState extends State<AddStockProductItem> {
     setState(() {
       if (count > 1) {
         count--;
+        widget.product.quantity--;
       }
     });
   }
@@ -95,6 +97,7 @@ class _ProductItemState extends State<AddStockProductItem> {
   _increase() {
     setState(() {
       count++;
+      widget.product.quantity++;
     });
   }
 
@@ -103,6 +106,7 @@ class _ProductItemState extends State<AddStockProductItem> {
     setState(() {
       if (num != null) {
         count = num;
+        widget.product.quantity = num;
       }
     });
   }
