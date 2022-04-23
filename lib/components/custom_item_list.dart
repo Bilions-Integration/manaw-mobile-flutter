@@ -11,6 +11,7 @@ class CustomItemList extends StatefulWidget {
     required this.isLastPage, 
     required this.emptyWidget, 
     required this.itemBuilder, 
+    required this.refresh, 
   }) : super(key: key);
 
   final List items;
@@ -20,6 +21,7 @@ class CustomItemList extends StatefulWidget {
   final bool isLastPage;
   final Widget emptyWidget; 
   final Widget Function(BuildContext context,int index) itemBuilder; 
+  final Function() refresh;
 
   @override
   State<CustomItemList> createState() => _CustomItemListState();
@@ -28,16 +30,34 @@ class CustomItemList extends StatefulWidget {
 class _CustomItemListState extends State<CustomItemList> {
   ScrollController scrollController = ScrollController();
   bool isScrollLoading = false;
+  bool isOnProgress = false;
 
   void scrollListener() async {
-    if(scrollController.offset >= scrollController.position.maxScrollExtent && !widget.isLastPage) {
+    if(!isOnProgress) {
+      if(scrollController.offset >= scrollController.position.maxScrollExtent && !widget.isLastPage) {
+        setState(() {
+          isScrollLoading = true;
+          isOnProgress = true;
+          widget.params['page'] += 1;
+        });
+        await widget.loadMore();
+        setState(() {
+          isScrollLoading = false;
+          isOnProgress = false;
+        });
+      }
+    }
+  }
+
+  Future<void> refreshListener() async {
+    if(!isOnProgress) {
       setState(() {
-        isScrollLoading = true;
-        widget.params['page'] += 1;
+        isOnProgress = true;
+        widget.params['page'] = 1;
       });
-      await widget.loadMore();
+      await widget.refresh();
       setState(() {
-        isScrollLoading = false;
+        isOnProgress = false;
       });
     }
   }
@@ -58,31 +78,35 @@ class _CustomItemListState extends State<CustomItemList> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
-      child: ( widget.isLoading && widget.params['page'] == 1 )
-        ? Styles.loading
-        : widget.items.isEmpty
-        ? widget.emptyWidget 
-        : ListView.builder(
-          controller: scrollController,
-          itemCount: widget.items.length + 1,
-          itemBuilder: (context, index) {
-            if(index < widget.items.length) {
-              return widget.itemBuilder(context,index);
-            } else {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child : isScrollLoading
-                  ? Styles.loading
-                  : widget.isLastPage && widget.params['page'] != 1
-                  ? Text('End of results .', style: Styles.l5)
-                  : const SizedBox(height: 0.5)
-                ),
-              );
+      child: RefreshIndicator(
+        onRefresh: refreshListener,
+        child: ( widget.isLoading && widget.params['page'] == 1 )
+          ? Styles.loading
+          : widget.items.isEmpty
+          ? widget.emptyWidget 
+          : ListView.builder(
+            controller: scrollController,
+            itemCount: widget.items.length + 1,
+            itemBuilder: (context, index) {
+              if(index < widget.items.length) {
+                return widget.itemBuilder(context,index);
+              } else {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child : isScrollLoading
+                    ? Styles.loading
+                    : widget.isLastPage && widget.params['page'] != 1
+                    ? Text('End of results .', style: Styles.l5)
+                    : const SizedBox(height: 0.5)
+                  ),
+                );
+              }
             }
-          }
-        ),
+          ),
+      ),
     );
   }
+
 }
 

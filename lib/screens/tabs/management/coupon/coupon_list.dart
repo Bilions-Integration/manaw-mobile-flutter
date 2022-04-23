@@ -52,6 +52,7 @@ class _CouponListState extends State<CouponList> {
 
   Widget list(BuildContext context) {
     return  CustomItemList(
+      refresh: refresh,
       items: coupons, 
       params: params, 
       loadMore: loadMore, 
@@ -110,7 +111,7 @@ class _CouponListState extends State<CouponList> {
       var res = await CouponService.get(params);
       setState(() {
         isLoading = false;
-        coupons = params['page'] == 1 ? res['data'] : [...coupons, ...res['data']];
+        coupons = res['data'];
         isLastPage = res['last_page'];
       });
     });
@@ -124,4 +125,11 @@ class _CouponListState extends State<CouponList> {
     });
   }
 
+  Future refresh() async{
+    var res = await CouponService.get(params);
+    setState(() {
+      coupons = res['data'];
+      isLastPage = res['last_page'];
+    });
+  }
 }

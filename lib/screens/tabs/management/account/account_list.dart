@@ -54,6 +54,7 @@ class _AccountListState extends State<AccountList> {
 
   Widget list(BuildContext context) {
     return  CustomItemList(
+      refresh: refresh,
       items: accounts, 
       params: params, 
       loadMore: loadMore, 
@@ -96,7 +97,15 @@ class _AccountListState extends State<AccountList> {
   }
 
   Future loadMore() async {
+    await AccountService.get(params);
+  }
+
+  Future refresh() async{
     var res = await AccountService.get(params);
+    setState(() {
+      accounts = res['data'];
+      isLastPage = true;
+    });
   }
 
   deleteData(int? id) {
