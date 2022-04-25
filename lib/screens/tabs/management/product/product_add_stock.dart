@@ -95,6 +95,7 @@ class _AddStockState extends State<ProductAddStock> {
                 ),
                 PrimaryButton(
                   value: 'Checkout',
+                  disabled: selectedAccount == null,
                   onPressed: _submit,
                 )
               ],
@@ -127,5 +128,8 @@ class _AddStockState extends State<ProductAddStock> {
     });
   }
 
-  _submit() {}
+  _submit() {
+    console.log('submit ');
+    productController.buyProducts(account: selectedAccount?.id);
+  }
 }

@@ -34,7 +34,7 @@ class _AccountSelectorState extends State<AccountSelector> {
       var res = await AccountService.get({'page': 1, 'limit': 10});
       List<AccountModel> accounts = res['data'];
       setState(() {
-        menuList = accounts;
+        menuList = accounts.where((element) => element.id != 0).toList();
       });
     }
   }
