@@ -4,6 +4,7 @@ import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/plan/components/pricing_preview.dart';
 
 class PricingScreen extends StatelessWidget {
   const PricingScreen({Key? key}) : super(key: key);
@@ -36,6 +37,10 @@ class PricingScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
+              mb(1),
+              Expanded(
+                child: PricingPreview(),
+              )
             ],
           ),
           Positioned(
@@ -48,7 +53,7 @@ class PricingScreen extends StatelessWidget {
               elevation: 0,
               backgroundColor: Colors.transparent,
               foregroundColor: AppColors.black,
-              child: Icon(Icons.close),
+              child: const Icon(Icons.close),
             ),
           ),
         ],
