@@ -5,12 +5,14 @@ import 'package:my_app/screens/forget_password/reset_password_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/printer_setting/printer_setting.dart';
 import 'package:my_app/screens/register/register_screen.dart';
+import 'package:my_app/screens/tabs/management/account/account_list.dart';
 import 'package:my_app/screens/tabs/management/category/manage_category.dart';
 import 'package:my_app/screens/tabs/management/invoice/manage_purchase_invoice.dart';
 import 'package:my_app/screens/tabs/management/invoice/manage_sale_invoice.dart';
 import 'package:my_app/screens/tabs/management/product/manage_product.dart';
 import 'package:my_app/screens/tabs/management/report/manage_reports.dart';
 import 'package:my_app/screens/tabs/management/store/manage_store.dart';
+import 'package:my_app/screens/tabs/management/coupon/coupon_list.dart';
 import 'package:my_app/screens/tabs/pos/checkout_screen.dart';
 import 'package:my_app/screens/tabs/tabs.dart';
 import 'package:my_app/screens/tabs/dashboard/dashboard_screen.dart';
@@ -38,6 +40,8 @@ class RouteName {
   static const saleInvoice = ManageSaleInvoice();
   static const report = ManageReport();
   static const myStore = ManageStore();
+  static const coupon = CouponList();
+  static const account = AccountList();
 }
 
 class ARouter {

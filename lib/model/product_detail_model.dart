@@ -10,6 +10,7 @@ class ProductDetail {
   final int instock;
   final dynamic retailPrice;
   final int? buyPrice;
+  final int? price;
 
   final String? barcode;
   final bool enableSelling;
@@ -35,6 +36,7 @@ class ProductDetail {
     this.quantity = 1,
     this.oldImages,
     this.unit = '1 x Pcs',
+    this.price,
   });
 
   ProductDetail.fromJson(Map json)
@@ -45,6 +47,7 @@ class ProductDetail {
         instock = json['instock'] ?? 0,
         retailPrice = json['retail_price'] ?? 0,
         buyPrice = json['buy_price'],
+        price = json['price'],
         categoryId = json['category_id'],
         category = json['category'] != null
             ? CategoryModel.fromJson(json['category'])
@@ -67,6 +70,7 @@ class ProductDetail {
         retailPrice = 0,
         barcode = '',
         buyPrice = 0,
+        price = 0,
         unit = '',
         type = 'single',
         units = [],

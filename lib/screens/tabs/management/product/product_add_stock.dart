@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/company_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/add_stock_product_item.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
@@ -23,6 +24,7 @@ class _AddStockState extends State<ProductAddStock> {
   @override
   void initState() {
     super.initState();
+    getTotalAmount();
   }
 
   @override
@@ -30,7 +32,7 @@ class _AddStockState extends State<ProductAddStock> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.dark,
-        title: Text('Add Stock'),
+        title: const Text('Add Stock'),
       ),
       body: Column(
         children: [
@@ -106,8 +108,8 @@ class _AddStockState extends State<ProductAddStock> {
   getTotalAmount() {
     double totalAmt = 0;
     for (var product in productController.purchaseCart.value) {
-      console.log('price : ', payload: product.retailPrice);
-      totalAmt += product.quantity * (int.tryParse(product.retailPrice) ?? 1);
+      console.log('price : ', payload: product.price);
+      totalAmt += product.quantity * (product.price ?? 0);
     }
     setState(() {
       total = totalAmt;

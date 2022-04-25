@@ -75,9 +75,10 @@ class _ProductItemState extends State<AddStockProductItem> {
                 width: 60,
                 child: MyTextInput(
                   placeholder: '',
-                  onChanged: _onChanged,
+                  onFieldSubmitted: _onChanged,
                   value: count,
                   key: Key(count.toString()),
+                  onChanged: (String e, String? col) {},
                   numberOnly: true,
                 )),
             IconButton(onPressed: _increase, icon: Icon(Icons.add_circle)),

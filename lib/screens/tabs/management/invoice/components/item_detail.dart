@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
-import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
+import 'package:screenshot/screenshot.dart';
 
 void actionPopup({
   required BuildContext context,
@@ -28,7 +28,7 @@ void actionPopup({
   );
 }
 
-class ItemDetailCard extends StatelessWidget {
+class ItemDetailCard extends StatefulWidget {
   final dynamic invoice;
   final Future<dynamic> Function(int? id) delete;
   final Future<dynamic> Function(int? id) print;
@@ -43,16 +43,28 @@ class ItemDetailCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ItemDetailCard> createState() => _ItemDetailCardState();
+}
+
+class _ItemDetailCardState extends State<ItemDetailCard> {
+  ScreenshotController screenshotController = ScreenshotController();
+    var testing;
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Column( children: [
-          titleAndActions(invoice, delete, type),
-          invoiceInfo(invoice),
-          productLists(context, invoice.products),
-          mb(17),
-        ],),
-        priceDetail(invoice)
+        titleAndActions(widget.invoice, widget.delete, widget.type),
+        Screenshot(
+          controller: screenshotController,
+          child: Column( children: [
+            mb(6),
+            invoiceInfo(widget.invoice),
+            productLists(context, widget.invoice.products),
+            mb(17),
+          ]),
+        ),
+        priceDetail(widget.invoice)
       ],
     );
   }
@@ -69,16 +81,6 @@ class ItemDetailCard extends StatelessWidget {
               Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice', style: Styles.h3),
             ]),
             Row( children: [
-              InkWell(
-                child: SvgPicture.asset(AppAssets.edit,width: 20, height: 20),
-                onTap: () {},
-              ),
-              mr(1),
-              InkWell(
-                child : SvgPicture.asset(AppAssets.clone,width: 20, height: 20),
-                onTap: () {},
-              ),
-              mr(1),
               InkWell(
                 child : SvgPicture.asset(AppAssets.trash,width: 20, height: 20),
                 onTap: () => delete(invoice.id),
@@ -167,6 +169,7 @@ class ItemDetailCard extends StatelessWidget {
             hr(height: 1, mt : 1, mb : 1),
             Column(
               children: [
+                testing != null ?Image.memory(testing) : mb(1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -193,7 +196,7 @@ class ItemDetailCard extends StatelessWidget {
                 mb(1.5),
                 PrimaryButton(
                   value: 'Print',
-                  onPressed: () => print(invoice.id),
+                  onPressed: print
                 )
               ],
             ),
@@ -201,5 +204,19 @@ class ItemDetailCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  print() {
+    screenshotController.capture(delay: const Duration(milliseconds: 10))
+    .then((image) async {
+      if (image != null) {
+        setState(() {
+          testing = image;
+          console.log(testing);
+        });
+      }
+    }).catchError((onError) {
+      console.log(onError);
+    });
   }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/account_model.dart';
+import 'package:my_app/model/account_model/account_model.dart';
 
 class AccountPicker {
   final double? height;
   final String? searchPlaceholder;
-  final List<Account> menuList;
-  final Function(Account) onSelect;
-  final Account? selectedAccount;
+  final List<AccountModel> menuList;
+  final Function(AccountModel) onSelect;
+  final AccountModel? selectedAccount;
 
   AccountPicker({
     required this.menuList,
@@ -43,10 +43,10 @@ class AccountPicker {
 class MyListView extends StatefulWidget {
   final BuildContext context;
   final double? height;
-  final Account? selectedAccount;
-  final List<Account> menuList;
+  final AccountModel? selectedAccount;
+  final List<AccountModel> menuList;
   final String? searchPlaceholder;
-  final Function(Account) onSelect;
+  final Function(AccountModel) onSelect;
 
   const MyListView({
     Key? key,
@@ -63,7 +63,7 @@ class MyListView extends StatefulWidget {
 }
 
 class _MyListViewState extends State<MyListView> {
-  List<Account> chosenList = [];
+  List<AccountModel> chosenList = [];
 
   @override
   void initState() {
@@ -101,7 +101,7 @@ class _MyListViewState extends State<MyListView> {
                 physics: const BouncingScrollPhysics(),
                 children: chosenList
                     .map(
-                      (Account item) => Container(
+                      (AccountModel item) => Container(
                         decoration: BoxDecoration(
                           color: AppColors.lightGrey,
                           borderRadius: BorderRadius.circular(10),
@@ -123,7 +123,7 @@ class _MyListViewState extends State<MyListView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  item.name,
+                                  item.ownerName,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -147,7 +147,7 @@ class _MyListViewState extends State<MyListView> {
     );
   }
 
-  _selectModal(Account account, context) {
+  _selectModal(AccountModel account, context) {
     Navigator.pop(context);
     widget.onSelect(account);
   }
