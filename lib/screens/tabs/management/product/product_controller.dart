@@ -72,18 +72,18 @@ class ProductController extends GetxController {
         .then((value) => value['success'] as bool);
   }
 
-  Future buyProducts({required account}) async {
+  Future<bool> buyProducts({required account}) async {
     try {
       var products = purchaseCart.value.map((e) => {
             "product_id": e.productId,
             "quantity": e.quantity,
             "price": e.price
           });
-      var res = await Api.post('/invoices/purchase',
+      await Api.post('/invoices/purchase',
           data: {'account_id': account, 'products': products.toList()});
-      console.log('res completed : ', payload: res['data']);
+      return true;
     } catch (e) {
-      inspect(e);
+      return false;
     }
   }
 }

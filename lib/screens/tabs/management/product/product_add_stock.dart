@@ -5,6 +5,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/model/company_model.dart';
+import 'package:my_app/screens/tabs/management/invoice/manage_purchase_invoice.dart';
 import 'package:my_app/screens/tabs/management/product/components/account_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/add_stock_product_item.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
@@ -130,6 +131,13 @@ class _AddStockState extends State<ProductAddStock> {
 
   _submit() {
     console.log('submit ');
-    productController.buyProducts(account: selectedAccount?.id);
+    productController
+        .buyProducts(account: selectedAccount?.id)
+        .then((success) => {
+              if (success)
+                {Get.to(() => const ManagePurchaseInvoice())}
+              else
+                {Get.snackbar("Failed", "An error occurred in adding stock.")}
+            });
   }
 }
