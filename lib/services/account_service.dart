@@ -14,7 +14,7 @@ class AccountService {
     return res;
   }
 
-  static Future<Map<String, dynamic>>  fetch(int? id) async {
+  static Future<Map<String, dynamic>> fetch(int? id) async {
     var res = await Api.get('/accounts/$id', showLoading : false);
     Map<String, dynamic> data =  AccountModel.fromJson(res["data"]).toJson();
     return data;

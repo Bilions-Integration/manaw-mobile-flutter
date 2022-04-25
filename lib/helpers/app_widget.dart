@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -24,18 +26,19 @@ class AppWidget {
       return null;
     }
     final blob = await MultipartFile.fromFile(image.path, filename: image.name);
-    return MyFile(blob: blob, path: image.path, name: image.name);
+    return MyFile(blob: blob, path: image.path, name: image.name, file : File(image.path));
   }
 
-  static void showMenu(
-      {required List<Menu> menuList,
-      double height = 1000,
-      required Function(Menu) onSelect}) {
+  static void showMenu({
+    required List<Menu> menuList,
+    double height = 1000,
+    required Function(Menu) onSelect
+  }) {
     void _selectModal(type, context) {
       Navigator.pop(context);
       onSelect(type);
     }
-
+    
     final context = currentContext();
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -53,7 +56,7 @@ class AppWidget {
                   .map(
                     (Menu item) => item.subTitle != null
                         ? ListTile(
-                            onTap: () => {_selectModal(item.key, context)},
+                            onTap: () => {_selectModal(item, context)},
                             title: Text(item.title),
                             subtitle: Text(item.subTitle!),
                             leading: Padding(
@@ -81,7 +84,7 @@ class AppWidget {
       String? title,
       String? message}) {
     dismissDialog() {
-      Navigator.of(context).pop();
+      Navigator.pop(context);
     }
 
     List<Widget> actionBtns = [];
