@@ -56,69 +56,31 @@ class _AccountSelectorState extends State<AccountSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 2,
-      child: Material(
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        border: Border.all(color: AppColors.borderColor, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: InkWell(
+        onTap: _showList,
         child: Container(
           height: 50,
-          decoration: BoxDecoration(
-            color: AppColors.dark,
-            border: Border(
-              top: BorderSide(color: AppColors.white, width: 0.2),
-            ),
-          ),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: _showList,
-                  child: Container(
-                    height: 50,
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          selectedList?.bankName ?? 'Select Category',
-                          style: TextStyle(color: AppColors.white),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: AppColors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              Text(
+                selectedList?.ownerName ?? 'Select Account',
               ),
-              Row(
-                children: [
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        child: SvgPicture.asset(
-                          AppAssets.icSearch,
-                          color: AppColors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              const Icon(
+                Icons.keyboard_arrow_down_rounded,
+              ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  _showCheckout() {
-    Get.to(() => RouteName.checkoutScreen);
   }
 }

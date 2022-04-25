@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/model/company_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/account_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/add_stock_product_item.dart';
@@ -21,6 +22,7 @@ class ProductAddStock extends StatefulWidget {
 class _AddStockState extends State<ProductAddStock> {
   var productController = Get.put(ProductController());
   double total = 0;
+  AccountModel? selectedAccount;
 
   @override
   void initState() {
@@ -73,9 +75,8 @@ class _AddStockState extends State<ProductAddStock> {
                 ),
                 mb(1),
                 //Account Select here
-                AccountSelector(callback: (data) {
-                  console.log('on select account');
-                }),
+                AccountSelector(callback: _onAccountChange),
+                mb(1),
                 Row(
                   children: [
                     Icon(
@@ -93,10 +94,9 @@ class _AddStockState extends State<ProductAddStock> {
                   height: 6,
                 ),
                 PrimaryButton(
-                    value: 'Checkout',
-                    onPressed: () {
-                      console.log('text');
-                    }),
+                  value: 'Checkout',
+                  onPressed: _submit,
+                )
               ],
             ),
           ),
@@ -105,9 +105,15 @@ class _AddStockState extends State<ProductAddStock> {
     );
   }
 
-  _handler({required String action, int? productId}) {}
   _onChange() {
     getTotalAmount();
+  }
+
+  _onAccountChange(data) {
+    console.log('on select account', payload: data);
+    setState(() {
+      selectedAccount = data;
+    });
   }
 
   getTotalAmount() {
@@ -120,4 +126,6 @@ class _AddStockState extends State<ProductAddStock> {
       total = totalAmt;
     });
   }
+
+  _submit() {}
 }
