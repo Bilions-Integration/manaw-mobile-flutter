@@ -77,7 +77,7 @@ class _CustomItemListState extends State<CustomItemList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.all(8),
       child: RefreshIndicator(
         onRefresh: refreshListener,
         child: ( widget.isLoading && widget.params['page'] == 1 )

@@ -71,14 +71,27 @@ class _AccountListState extends State<AccountList> {
                 delete: (id) => deleteData(accounts[index].id)
               )
             ),
-            child: ListTile(
-              title: Text(accounts[index].bankName),
-              subtitle: Text(accounts[index].ownerName),
-              trailing: Text('\$${accounts[index].initialAmount}'),
-            )
+            child: listItem(accounts[index]),
           ),
+          mb(0.7),
         ],
       )
+    );
+  }
+
+  Widget listItem(account) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        border: Border.all(
+          color : const Color(0xffE2E2E2),
+        )
+      ),
+      child: ListTile(
+        title: Text(account.bankName, style: Styles.h5,),
+        subtitle: Text(account.ownerName, style: Styles.l6,),
+        trailing: Text('\$${account.initialAmount}', style: Styles.t5,),
+      ),
     );
   }
 
