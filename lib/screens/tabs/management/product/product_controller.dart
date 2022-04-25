@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
-import 'package:my_app/model/product_model.dart';
 
 class ProductController extends GetxController {
   var products = Rx<List<ProductDetail>>([]);
@@ -13,8 +11,6 @@ class ProductController extends GetxController {
   var page = 1.obs;
   var limit = 20.obs;
   var total = 0.obs;
-
-  var purchaseCart = Rx<List<ProductDetail>>([]);
 
   Future<void> getProducts({bool showLoading = false, dynamic category}) async {
     try {
@@ -70,20 +66,5 @@ class ProductController extends GetxController {
   Future<bool> deleteProduct({required int productId}) async {
     return Api.delete('/products/$productId', showLoading: true)
         .then((value) => value['success'] as bool);
-  }
-
-  Future<bool> buyProducts({required account}) async {
-    try {
-      var products = purchaseCart.value.map((e) => {
-            "product_id": e.productId,
-            "quantity": e.quantity,
-            "price": e.price
-          });
-      await Api.post('/invoices/purchase',
-          data: {'account_id': account, 'products': products.toList()});
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 }
