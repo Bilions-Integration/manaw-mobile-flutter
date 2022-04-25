@@ -55,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _checkToken() async {
     try {
+      // throw 'Auth Error';
       var res = await Api.get('/auth/refresh');
       AppWidget.storeToken(res['token']);
       var res2 = await Api.get('/auth/user');

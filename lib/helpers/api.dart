@@ -133,6 +133,4 @@ class Api {
       rethrow;
     }
   }
-
-  
 }

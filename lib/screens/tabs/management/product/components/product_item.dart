@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
+import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
@@ -11,18 +13,23 @@ class ProductItem extends StatefulWidget {
   final ProductDetail product;
   final int index;
   final Function({required String action, int? productId}) handler;
+  final Function() onSelect;
   const ProductItem({
     Key? key,
     required this.product,
     required this.handler,
     required this.index,
+    required this.onSelect,
   }) : super(key: key);
   @override
   State<ProductItem> createState() => _ProductItemState();
 }
 
 class _ProductItemState extends State<ProductItem> {
+  final addStockController = Get.put(AddStockController());
+
   bool enableSelling = false;
+  bool selected = false;
 
   @override
   void initState() {
@@ -45,6 +52,7 @@ class _ProductItemState extends State<ProductItem> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Checkbox(value: selected, onChanged: _onCheckBoxChange),
             Row(
               children: [
                 borderRadiusCard(
@@ -101,6 +109,20 @@ class _ProductItemState extends State<ProductItem> {
         ),
       ),
     );
+  }
+
+  _onCheckBoxChange(bool? value) {
+    setState(() {
+      selected = value as bool;
+    });
+    if (value!) {
+      addStockController.purchaseCart.value.add(widget.product);
+    } else {
+      addStockController.purchaseCart.value.removeWhere(
+          (ProductDetail element) =>
+              element.productId == widget.product.productId);
+    }
+    widget.onSelect();
   }
 
   _enableSelling(value) async {

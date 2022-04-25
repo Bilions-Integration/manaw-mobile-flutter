@@ -23,6 +23,7 @@ class MyTextInput extends StatelessWidget {
   final bool readOnly;
 
   final Function(String, String?) onChanged;
+  final Function(String, String?)? onFieldSubmitted;
 
   final Map? error;
 
@@ -39,7 +40,8 @@ class MyTextInput extends StatelessWidget {
     required this.placeholder,
     this.icon,
     required this.onChanged,
-    this.numberOnly = false, 
+    this.onFieldSubmitted,
+    this.numberOnly = false,
     this.readOnly = false,
     this.error,
   }) : super(key: key);
@@ -89,6 +91,7 @@ class MyTextInput extends StatelessWidget {
             keyboardType:
                 numberOnly == true ? TextInputType.number : TextInputType.text,
             onChanged: _onChanged,
+            onFieldSubmitted: _onFieldSubmitted,
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.lightGrey,
@@ -118,6 +121,12 @@ class MyTextInput extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _onFieldSubmitted(value) {
+    if (onFieldSubmitted != null) {
+      onFieldSubmitted!(value, column);
+    }
   }
 }
 

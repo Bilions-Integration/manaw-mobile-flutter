@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model/account_model.dart';
+import 'package:my_app/screens/tabs/management/account/account_create_and_edit.dart';
 
 class AccountPicker {
   final double? height;
@@ -26,14 +29,40 @@ class AccountPicker {
       ),
       context: context,
       builder: (builder) {
-        return MyListView(
-          height: height,
-          context: context,
-          onSelect: onSelect,
-          selectedAccount: selectedAccount,
-          searchPlaceholder: searchPlaceholder,
-          menuList: menuList,
-        );
+        return menuList.isNotEmpty
+            ? MyListView(
+                height: height,
+                context: context,
+                onSelect: onSelect,
+                selectedAccount: selectedAccount,
+                searchPlaceholder: searchPlaceholder,
+                menuList: menuList,
+              )
+            : Container(
+                padding: EdgeInsets.all(20),
+                child: SizedBox(
+                  height: 110,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "You don't have an account yet",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      Text(
+                        'Please create one to proceed.',
+                        style: TextStyle(color: AppColors.lightDark),
+                      ),
+                      mb(0.8),
+                      PrimaryButton(
+                          value: "Create Account",
+                          onPressed: () {
+                            Get.to(() => const AccountCreateAndEdit());
+                          }),
+                    ],
+                  ),
+                ));
       },
     );
   }
