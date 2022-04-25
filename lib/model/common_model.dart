@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -18,15 +20,16 @@ class MyFile {
   final MultipartFile blob;
   final String path;
   final String name;
+  final File? file;
   MyFile({
     required this.blob,
     required this.path,
     required this.name,
+    this.file,
   });
 
   @override
   String toString() {
-    // TODO: implement toString
     return 'Path: ' + path + ", Name : " + name;
   }
 }

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/account_model.dart';
+import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
@@ -14,7 +14,7 @@ class CartController extends GetxController {
 
   final products = Rx<List<Product>>([]);
 
-  final account = Rx<Account?>(null);
+  final account = Rx<AccountModel?>(null);
 
   final customer = Rx<CustomerModel?>(null);
 
@@ -59,7 +59,7 @@ class CartController extends GetxController {
     if (cachedAccount != null) {
       try {
         var decodedString = jsonDecode(cachedAccount);
-        account.value = Account.fromJson(decodedString);
+        account.value = AccountModel.fromJson(decodedString);
       } catch (e) {
         console.log(e.toString());
       }
@@ -122,8 +122,7 @@ class CartController extends GetxController {
       "paid_amount" : 0,
     };
     console.log('PARAMS to SUBMIT => $params');
-    var res = await InvoiceServices.create(params);
-
+    await InvoiceServices.create(params);
   }
 }
 
