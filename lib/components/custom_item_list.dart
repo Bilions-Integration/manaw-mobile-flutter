@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/styles.dart';
 
 class CustomItemList extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CustomItemListState extends State<CustomItemList> {
 
   void scrollListener() async {
     if(!isOnProgress) {
-      if(scrollController.offset >= scrollController.position.maxScrollExtent && !widget.isLastPage) {
+      if(!widget.isLastPage) {
         setState(() {
           isScrollLoading = true;
           isOnProgress = true;
@@ -76,35 +77,34 @@ class _CustomItemListState extends State<CustomItemList> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: RefreshIndicator(
-        onRefresh: refreshListener,
-        child: ( widget.isLoading && widget.params['page'] == 1 )
-          ? Styles.loading
-          : widget.items.isEmpty
-          ? widget.emptyWidget 
-          : ListView.builder(
-            controller: scrollController,
-            itemCount: widget.items.length + 1,
-            itemBuilder: (context, index) {
-              if(index < widget.items.length) {
-                return widget.itemBuilder(context,index);
-              } else {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child : isScrollLoading
-                    ? Styles.loading
-                    : widget.isLastPage && widget.params['page'] != 1
-                    ? Text('End of results .', style: Styles.l5)
-                    : const SizedBox(height: 0.5)
-                  ),
-                );
-              }
+    return RefreshIndicator(
+      color: AppColors.dark,
+      onRefresh: refreshListener,
+      child: ( widget.isLoading && widget.params['page'] == 1 )
+        ? Styles.loading
+        : widget.items.isEmpty
+        ? widget.emptyWidget 
+        : ListView.builder(
+          padding: const EdgeInsets.all(10),
+          controller: scrollController,
+          itemCount: widget.items.length + 1,
+          itemBuilder: (context, index) {
+            if(index < widget.items.length) {
+              return widget.itemBuilder(context,index);
+            } else {                
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child : isScrollLoading
+                  ? Styles.loading
+                  : widget.isLastPage && widget.params['page'] != 1
+                  ? Text('End of results .', style: Styles.l5)
+                  : const SizedBox(height: 1)
+                ),
+              );
             }
-          ),
-      ),
+          }
+        ),
     );
   }
 

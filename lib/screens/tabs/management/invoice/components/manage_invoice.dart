@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/date_picker.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
+import 'package:my_app/routes.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/list_items.dart';
-import 'package:my_app/screens/tabs/management/invoice/components/top_app_bar.dart';
 import 'package:my_app/services/invoice_services.dart';
 import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -21,9 +22,9 @@ class ManageInvoice extends StatefulWidget {
 }
 
 class _ManageInvoiceState extends State<ManageInvoice> {
-  final ScrollController scrollController = ScrollController();
   bool isSearch = false;
   bool isLoading = false;
+  bool isLastPage = false;
   List<InvoiceModel> invoices = [];
 
   Map<String,dynamic> params = {
@@ -37,11 +38,11 @@ class _ManageInvoiceState extends State<ManageInvoice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: topAppBar(
-        context : context,
-        title : widget.type == 'sale' ? 'Sale Invoices' : 'Purchase Invoices',
+      appBar: customAppBar2(
+        context: context,
+        title: widget.type == 'sale' ? 'Sale Invoices' : 'Purchase Invoices',
         isSearch: isSearch,
-        toggleSearch : () {
+        toggleSearch: () {
           setState(() {
             isSearch = !isSearch;
             if(!isSearch) {
@@ -50,12 +51,13 @@ class _ManageInvoiceState extends State<ManageInvoice> {
             }
           });
         },
-        search : (value) {
+        search: (value) {
           setState(() {
             params['keyword'] = value;
             getData();
           });
-        }
+        },
+        add: () => Get.to(RouteName.product),
       ),
       body: Column(
         children: [
@@ -77,8 +79,10 @@ class _ManageInvoiceState extends State<ManageInvoice> {
               invoices : invoices,
               delete : (id) => deleteData(id),
               print : (id) => printData(id),
-              getData: () => getData(),
-              scrollController: scrollController,
+              isLastPage: isLastPage, 
+              loadMore: loadMore, 
+              refresh: refresh, 
+              params: params,
             ),
           )
         ],
@@ -121,6 +125,22 @@ class _ManageInvoiceState extends State<ManageInvoice> {
         invoices = res['invoices'];
         isLoading = false;
       });
+    });
+  }
+
+  Future loadMore() async {
+    var res = await InvoiceServices.get(params);
+    setState(() {
+      invoices = [...invoices, ...res['invoices']];
+      isLastPage = res['last_page'];
+    });
+  }
+
+  Future refresh() async{
+    var res = await InvoiceServices.get(params);
+    setState(() {
+      invoices = res['invoices'];
+      isLastPage = res['last_page'];
     });
   }
 

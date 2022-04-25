@@ -3,8 +3,8 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
-
-import '../create_edit_invoice.dart';
+import 'package:my_app/routes.dart';
+import 'package:my_app/components/custom_item_list.dart';
 import 'item_detail.dart';
 
 class ListItems extends StatelessWidget {
@@ -14,67 +14,63 @@ class ListItems extends StatelessWidget {
     required this.invoices, 
     required this.delete, 
     required this.print, 
-    required this.getData, 
-    required this.scrollController,
     required this.isLoading, 
+    required this.isLastPage, 
+    required this.refresh, 
+    required this.loadMore, 
+    required this.params, 
   }) : super(key: key);
 
   final List<InvoiceModel> invoices;
   final Future<dynamic> Function(int? id) delete;
   final Future<dynamic> Function(int? id) print;
-  final Future<dynamic> Function() getData;
-  final ScrollController scrollController;
   final bool isLoading;
   final String type;
+  final bool isLastPage;
+  final Function() refresh;
+  final Function() loadMore;
+  final Map<String,dynamic> params;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: isLoading ? Styles.loading
-        : invoices.isEmpty
-        ? Styles.emptyList('No invoice yet', AppAssets.emptyInvoice, 'Create new Invoice', const CreateInvoice())
-        : ListView.builder(
-        controller: scrollController,
-        itemCount: invoices.length,
-        itemBuilder: (context,int index) => Column(
-          children: [
-            InkWell(
-              onTap : () => Styles.customBottomSheet(context, 95,
-                ItemDetailCard(
-                  invoice : invoices[index],
-                  delete : delete,
-                  print : print,
-                  type : type
-                )
-              ),
-              // onTap : () => actionPopup(
-              //   context : context,
-              //   invoice : invoices[index],
-              //   delete : delete,
-              //   print : print,
-              //   type : type
-              // ),
-              child : listItem(invoices[index], context)
+    return CustomItemList(
+      refresh: refresh,
+      items: invoices, 
+      params: params, 
+      loadMore: loadMore, 
+      isLoading: isLoading, 
+      isLastPage: isLastPage, 
+      emptyWidget: Styles.emptyList('No Invoice yet', AppAssets.emptyInvoice, 'Create new Invoice', RouteName.product),
+      itemBuilder: (context, index) => Column(
+        children: [
+          InkWell(
+            onTap : () => Styles.customBottomSheet(context, 95,
+              ItemDetailCard(
+                invoice : invoices[index],
+                delete : delete,
+                print : print,
+                type : type
+              )
             ),
-            mb(1.2),
-          ],
-        )
+            child : listItem(invoices[index], context)
+          ),
+          mb(1),
+        ],
       ),
     );
   }
 
   Widget listItem(invoice, context) {
     return Container(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         border: Border.all(
           color : const Color(0xffE2E2E2),
         )
       ),
-      child : Column(
-        children: [
+      child: Column(
+        children:[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -86,19 +82,19 @@ class ListItems extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Customer', style: Styles.label),
-              Text('Account', style: Styles.label),
+              Text('Customer', style: Styles.l5),
+              Text('Account', style: Styles.l5),
             ]
           ),
           mb(0.5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(invoice.receiver["receiver_name"], style: Styles.textBold),
-              Text(invoice.account["bank_name"], style: Styles.textBold),
+              Text(invoice.receiver["receiver_name"], style: Styles.h5),
+              Text(invoice.account["bank_name"], style: Styles.h5),
             ]
           ),
-          hr(height: 0.5, mt : 1.5, mb : 1.5),
+          hr(height: 1, mt: 1.5, mb: 1.5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -106,8 +102,8 @@ class ListItems extends StatelessWidget {
               Text('\$${invoice.grand_total}', style: Styles.h4),
             ]
           ),
-        ],
-      )
+        ]
+      ),
     );
   }
 }

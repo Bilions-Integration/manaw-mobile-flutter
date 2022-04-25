@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/styles.dart';
@@ -75,15 +76,11 @@ class _CreateCategoryState extends State<CreateCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Create New Category", style: Styles.t2Light),
-        backgroundColor: AppColors.dark,
-        leading:IconButton(
-          icon: SvgPicture.asset(AppAssets.leftArrow,width: 23, height: 23, color: AppColors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+       appBar: customAppBar2(
+        context: context,
+        title: 'Category ${widget.id != null ? "Edit" : "Create"}',
+        showAction: false,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

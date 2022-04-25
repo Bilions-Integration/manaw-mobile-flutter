@@ -8,7 +8,7 @@ customAppBar2({
   required BuildContext context,
   required String title,
   Function()? toggleSearch,
-  Function()? search,
+  Function? search,
   Function()? add,
   bool isSearch = false,
   bool showAction = true,

@@ -23,7 +23,7 @@ class _CouponListState extends State<CouponList> {
   List coupons = [];
   Map<String, dynamic> params = {
     'page' : 1,
-    'limit' : 10
+    'limit' : 20
   };
   
   @override
@@ -51,7 +51,7 @@ class _CouponListState extends State<CouponList> {
   }
 
   Widget list(BuildContext context) {
-    return  CustomItemList(
+    return CustomItemList(
       refresh: refresh,
       items: coupons, 
       params: params, 

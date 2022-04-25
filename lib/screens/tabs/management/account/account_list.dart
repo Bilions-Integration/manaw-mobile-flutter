@@ -23,7 +23,7 @@ class _AccountListState extends State<AccountList> {
   List accounts = [];
   Map<String,dynamic> params = {
     'page' : 1,
-    'limit' : 10,
+    'limit' : 20,
     "select": true
   };
 
