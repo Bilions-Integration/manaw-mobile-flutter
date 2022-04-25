@@ -5,6 +5,7 @@ import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/model/product_model.dart';
+import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
@@ -25,7 +26,7 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
-  final productController = Get.put(ProductController());
+  final addStockController = Get.put(AddStockController());
 
   bool enableSelling = false;
   bool selected = false;
@@ -115,9 +116,9 @@ class _ProductItemState extends State<ProductItem> {
       selected = value as bool;
     });
     if (value!) {
-      productController.purchaseCart.value.add(widget.product);
+      addStockController.purchaseCart.value.add(widget.product);
     } else {
-      productController.purchaseCart.value.removeWhere(
+      addStockController.purchaseCart.value.removeWhere(
           (ProductDetail element) =>
               element.productId == widget.product.productId);
     }

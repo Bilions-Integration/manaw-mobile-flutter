@@ -4,12 +4,10 @@ import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model/account_model.dart';
-import 'package:my_app/model/company_model.dart';
 import 'package:my_app/screens/tabs/management/invoice/manage_purchase_invoice.dart';
+import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/account_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/add_stock_product_item.dart';
-import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
-import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ProductAddStock extends StatefulWidget {
   const ProductAddStock({Key? key}) : super(key: key);
@@ -21,7 +19,8 @@ class ProductAddStock extends StatefulWidget {
 }
 
 class _AddStockState extends State<ProductAddStock> {
-  var productController = Get.put(ProductController());
+  var addStockController = Get.put(AddStockController());
+
   double total = 0;
   AccountModel? selectedAccount;
 
@@ -43,7 +42,7 @@ class _AddStockState extends State<ProductAddStock> {
           Expanded(
             child: ListView(
               children: [
-                for (var product in productController.purchaseCart.value)
+                for (var product in addStockController.purchaseCart.value)
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 15, right: 20, top: 12),
@@ -75,7 +74,6 @@ class _AddStockState extends State<ProductAddStock> {
                   ],
                 ),
                 mb(1),
-                //Account Select here
                 AccountSelector(callback: _onAccountChange),
                 mb(1),
                 Row(
@@ -112,7 +110,6 @@ class _AddStockState extends State<ProductAddStock> {
   }
 
   _onAccountChange(data) {
-    console.log('on select account', payload: data);
     setState(() {
       selectedAccount = data;
     });
@@ -120,8 +117,7 @@ class _AddStockState extends State<ProductAddStock> {
 
   getTotalAmount() {
     double totalAmt = 0;
-    for (var product in productController.purchaseCart.value) {
-      console.log('price : ', payload: product.price);
+    for (var product in addStockController.purchaseCart.value) {
       totalAmt += product.quantity * (product.price ?? 0);
     }
     setState(() {
@@ -130,12 +126,11 @@ class _AddStockState extends State<ProductAddStock> {
   }
 
   _submit() {
-    console.log('submit ');
-    productController
+    addStockController
         .buyProducts(account: selectedAccount?.id)
         .then((success) => {
               if (success)
-                {Get.to(() => const ManagePurchaseInvoice())}
+                {Get.off(() => const ManagePurchaseInvoice())}
               else
                 {Get.snackbar("Failed", "An error occurred in adding stock.")}
             });

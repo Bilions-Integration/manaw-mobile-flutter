@@ -8,6 +8,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
+import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
@@ -25,6 +26,7 @@ class ManageProduct extends StatefulWidget {
 
 class _ManageProductState extends State<ManageProduct> {
   final productController = Get.put(ProductController());
+  final addStockController = Get.put(AddStockController());
   bool hasFinishedLoading = false;
   final ScrollController _scrollController = ScrollController();
   bool isSearch = false;
@@ -115,7 +117,7 @@ class _ManageProductState extends State<ManageProduct> {
                 ),
           Container(
             key: Key(selectedProductCount.toString()),
-            child: productController.purchaseCart.value.isNotEmpty
+            child: addStockController.purchaseCart.value.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: PrimaryButton(
@@ -135,7 +137,7 @@ class _ManageProductState extends State<ManageProduct> {
 
   _onItemSelection() {
     setState(() {
-      selectedProductCount = productController.purchaseCart.value.length;
+      selectedProductCount = addStockController.purchaseCart.value.length;
     });
   }
 

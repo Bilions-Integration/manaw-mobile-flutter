@@ -5,7 +5,6 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/account_model/account_model.dart';
-import 'package:my_app/model/category_model.dart';
 
 class AccountPicker {
   final double? height;
