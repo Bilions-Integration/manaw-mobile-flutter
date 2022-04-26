@@ -18,7 +18,7 @@ class PricingScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              mb(3),
+              mb(1),
               Image.asset(AppAssets.getPlanIcon('pricing-promo')),
               const Text(
                 "Best plans for your business",
@@ -46,14 +46,14 @@ class PricingScreen extends StatelessWidget {
           Positioned(
             top: 25,
             right: 10,
-            child: FloatingActionButton.small(
-              onPressed: () {
+            child: InkWell(
+              onTap: () {
                 Get.back();
               },
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              foregroundColor: AppColors.black,
-              child: const Icon(Icons.close),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.close),
+              ),
             ),
           ),
         ],
