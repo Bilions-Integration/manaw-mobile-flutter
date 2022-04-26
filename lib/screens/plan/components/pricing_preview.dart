@@ -14,11 +14,14 @@ class PricingPreview extends StatefulWidget {
         name: 'Silver',
         prices: {'monthly': 10000, 'yearly': 100000},
         currency: 'Ks',
-        image: 'silver'),
+        image: 'silver',
+        color: AppColors.silver,
+        isPopular: true),
     PlanModel(
         name: 'Gold',
         prices: {'monthly': 10000, 'yearly': 100000},
         currency: 'Ks',
+        color: AppColors.gold,
         image: 'gold'),
   ];
 
@@ -28,7 +31,7 @@ class PricingPreview extends StatefulWidget {
 
 class _PricingPreview extends State<PricingPreview> {
   String selectedTab = 'monthly';
-
+  String selectedPlan = 'Silver';
   @override
   void initState() {
     super.initState();
@@ -81,54 +84,85 @@ class _PricingPreview extends State<PricingPreview> {
             ),
           ),
         ),
-        mb(1),
         Expanded(
           child: ListView(
+            padding: EdgeInsets.all(15),
             children: <Widget>[
               ...widget.plans.map((e) {
-                return Container(
-                  padding: const EdgeInsets.only(
-                      left: 15, right: 15, bottom: 10, top: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.grey, width: 2),
-                  ),
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            AppAssets.getPlanIcon(e.image),
-                            width: 45,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(e.name),
-                              Row(
-                                children: [
-                                  Text(e.prices[selectedTab].toString()),
-                                  Text(selectedTab.capitalize.toString())
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      Text('Plan Details')
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                return InkWell(
+                  onTap: () => _onPlanSelect(e.name),
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 15, bottom: 10, top: 10),
+                    decoration: BoxDecoration(
+                      border: selectedPlan == e.name
+                          ? Border.all(color: AppColors.dark, width: 3)
+                          : Border.all(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.lightGrey,
+                    ),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              AppAssets.getPlanIcon(e.image),
+                              width: 45,
+                            ),
+                            mr(1),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  e.name,
+                                  style: TextStyle(
+                                      color: e.color,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(e.prices[selectedTab].toString() +
+                                        ' ' +
+                                        e.currency),
+                                    mr(0.5),
+                                    Text(
+                                        '/' + selectedTab.capitalize.toString())
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: const Text('Plan Details'),
+                        ),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
                   ),
                 );
               })
             ],
           ),
         ),
-        MaterialButton(
-          onPressed: () {},
-          child: Text('Upgrade Now'),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: PrimaryButton(
+            value: 'Upgrade Now',
+            onPressed: () {},
+          ),
         )
       ],
     );
+  }
+
+  _onPlanSelect(String name) {
+    setState(() {
+      selectedPlan = name;
+    });
   }
 
   _changeTab(String type) {
