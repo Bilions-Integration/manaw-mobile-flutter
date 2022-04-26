@@ -97,12 +97,11 @@ class _PricingPreview extends State<PricingPreview> {
             children: <Widget>[
               ...widget.plans.map((e) {
                 return InkWell(
-                  onTap: () => _onPlanSelect(e.name),
-                  child: PlanCard(
-                      plan: e,
-                      selectedPlan: selectedPlan,
-                      selectedTab: selectedTab),
-                );
+                    onTap: () => _onPlanSelect(e.name),
+                    child: PlanCard(
+                        plan: e,
+                        selectedPlan: selectedPlan,
+                        selectedTab: selectedTab));
               })
             ],
           ),

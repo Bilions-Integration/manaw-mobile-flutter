@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/screens/tabs/management/invoice/manage_purchase_invoice.dart';
 import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
@@ -23,9 +25,11 @@ class _AddStockState extends State<ProductAddStock> {
 
   double total = 0;
   AccountModel? selectedAccount;
+  int totalProducts = 0;
 
   @override
   void initState() {
+    totalProducts = addStockController.purchaseCart.value.length;
     super.initState();
     getTotalAmount();
   }
@@ -36,8 +40,12 @@ class _AddStockState extends State<ProductAddStock> {
       appBar: AppBar(
         backgroundColor: AppColors.dark,
         title: const Text('Add Stock'),
+        actions: [
+          IconButton(onPressed: _clearCart, icon: Icon(Icons.delete_outlined))
+        ],
       ),
       body: Column(
+        key: Key(totalProducts.toString()),
         children: [
           Expanded(
             child: ListView(
@@ -103,6 +111,26 @@ class _AddStockState extends State<ProductAddStock> {
         ],
       ),
     );
+  }
+
+  _clearCart() {
+    List<DialogAction> actions = [
+      DialogAction(name: 'Cancel', type: 'cancel'),
+      DialogAction(
+          name: 'Clear',
+          type: 'danger',
+          handler: () {
+            addStockController.purchaseCart.value = [];
+            total = 0;
+            setState(() {
+              totalProducts = addStockController.purchaseCart.value.length;
+            });
+          })
+    ];
+    AppWidget.showAlertBox(
+        context: context,
+        actions: actions,
+        message: 'Are you sure to clear all items?');
   }
 
   _onChange() {
