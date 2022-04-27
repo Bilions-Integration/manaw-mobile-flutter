@@ -64,72 +64,14 @@ class PricingDetail extends StatelessWidget {
                 ),
               ),
               mb(1.5),
-              const Text(
+              Text(
                 "Plan Details",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: Styles.h3,
               ),
               mb(0.5),
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 15,
-                  bottom: 15,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppColors.lightGrey,
-                ),
-                child: Column(
-                  children: [
-                    ...?plan.planDetails?.map((e) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 8.0,
-                          left: 15,
-                          right: 15,
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              AppAssets.getPlanIcon('mark'),
-                              width: 22,
-                            ),
-                            mr(1),
-                            Flexible(
-                              child: Text(
-                                e,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    })
-                  ],
-                ),
-              ),
+              DetailContainer(plan: plan),
               mb(1),
-              MaterialButton(
-                onPressed: () {},
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      plan.prices['yearly'].toString() + ' ' + plan.currency,
-                      style: Styles.h3Light,
-                    ),
-                    Text(
-                      ' /Yearly',
-                      style: Styles.t5Light,
-                    ),
-                  ],
-                ),
-                minWidth: double.infinity,
-                color: AppColors.purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
+              pricingButton(plan: plan, type: 'yearly'),
               mb(0.3),
               Center(
                 child: Text(
@@ -138,40 +80,94 @@ class PricingDetail extends StatelessWidget {
                 ),
               ),
               mb(1.5),
-              MaterialButton(
-                onPressed: () {},
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      plan.prices['monthly'].toString() + ' ' + plan.currency,
-                      style: TextStyle(
-                        fontSize: Styles.h3.fontSize,
-                        fontWeight: Styles.h3.fontWeight,
-                        color: AppColors.purple,
-                      ),
-                    ),
-                    Text(
-                      ' /Monthly',
-                      style: TextStyle(
-                        fontSize: Styles.t5.fontSize,
-                        color: AppColors.purple,
-                      ),
-                    ),
-                  ],
-                ),
-                minWidth: double.infinity,
-                color: AppColors.lightPurple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
+              pricingButton(plan: plan, type: 'monthly')
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
           ),
         )
       ],
+    );
+  }
+
+  Widget pricingButton({required PlanModel plan, required String type}) {
+    bool isYearly = type == 'yearly';
+
+    return MaterialButton(
+      onPressed: () {},
+      height: 50,
+      elevation: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            plan.prices[type].toString() + ' ' + plan.currency,
+            style: TextStyle(
+              fontSize: Styles.h3.fontSize,
+              fontWeight: Styles.h3.fontWeight,
+              color: isYearly ? AppColors.white : AppColors.purple,
+            ),
+          ),
+          Text(
+            ' /' + type.capitalize.toString(),
+            style: TextStyle(
+              fontSize: Styles.t5.fontSize,
+              color: isYearly ? AppColors.white : AppColors.purple,
+            ),
+          ),
+        ],
+      ),
+      minWidth: double.infinity,
+      color: isYearly ? AppColors.purple : AppColors.lightPurple,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    );
+  }
+}
+
+class DetailContainer extends StatelessWidget {
+  final PlanModel plan;
+  const DetailContainer({required this.plan, Key? key}) : super(key: key);
+
+  Widget detailItem(String label) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 8.0,
+        left: 15,
+        right: 15,
+      ),
+      child: Row(
+        children: [
+          Image.asset(
+            AppAssets.getPlanIcon('mark'),
+            width: 22,
+          ),
+          mr(1),
+          Flexible(
+            child: Text(
+              label,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(
+        top: 15,
+        bottom: 15,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: AppColors.lightGrey,
+      ),
+      child: Column(
+        children: [...plan.planDetails.map((e) => detailItem(e))],
+      ),
     );
   }
 }

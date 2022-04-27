@@ -9,19 +9,15 @@ class PlanModel {
   final String image;
   final bool isPopular;
   final Color color;
-  List<String>? planDetails;
+  List<String> planDetails;
 
   PlanModel({
     required this.name,
     required this.prices,
     required this.currency,
     required this.image,
-    this.planDetails,
+    required this.planDetails,
     this.isPopular = false,
     required this.color,
   });
-
-  void addDetails(List<String> details) {
-    planDetails = details;
-  }
 }
