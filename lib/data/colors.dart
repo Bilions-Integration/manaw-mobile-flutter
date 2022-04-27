@@ -25,6 +25,8 @@ class AppColors {
   static get grey => HexColor('#7B7B7B');
   static get gold => HexColor('#F19E37');
   static get silver => HexColor('#7040F7');
+  static get purple => HexColor('#4C40F7');
+  static get lightPurple => HexColor('#F0EFF9');
 }
 
 class HexColor extends Color {

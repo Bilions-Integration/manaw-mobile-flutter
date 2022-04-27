@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingDetails {
@@ -12,11 +12,13 @@ class PricingDetails {
 
   void open() {
     final context = currentContext();
-    showModalBottomSheet(
+    showModalBottomSheet<dynamic>(
         context: context,
+        isScrollControlled: true,
+        shape: Styles.topOnlyBorderRadius(15),
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * (95 / 100),
+            height: MediaQuery.of(context).size.height * (90 / 100),
             padding: MediaQuery.of(context).viewInsets,
             child: PricingDetail(
               plan: plan,
@@ -40,13 +42,17 @@ class PricingDetail extends StatelessWidget {
             onTap: () {
               Get.back();
             },
-            child: const Icon(Icons.close),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.close),
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              mb(4),
               Center(
                 child: SizedBox(
                   width: 60,
@@ -107,7 +113,67 @@ class PricingDetail extends StatelessWidget {
                     })
                   ],
                 ),
-              )
+              ),
+              mb(1),
+              MaterialButton(
+                onPressed: () {},
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      plan.prices['yearly'].toString() + ' ' + plan.currency,
+                      style: Styles.h3Light,
+                    ),
+                    Text(
+                      ' /Yearly',
+                      style: Styles.t5Light,
+                    ),
+                  ],
+                ),
+                minWidth: double.infinity,
+                color: AppColors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              mb(0.3),
+              Center(
+                child: Text(
+                  'Save for 2 months',
+                  style: TextStyle(color: AppColors.purple),
+                ),
+              ),
+              mb(1.5),
+              MaterialButton(
+                onPressed: () {},
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      plan.prices['monthly'].toString() + ' ' + plan.currency,
+                      style: TextStyle(
+                        fontSize: Styles.h3.fontSize,
+                        fontWeight: Styles.h3.fontWeight,
+                        color: AppColors.purple,
+                      ),
+                    ),
+                    Text(
+                      ' /Monthly',
+                      style: TextStyle(
+                        fontSize: Styles.t5.fontSize,
+                        color: AppColors.purple,
+                      ),
+                    ),
+                  ],
+                ),
+                minWidth: double.infinity,
+                color: AppColors.lightPurple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
           ),

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/components/plan_card.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
@@ -30,7 +27,7 @@ class PricingPreview extends StatefulWidget {
         ]),
     PlanModel(
         name: 'Gold',
-        prices: {'monthly': 10000, 'yearly': 100000},
+        prices: {'monthly': 20000, 'yearly': 200000},
         currency: 'Ks',
         color: AppColors.gold,
         image: 'gold',
@@ -84,10 +81,11 @@ class _PricingPreview extends State<PricingPreview> {
                     child: Text(
                       "Monthly",
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: selectedTab == 'monthly'
-                              ? FontWeight.bold
-                              : FontWeight.normal),
+                        fontSize: 16,
+                        fontWeight: selectedTab == 'monthly'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
                     ),
                   ),
                 ),
