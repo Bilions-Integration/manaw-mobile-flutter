@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:my_app/data/assets.dart';
-import 'package:my_app/data/colors.dart';
 
 class PlanModel {
   final String name;

@@ -33,7 +33,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return Scaffold(
       key: Key(status),
       appBar: AppBar(
-        title: Text('Payment'),
+        title: const Text('Payment'),
         backgroundColor: AppColors.dark,
       ),
       body: status == 'pending'
@@ -136,7 +136,7 @@ class PaymentStatus extends StatelessWidget {
                             backgroundColor: AppColors.white);
                       },
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
