@@ -171,3 +171,18 @@ class DetailContainer extends StatelessWidget {
     );
   }
 }
+
+/*
+Payment methods
+{
+    "plan" : "gold",
+    "period" : "monthly",
+    "payment_channel": [
+        "CC"
+        "KBZQR"
+        "CBPQR"
+        "MPU"
+        "ALL"
+    ]
+}
+ */
