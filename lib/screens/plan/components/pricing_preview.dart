@@ -17,13 +17,34 @@ class PricingPreview extends StatefulWidget {
         currency: 'Ks',
         image: 'silver',
         color: AppColors.silver,
-        isPopular: true),
+        isPopular: true,
+        planDetails: [
+          "2 Stores",
+          "3 admins with different roles (staff, menu editor, admin)",
+          "50 Coupon Codes",
+          "Multiple Invoice PDF print",
+          "15000 Invoice per month",
+          "500 Products",
+          "500 Customers",
+          "500 Suppliers"
+        ]),
     PlanModel(
         name: 'Gold',
         prices: {'monthly': 10000, 'yearly': 100000},
         currency: 'Ks',
         color: AppColors.gold,
-        image: 'gold'),
+        image: 'gold',
+        planDetails: [
+          "3 Stores",
+          "50 admins with different roles (staff, menu editor, admin)",
+          "Unlimited Coupon Codes",
+          "Multiple Invoice PDF print",
+          "Excel export for transactions",
+          "Unlimited Invoices",
+          "Unlimited Products",
+          "Unlimited Customers",
+          "Unlimited Suppliers"
+        ]),
   ];
 
   @override

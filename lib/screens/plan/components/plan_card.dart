@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/plan/components/pricing_details.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PlanCard extends StatelessWidget {
@@ -60,7 +61,9 @@ class PlanCard extends StatelessWidget {
             ],
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              PricingDetails(plan: plan).open();
+            },
             child: const Text('Plan Details'),
           ),
         ],

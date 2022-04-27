@@ -67,5 +67,4 @@ class AppAssets {
   //invoice
   static const invoiceIcon = 'assets/images/manage/invoice-icon.svg';
   static const emptyInvoice = 'assets/images/manage/empty-invoice.svg';
-
 }
