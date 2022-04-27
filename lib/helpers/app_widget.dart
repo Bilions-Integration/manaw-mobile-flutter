@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,19 +25,19 @@ class AppWidget {
       return null;
     }
     final blob = await MultipartFile.fromFile(image.path, filename: image.name);
-    return MyFile(blob: blob, path: image.path, name: image.name, file : File(image.path));
+    return MyFile(
+        blob: blob, path: image.path, name: image.name, file: File(image.path));
   }
 
-  static void showMenu({
-    required List<Menu> menuList,
-    double height = 1000,
-    required Function(Menu) onSelect
-  }) {
+  static void showMenu(
+      {required List<Menu> menuList,
+      double height = 1000,
+      required Function(Menu) onSelect}) {
     void _selectModal(type, context) {
       Navigator.pop(context);
       onSelect(type);
     }
-    
+
     final context = currentContext();
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -144,5 +143,17 @@ class AppWidget {
         builder: (BuildContext buildContext) {
           return alert;
         });
+  }
+
+  static Widget closeButton(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Icon(Icons.close),
+      ),
+    );
   }
 }

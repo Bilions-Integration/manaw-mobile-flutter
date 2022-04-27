@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
@@ -38,15 +39,7 @@ class PricingDetail extends StatelessWidget {
         Positioned(
           top: 10,
           right: 10,
-          child: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.close),
-            ),
-          ),
+          child: AppWidget.closeButton(context),
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/components/pricing_preview.dart';
 
@@ -45,15 +46,7 @@ class PricingScreen extends StatelessWidget {
           Positioned(
             top: 25,
             right: 10,
-            child: InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.close),
-              ),
-            ),
+            child: AppWidget.closeButton(context),
           ),
         ],
       ),
