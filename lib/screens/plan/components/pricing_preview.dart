@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/screens/plan/components/plan_card.dart';
+import 'package:my_app/screens/plan/payment_service.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingPreview extends StatefulWidget {
@@ -51,6 +52,8 @@ class PricingPreview extends StatefulWidget {
 class _PricingPreview extends State<PricingPreview> {
   String selectedTab = 'monthly';
   String selectedPlan = 'Silver';
+  var paymentService = PaymentService();
+
   @override
   void initState() {
     super.initState();
@@ -128,9 +131,9 @@ class _PricingPreview extends State<PricingPreview> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: PrimaryButton(
-            value: 'Upgrade Now',
-            onPressed: () {},
-          ),
+              value: 'Upgrade Now',
+              onPressed: () => paymentService.doPayment(
+                  period: selectedTab, plan: selectedPlan.toLowerCase())),
         )
       ],
     );
