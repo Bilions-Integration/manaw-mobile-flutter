@@ -44,6 +44,8 @@ class AppAssets {
   static const bronzeIcon = 'assets/images/plans/bronze.png';
   static const rocket = 'assets/images/rocket.png';
   static getPlanIcon(image) => 'assets/images/plans/$image.png';
+  static const payFail = 'assets/images/plans/pay.fail.svg';
+  static const paySuccess = 'assets/images/plans/pay.success.svg';
 
   //Manage
   static const icProduct = 'assets/images/manage/product.svg';

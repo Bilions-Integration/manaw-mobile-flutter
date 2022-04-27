@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/plan/payment_webview.dart';
 
 class PaymentService {
   Future<String?> getPaymentURL({
@@ -26,5 +28,8 @@ class PaymentService {
   Future doPayment({required String plan, required String period}) async {
     String? webUrl =
         await getPaymentURL(plan: plan.toLowerCase(), period: period);
+    if (webUrl != null) {
+      Get.to(() => PaymentWebView(webUrl: webUrl));
+    }
   }
 }
