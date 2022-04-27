@@ -121,7 +121,7 @@ class _ManageProductState extends State<ManageProduct> {
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: PrimaryButton(
-                      onPressed: () => {Get.to(() => ProductAddStock())},
+                      onPressed: () => {Get.to(() => const ProductAddStock())},
                       value: 'Add Stock',
                     ),
                   )
@@ -164,6 +164,13 @@ class _ManageProductState extends State<ManageProduct> {
             context: context,
             actions: actions,
             message: 'Are you sure to delete this product?');
+        break;
+      case 'add_stock':
+        addStockController.purchaseCart.value.add(productController
+            .products.value
+            .where((element) => element.productId == productId!)
+            .first);
+        Get.to(() => const ProductAddStock());
         break;
     }
   }

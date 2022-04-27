@@ -24,6 +24,10 @@ class Api {
     return FormData.fromMap(data);
   }
 
+  static String parseUrl(String url) {
+    return url.startsWith('/') ? url : '/$url';
+  }
+
   static Future<dynamic> get(
     String url, {
     Map<String, dynamic>? data,
@@ -35,7 +39,7 @@ class Api {
       }
       console.log('GET => $url =>', payload: data);
       Dio dio = DioWrapper.init();
-      var response = await dio.get(url, queryParameters: data);
+      var response = await dio.get(parseUrl(url), queryParameters: data);
       console.log('GET RESPONSE => $url =>', payload: response.data);
       if (showLoading) {
         hideLoading();
@@ -67,7 +71,7 @@ class Api {
         data = _convertFormData(data);
       }
       // return;
-      var response = await dio.post(url, data: data);
+      var response = await dio.post(parseUrl(url), data: data);
       if (showLoading) {
         hideLoading();
       }
@@ -96,7 +100,7 @@ class Api {
       if (formData) {
         data = _convertFormData(data);
       }
-      var response = await dio.post(url, data: data);
+      var response = await dio.post(parseUrl(url), data: data);
       if (showLoading) {
         hideLoading();
       }
@@ -121,7 +125,7 @@ class Api {
       }
       console.log('DELETE => $url =>', payload: data);
       Dio dio = DioWrapper.init();
-      var response = await dio.delete(url, queryParameters: data);
+      var response = await dio.delete(parseUrl(url), queryParameters: data);
       if (showLoading) {
         hideLoading();
       }

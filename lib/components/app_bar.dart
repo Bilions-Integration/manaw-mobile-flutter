@@ -7,12 +7,9 @@ import 'package:my_app/data/colors.dart';
 import 'package:get/get.dart';
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
-  MyAppBar({
-    Key? key,
-  }) : super(key: key);
+  MyAppBar({Key? key}) : super(key: key);
 
   final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
-
   final bottomTabController = Get.find<BottomTabsController>();
 
   final authController = Get.find<AuthController>();
