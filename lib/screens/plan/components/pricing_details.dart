@@ -5,6 +5,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
+import 'package:my_app/screens/plan/payment_service.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingDetails {
@@ -30,8 +31,9 @@ class PricingDetails {
 }
 
 class PricingDetail extends StatelessWidget {
-  const PricingDetail({Key? key, required this.plan}) : super(key: key);
+  PricingDetail({Key? key, required this.plan}) : super(key: key);
   final PlanModel plan;
+  final paymentService = PaymentService();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,7 +73,12 @@ class PricingDetail extends StatelessWidget {
               mb(0.5),
               DetailContainer(plan: plan),
               mb(1),
-              pricingButton(plan: plan, type: 'yearly'),
+              pricingButton(
+                  plan: plan,
+                  type: 'yearly',
+                  onPressed: () {
+                    paymentService.doPayment(plan: plan.name, period: 'yearly');
+                  }),
               mb(0.3),
               Center(
                 child: Text(
@@ -80,7 +87,13 @@ class PricingDetail extends StatelessWidget {
                 ),
               ),
               mb(1.5),
-              pricingButton(plan: plan, type: 'monthly')
+              pricingButton(
+                  plan: plan,
+                  type: 'monthly',
+                  onPressed: () {
+                    paymentService.doPayment(
+                        plan: plan.name, period: 'monthly');
+                  })
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
           ),
@@ -89,11 +102,14 @@ class PricingDetail extends StatelessWidget {
     );
   }
 
-  Widget pricingButton({required PlanModel plan, required String type}) {
+  Widget pricingButton(
+      {required PlanModel plan,
+      required String type,
+      void Function()? onPressed}) {
     bool isYearly = type == 'yearly';
 
     return MaterialButton(
-      onPressed: () {},
+      onPressed: onPressed,
       height: 50,
       elevation: 0,
       child: Row(

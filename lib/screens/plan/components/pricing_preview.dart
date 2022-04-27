@@ -133,7 +133,7 @@ class _PricingPreview extends State<PricingPreview> {
           child: PrimaryButton(
               value: 'Upgrade Now',
               onPressed: () => paymentService.doPayment(
-                  period: selectedTab, plan: selectedPlan.toLowerCase())),
+                  period: selectedTab, plan: selectedPlan)),
         )
       ],
     );

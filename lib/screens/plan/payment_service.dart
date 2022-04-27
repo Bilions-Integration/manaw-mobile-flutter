@@ -24,6 +24,7 @@ class PaymentService {
   }
 
   Future doPayment({required String plan, required String period}) async {
-    String? webUrl = await getPaymentURL(plan: plan, period: period);
+    String? webUrl =
+        await getPaymentURL(plan: plan.toLowerCase(), period: period);
   }
 }
