@@ -1,13 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
-import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
+import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
@@ -30,7 +32,8 @@ class _ManageProductState extends State<ManageProduct> {
   bool hasFinishedLoading = false;
   final ScrollController _scrollController = ScrollController();
   bool isSearch = false;
-  int selectedProductCount = 0;
+  List<ProductDetail> selectedProducts = [];
+  bool refresh = false;
 
   @override
   void initState() {
@@ -96,6 +99,7 @@ class _ManageProductState extends State<ManageProduct> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5.0, right: 5),
                     child: ListView(
+                      key: Key(refresh.toString()),
                       controller: _scrollController,
                       children: [
                         for (var item
@@ -110,18 +114,13 @@ class _ManageProductState extends State<ManageProduct> {
                     ),
                   ),
                 )
-              : const Center(
-                  child: LoadingWidget(
-                    title: 'Loading',
-                  ),
-                ),
+              : Styles.loading,
           Container(
-            key: Key(selectedProductCount.toString()),
-            child: addStockController.purchaseCart.value.isNotEmpty
+            child: selectedProducts.isNotEmpty
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: PrimaryButton(
-                      onPressed: () => {Get.to(() => const ProductAddStock())},
+                      onPressed: _addStock,
                       value: 'Add Stock',
                     ),
                   )
@@ -135,9 +134,32 @@ class _ManageProductState extends State<ManageProduct> {
     );
   }
 
-  _onItemSelection() {
+  _addStock() {
+    for (ProductDetail p in selectedProducts) {
+      var controllerCart = addStockController.purchaseCart.value;
+      int idx = controllerCart.indexOf(p);
+      if (idx != -1) {
+        controllerCart[idx].addStockQuantity += p.addStockQuantity;
+      } else {
+        controllerCart.add(p);
+      }
+    }
+    Get.to(() => const ProductAddStock())?.then((value) {
+      setState(() {
+        selectedProducts = [];
+        refresh = !refresh;
+      });
+    });
+  }
+
+  _onItemSelection({required bool value, required ProductDetail product}) {
     setState(() {
-      selectedProductCount = addStockController.purchaseCart.value.length;
+      if (value) {
+        selectedProducts.add(product);
+      } else {
+        selectedProducts.removeWhere(
+            (ProductDetail element) => element.productId == product.productId);
+      }
     });
   }
 
@@ -166,11 +188,12 @@ class _ManageProductState extends State<ManageProduct> {
             message: 'Are you sure to delete this product?');
         break;
       case 'add_stock':
-        addStockController.purchaseCart.value.add(productController
-            .products.value
-            .where((element) => element.productId == productId!)
-            .first);
-        Get.to(() => const ProductAddStock());
+        setState(() {
+          selectedProducts.add(productController.products.value
+              .where((element) => element.productId == productId!)
+              .first);
+        });
+        _addStock();
         break;
     }
   }

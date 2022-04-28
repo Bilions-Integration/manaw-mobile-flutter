@@ -146,7 +146,7 @@ class _AddStockState extends State<ProductAddStock> {
   getTotalAmount() {
     double totalAmt = 0;
     for (var product in addStockController.purchaseCart.value) {
-      totalAmt += product.quantity * (product.price ?? 0);
+      totalAmt += product.addStockQuantity * (product.price ?? 0);
     }
     setState(() {
       total = totalAmt;

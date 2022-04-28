@@ -90,7 +90,8 @@ class _CreateProductState extends State<CreateProduct> {
                               placeholder: 'Enter Product Name',
                               onChanged: _setParams,
                               error: errors,
-                              label: 'Product Name *',
+                              label: 'Product Name',
+                              isRequired: true,
                             ),
                             MyTextInput(
                               column: 'retail_price',
@@ -98,7 +99,9 @@ class _CreateProductState extends State<CreateProduct> {
                               placeholder: '0',
                               onChanged: _setParams,
                               error: errors,
-                              label: 'Sale Price *',
+                              numberOnly: true,
+                              label: 'Sale Price',
+                              isRequired: true,
                             ),
                             SelectBox(
                               placeholder: 'Select Category',
@@ -121,6 +124,7 @@ class _CreateProductState extends State<CreateProduct> {
                               onChanged: _setParams,
                               error: errors,
                               label: 'Purchase Price',
+                              numberOnly: true,
                             ),
                             MyTextInput(
                               column: 'unit',
@@ -149,6 +153,7 @@ class _CreateProductState extends State<CreateProduct> {
                     padding: const EdgeInsets.all(20),
                     child: PrimaryButton(
                         value: widget.type.toUpperCase() + ' PRODUCT',
+                        disabled: !_checkValidation(['name', 'retail_price']),
                         onPressed: () {
                           _saveProduct();
                         }),
@@ -197,12 +202,27 @@ class _CreateProductState extends State<CreateProduct> {
   _setParams(val, String? column) {
     setState(() {
       if (column == 'retail_price' || column == 'buy_price') {
-        params[column.toString()] = int.parse(val);
+        params[column!] = int.tryParse(val);
       } else {
-        params[column.toString()] = val;
+        params[column!] = val;
       }
       errors?[column] = null;
     });
+  }
+
+  bool _checkValidation(List<String> fieldNames) {
+    bool isValid = true;
+    for (var element in fieldNames) {
+      if ([
+        '',
+        null,
+        0,
+      ].contains(params[element])) {
+        console.log('isvalid : ', payload: isValid);
+        isValid = false;
+      }
+    }
+    return isValid;
   }
 
   _saveProduct() {

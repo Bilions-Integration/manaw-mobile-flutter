@@ -22,7 +22,7 @@ class _ProductItemState extends State<AddStockProductItem> {
 
   @override
   void initState() {
-    widget.product.quantity = 1;
+    count = widget.product.addStockQuantity;
     super.initState();
   }
 
