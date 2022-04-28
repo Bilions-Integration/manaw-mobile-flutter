@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
-import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -11,7 +10,6 @@ import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_detail_model.dart';
-import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/category_select.dart';
 import 'package:my_app/screens/tabs/management/product/components/product_item.dart';
@@ -142,7 +140,6 @@ class _ManageProductState extends State<ManageProduct> {
       int idx = controllerCart.indexOf(p);
       if (idx != -1) {
         controllerCart[idx].addStockQuantity += p.addStockQuantity;
-        console.log('qualt : ', payload: controllerCart[idx].addStockQuantity);
       } else {
         controllerCart.add(p);
       }
