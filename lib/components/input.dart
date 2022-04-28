@@ -22,6 +22,8 @@ class MyTextInput extends StatelessWidget {
 
   final bool readOnly;
 
+  final bool isRequired;
+
   final Function(String, String?) onChanged;
   final Function(String, String?)? onFieldSubmitted;
 
@@ -44,6 +46,7 @@ class MyTextInput extends StatelessWidget {
     this.numberOnly = false,
     this.readOnly = false,
     this.error,
+    this.isRequired = false,
   }) : super(key: key);
 
   @override
@@ -58,13 +61,23 @@ class MyTextInput extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 18,
-                  child: Text(
-                    label!.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.grey,
-                    ),
+                  child: Row(
+                    children: [
+                      Text(
+                        label!.toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.grey,
+                        ),
+                      ),
+                      mr(0.3),
+                      if (isRequired)
+                        Text(
+                          '*',
+                          style: TextStyle(fontSize: 20, color: AppColors.red),
+                        )
+                    ],
                   ),
                 ),
                 mr(2),
