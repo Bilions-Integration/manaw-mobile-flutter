@@ -14,7 +14,8 @@ class ProductItem extends StatefulWidget {
   final ProductDetail product;
   final int index;
   final Function({required String action, int? productId}) handler;
-  final Function() onSelect;
+  final Function({required bool value, required ProductDetail product})
+      onSelect;
   const ProductItem({
     Key? key,
     required this.product,
@@ -116,14 +117,8 @@ class _ProductItemState extends State<ProductItem> {
     setState(() {
       selected = value as bool;
     });
-    if (value!) {
-      addStockController.purchaseCart.value.add(widget.product);
-    } else {
-      addStockController.purchaseCart.value.removeWhere(
-          (ProductDetail element) =>
-              element.productId == widget.product.productId);
-    }
-    widget.onSelect();
+
+    widget.onSelect(value: value!, product: widget.product);
   }
 
   _enableSelling(value) async {
