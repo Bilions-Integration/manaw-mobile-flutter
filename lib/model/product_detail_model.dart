@@ -20,6 +20,7 @@ class ProductDetail {
   dynamic categoryId;
   CategoryModel? category;
   int quantity;
+  int addStockQuantity;
 
   ProductDetail({
     required this.productId,
@@ -37,6 +38,7 @@ class ProductDetail {
     this.oldImages,
     this.unit = '1 x Pcs',
     this.price,
+    this.addStockQuantity = 1,
   });
 
   ProductDetail.fromJson(Map json)
@@ -59,7 +61,8 @@ class ProductDetail {
         units = ((json['units'] ?? []) as List)
             .map((e) => ProductOption.fromJson(e as Map))
             .toList(),
-        unit = json['unit'];
+        unit = json['unit'],
+        addStockQuantity = 1;
 
   ProductDetail.emptyProduct()
       : productId = 0,
@@ -76,6 +79,7 @@ class ProductDetail {
         units = [],
         enableSelling = false,
         categoryId = 0,
+        addStockQuantity = 1,
         quantity = 1;
 
   Map<String, dynamic> toJson() => {

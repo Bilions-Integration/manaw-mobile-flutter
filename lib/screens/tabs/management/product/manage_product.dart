@@ -141,8 +141,8 @@ class _ManageProductState extends State<ManageProduct> {
       var controllerCart = addStockController.purchaseCart.value;
       int idx = controllerCart.indexOf(p);
       if (idx != -1) {
-        controllerCart[idx].quantity += p.quantity;
-        console.log('qualt : ', payload: controllerCart[idx].quantity);
+        controllerCart[idx].addStockQuantity += p.addStockQuantity;
+        console.log('qualt : ', payload: controllerCart[idx].addStockQuantity);
       } else {
         controllerCart.add(p);
       }
@@ -191,11 +191,12 @@ class _ManageProductState extends State<ManageProduct> {
             message: 'Are you sure to delete this product?');
         break;
       case 'add_stock':
-        addStockController.purchaseCart.value.add(productController
-            .products.value
-            .where((element) => element.productId == productId!)
-            .first);
-        Get.to(() => const ProductAddStock());
+        setState(() {
+          selectedProducts.add(productController.products.value
+              .where((element) => element.productId == productId!)
+              .first);
+        });
+        _addStock();
         break;
     }
   }
