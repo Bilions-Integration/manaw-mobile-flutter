@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/custom_item_list.dart';
@@ -27,11 +26,7 @@ class _ManageCategoryState extends State<ManageCategory> {
   bool isLastPage = false;
   bool isSearch = false;
   List<CategoryModel> categories = [];
-  Map<String,dynamic> params = {
-    'page' : 1,
-    'limit' : 20,
-    'keyword' : ''
-  };
+  Map<String, dynamic> params = {'page': 1, 'limit': 20, 'keyword': ''};
 
   getData() async {
     var res = await CategoryService.get(params);
@@ -45,7 +40,7 @@ class _ManageCategoryState extends State<ManageCategory> {
   Future deleteData(int? id) async {
     confirm(
       onPressed: (result) async {
-        if(result) {
+        if (result) {
           await CategoryService.delete(id);
           setState(() {
             categories.removeWhere((category) => category.id == id);
@@ -76,13 +71,13 @@ class _ManageCategoryState extends State<ManageCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar2(
-        context: context, 
+        context: context,
         title: 'Manage Category',
         isSearch: isSearch,
         toggleSearch: () {
           setState(() {
             isSearch = !isSearch;
-            if(!isSearch) {
+            if (!isSearch) {
               params['keyword'] = '';
               getData();
             }
@@ -99,32 +94,37 @@ class _ManageCategoryState extends State<ManageCategory> {
       ),
       body: CustomItemList(
         refresh: refresh,
-        items: categories, 
-        params: params, 
-        loadMore: loadMore, 
-        isLoading: isLoading, 
-        isLastPage: isLastPage, 
-        emptyWidget: Styles.emptyList('No Coupon yet', AppAssets.emptyCategory, 'Create new Coupon', const CreateCategory()),
+        items: categories,
+        params: params,
+        loadMore: loadMore,
+        isLoading: isLoading,
+        isLastPage: isLastPage,
+        emptyWidget: Styles.emptyList('No Coupon yet', AppAssets.emptyCategory,
+            'Create new Coupon', const CreateCategory()),
         itemBuilder: (context, index) => listItem(categories[index]),
       ),
     );
   }
 
-   Widget listItem(category) {
-    return ListTile(
-      title: Text(category.name, style: Styles.t5),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(4),
-        child: Image.network(category.image, height: 33, width: 37, fit: BoxFit.cover)
-      ),
-      trailing: IconButton(
-        icon: SvgPicture.asset(AppAssets.dotAction,width: 20, height: 20, color : AppColors.dark),
-        onPressed: () => Styles.customBottomSheet(context, 20,
-          ActionPopup(
-            id: category.id, 
-            edit: (id) => Get.to(CreateCategory(id : id)), 
-            delete: (id) => deleteData(id)
-          )
+  Widget listItem(category) {
+    return InkWell(
+      onTap: () => Get.to(CreateCategory(id: category.id)),
+      child: ListTile(
+        title: Text(category.name, style: Styles.t5),
+        leading: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.network(category.image,
+                height: 33, width: 37, fit: BoxFit.cover)),
+        trailing: IconButton(
+          icon: SvgPicture.asset(AppAssets.dotAction,
+              width: 20, height: 20, color: AppColors.dark),
+          onPressed: () => Styles.customBottomSheet(
+              context,
+              20,
+              ActionPopup(
+                  id: category.id,
+                  edit: (id) => Get.to(CreateCategory(id: id)),
+                  delete: (id) => deleteData(id))),
         ),
       ),
     );
@@ -145,12 +145,4 @@ class _ManageCategoryState extends State<ManageCategory> {
       isLastPage = (categories.length >= res['total']) ? true : false;
     });
   }
-
-
-
-
-
-
 }
-
-

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/screens/tabs/management/category/manage_category.dart';
 import 'package:my_app/services/category_service.dart';
 
 import 'components/form_card.dart';
