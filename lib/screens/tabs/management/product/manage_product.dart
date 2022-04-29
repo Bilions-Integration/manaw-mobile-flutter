@@ -173,19 +173,13 @@ class _ManageProductState extends State<ManageProduct> {
             ))?.then((res) => _afterMutation(res as ProductMutationResult));
         break;
       case 'delete':
-        List<DialogAction> actions = [
-          DialogAction(name: 'Cancel', type: 'cancel'),
-          DialogAction(
-              name: 'Delete',
-              type: 'danger',
-              handler: () {
-                _deleteProduct(productId!);
-              })
-        ];
-        AppWidget.showAlertBox(
-            context: context,
-            actions: actions,
-            message: 'Are you sure to delete this product?');
+        confirm(
+          onPressed: (value) => value ? _deleteProduct(productId!) : null,
+          title: "Are you sure?",
+          message: "Are you sure to delete this product?",
+          cancelText: 'Cancel',
+          confirmText: 'Delete',
+        );
         break;
       case 'add_stock':
         setState(() {

@@ -177,6 +177,7 @@ confirm({
     context: context,
     barrierDismissible: true,
     builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       actionsPadding: const EdgeInsets.all(10),
       contentPadding:
           const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),

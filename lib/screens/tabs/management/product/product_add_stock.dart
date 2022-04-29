@@ -114,23 +114,19 @@ class _AddStockState extends State<ProductAddStock> {
   }
 
   _clearCart() {
-    List<DialogAction> actions = [
-      DialogAction(name: 'Cancel', type: 'cancel'),
-      DialogAction(
-          name: 'Clear',
-          type: 'danger',
-          handler: () {
-            addStockController.purchaseCart.value = [];
-            total = 0;
-            setState(() {
-              totalProducts = addStockController.purchaseCart.value.length;
-            });
-          })
-    ];
-    AppWidget.showAlertBox(
-        context: context,
-        actions: actions,
-        message: 'Are you sure to clear all items?');
+    confirm(
+        onPressed: (value) => value
+            ? () {
+                addStockController.purchaseCart.value = [];
+                total = 0;
+                setState(() {
+                  totalProducts = addStockController.purchaseCart.value.length;
+                });
+              }()
+            : null,
+        title: "Clear all",
+        message: "Do you want to clear all products?",
+        confirmText: 'Clear');
   }
 
   _onChange() {
