@@ -54,8 +54,21 @@ class _ManageProductState extends State<ManageProduct> {
           context: context,
           title: 'Manage Products',
           isSearch: isSearch,
-          toggleSearch: () {},
-          search: () {},
+          toggleSearch: () {
+            setState(() {
+              isSearch = !isSearch;
+              if (!isSearch) {
+                productController.keyword.value = '';
+                _reset();
+              }
+            });
+          },
+          search: (value) {
+            setState(() {
+              productController.keyword.value = value;
+              _reset();
+            });
+          },
           add: () {
             _handleNavigation(action: 'create');
           }),
@@ -194,9 +207,6 @@ class _ManageProductState extends State<ManageProduct> {
 
   _deleteProduct(int productId) async {
     bool success = await productController.deleteProduct(productId: productId);
-    // var snackBar =
-    //     SnackBar(content: Text('Delete ' + (success ? 'success' : 'failed')));
-    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
     Get.snackbar('Success', "Delete Success", icon: Icon(Icons.delete));
     if (success) {
       _reset();
@@ -215,6 +225,9 @@ class _ManageProductState extends State<ManageProduct> {
   }
 
   _reset() {
+    setState(() {
+      hasFinishedLoading = false;
+    });
     productController.page.value = 1;
     productController.products.value = [];
     productController.getProducts().then((value) {
