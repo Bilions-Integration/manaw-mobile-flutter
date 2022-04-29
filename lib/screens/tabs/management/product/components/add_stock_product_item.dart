@@ -6,7 +6,7 @@ import 'package:my_app/model/product_detail_model.dart';
 
 class AddStockProductItem extends StatefulWidget {
   final ProductDetail product;
-  final Function onChange;
+  final Function({String? action, int? productId}) onChange;
   const AddStockProductItem(
       {Key? key, required this.product, required this.onChange})
       : super(key: key);
@@ -33,6 +33,12 @@ class _ProductItemState extends State<AddStockProductItem> {
       children: [
         Row(
           children: [
+            IconButton(
+                onPressed: () {
+                  widget.onChange(
+                      action: 'delete', productId: widget.product.productId);
+                },
+                icon: const Icon(Icons.close_rounded)),
             borderRadiusCard(
                 10,
                 ClipRRect(
@@ -69,7 +75,10 @@ class _ProductItemState extends State<AddStockProductItem> {
         ),
         Row(
           children: [
-            IconButton(onPressed: _decrease, icon: Icon(Icons.remove_circle)),
+            IconButton(
+                onPressed: _decrease,
+                icon: const Icon(Icons.remove_circle_rounded)),
+
             // SizedBox(width: 20, child: Text(count.toString())),
             SizedBox(
                 width: 60,
@@ -81,7 +90,8 @@ class _ProductItemState extends State<AddStockProductItem> {
                   onChanged: (String e, String? col) {},
                   numberOnly: true,
                 )),
-            IconButton(onPressed: _increase, icon: Icon(Icons.add_circle)),
+            IconButton(
+                onPressed: _increase, icon: Icon(Icons.add_circle_rounded)),
           ],
         )
       ],
@@ -92,7 +102,7 @@ class _ProductItemState extends State<AddStockProductItem> {
     setState(() {
       if (count > 1) {
         count--;
-        widget.product.quantity--;
+        widget.product.addStockQuantity--;
       }
     });
     widget.onChange();
@@ -101,7 +111,7 @@ class _ProductItemState extends State<AddStockProductItem> {
   _increase() {
     setState(() {
       count++;
-      widget.product.quantity++;
+      widget.product.addStockQuantity++;
     });
     widget.onChange();
   }
@@ -111,7 +121,7 @@ class _ProductItemState extends State<AddStockProductItem> {
     setState(() {
       if (num != null) {
         count = num;
-        widget.product.quantity = num;
+        widget.product.addStockQuantity = num;
       }
     });
     widget.onChange();

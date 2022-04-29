@@ -52,8 +52,7 @@ class _AddStockState extends State<ProductAddStock> {
               children: [
                 for (var product in addStockController.purchaseCart.value)
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 20, top: 12),
+                    padding: const EdgeInsets.only(left: 5, right: 20, top: 12),
                     child: AddStockProductItem(
                         product: product, onChange: _onChange),
                   )
@@ -114,26 +113,26 @@ class _AddStockState extends State<ProductAddStock> {
   }
 
   _clearCart() {
-    List<DialogAction> actions = [
-      DialogAction(name: 'Cancel', type: 'cancel'),
-      DialogAction(
-          name: 'Clear',
-          type: 'danger',
-          handler: () {
-            addStockController.purchaseCart.value = [];
-            total = 0;
-            setState(() {
-              totalProducts = addStockController.purchaseCart.value.length;
-            });
-          })
-    ];
-    AppWidget.showAlertBox(
-        context: context,
-        actions: actions,
-        message: 'Are you sure to clear all items?');
+    confirm(
+        onPressed: (value) => value
+            ? () {
+                addStockController.purchaseCart.value = [];
+                total = 0;
+                setState(() {
+                  totalProducts = addStockController.purchaseCart.value.length;
+                });
+              }()
+            : null,
+        title: "Clear all",
+        message: "Do you want to clear all products?",
+        confirmText: 'Clear');
   }
 
-  _onChange() {
+  _onChange({String? action, int? productId}) {
+    if (action == 'delete') {
+      addStockController.purchaseCart.value
+          .removeWhere((element) => element.productId == productId!);
+    }
     getTotalAmount();
   }
 

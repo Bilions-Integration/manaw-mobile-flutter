@@ -1,5 +1,4 @@
 import 'package:my_app/helpers/moment.dart';
-
 import 'account_model.dart';
 import 'product_model.dart';
 import 'receiver_model.dart';
@@ -33,32 +32,35 @@ class InvoiceModel {
     required this.receiver,
   });
 
-  InvoiceModel.fromJson(Map json) :
-    id = json['id'],
-    type = json['type'],
-    invoice_date =  moment(json['invoice_date']).format(),
-    total = json['total'],
-    grand_total = json['grand_total'],
-    invoice_number = json['invoice_number'],
-    tax_value = json['tax_value'],
-    created_at = moment(json['created_at']).format(),
-    account = AccountModel.fromJson(json['account']).toJson(),
-    products = ( json['products'] as List ).map((e) => ProductModel.fromJson(e)).toList(),
-    due_date = ( json['due_date'] != null ) ? moment(json['due_date']).format() : '',
-    receiver = ReceiverModel.fromJson(json['receiver']).toJson();
-  
+  InvoiceModel.fromJson(Map json)
+      : id = json['id'],
+        type = json['type'],
+        invoice_date = moment(json['invoice_date']).format(),
+        total = json['total'],
+        grand_total = json['grand_total'],
+        invoice_number = json['invoice_number'],
+        tax_value = json['tax_value'],
+        created_at = moment(json['created_at']).format(),
+        account = AccountModel.fromJson(json['account']).toJson(),
+        products = (json['products'] as List)
+            .map((e) => ProductModel.fromJson(e))
+            .toList(),
+        due_date =
+            (json['due_date'] != null) ? moment(json['due_date']).format() : '',
+        receiver = ReceiverModel.fromJson(json['receiver']).toJson();
+
   Map toJson() => {
-    'id' : id,
-    'type' : type,
-    'invoice_date' : invoice_date,
-    'total' : total,
-    'grand_total' : grand_total,
-    'invoice_number' : invoice_number,
-    'tax_value' : tax_value,
-    'created_at' : created_at,
-    'account' : account,
-    'products' : products,
-    'due_date' : due_date,
-    'receiver' : receiver
-  };
+        'id': id,
+        'type': type,
+        'invoice_date': invoice_date,
+        'total': total,
+        'grand_total': grand_total,
+        'invoice_number': invoice_number,
+        'tax_value': tax_value,
+        'created_at': created_at,
+        'account': account,
+        'products': products,
+        'due_date': due_date,
+        'receiver': receiver
+      };
 }

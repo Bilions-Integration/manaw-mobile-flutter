@@ -10,6 +10,7 @@ class ProductController extends GetxController {
 
   var page = 1.obs;
   var limit = 20.obs;
+  var keyword = ''.obs;
   var total = 0.obs;
 
   Future<void> getProducts({bool showLoading = false, dynamic category}) async {
@@ -21,6 +22,7 @@ class ProductController extends GetxController {
       var res = await Api.get('/products', showLoading: showLoading, data: {
         'page': page.value,
         'limit': limit.value,
+        'keyword': keyword.value,
         'category': category,
       });
       total.value = res['data']['total'];
