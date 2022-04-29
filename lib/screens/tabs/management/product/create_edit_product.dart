@@ -153,7 +153,8 @@ class _CreateProductState extends State<CreateProduct> {
                     padding: const EdgeInsets.all(20),
                     child: PrimaryButton(
                         value: widget.type.toUpperCase() + ' PRODUCT',
-                        disabled: !_checkValidation(['name', 'retail_price']),
+                        disabled:
+                            !isFormValid(['name', 'retail_price'], params),
                         onPressed: () {
                           _saveProduct();
                         }),
@@ -201,28 +202,9 @@ class _CreateProductState extends State<CreateProduct> {
 
   _setParams(val, String? column) {
     setState(() {
-      if (column == 'retail_price' || column == 'buy_price') {
-        params[column!] = int.tryParse(val);
-      } else {
-        params[column!] = val;
-      }
+      params[column!] = val;
       errors?[column] = null;
     });
-  }
-
-  bool _checkValidation(List<String> fieldNames) {
-    bool isValid = true;
-    for (var element in fieldNames) {
-      if ([
-        '',
-        null,
-        0,
-      ].contains(params[element])) {
-        console.log('isvalid : ', payload: isValid);
-        isValid = false;
-      }
-    }
-    return isValid;
   }
 
   _saveProduct() {

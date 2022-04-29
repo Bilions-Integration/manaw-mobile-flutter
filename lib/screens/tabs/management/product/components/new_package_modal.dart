@@ -132,6 +132,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         error: errors,
                         placeholder: 'Red Color',
                         onChanged: _valueChanged,
+                        isRequired: true,
                       ),
                       MyTextInput(
                         value: params['coefficient'],
@@ -181,6 +182,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: PrimaryButton(
+                  disabled: !isFormValid(['unit'], params),
                   value: widget.params != null ? 'Update' : 'Create',
                   onPressed: _submit),
             )
@@ -238,7 +240,6 @@ class _NewPackageFormState extends State<NewPackageForm> {
       });
       Navigator.pop(context);
     } catch (e) {
-      console.warn('Error mutation : ', payload: e.toString());
       setState(() {
         errors = e as Map?;
       });

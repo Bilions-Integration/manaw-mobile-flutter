@@ -54,7 +54,7 @@ logo(double? width) {
 hr({double height = 0, double mt = 0, double mb = 0}) {
   return Container(
     margin: EdgeInsets.only(bottom: height, top: height),
-    padding: EdgeInsets.only(left: 3, right: 3, top : mt * 10, bottom: mb * 10),
+    padding: EdgeInsets.only(left: 3, right: 3, top: mt * 10, bottom: mb * 10),
     child: Container(
       height: 0,
       decoration: BoxDecoration(
@@ -179,7 +179,7 @@ confirm({
     builder: (context) => AlertDialog(
       actionsPadding: const EdgeInsets.all(10),
       contentPadding:
-      const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
+          const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       title: Row(children: [
         const Icon(Icons.info),
         mr(1),
@@ -199,7 +199,8 @@ confirm({
           children: [
             InkWell(
               onTap: () => {onPressed(false), Navigator.pop(context)},
-              child: Text(cancelText ?? 'CANCEL', style : const TextStyle(fontSize: 13)),
+              child: Text(cancelText ?? 'CANCEL',
+                  style: const TextStyle(fontSize: 13)),
             ),
             mr(3),
             PrimaryButton(
@@ -223,4 +224,18 @@ extension IndexedIterable<E> on Iterable<E> {
     var i = 0;
     return map((e) => f(e, i++));
   }
+}
+
+bool isFormValid(List<String> fieldNames, Map params) {
+  bool isValid = true;
+  for (var element in fieldNames) {
+    if ([
+      '',
+      null,
+      0,
+    ].contains(params[element])) {
+      isValid = false;
+    }
+  }
+  return isValid;
 }
