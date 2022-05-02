@@ -143,7 +143,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
                 children: [
                   Row(
                     children: [
-                      Text('${product.product_id}'),
+                      Text('${product.name}'),
                       mr(1),
                       Text('x ${product.quantity}', style: Styles.label),
                     ],
