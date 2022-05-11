@@ -1,9 +1,11 @@
 class AccountModel {
-  final String bank_name;
+  final String bankName;
 
-  AccountModel({required this.bank_name});
+  AccountModel({required this.bankName});
 
-  AccountModel.fromJson(Map json) : bank_name = json['bank_name'] ?? '';
+  AccountModel.fromJson(Map json) : bankName = json['bank_name'] ?? '';
 
-  Map toJson() => {'bank_name': bank_name};
+  Map toJson() => {
+        'bank_name': bankName,
+      };
 }

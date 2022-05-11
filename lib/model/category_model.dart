@@ -1,12 +1,12 @@
 class CategoryDataModel {
   final List<CategoryModel> categories;
   final int total;
-  final bool last_page;
+  final bool lastPage;
 
   CategoryDataModel({
     required this.categories,
     required this.total,
-    required this.last_page,
+    required this.lastPage,
   });
 
   factory CategoryDataModel.fromJson(Map json) {
@@ -15,13 +15,17 @@ class CategoryDataModel {
         data.map((e) => CategoryModel.fromJson(e)).toList();
 
     return CategoryDataModel(
-        categories: categories,
-        total: json['total'],
-        last_page: json['last_page']);
+      categories: categories,
+      total: json['total'],
+      lastPage: json['last_page'],
+    );
   }
 
-  Map<String, dynamic> toJson() =>
-      {'categories': categories, 'total': total, 'last_page': last_page};
+  Map<String, dynamic> toJson() => {
+        'categories': categories,
+        'total': total,
+        'last_page': lastPage,
+      };
 }
 
 class CategoryModel {

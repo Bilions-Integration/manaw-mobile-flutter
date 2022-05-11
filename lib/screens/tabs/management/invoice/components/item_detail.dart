@@ -43,6 +43,7 @@ class ItemDetailCard extends StatefulWidget {
 
 class _ItemDetailCardState extends State<ItemDetailCard> {
   ScreenshotController screenshotController = ScreenshotController();
+  // ignore: prefer_typing_uninitialized_variables
   var testing;
 
   @override
