@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/screens/tabs/management/invoice/manage_purchase_invoice.dart';
 import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
@@ -28,20 +26,14 @@ class _AddStockState extends State<ProductAddStock> {
   int totalProducts = 0;
 
   @override
-  void initState() {
-    totalProducts = addStockController.purchaseCart.value.length;
-    super.initState();
-    getTotalAmount();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.dark,
         title: const Text('Add Stock'),
         actions: [
-          IconButton(onPressed: _clearCart, icon: Icon(Icons.delete_outlined))
+          IconButton(
+              onPressed: _clearCart, icon: const Icon(Icons.delete_outlined))
         ],
       ),
       body: Column(
@@ -60,7 +52,7 @@ class _AddStockState extends State<ProductAddStock> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
                 mb(1),
@@ -103,13 +95,31 @@ class _AddStockState extends State<ProductAddStock> {
                   value: 'Checkout',
                   disabled: selectedAccount == null,
                   onPressed: _submit,
-                )
+                ),
+                mb(0.5),
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  getTotalAmount() {
+    double totalAmt = 0;
+    for (var product in addStockController.purchaseCart.value) {
+      totalAmt += product.addStockQuantity * (product.price ?? 0);
+    }
+    setState(() {
+      total = totalAmt;
+    });
+  }
+
+  @override
+  void initState() {
+    totalProducts = addStockController.purchaseCart.value.length;
+    super.initState();
+    getTotalAmount();
   }
 
   _clearCart() {
@@ -128,28 +138,18 @@ class _AddStockState extends State<ProductAddStock> {
         confirmText: 'Clear');
   }
 
-  _onChange({String? action, int? productId}) {
-    if (action == 'delete') {
-      addStockController.purchaseCart.value
-          .removeWhere((element) => element.productId == productId!);
-    }
-    getTotalAmount();
-  }
-
   _onAccountChange(data) {
     setState(() {
       selectedAccount = data;
     });
   }
 
-  getTotalAmount() {
-    double totalAmt = 0;
-    for (var product in addStockController.purchaseCart.value) {
-      totalAmt += product.addStockQuantity * (product.price ?? 0);
+  _onChange({String? action, int? productId}) {
+    if (action == 'delete') {
+      addStockController.purchaseCart.value
+          .removeWhere((element) => element.productId == productId!);
     }
-    setState(() {
-      total = totalAmt;
-    });
+    getTotalAmount();
   }
 
   _submit() {

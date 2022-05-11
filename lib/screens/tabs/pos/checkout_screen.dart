@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
-import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/model/product_model.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_model.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
 import 'package:my_app/screens/tabs/pos/components/product_card_checkout.dart';
 
@@ -25,14 +25,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool loading = false;
 
   List<Product> carItems = [];
-
-  @override
-  initState() {
-    super.initState();
-    setState(() {
-      carItems = List.from(cartController.products.value);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +144,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
       ),
     );
+  }
+
+  @override
+  initState() {
+    super.initState();
+    setState(() {
+      carItems = List.from(cartController.products.value);
+    });
   }
 
   _checkout() {

@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart';
@@ -34,18 +32,6 @@ class _ManageProductState extends State<ManageProduct> {
   bool isSearch = false;
   List<ProductDetail> selectedProducts = [];
   bool refresh = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _reset();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _loadMore();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +115,12 @@ class _ManageProductState extends State<ManageProduct> {
                 )
               : Styles.loading,
           Container(
+            margin: const EdgeInsets.only(
+              bottom: 5,
+            ),
             child: selectedProducts.isNotEmpty
                 ? Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(15),
                     child: PrimaryButton(
                       onPressed: _addStock,
                       value: 'Add Stock',
@@ -145,6 +134,18 @@ class _ManageProductState extends State<ManageProduct> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _reset();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _loadMore();
+      }
+    });
   }
 
   _addStock() {
@@ -165,15 +166,34 @@ class _ManageProductState extends State<ManageProduct> {
     });
   }
 
-  _onItemSelection({required bool value, required ProductDetail product}) {
+  _afterMutation(ProductMutationResult? result) {
+    if (result?.type == 'create') {
+      Get.to(() => CreateProduct(type: 'edit', productId: result?.id))
+          ?.then((res) => _afterMutation(res as ProductMutationResult));
+      return null;
+    }
+    if (result != null) {
+      _reset();
+    }
+  }
+
+  _categoryChanged(CategoryModel category) {
     setState(() {
-      if (value) {
-        selectedProducts.add(product);
-      } else {
-        selectedProducts.removeWhere(
-            (ProductDetail element) => element.productId == product.productId);
-      }
+      hasFinishedLoading = false;
     });
+    productController.getProducts(category: category.id ?? '').then((value) {
+      setState(() {
+        hasFinishedLoading = true;
+      });
+    });
+  }
+
+  _deleteProduct(int productId) async {
+    bool success = await productController.deleteProduct(productId: productId);
+    Get.snackbar('Success', "Delete Success", icon: const Icon(Icons.delete));
+    if (success) {
+      _reset();
+    }
   }
 
   _handleNavigation({required String action, int? productId}) {
@@ -205,38 +225,6 @@ class _ManageProductState extends State<ManageProduct> {
     }
   }
 
-  _deleteProduct(int productId) async {
-    bool success = await productController.deleteProduct(productId: productId);
-    Get.snackbar('Success', "Delete Success", icon: Icon(Icons.delete));
-    if (success) {
-      _reset();
-    }
-  }
-
-  _afterMutation(ProductMutationResult? result) {
-    if (result?.type == 'create') {
-      Get.to(() => CreateProduct(type: 'edit', productId: result?.id))
-          ?.then((res) => _afterMutation(res as ProductMutationResult));
-      return null;
-    }
-    if (result != null) {
-      _reset();
-    }
-  }
-
-  _reset() {
-    setState(() {
-      hasFinishedLoading = false;
-    });
-    productController.page.value = 1;
-    productController.products.value = [];
-    productController.getProducts().then((value) {
-      setState(() {
-        hasFinishedLoading = true;
-      });
-    });
-  }
-
   _loadMore() {
     if (productController.total.value >
         productController.products.value.length) {
@@ -249,11 +237,24 @@ class _ManageProductState extends State<ManageProduct> {
     }
   }
 
-  _categoryChanged(CategoryModel category) {
+  _onItemSelection({required bool value, required ProductDetail product}) {
+    setState(() {
+      if (value) {
+        selectedProducts.add(product);
+      } else {
+        selectedProducts.removeWhere(
+            (ProductDetail element) => element.productId == product.productId);
+      }
+    });
+  }
+
+  _reset() {
     setState(() {
       hasFinishedLoading = false;
     });
-    productController.getProducts(category: category.id ?? '').then((value) {
+    productController.page.value = 1;
+    productController.products.value = [];
+    productController.getProducts().then((value) {
       setState(() {
         hasFinishedLoading = true;
       });

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:my_app/model/category_model.dart';
-import 'package:my_app/screens/tabs/pos/cart_controller.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_model.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/pos/category/category_selector.dart';
 import 'package:my_app/screens/tabs/pos/components/product_card.dart';
 import 'package:my_app/screens/tabs/pos/pos_controller.dart';
@@ -24,20 +25,6 @@ class _PosScreenState extends State<PosScreen> {
 
   final ScrollController _scrollController = ScrollController();
 
-  @override
-  void initState() {
-    updateFirebaseToken();
-    super.initState();
-    _reset();
-    cartController.setAccount();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        console.log('ended');
-        _loadMore();
-      }
-    });
-  }
-
   final auth = Get.find<AuthController>();
 
   @override
@@ -48,7 +35,8 @@ class _PosScreenState extends State<PosScreen> {
         children: [
           CategorySelector(callback: _categoryChanged),
           Expanded(
-            child: Padding(
+            child: Container(
+              color: AppColors.bg,
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: MasonryGridView.count(
                 controller: _scrollController,
@@ -72,23 +60,41 @@ class _PosScreenState extends State<PosScreen> {
     );
   }
 
-  _categoryChanged(CategoryModel category) {
-    posController.getProducts(category: category.id);
+  @override
+  void initState() {
+    updateFirebaseToken();
+    super.initState();
+    _reset();
+    cartController.setAccount();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        console.log('ended');
+        _loadMore();
+      }
+    });
   }
 
   _addCart(Product product) {
     final newProduct = Product.fromJson(product.toJson());
-    cartController.products.value = [...cartController.products.value, newProduct];
+    cartController.products.value = [
+      ...cartController.products.value,
+      newProduct
+    ];
+  }
+
+  _categoryChanged(CategoryModel category) {
+    posController.getProducts(category: category.id);
+  }
+
+  _loadMore() {
+    posController.page.value++;
+    posController.getProducts();
   }
 
   _reset() {
     posController.page.value = 1;
     posController.products.value = [];
-    posController.getProducts();
-  }
-
-  _loadMore() {
-    posController.page.value++;
     posController.getProducts();
   }
 }

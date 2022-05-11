@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 
 class ProductCardCheckout extends StatefulWidget {
   final Product product;
@@ -24,12 +24,6 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
   final cartController = Get.find<CartController>();
 
   int quantity = 0;
-
-  @override
-  void initState() {
-    quantity = widget.product.quantity;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +48,26 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                 ),
               ),
               mr(2),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.product.name),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '${currency()} ${widget.product.price}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.product.name,
+                      maxLines: 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${currency()} ${widget.product.price}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
               Expanded(
                   child: Row(
@@ -101,6 +100,12 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
         border: 0,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    quantity = widget.product.quantity;
+    super.initState();
   }
 
   _changeQuantity(String type) {

@@ -61,21 +61,21 @@ class ProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${currency()} ${product.price}',
+                        '${currency()} ${cast(product.price)}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       MaterialButton(
                         color: AppColors.dark,
                         onPressed: () => {addCart(product)},
-                        minWidth: 40,
-                        elevation: 0,
-                        height: 34,
+                        minWidth: 30,
+                        elevation: 4,
+                        height: 30,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
                         padding: const EdgeInsets.all(2),
                         child: Icon(
-                          Icons.add_circle_outline,
+                          Icons.add,
                           size: 16,
                           color: AppColors.white,
                         ),
@@ -87,7 +87,7 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
-        border: 2,
+        border: 0,
       ),
     );
   }
