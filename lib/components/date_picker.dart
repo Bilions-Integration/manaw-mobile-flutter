@@ -12,8 +12,8 @@ class DatePicker extends StatefulWidget {
   final String endDate;
 
   const DatePicker({
-    Key? key, 
-    required this.startDate, 
+    Key? key,
+    required this.startDate,
     required this.endDate,
     required this.onDateChanged,
   }) : super(key: key);
@@ -23,7 +23,6 @@ class DatePicker extends StatefulWidget {
 }
 
 class _DatePickerState extends State<DatePicker> {
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,7 +31,7 @@ class _DatePickerState extends State<DatePicker> {
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          color: AppColors.dark,
+          color: AppColors.primary,
           border: Border(
             top: BorderSide(color: AppColors.white, width: 0.2),
           ),
@@ -93,8 +92,8 @@ class _DatePickerState extends State<DatePicker> {
         return Theme(
           data: ThemeData(textTheme: GoogleFonts.readexProTextTheme()).copyWith(
             colorScheme: ThemeData().colorScheme.copyWith(
-              primary: AppColors.dark,
-            ),
+                  primary: AppColors.primary,
+                ),
           ),
           child: child!,
         );
@@ -102,7 +101,8 @@ class _DatePickerState extends State<DatePicker> {
     );
 
     if (result != null) {
-      widget.onDateChanged(moment.string(result.start), moment.string(result.end));
+      widget.onDateChanged(
+          moment.string(result.start), moment.string(result.end));
     }
   }
 }

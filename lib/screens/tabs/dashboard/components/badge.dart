@@ -19,7 +19,7 @@ class Badge extends StatelessWidget {
       margin: const EdgeInsets.only(right: 5),
       child: ActionChip(
         onPressed: onPressed,
-        backgroundColor: active ? AppColors.dark : AppColors.white,
+        backgroundColor: active ? AppColors.primary : AppColors.white,
         label: Text(
           title,
           style: TextStyle(

@@ -112,7 +112,7 @@ class _MyListViewState extends State<MyListView> {
               width: 50,
               child: Container(
                 decoration: BoxDecoration(
-                    color: AppColors.dark,
+                    color: AppColors.primary,
                     borderRadius: BorderRadius.circular(10)),
               ),
             ),

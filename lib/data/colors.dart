@@ -8,12 +8,6 @@ class AppColors {
   static get black => HexColor('#1A1A1A');
   static get blue => HexColor('#4C40F7');
   static get borderColor => HexColor('#EEEEEE');
-
-  static get dark {
-    final authController = Get.find<AuthController>();
-    return HexColor(authController.user.value?.company.hexColor ?? '#1A1A1A');
-  }
-
   static get darkRed => HexColor("#873e23");
   static get gold => HexColor('#F19E37');
   static get green => HexColor('#4ADB61');
@@ -23,6 +17,12 @@ class AppColors {
   static get lightGrey => HexColor('#F3F3F3');
   static get lightPurple => HexColor('#F0EFF9');
   static get line => HexColor('#BDBDBD');
+
+  static get primary {
+    final authController = Get.find<AuthController>();
+    return HexColor(authController.user.value?.company.hexColor ?? '#1A1A1A');
+  }
+
   static get purple => HexColor('#4C40F7');
   static get red => HexColor('#FF4D4D');
   static get silver => HexColor('#7040F7');

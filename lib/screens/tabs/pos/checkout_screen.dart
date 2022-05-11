@@ -30,7 +30,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.dark,
+        backgroundColor: AppColors.primary,
         centerTitle: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

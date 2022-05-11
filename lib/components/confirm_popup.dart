@@ -84,7 +84,7 @@ class _PromptWidgetState extends State<PromptWidget> {
               ],
             ),
           ),
-          hr(height : 1),
+          hr(height: 1),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -119,7 +119,7 @@ class _PromptWidgetState extends State<PromptWidget> {
                     widget.confirmText ?? 'Confirm',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: widget.confirmColor ?? AppColors.dark,
+                      color: widget.confirmColor ?? AppColors.primary,
                     ),
                   ),
                 ),

@@ -9,7 +9,6 @@ import 'package:my_app/helpers/util_models.dart';
 class OptionsMenu {
   final int? productId;
   final Function({required String action, int? productId}) handler;
-  OptionsMenu({this.productId, required this.handler});
   final List<Options> options = [
     Options(
       name: "Edit",
@@ -23,6 +22,7 @@ class OptionsMenu {
         action: "delete",
         type: "danger"),
   ];
+  OptionsMenu({this.productId, required this.handler});
   void open() {
     final context = currentContext();
     showModalBottomSheet(
@@ -45,7 +45,7 @@ class OptionsMenu {
                   width: 50,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppColors.dark,
+                      color: AppColors.primary,
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),

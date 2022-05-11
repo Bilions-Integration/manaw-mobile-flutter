@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_app/screens/tabs/tabs_controller.dart';
-import 'package:my_app/data/colors.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:get/get.dart';
+import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
+import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class BottomTab extends StatefulWidget {
   const BottomTab({
@@ -20,17 +20,6 @@ class _BottomTabState extends State<BottomTab> {
   List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
 
   final bottomTabController = Get.find<BottomTabsController>();
-
-  void _onItemTapped(i) {
-    setState(() {
-      index = i;
-    });
-    bottomTabController.index.value = i;
-  }
-
-  _getColor(i) {
-    return index == i ? AppColors.dark : AppColors.lightDark;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +48,21 @@ class _BottomTabState extends State<BottomTab> {
           label: 'Profile',
         ),
       ],
-      selectedItemColor: AppColors.dark,
+      selectedItemColor: AppColors.primary,
       unselectedItemColor: AppColors.lightDark,
       onTap: _onItemTapped,
       currentIndex: index,
     );
+  }
+
+  _getColor(i) {
+    return index == i ? AppColors.primary : AppColors.lightDark;
+  }
+
+  void _onItemTapped(i) {
+    setState(() {
+      index = i;
+    });
+    bottomTabController.index.value = i;
   }
 }

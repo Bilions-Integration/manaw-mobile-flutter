@@ -65,14 +65,6 @@ class _MyListViewState extends State<MyListView> {
   List<CategoryModel> chosenList = [];
 
   @override
-  void initState() {
-    setState(() {
-      chosenList = List.from(widget.menuList);
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
@@ -88,7 +80,7 @@ class _MyListViewState extends State<MyListView> {
             width: 50,
             child: Container(
               decoration: BoxDecoration(
-                  color: AppColors.dark,
+                  color: AppColors.primary,
                   borderRadius: BorderRadius.circular(10)),
             ),
           ),
@@ -137,9 +129,12 @@ class _MyListViewState extends State<MyListView> {
     );
   }
 
-  _selectModal(CategoryModel type, context) {
-    Navigator.pop(context);
-    widget.onSelect(type);
+  @override
+  void initState() {
+    setState(() {
+      chosenList = List.from(widget.menuList);
+    });
+    super.initState();
   }
 
   _onSearch(String keyword, String? column) {
@@ -151,5 +146,10 @@ class _MyListViewState extends State<MyListView> {
     setState(() {
       chosenList = List.from(newList);
     });
+  }
+
+  _selectModal(CategoryModel type, context) {
+    Navigator.pop(context);
+    widget.onSelect(type);
   }
 }

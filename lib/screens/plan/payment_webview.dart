@@ -9,67 +9,6 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class PaymentWebView extends StatefulWidget {
-  final String webUrl;
-  const PaymentWebView({Key? key, required this.webUrl}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _PaymentWebViewState();
-  }
-}
-
-class _PaymentWebViewState extends State<PaymentWebView> {
-  String status = 'pending';
-  String? voucherNo;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: Key(status),
-      appBar: AppBar(
-        title: const Text('Payment'),
-        backgroundColor: AppColors.dark,
-      ),
-      body: status == 'pending'
-          ? WebView(
-              initialUrl: widget.webUrl,
-              javascriptMode: JavascriptMode.unrestricted,
-              zoomEnabled: false,
-              navigationDelegate: (NavigationRequest request) {
-                console.log('Navigation made : ', payload: request.url);
-                List<String> splittedUrl = request.url.split('/');
-                setState(() {
-                  if (request.url.contains('fail')) {
-                    status = 'fail';
-                    voucherNo = splittedUrl.last;
-                  } else if (request.url.contains('success')) {
-                    status = 'success';
-                    voucherNo = splittedUrl.last;
-                  }
-                });
-                return NavigationDecision.navigate;
-              },
-            )
-          : PaymentStatus(
-              isSuccess: status == 'success',
-              voucherNo: voucherNo,
-              setStatus: _setStatus),
-    );
-  }
-
-  _setStatus(String s) {
-    setState(() {
-      status = s;
-    });
-  }
-}
-
 class PaymentStatus extends StatelessWidget {
   final bool isSuccess;
   final String? voucherNo;
@@ -176,5 +115,66 @@ class PaymentStatus extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class PaymentWebView extends StatefulWidget {
+  final String webUrl;
+  const PaymentWebView({Key? key, required this.webUrl}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _PaymentWebViewState();
+  }
+}
+
+class _PaymentWebViewState extends State<PaymentWebView> {
+  String status = 'pending';
+  String? voucherNo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: Key(status),
+      appBar: AppBar(
+        title: const Text('Payment'),
+        backgroundColor: AppColors.primary,
+      ),
+      body: status == 'pending'
+          ? WebView(
+              initialUrl: widget.webUrl,
+              javascriptMode: JavascriptMode.unrestricted,
+              zoomEnabled: false,
+              navigationDelegate: (NavigationRequest request) {
+                console.log('Navigation made : ', payload: request.url);
+                List<String> splittedUrl = request.url.split('/');
+                setState(() {
+                  if (request.url.contains('fail')) {
+                    status = 'fail';
+                    voucherNo = splittedUrl.last;
+                  } else if (request.url.contains('success')) {
+                    status = 'success';
+                    voucherNo = splittedUrl.last;
+                  }
+                });
+                return NavigationDecision.navigate;
+              },
+            )
+          : PaymentStatus(
+              isSuccess: status == 'success',
+              voucherNo: voucherNo,
+              setStatus: _setStatus),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  _setStatus(String s) {
+    setState(() {
+      status = s;
+    });
   }
 }

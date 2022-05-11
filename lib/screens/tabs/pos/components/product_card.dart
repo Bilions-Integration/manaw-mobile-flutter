@@ -65,7 +65,7 @@ class ProductCard extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       MaterialButton(
-                        color: AppColors.dark,
+                        color: AppColors.primary,
                         onPressed: () => {addCart(product)},
                         minWidth: 30,
                         elevation: 4,

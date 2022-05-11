@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/input.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/components/input.dart';
 
 import 'image_uploader.dart';
 
 class FormCard extends StatefulWidget {
-  const FormCard({
-    Key? key, 
-    required this.params, 
-    this.editId, 
-    required this.submit
-  }) : super(key: key);
+  final Map<String, dynamic> params;
 
-  final Map<String,dynamic> params;
   final int? editId;
   final Future<dynamic> Function() submit;
+  const FormCard(
+      {Key? key, required this.params, this.editId, required this.submit})
+      : super(key: key);
 
   @override
   State<FormCard> createState() => _FormCardState();
 }
 
 class _FormCardState extends State<FormCard> {
-  _onValueChanged(value, column) {
-    setState(() {
-      widget.params[column] = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ImageUploader(params : widget.params),
+        ImageUploader(params: widget.params),
         const SizedBox(height: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +30,7 @@ class _FormCardState extends State<FormCard> {
             const Text('Category Name', style: TextStyle(fontSize: 15)),
             const SizedBox(height: 7),
             MyTextInput(
-              value : widget.params['name'],
+              value: widget.params['name'],
               onChanged: _onValueChanged,
               column: 'name',
               placeholder: 'Enter Category Name',
@@ -52,7 +43,7 @@ class _FormCardState extends State<FormCard> {
             //       fontWeight: FontWeight.bold
             //     ),),
             //     Switch.adaptive(
-            //       activeColor: AppColors.dark,
+            //       activeColor: AppColors.primary,
             //       value: widget.params['enable_selling'],
             //       onChanged: (value) =>_onValueChanged(value, 'enable_selling')
             //     )
@@ -60,12 +51,17 @@ class _FormCardState extends State<FormCard> {
             // ),
             const SizedBox(height: 7),
             PrimaryButton(
-              value: widget.editId == null ? 'Create' : 'Update',
-              onPressed: () => widget.submit()
-            )
+                value: widget.editId == null ? 'Create' : 'Update',
+                onPressed: () => widget.submit())
           ],
         )
       ],
     );
+  }
+
+  _onValueChanged(value, column) {
+    setState(() {
+      widget.params[column] = value;
+    });
   }
 }

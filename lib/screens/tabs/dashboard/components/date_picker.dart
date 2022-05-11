@@ -25,17 +25,6 @@ class _DatePickerState extends State<DatePicker> {
   String endDate = moment.string(DateTime.now());
 
   @override
-  void initState() {
-    setState(() {
-      endDate = moment.string(now);
-      startDate = moment.string(DateTime(now.year, now.month - 1, now.day));
-    });
-    dashboardController.startDate.value = startDate;
-    dashboardController.endDate.value = endDate;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
@@ -43,7 +32,7 @@ class _DatePickerState extends State<DatePicker> {
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          color: AppColors.dark,
+          color: AppColors.primary,
           border: Border(
             top: BorderSide(color: AppColors.white, width: 0.2),
           ),
@@ -90,6 +79,17 @@ class _DatePickerState extends State<DatePicker> {
     );
   }
 
+  @override
+  void initState() {
+    setState(() {
+      endDate = moment.string(now);
+      startDate = moment.string(DateTime(now.year, now.month - 1, now.day));
+    });
+    dashboardController.startDate.value = startDate;
+    dashboardController.endDate.value = endDate;
+    super.initState();
+  }
+
   _showCalendar() async {
     final DateTimeRange? result = await showDateRangePicker(
       context: context,
@@ -104,7 +104,7 @@ class _DatePickerState extends State<DatePicker> {
         return Theme(
           data: ThemeData(textTheme: GoogleFonts.readexProTextTheme()).copyWith(
             colorScheme: ThemeData().colorScheme.copyWith(
-                  primary: AppColors.dark,
+                  primary: AppColors.primary,
                 ),
           ),
           child: child!,

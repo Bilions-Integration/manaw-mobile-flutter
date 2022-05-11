@@ -29,10 +29,6 @@ class MyTextInput extends StatelessWidget {
 
   final Map? error;
 
-  _onChanged(v) {
-    onChanged(v, column);
-  }
-
   const MyTextInput({
     Key? key,
     this.column,
@@ -122,7 +118,7 @@ class MyTextInput extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: AppColors.dark,
+                  color: AppColors.primary,
                   width: 1.0,
                 ),
                 borderRadius: BorderRadius.circular(radius),
@@ -134,6 +130,10 @@ class MyTextInput extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _onChanged(v) {
+    onChanged(v, column);
   }
 
   _onFieldSubmitted(value) {
@@ -162,17 +162,7 @@ class PasswordInput extends StatefulWidget {
 }
 
 class _PasswordInputState extends State<PasswordInput> {
-  _onChanged(value) {
-    widget.onChanged(value, widget.column);
-  }
-
   bool showPassword = true;
-
-  _togglePassword() {
-    setState(() {
-      showPassword = !showPassword;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +195,7 @@ class _PasswordInputState extends State<PasswordInput> {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColors.dark,
+              color: AppColors.primary,
               width: 1.0,
             ),
             borderRadius: BorderRadius.circular(10.0),
@@ -214,5 +204,15 @@ class _PasswordInputState extends State<PasswordInput> {
         ),
       ),
     );
+  }
+
+  _onChanged(value) {
+    widget.onChanged(value, widget.column);
+  }
+
+  _togglePassword() {
+    setState(() {
+      showPassword = !showPassword;
+    });
   }
 }

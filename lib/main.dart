@@ -1,16 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:my_app/screens/tabs/pos/cart_controller.dart';
-import 'package:my_app/helpers/current_context.dart';
-import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
+import 'package:my_app/screens/tabs/pos/cart_controller.dart';
+import 'package:my_app/screens/tabs/tabs_controller.dart';
+
 import 'firebase_options.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -41,10 +42,10 @@ class _MyAppState extends State<MyApp> {
               textTheme: GoogleFonts.readexProTextTheme(),
               checkboxTheme: CheckboxThemeData(
                   checkColor: MaterialStateProperty.all(AppColors.white),
-                  fillColor: MaterialStateProperty.all(AppColors.dark)))
+                  fillColor: MaterialStateProperty.all(AppColors.primary)))
           .copyWith(
         colorScheme: ThemeData().colorScheme.copyWith(
-              primary: AppColors.dark,
+              primary: AppColors.primary,
             ),
       ),
       navigatorKey: CurrentContext.navigatorKey,

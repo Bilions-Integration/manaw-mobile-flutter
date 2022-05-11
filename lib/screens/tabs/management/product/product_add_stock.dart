@@ -29,7 +29,7 @@ class _AddStockState extends State<ProductAddStock> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.dark,
+        backgroundColor: AppColors.primary,
         title: const Text('Add Stock'),
         actions: [
           IconButton(

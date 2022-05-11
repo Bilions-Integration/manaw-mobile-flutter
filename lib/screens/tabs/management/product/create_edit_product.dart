@@ -50,19 +50,10 @@ class _CreateProductState extends State<CreateProduct> {
   bool isLoading = false;
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.type == 'edit') {
-      isLoading = true;
-      _getProduct();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.dark,
+        backgroundColor: AppColors.primary,
         title: Text(widget.type.capitalize.toString() + " Product"),
       ),
       body: isLoading
@@ -165,15 +156,13 @@ class _CreateProductState extends State<CreateProduct> {
     );
   }
 
-  _onNewImages(List<dio.MultipartFile> newImages) {
-    List oldImages = (params['old_images[]'] as List);
-    setState(() {
-      oldImages.isNotEmpty
-          ? oldImages.removeWhere(
-              (element) => element.toString().contains('placeholder.png'))
-          : null;
-      params['images[]'] = newImages;
-    });
+  @override
+  void initState() {
+    super.initState();
+    if (widget.type == 'edit') {
+      isLoading = true;
+      _getProduct();
+    }
   }
 
   _getCategory() async {
@@ -187,23 +176,31 @@ class _CreateProductState extends State<CreateProduct> {
     }
   }
 
-  _showCategoryPicker() async {
-    await _getCategory();
-    CategoryPicker(
-      onSelect: (CategoryModel val) {
+  _getProduct() async {
+    if (widget.productId != null) {
+      productController.getProduct(productId: widget.productId).then((product) {
         setState(() {
-          params['category_id'] = val.id;
-          selectedCategory = val;
+          selectedCategory = product.category;
+          params = product.toJson();
+          params['units'] = product.units;
+          isLoading = false;
         });
-      },
-      menuList: categoryList,
-    ).open();
+        return product;
+      }).catchError((e) {
+        console.log(e.toString());
+        return ProductDetail.emptyProduct();
+      });
+    }
   }
 
-  _setParams(val, String? column) {
+  _onNewImages(List<dio.MultipartFile> newImages) {
+    List oldImages = (params['old_images[]'] as List);
     setState(() {
-      params[column!] = val;
-      errors?[column] = null;
+      oldImages.isNotEmpty
+          ? oldImages.removeWhere(
+              (element) => element.toString().contains('placeholder.png'))
+          : null;
+      params['images[]'] = newImages;
     });
   }
 
@@ -225,20 +222,23 @@ class _CreateProductState extends State<CreateProduct> {
     });
   }
 
-  _getProduct() async {
-    if (widget.productId != null) {
-      productController.getProduct(productId: widget.productId).then((product) {
+  _setParams(val, String? column) {
+    setState(() {
+      params[column!] = val;
+      errors?[column] = null;
+    });
+  }
+
+  _showCategoryPicker() async {
+    await _getCategory();
+    CategoryPicker(
+      onSelect: (CategoryModel val) {
         setState(() {
-          selectedCategory = product.category;
-          params = product.toJson();
-          params['units'] = product.units;
-          isLoading = false;
+          params['category_id'] = val.id;
+          selectedCategory = val;
         });
-        return product;
-      }).catchError((e) {
-        console.log(e.toString());
-        return ProductDetail.emptyProduct();
-      });
-    }
+      },
+      menuList: categoryList,
+    ).open();
   }
 }

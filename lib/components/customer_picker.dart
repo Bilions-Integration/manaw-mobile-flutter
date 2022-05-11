@@ -7,6 +7,27 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/services/customer_service.dart';
 
+// List View Widget
+class CustomerListView extends StatefulWidget {
+  final BuildContext context;
+  final List<CustomerModel> menuList;
+  final String? searchPlaceholder;
+  final Function(CustomerModel) onSelect;
+  final CustomerModel? selectedCustomer;
+
+  const CustomerListView({
+    Key? key,
+    this.searchPlaceholder,
+    this.selectedCustomer,
+    required this.context,
+    required this.menuList,
+    required this.onSelect,
+  }) : super(key: key);
+
+  @override
+  State<CustomerListView> createState() => _CustomerListViewState();
+}
+
 class CustomerPicker {
   final double? height;
   final String? searchPlaceholder;
@@ -49,37 +70,8 @@ class CustomerPicker {
   }
 }
 
-// List View Widget
-class CustomerListView extends StatefulWidget {
-  final BuildContext context;
-  final List<CustomerModel> menuList;
-  final String? searchPlaceholder;
-  final Function(CustomerModel) onSelect;
-  final CustomerModel? selectedCustomer;
-
-  const CustomerListView({
-    Key? key,
-    this.searchPlaceholder,
-    this.selectedCustomer,
-    required this.context,
-    required this.menuList,
-    required this.onSelect,
-  }) : super(key: key);
-
-  @override
-  State<CustomerListView> createState() => _CustomerListViewState();
-}
-
 class _CustomerListViewState extends State<CustomerListView> {
   List<CustomerModel> chosenList = [];
-
-  @override
-  void initState() {
-    setState(() {
-      chosenList = List.from(widget.menuList);
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +90,7 @@ class _CustomerListViewState extends State<CustomerListView> {
               width: 50,
               child: Container(
                 decoration: BoxDecoration(
-                    color: AppColors.dark,
+                    color: AppColors.primary,
                     borderRadius: BorderRadius.circular(10)),
               ),
             ),
@@ -185,9 +177,12 @@ class _CustomerListViewState extends State<CustomerListView> {
     );
   }
 
-  _selectModal(CustomerModel type, context) {
-    Navigator.pop(context);
-    widget.onSelect(type);
+  @override
+  void initState() {
+    setState(() {
+      chosenList = List.from(widget.menuList);
+    });
+    super.initState();
   }
 
   _onSearch(String keyword, String? column) async {
@@ -195,5 +190,10 @@ class _CustomerListViewState extends State<CustomerListView> {
     setState(() {
       chosenList = List.from(customers);
     });
+  }
+
+  _selectModal(CustomerModel type, context) {
+    Navigator.pop(context);
+    widget.onSelect(type);
   }
 }

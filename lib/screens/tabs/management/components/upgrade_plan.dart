@@ -68,7 +68,7 @@ class UpgradePlan extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          color: AppColors.dark,
+          color: AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

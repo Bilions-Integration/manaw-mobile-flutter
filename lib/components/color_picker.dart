@@ -26,16 +26,16 @@ showColorPicker({
 class MyColorPicker extends StatelessWidget {
   final Function(String) onColorChange;
 
-  MyColorPicker({Key? key, required this.onColorChange}) : super(key: key);
-
   var myColor = '';
+
+  MyColorPicker({Key? key, required this.onColorChange}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.dark,
+          backgroundColor: AppColors.primary,
           title: const Text('Color Picker'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),

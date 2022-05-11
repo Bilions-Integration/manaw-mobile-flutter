@@ -134,7 +134,7 @@ class _ManageCategoryState extends State<ManageCategory> {
                   AppAssets.dotAction,
                   width: 20,
                   height: 20,
-                  color: AppColors.dark,
+                  color: AppColors.primary,
                 ),
                 onPressed: () => Styles.customBottomSheet(
                   context,

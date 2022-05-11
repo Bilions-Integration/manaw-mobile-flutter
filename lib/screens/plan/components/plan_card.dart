@@ -8,36 +8,15 @@ import 'package:my_app/screens/plan/components/pricing_details.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PlanCard extends StatelessWidget {
+  final String selectedPlan;
+  final String selectedTab;
+  final PlanModel plan;
   const PlanCard(
       {Key? key,
       required this.plan,
       required this.selectedPlan,
       required this.selectedTab})
       : super(key: key);
-  final String selectedPlan;
-  final String selectedTab;
-  final PlanModel plan;
-
-  Widget popularBlock(BuildContext context) {
-    return Positioned(
-      child: Container(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3, top: 3),
-        child: Text(
-          'Popular',
-          style: Styles.t6Light,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.purple,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(9),
-            bottomRight: Radius.circular(9),
-          ),
-        ),
-      ),
-      top: 0,
-      left: MediaQuery.of(context).size.width / 2 - 30,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +28,7 @@ class PlanCard extends StatelessWidget {
               const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
           decoration: BoxDecoration(
             border: selectedPlan == plan.name
-                ? Border.all(color: AppColors.dark, width: 3)
+                ? Border.all(color: AppColors.primary, width: 3)
                 : Border.all(color: Colors.transparent),
             borderRadius: BorderRadius.circular(15),
             color: AppColors.lightGrey,
@@ -98,6 +77,27 @@ class PlanCard extends StatelessWidget {
         ),
         if (plan.isPopular) popularBlock(context),
       ],
+    );
+  }
+
+  Widget popularBlock(BuildContext context) {
+    return Positioned(
+      child: Container(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3, top: 3),
+        child: Text(
+          'Popular',
+          style: Styles.t6Light,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.purple,
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(9),
+            bottomRight: Radius.circular(9),
+          ),
+        ),
+      ),
+      top: 0,
+      left: MediaQuery.of(context).size.width / 2 - 30,
     );
   }
 }

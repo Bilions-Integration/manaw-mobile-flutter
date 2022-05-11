@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
-import 'package:my_app/screens/tabs/management/manage_screen.dart';
-import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:get/get.dart';
+import 'package:my_app/screens/tabs/management/manage_screen.dart';
+import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
+  final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
+
+  final bottomTabController = Get.find<BottomTabsController>();
+  final authController = Get.find<AuthController>();
+
   MyAppBar({Key? key}) : super(key: key);
 
-  final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
-  final bottomTabController = Get.find<BottomTabsController>();
-
-  final authController = Get.find<AuthController>();
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
           child: Image.asset(AppAssets.appLogo),
         ),
         centerTitle: false,
-        backgroundColor: AppColors.dark,
+        backgroundColor: AppColors.primary,
         elevation: bottomTabController.index.value == 0 ||
                 bottomTabController.index.value == 1
             ? 0
@@ -51,7 +54,4 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

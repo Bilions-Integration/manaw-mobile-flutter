@@ -7,12 +7,12 @@ import 'package:my_app/services/category_service.dart';
 import 'components/form_card.dart';
 
 class CreateCategory extends StatefulWidget {
+  final int? id;
+
   const CreateCategory({
     Key? key,
     this.id,
   }) : super(key: key);
-
-  final int? id;
 
   @override
   State<CreateCategory> createState() => _CreateCategoryState();
@@ -26,6 +26,36 @@ class _CreateCategoryState extends State<CreateCategory> {
   };
 
   bool loading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: customAppBar2(
+          context: context,
+          title: 'Category ${widget.id != null ? "Edit" : "Create"}',
+          showAction: false,
+          centerTitle: true,
+        ),
+        body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: loading == false
+                ? FormCard(
+                    params: params, editId: widget.id, submit: () => submit())
+                : Center(
+                    child:
+                        CircularProgressIndicator(color: AppColors.primary))));
+  }
+
+  Future fetchData() async {
+    var res = await CategoryService.fetch(widget.id);
+    Map<String, dynamic> data = res;
+    data['old_image'] = data['image'];
+    data['image'] = null;
+    setState(() {
+      params = data;
+      loading = false;
+    });
+  }
 
   @override
   void initState() {
@@ -55,34 +85,5 @@ class _CreateCategoryState extends State<CreateCategory> {
       );
     }
     Navigator.pop(context);
-  }
-
-  Future fetchData() async {
-    var res = await CategoryService.fetch(widget.id);
-    Map<String, dynamic> data = res;
-    data['old_image'] = data['image'];
-    data['image'] = null;
-    setState(() {
-      params = data;
-      loading = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: customAppBar2(
-          context: context,
-          title: 'Category ${widget.id != null ? "Edit" : "Create"}',
-          showAction: false,
-          centerTitle: true,
-        ),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: loading == false
-                ? FormCard(
-                    params: params, editId: widget.id, submit: () => submit())
-                : Center(
-                    child: CircularProgressIndicator(color: AppColors.dark))));
   }
 }

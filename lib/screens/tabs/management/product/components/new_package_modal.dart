@@ -10,6 +10,19 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
 import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
+// List View Widget
+class NewPackageForm extends StatefulWidget {
+  final Function() afterSubmit;
+  final int? productId;
+  final Map<String, dynamic>? params;
+  const NewPackageForm(
+      {Key? key, required this.afterSubmit, this.params, this.productId})
+      : super(key: key);
+
+  @override
+  State<NewPackageForm> createState() => _NewPackageFormState();
+}
+
 class NewPackageModal {
   final Map<String, dynamic>? params;
   NewPackageModal({this.params});
@@ -37,17 +50,45 @@ class NewPackageModal {
   }
 }
 
-// List View Widget
-class NewPackageForm extends StatefulWidget {
-  final Function() afterSubmit;
-  final int? productId;
-  final Map<String, dynamic>? params;
-  const NewPackageForm(
-      {Key? key, required this.afterSubmit, this.params, this.productId})
-      : super(key: key);
+class UnitImagePicker extends StatelessWidget {
+  final Function(MyFile file, MultipartFile blob) onChanged;
+  const UnitImagePicker({Key? key, required this.onChanged}) : super(key: key);
 
   @override
-  State<NewPackageForm> createState() => _NewPackageFormState();
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkWell(
+          onTap: _showFileUpload,
+          child: Container(
+            margin: const EdgeInsets.only(right: 5),
+            padding: const EdgeInsets.all(40),
+            decoration: BoxDecoration(
+                color: AppColors.borderColor,
+                borderRadius: BorderRadius.circular(10)),
+            child: const Icon(Icons.add_rounded),
+          ),
+        ),
+        mb(1),
+        Text(
+          'Add Unit Image',
+          style: TextStyle(color: AppColors.grey),
+        )
+      ],
+    );
+  }
+
+  _showFileUpload({ImageSource source = ImageSource.gallery}) async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: source);
+    if (image == null) {
+      return null;
+    }
+    MultipartFile blob =
+        await MultipartFile.fromFile(image.path, filename: image.name);
+    MyFile file = MyFile(blob: blob, path: image.path, name: image.name);
+    onChanged(file, blob);
+  }
 }
 
 class _NewPackageFormState extends State<NewPackageForm> {
@@ -62,16 +103,6 @@ class _NewPackageFormState extends State<NewPackageForm> {
   MyFile? image;
   MultipartFile? imgBlob;
   Map? errors;
-
-  @override
-  void initState() {
-    if (widget.params != null) {
-      setState(() {
-        params = widget.params ?? {};
-      });
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +201,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         ),
                       ),
                       Switch(
-                        activeColor: AppColors.dark,
+                        activeColor: AppColors.primary,
                         value: params['active'] == 1,
                         onChanged: _toggleActive,
                       )
@@ -192,10 +223,14 @@ class _NewPackageFormState extends State<NewPackageForm> {
     );
   }
 
-  _toggleActive(value) {
-    setState(() {
-      params['active'] = value ? 1 : 0;
-    });
+  @override
+  void initState() {
+    if (widget.params != null) {
+      setState(() {
+        params = widget.params ?? {};
+      });
+    }
+    super.initState();
   }
 
   _onImageChanged(MyFile file, MultipartFile blob) {
@@ -211,13 +246,6 @@ class _NewPackageFormState extends State<NewPackageForm> {
       image = null;
       imgBlob = null;
       params['image'] = null;
-    });
-  }
-
-  _valueChanged(val, String? col) {
-    setState(() {
-      params[col.toString()] = val;
-      errors?[col] = null;
     });
   }
 
@@ -245,45 +273,17 @@ class _NewPackageFormState extends State<NewPackageForm> {
       });
     }
   }
-}
 
-class UnitImagePicker extends StatelessWidget {
-  final Function(MyFile file, MultipartFile blob) onChanged;
-  const UnitImagePicker({Key? key, required this.onChanged}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: _showFileUpload,
-          child: Container(
-            margin: const EdgeInsets.only(right: 5),
-            padding: const EdgeInsets.all(40),
-            decoration: BoxDecoration(
-                color: AppColors.borderColor,
-                borderRadius: BorderRadius.circular(10)),
-            child: const Icon(Icons.add_rounded),
-          ),
-        ),
-        mb(1),
-        Text(
-          'Add Unit Image',
-          style: TextStyle(color: AppColors.grey),
-        )
-      ],
-    );
+  _toggleActive(value) {
+    setState(() {
+      params['active'] = value ? 1 : 0;
+    });
   }
 
-  _showFileUpload({ImageSource source = ImageSource.gallery}) async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: source);
-    if (image == null) {
-      return null;
-    }
-    MultipartFile blob =
-        await MultipartFile.fromFile(image.path, filename: image.name);
-    MyFile file = MyFile(blob: blob, path: image.path, name: image.name);
-    onChanged(file, blob);
+  _valueChanged(val, String? col) {
+    setState(() {
+      params[col.toString()] = val;
+      errors?[col] = null;
+    });
   }
 }

@@ -2,16 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({
-    Key? key,
-    required this.value,
-    this.child,
-    this.disabled = false,
-    this.width = double.infinity,
-    this.height = 50,
-    required this.onPressed,
-  }) : super(key: key);
-
   final String value;
 
   final Widget? child;
@@ -23,6 +13,16 @@ class PrimaryButton extends StatelessWidget {
   final double height;
 
   final Function() onPressed;
+
+  const PrimaryButton({
+    Key? key,
+    required this.value,
+    this.child,
+    this.disabled = false,
+    this.width = double.infinity,
+    this.height = 50,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class PrimaryButton extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-      color: disabled ? AppColors.lightDark : AppColors.dark,
+      color: disabled ? AppColors.lightDark : AppColors.primary,
       height: height,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -47,16 +47,6 @@ class PrimaryButton extends StatelessWidget {
 }
 
 class SecondaryButton extends StatelessWidget {
-  const SecondaryButton({
-    Key? key,
-    required this.value,
-    this.child,
-    this.disabled = false,
-    this.width = double.infinity,
-    this.height = 50,
-    required this.onPressed,
-  }) : super(key: key);
-
   final String value;
 
   final Widget? child;
@@ -68,6 +58,16 @@ class SecondaryButton extends StatelessWidget {
   final double height;
 
   final Function() onPressed;
+
+  const SecondaryButton({
+    Key? key,
+    required this.value,
+    this.child,
+    this.disabled = false,
+    this.width = double.infinity,
+    this.height = 50,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

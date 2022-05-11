@@ -73,7 +73,7 @@ class ProductCard extends StatelessWidget {
               Text(
                 '${cast(product.percent)} %',
                 style: TextStyle(
-                  color: AppColors.dark,
+                  color: AppColors.primary,
                 ),
               ),
               const Text(''),

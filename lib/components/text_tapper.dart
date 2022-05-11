@@ -17,7 +17,7 @@ class TextTapper extends StatelessWidget {
     return InkWell(
       child: Text(
         title,
-        style: TextStyle(color: color ?? AppColors.dark),
+        style: TextStyle(color: color ?? AppColors.primary),
       ),
       onTap: onTab,
     );

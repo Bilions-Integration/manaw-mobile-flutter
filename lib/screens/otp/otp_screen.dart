@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/button.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/button.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
@@ -37,7 +37,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.dark,
+        backgroundColor: AppColors.primary,
         title: const Text('Verify OTP'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -76,11 +76,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 selectedFillColor: Colors.white,
                 activeFillColor: Colors.white,
                 selectedColor: AppColors.lightDark,
-                activeColor: AppColors.dark,
+                activeColor: AppColors.primary,
                 inactiveColor: Colors.grey.withAlpha(40),
               ),
               backgroundColor: HexColor('#F6F6F6'),
-              cursorColor: AppColors.dark,
+              cursorColor: AppColors.primary,
               animationDuration: const Duration(milliseconds: 300),
               onCompleted: (v) {
                 _submit();
@@ -104,48 +104,6 @@ class _OTPScreenState extends State<OTPScreen> {
         ),
       ),
     );
-  }
-
-  _submit() async {
-    if (code.isEmpty) {
-      return false;
-    }
-    if (widget.type == 'register') {
-      await _register();
-    } else if (widget.type == 'forget_password') {
-      await _passwordReset();
-    } else {
-      var res = await ProfileService.verifyChangeEmailOTP(widget.email, code);
-      if (res) {
-        Get.back();
-      }
-    }
-  }
-
-  _register() async {
-    try {
-      final registerController = Get.find<RegisterController>();
-      RegisterParams? params = registerController.params.value;
-      if (params != null) {
-        params.code = code;
-        console.log(params.toJson().toString());
-        var res = await Api.post(
-          '/auth/verify-email',
-          data: params.toJson(),
-        );
-        if (res['status'] == 'success') {
-          AppWidget.storeToken(res['token']);
-          authController.user.value = User.fromJson(res['data']);
-          ARouter.push(RouteName.home);
-        } else {
-          _showError();
-          console.log(res.toString());
-        }
-      }
-    } catch (e) {
-      _showError();
-      console.log(e.toString());
-    }
   }
 
   _passwordReset() async {
@@ -176,7 +134,49 @@ class _OTPScreenState extends State<OTPScreen> {
     }
   }
 
+  _register() async {
+    try {
+      final registerController = Get.find<RegisterController>();
+      RegisterParams? params = registerController.params.value;
+      if (params != null) {
+        params.code = code;
+        console.log(params.toJson().toString());
+        var res = await Api.post(
+          '/auth/verify-email',
+          data: params.toJson(),
+        );
+        if (res['status'] == 'success') {
+          AppWidget.storeToken(res['token']);
+          authController.user.value = User.fromJson(res['data']);
+          ARouter.push(RouteName.home);
+        } else {
+          _showError();
+          console.log(res.toString());
+        }
+      }
+    } catch (e) {
+      _showError();
+      console.log(e.toString());
+    }
+  }
+
   _showError() {
     alert(title: 'Error', message: 'Invalid OTP');
+  }
+
+  _submit() async {
+    if (code.isEmpty) {
+      return false;
+    }
+    if (widget.type == 'register') {
+      await _register();
+    } else if (widget.type == 'forget_password') {
+      await _passwordReset();
+    } else {
+      var res = await ProfileService.verifyChangeEmailOTP(widget.email, code);
+      if (res) {
+        Get.back();
+      }
+    }
   }
 }

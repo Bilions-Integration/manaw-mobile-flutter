@@ -25,11 +25,6 @@ class DashboardOverview extends StatefulWidget {
 
 class _DashboardOverviewState extends State<DashboardOverview> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return borderRadiusCard(
       10,
@@ -53,7 +48,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                   '${currency()} ${cast(widget.profit)}',
                   style: TextStyle(
                     fontSize: 16,
-                    color: AppColors.dark,
+                    color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 )
@@ -101,5 +96,10 @@ class _DashboardOverviewState extends State<DashboardOverview> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }

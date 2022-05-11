@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_app/components/category_picker.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
-import 'package:my_app/data/colors.dart';
-import 'package:my_app/components/category_picker.dart';
 import 'package:my_app/services/category_service.dart';
 
 class CategorySelector extends StatefulWidget {
@@ -23,38 +23,6 @@ class _CategorySelectorState extends State<CategorySelector> {
 
   final cartController = Get.find<CartController>();
 
-  _getCategory() async {
-    if (menuList.isEmpty) {
-      List<CategoryModel> initialCategories = [
-        CategoryModel(
-          name: 'All',
-          id: null,
-          image: [],
-        )
-      ];
-      var res = await CategoryService.get({'page' : 1, 'limit' : 10});
-      List<CategoryModel> categories = res['categories'];
-      setState(() {
-        menuList = [...initialCategories, ...categories];
-      });
-    }
-  }
-
-  _showList() async {
-    await _getCategory();
-    CategoryPicker(
-      onSelect: _onSelect,
-      menuList: menuList,
-    ).open();
-  }
-
-  _onSelect(CategoryModel data) {
-    setState(() {
-      selectedList = data;
-    });
-    widget.callback(data);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -64,7 +32,7 @@ class _CategorySelectorState extends State<CategorySelector> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: AppColors.dark,
+            color: AppColors.primary,
             border: Border(
               top: BorderSide(color: AppColors.white, width: 0.2),
             ),
@@ -91,5 +59,37 @@ class _CategorySelectorState extends State<CategorySelector> {
         ),
       ),
     );
+  }
+
+  _getCategory() async {
+    if (menuList.isEmpty) {
+      List<CategoryModel> initialCategories = [
+        CategoryModel(
+          name: 'All',
+          id: null,
+          image: [],
+        )
+      ];
+      var res = await CategoryService.get({'page': 1, 'limit': 10});
+      List<CategoryModel> categories = res['categories'];
+      setState(() {
+        menuList = [...initialCategories, ...categories];
+      });
+    }
+  }
+
+  _onSelect(CategoryModel data) {
+    setState(() {
+      selectedList = data;
+    });
+    widget.callback(data);
+  }
+
+  _showList() async {
+    await _getCategory();
+    CategoryPicker(
+      onSelect: _onSelect,
+      menuList: menuList,
+    ).open();
   }
 }

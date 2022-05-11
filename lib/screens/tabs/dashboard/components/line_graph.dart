@@ -4,12 +4,12 @@ import 'package:my_app/model/chart_data_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineGraph extends StatelessWidget {
+  final List<ChartData> chartData;
+
   const LineGraph({
     Key? key,
     required this.chartData,
   }) : super(key: key);
-
-  final List<ChartData> chartData;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class LineGraph extends StatelessWidget {
         series: <ChartSeries>[
           // Renders spline chart
           SplineSeries<ChartData, String>(
-            color: AppColors.dark,
+            color: AppColors.primary,
             enableTooltip: true,
             dataSource: chartData,
             xValueMapper: (ChartData data, _) => data.x,

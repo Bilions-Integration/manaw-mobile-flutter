@@ -31,11 +31,6 @@ class CreateNewPopup {
 
 class MyPopup extends StatelessWidget {
   final BuildContext context;
-  MyPopup({
-    Key? key,
-    required this.context,
-  }) : super(key: key);
-
   final List<util.PopupItem> popupItems = [
     util.PopupItem(
         icon: AppAssets.icProduct,
@@ -55,6 +50,11 @@ class MyPopup extends StatelessWidget {
         onTap: () => Get.to(() => const CreateDiscount())),
   ];
 
+  MyPopup({
+    Key? key,
+    required this.context,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -70,7 +70,7 @@ class MyPopup extends StatelessWidget {
             width: 50,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.dark,
+                color: AppColors.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
