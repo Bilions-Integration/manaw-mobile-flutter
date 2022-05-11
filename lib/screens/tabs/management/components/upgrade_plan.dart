@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/pricing_screen.dart';
 
 class UpgradePlan extends StatelessWidget {

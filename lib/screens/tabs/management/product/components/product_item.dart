@@ -3,12 +3,9 @@ import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/model/product_detail_model.dart';
-import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
-import 'package:my_app/screens/tabs/management/product/product_controller.dart';
 
 class ProductItem extends StatefulWidget {
   final ProductDetail product;
@@ -32,14 +29,6 @@ class _ProductItemState extends State<ProductItem> {
 
   bool enableSelling = false;
   bool selected = false;
-
-  @override
-  void initState() {
-    setState(() {
-      enableSelling = widget.product.enableSelling;
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +102,12 @@ class _ProductItemState extends State<ProductItem> {
     );
   }
 
-  _onCheckBoxChange(bool? value) {
+  @override
+  void initState() {
     setState(() {
-      selected = value as bool;
+      enableSelling = widget.product.enableSelling;
     });
-
-    widget.onSelect(value: value!, product: widget.product);
+    super.initState();
   }
 
   _enableSelling(value) async {
@@ -127,5 +116,13 @@ class _ProductItemState extends State<ProductItem> {
     });
     await Api.post('/products/enable/${widget.product.productId}',
         showLoading: false);
+  }
+
+  _onCheckBoxChange(bool? value) {
+    setState(() {
+      selected = value as bool;
+    });
+
+    widget.onSelect(value: value!, product: widget.product);
   }
 }

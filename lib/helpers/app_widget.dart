@@ -1,21 +1,27 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/common_model.dart';
 
 class AppWidget {
-  static marginBottom(double value) {
-    return Padding(padding: EdgeInsets.only(bottom: value * 10));
+  static Widget closeButton(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Icon(Icons.close),
+      ),
+    );
   }
 
-  static storeToken(String? token) {
-    final box = GetStorage();
-    box.write('@bearerToken', token);
+  static marginBottom(double value) {
+    return Padding(padding: EdgeInsets.only(bottom: value * 10));
   }
 
   static showFileUpload({ImageSource source = ImageSource.gallery}) async {
@@ -77,15 +83,8 @@ class AppWidget {
     );
   }
 
-  static Widget closeButton(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: const Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Icon(Icons.close),
-      ),
-    );
+  static storeToken(String? token) {
+    final box = GetStorage();
+    box.write('@bearerToken', token);
   }
 }

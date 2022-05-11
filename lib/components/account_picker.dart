@@ -39,7 +39,7 @@ class AccountPicker {
                 menuList: menuList,
               )
             : Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: SizedBox(
                   height: 110,
                   child: Column(
@@ -93,14 +93,6 @@ class MyListView extends StatefulWidget {
 
 class _MyListViewState extends State<MyListView> {
   List<AccountModel> chosenList = [];
-
-  @override
-  void initState() {
-    setState(() {
-      chosenList = List.from(widget.menuList);
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +166,14 @@ class _MyListViewState extends State<MyListView> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      chosenList = List.from(widget.menuList);
+    });
+    super.initState();
   }
 
   _selectModal(AccountModel account, context) {

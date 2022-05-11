@@ -21,12 +21,6 @@ class _ProductItemState extends State<AddStockProductItem> {
   int count = 1;
 
   @override
-  void initState() {
-    count = widget.product.addStockQuantity;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,11 +85,18 @@ class _ProductItemState extends State<AddStockProductItem> {
                   numberOnly: true,
                 )),
             IconButton(
-                onPressed: _increase, icon: Icon(Icons.add_circle_rounded)),
+                onPressed: _increase,
+                icon: const Icon(Icons.add_circle_rounded)),
           ],
         )
       ],
     );
+  }
+
+  @override
+  void initState() {
+    count = widget.product.addStockQuantity;
+    super.initState();
   }
 
   _decrease() {
