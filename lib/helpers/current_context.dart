@@ -5,7 +5,7 @@ class CurrentContext {
 
   static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  CurrentContext();
-
   final BuildContext context = CurrentContext.navigatorKey.currentContext!;
+
+  CurrentContext();
 }

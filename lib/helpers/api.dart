@@ -3,29 +3,30 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/helpers/helper.dart';
 
-class DioWrapper {
-  DioWrapper();
-
-  static init() {
-    final box = GetStorage();
-    final token = box.read('@bearerToken');
-    BaseOptions options = BaseOptions(
-        baseUrl: dotenv.env['APP_URL'].toString(),
-        headers: {
-          "authorization": "Bearer $token",
-          "Accept": "application/json"
-        });
-    return Dio(options);
-  }
-}
-
 class Api {
-  static _convertFormData(data) {
-    return FormData.fromMap(data);
-  }
-
-  static String parseUrl(String url) {
-    return url.startsWith('/') ? url : '/$url';
+  // delete method
+  static Future<dynamic> delete(
+    String url, {
+    Map<String, dynamic>? data,
+    bool showLoading = true,
+  }) async {
+    try {
+      if (showLoading) {
+        loading();
+      }
+      console.log('DELETE => $url =>', payload: data);
+      Dio dio = DioWrapper.init();
+      var response = await dio.delete(parseUrl(url), queryParameters: data);
+      if (showLoading) {
+        hideLoading();
+      }
+      console.log('DELETE RESPONSE => $url =>', payload: response.data);
+      return response.data;
+    } catch (e) {
+      console.log("API =>  DELETE => ERROR $e");
+      hideLoading();
+      rethrow;
+    }
   }
 
   static Future<dynamic> get(
@@ -51,6 +52,10 @@ class Api {
       hideLoading();
       rethrow;
     }
+  }
+
+  static String parseUrl(String url) {
+    return url.startsWith('/') ? url : '/$url';
   }
 
   // post method
@@ -113,28 +118,23 @@ class Api {
     }
   }
 
-  // delete method
-  static Future<dynamic> delete(
-    String url, {
-    Map<String, dynamic>? data,
-    bool showLoading = true,
-  }) async {
-    try {
-      if (showLoading) {
-        loading();
-      }
-      console.log('DELETE => $url =>', payload: data);
-      Dio dio = DioWrapper.init();
-      var response = await dio.delete(parseUrl(url), queryParameters: data);
-      if (showLoading) {
-        hideLoading();
-      }
-      console.log('DELETE RESPONSE => $url =>', payload: response.data);
-      return response.data;
-    } catch (e) {
-      console.log("API =>  DELETE => ERROR $e");
-      hideLoading();
-      rethrow;
-    }
+  static _convertFormData(data) {
+    return FormData.fromMap(data);
+  }
+}
+
+class DioWrapper {
+  DioWrapper();
+
+  static init() {
+    final box = GetStorage();
+    final token = box.read('@bearerToken');
+    BaseOptions options = BaseOptions(
+        baseUrl: dotenv.env['APP_URL'].toString(),
+        headers: {
+          "authorization": "Bearer $token",
+          "Accept": "application/json"
+        });
+    return Dio(options);
   }
 }

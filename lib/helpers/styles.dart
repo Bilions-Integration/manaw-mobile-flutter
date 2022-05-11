@@ -77,36 +77,43 @@ class Styles {
   static void customBottomSheet(
       BuildContext context, num height, Widget widget) {
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext context) => SizedBox(
-            height: MediaQuery.of(context).size.height * (height / 100),
-            child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 30,
-                  top: 7,
-                  left: 15,
-                  right: 15,
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    height: 6,
-                    width: 50,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) => SizedBox(
+        height: MediaQuery.of(context).size.height * (height / 100),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 30,
+            top: 7,
+            left: 15,
+            right: 15,
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 6,
+                width: 50,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  mb(1),
-                  Expanded(
-                      child: SizedBox(
-                    width: double.infinity,
-                    child: widget,
-                  ))
-                ]))));
+                ),
+              ),
+              mb(1),
+              Expanded(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: widget,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   static Widget emptyList(label, image, buttonLabel, link) {

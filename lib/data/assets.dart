@@ -43,12 +43,11 @@ class AppAssets {
   static const icPrinter = 'assets/images/printer.svg';
   static const bronzeIcon = 'assets/images/plans/bronze.png';
   static const rocket = 'assets/images/rocket.png';
-  static getPlanIcon(image) => 'assets/images/plans/$image.png';
   static const payFail = 'assets/images/plans/pay.fail.svg';
   static const paySuccess = 'assets/images/plans/pay.success.svg';
-
   //Manage
   static const icProduct = 'assets/images/manage/product.svg';
+
   static const icCategory = 'assets/images/manage/category.svg';
   static const icInvoice = 'assets/images/manage/invoice.svg';
   static const icDiscount = 'assets/images/manage/discount.svg';
@@ -69,4 +68,5 @@ class AppAssets {
   //invoice
   static const invoiceIcon = 'assets/images/manage/invoice-icon.svg';
   static const emptyInvoice = 'assets/images/manage/empty-invoice.svg';
+  static getPlanIcon(image) => 'assets/images/plans/$image.png';
 }

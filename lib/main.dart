@@ -39,11 +39,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-              textTheme: GoogleFonts.readexProTextTheme(),
-              checkboxTheme: CheckboxThemeData(
-                  checkColor: MaterialStateProperty.all(AppColors.white),
-                  fillColor: MaterialStateProperty.all(AppColors.primary)))
-          .copyWith(
+        textTheme: GoogleFonts.readexProTextTheme(),
+        checkboxTheme: CheckboxThemeData(
+          checkColor: MaterialStateProperty.all(AppColors.white),
+          fillColor: MaterialStateProperty.all(AppColors.primary),
+        ),
+      ).copyWith(
         colorScheme: ThemeData().colorScheme.copyWith(
               primary: AppColors.primary,
             ),
