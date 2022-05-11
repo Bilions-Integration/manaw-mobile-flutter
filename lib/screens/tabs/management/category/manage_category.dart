@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/custom_item_list.dart';
 import 'package:my_app/data/assets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/category/components/action_popup.dart';
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/services/category_service.dart';
-import 'package:my_app/helpers/helper.dart';
 
 class ManageCategory extends StatefulWidget {
   const ManageCategory({
@@ -27,45 +27,6 @@ class _ManageCategoryState extends State<ManageCategory> {
   bool isSearch = false;
   List<CategoryModel> categories = [];
   Map<String, dynamic> params = {'page': 1, 'limit': 20, 'keyword': ''};
-
-  getData() async {
-    var res = await CategoryService.get(params);
-    setState(() {
-      categories = res['categories'];
-      isLastPage = categories.length >= res['total'] ? true : false;
-      isLoading = false;
-    });
-  }
-
-  Future deleteData(int? id) async {
-    confirm(
-      onPressed: (result) async {
-        if (result) {
-          await CategoryService.delete(id);
-          setState(() {
-            categories.removeWhere((category) => category.id == id);
-          });
-          Get.snackbar(
-            'Success',
-            'Successfully Deleted',
-            icon: const Icon(Icons.check_circle),
-          );
-        }
-      },
-      title: 'Delete',
-      message: "Are you sure, you want to delete?",
-      confirmText: 'Yes',
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    isLoading = true;
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      getData();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,33 +60,96 @@ class _ManageCategoryState extends State<ManageCategory> {
         loadMore: loadMore,
         isLoading: isLoading,
         isLastPage: isLastPage,
-        emptyWidget: Styles.emptyList('No Coupon yet', AppAssets.emptyCategory,
-            'Create new Coupon', const CreateCategory()),
+        emptyWidget: Styles.emptyList(
+            'No category yet',
+            AppAssets.emptyCategory,
+            'Create new category',
+            const CreateCategory()),
         itemBuilder: (context, index) => listItem(categories[index]),
       ),
     );
   }
 
+  Future deleteData(int? id) async {
+    confirm(
+      onPressed: (result) async {
+        if (result) {
+          await CategoryService.delete(id);
+          setState(() {
+            categories.removeWhere((category) => category.id == id);
+          });
+          Get.snackbar(
+            'Success',
+            'Successfully Deleted',
+            icon: const Icon(Icons.check_circle),
+          );
+        }
+      },
+      title: 'Delete',
+      message: "Are you sure, you want to delete?",
+      confirmText: 'Yes',
+    );
+  }
+
+  getData() async {
+    var res = await CategoryService.get(params);
+    setState(() {
+      categories = res['categories'];
+      isLastPage = categories.length >= res['total'] ? true : false;
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isLoading = true;
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      getData();
+    });
+  }
+
   Widget listItem(category) {
     return InkWell(
       onTap: () => Get.to(CreateCategory(id: category.id)),
-      child: ListTile(
-        title: Text(category.name, style: Styles.t5),
-        leading: ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: Image.network(category.image,
-                height: 33, width: 37, fit: BoxFit.cover)),
-        trailing: IconButton(
-          icon: SvgPicture.asset(AppAssets.dotAction,
-              width: 20, height: 20, color: AppColors.dark),
-          onPressed: () => Styles.customBottomSheet(
-              context,
-              20,
-              ActionPopup(
-                  id: category.id,
-                  edit: (id) => Get.to(CreateCategory(id: id)),
-                  delete: (id) => deleteData(id))),
-        ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Image.network(
+                  category.image,
+                  height: 40,
+                  width: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              mr(1),
+              Expanded(
+                child: Text(category.name, style: Styles.t5),
+              ),
+              IconButton(
+                icon: SvgPicture.asset(
+                  AppAssets.dotAction,
+                  width: 20,
+                  height: 20,
+                  color: AppColors.dark,
+                ),
+                onPressed: () => Styles.customBottomSheet(
+                  context,
+                  20,
+                  ActionPopup(
+                    id: category.id,
+                    edit: (id) => Get.to(CreateCategory(id: id)),
+                    delete: (id) => deleteData(id),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          hr(height: 5, width: 1)
+        ],
       ),
     );
   }

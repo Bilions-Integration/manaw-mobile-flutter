@@ -152,15 +152,15 @@ hideLoading({String? title}) {
   Navigator.pop(currentContext());
 }
 
-hr({double height = 0, double mt = 0, double mb = 0}) {
+hr({double height = 0, double mt = 0, double mb = 0, double width = 2}) {
   return Container(
     margin: EdgeInsets.only(bottom: height, top: height),
     padding: EdgeInsets.only(left: 3, right: 3, top: mt * 10, bottom: mb * 10),
     child: Container(
       height: 0,
       decoration: BoxDecoration(
-        border:
-            Border(bottom: BorderSide(color: AppColors.borderColor, width: 2)),
+        border: Border(
+            bottom: BorderSide(color: AppColors.borderColor, width: width)),
       ),
     ),
   );
