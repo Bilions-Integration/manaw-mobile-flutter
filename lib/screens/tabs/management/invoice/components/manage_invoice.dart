@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/date_picker.dart';
+import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/list_items.dart';
 import 'package:my_app/services/invoice_services.dart';
-import 'package:my_app/helpers/moment.dart';
-import 'package:my_app/helpers/helper.dart';
-import 'package:get/get.dart';
 
 class ManageInvoice extends StatefulWidget {
+  final String type;
+
   const ManageInvoice({
-    Key? key, 
+    Key? key,
     required this.type,
   }) : super(key: key);
-
-  final String type;
 
   @override
   State<ManageInvoice> createState() => _ManageInvoiceState();
@@ -27,17 +28,19 @@ class _ManageInvoiceState extends State<ManageInvoice> {
   bool isLastPage = false;
   List<InvoiceModel> invoices = [];
 
-  Map<String,dynamic> params = {
-    'page' : 1,
-    'limit' : 10,
-    'end_date' : moment.string(DateTime.now()),
-    'start_date' : moment.string(DateTime(DateTime.now().year, DateTime.now().month - 1, DateTime.now().day)),
-    'keyword' : ''
+  Map<String, dynamic> params = {
+    'page': 1,
+    'limit': 10,
+    'end_date': moment.string(DateTime.now()),
+    'start_date': moment.string(DateTime(
+        DateTime.now().year, DateTime.now().month - 1, DateTime.now().day)),
+    'keyword': ''
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bg,
       appBar: customAppBar2(
         context: context,
         title: widget.type == 'sale' ? 'Sale Invoices' : 'Purchase Invoices',
@@ -45,7 +48,7 @@ class _ManageInvoiceState extends State<ManageInvoice> {
         toggleSearch: () {
           setState(() {
             isSearch = !isSearch;
-            if(!isSearch) {
+            if (!isSearch) {
               params['keyword'] = '';
               getData();
             }
@@ -73,15 +76,15 @@ class _ManageInvoiceState extends State<ManageInvoice> {
             },
           ),
           Expanded(
-            child : ListItems(
-              type : widget.type,
-              isLoading : isLoading,
-              invoices : invoices,
-              delete : (id) => deleteData(id),
-              print : (id) => printData(id),
-              isLastPage: isLastPage, 
-              loadMore: loadMore, 
-              refresh: refresh, 
+            child: ListItems(
+              type: widget.type,
+              isLoading: isLoading,
+              invoices: invoices,
+              delete: (id) => deleteData(id),
+              print: (id) => printData(id),
+              isLastPage: isLastPage,
+              loadMore: loadMore,
+              refresh: refresh,
               params: params,
             ),
           )
@@ -93,7 +96,7 @@ class _ManageInvoiceState extends State<ManageInvoice> {
   deleteData(int? id) {
     confirm(
       onPressed: (result) {
-        if(result) {
+        if (result) {
           setState(() {
             invoices.removeWhere((invoice) => invoice.id == id);
             Navigator.pop(context);
@@ -111,10 +114,6 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     );
   }
 
-  printData(int? id) async {
-    await InvoiceServices.print(id);
-  }
-
   getData() {
     setState(() {
       isLoading = true;
@@ -128,22 +127,6 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     });
   }
 
-  Future loadMore() async {
-    var res = await InvoiceServices.get(params);
-    setState(() {
-      invoices = [...invoices, ...res['invoices']];
-      isLastPage = res['last_page'];
-    });
-  }
-
-  Future refresh() async{
-    var res = await InvoiceServices.get(params);
-    setState(() {
-      invoices = res['invoices'];
-      isLastPage = res['last_page'];
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -152,5 +135,24 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     });
     getData();
   }
-}
 
+  Future loadMore() async {
+    var res = await InvoiceServices.get(params);
+    setState(() {
+      invoices = [...invoices, ...res['invoices']];
+      isLastPage = res['last_page'];
+    });
+  }
+
+  printData(int? id) async {
+    await InvoiceServices.print(id);
+  }
+
+  Future refresh() async {
+    var res = await InvoiceServices.get(params);
+    setState(() {
+      invoices = res['invoices'];
+      isLastPage = res['last_page'];
+    });
+  }
+}

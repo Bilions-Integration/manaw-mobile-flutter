@@ -6,26 +6,21 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:screenshot/screenshot.dart';
 
-void actionPopup({
-  required BuildContext context,
-  required dynamic invoice,
-  required String type,
-  required Future<dynamic> Function(int? id) delete,
-  required Future<dynamic> Function(int? id) print
-}) {
+void actionPopup(
+    {required BuildContext context,
+    required dynamic invoice,
+    required String type,
+    required Future<dynamic> Function(int? id) delete,
+    required Future<dynamic> Function(int? id) print}) {
   showModalBottomSheet(
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top : Radius.circular(15)
-      )
-    ),
-    context : context ,
-    isScrollControlled: true,
-    builder : (BuildContext context) => SizedBox(
-      height: MediaQuery.of(context).size.height * 0.95,
-      child: ItemDetailCard(invoice : invoice, delete : delete, print : print, type : type)
-    )
-  );
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) => SizedBox(
+          height: MediaQuery.of(context).size.height * 0.95,
+          child: ItemDetailCard(
+              invoice: invoice, delete: delete, print: print, type: type)));
 }
 
 class ItemDetailCard extends StatefulWidget {
@@ -35,9 +30,9 @@ class ItemDetailCard extends StatefulWidget {
   final String type;
 
   const ItemDetailCard({
-    Key? key, 
+    Key? key,
     required this.invoice,
-    required this.delete, 
+    required this.delete,
     required this.print,
     required this.type,
   }) : super(key: key);
@@ -48,7 +43,7 @@ class ItemDetailCard extends StatefulWidget {
 
 class _ItemDetailCardState extends State<ItemDetailCard> {
   ScreenshotController screenshotController = ScreenshotController();
-    var testing;
+  var testing;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +52,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
         titleAndActions(widget.invoice, widget.delete, widget.type),
         Screenshot(
           controller: screenshotController,
-          child: Column( children: [
+          child: Column(children: [
             mb(6),
             invoiceInfo(widget.invoice),
             productLists(context, widget.invoice.products),
@@ -69,92 +64,32 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     );
   }
 
-  Widget titleAndActions(invoice, delete, type) {
-    return Column(
-      children: [
-        Row( 
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row( children: [
-              SvgPicture.asset(AppAssets.invoiceIcon,width: 47, height: 47),
-              mr(1),
-              Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice', style: Styles.h3),
-            ]),
-            Row( children: [
-              InkWell(
-                child : SvgPicture.asset(AppAssets.trash,width: 20, height: 20),
-                onTap: () => delete(invoice.id),
-              ),
-            ])
-          ]
-        ),
-        hr(height : 1, mt : 1),
-      ],
-    );
-  }
-
   Widget invoiceInfo(invoice) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         mb(1),
-        Text(invoice.invoice_number, style : Styles.h3),
+        Text(invoice.invoice_number, style: Styles.h3),
         mb(1.5),
-        Row( children: [
-          Column( 
-            crossAxisAlignment : CrossAxisAlignment.start,
-            children: [
-              Text('Invoice Date', style : Styles.label),
-              mb(1),
-              Text('Due Date', style : Styles.label),
-              mb(1),
-              Text('From', style : Styles.label),
-            ]
-          ),
+        Row(children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('Invoice Date', style: Styles.label),
+            mb(1),
+            Text('Due Date', style: Styles.label),
+            mb(1),
+            Text('From', style: Styles.label),
+          ]),
           mr(3),
-          Column( 
-            crossAxisAlignment : CrossAxisAlignment.start,
-            children: [
-              Text(invoice.invoice_date),
-              mb(1),
-              Text(invoice.due_date),
-              mb(1),
-              Text(invoice.receiver['shipping_address']??'-'),
-            ]
-          )
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(invoice.invoice_date),
+            mb(1),
+            Text(invoice.due_date),
+            mb(1),
+            Text(invoice.receiver['shipping_address'] ?? '-'),
+          ])
         ]),
-        hr(height : 1, mt : 1.5),
+        hr(height: 1, mt: 1.5),
       ],
-    );
-  }
-
-  Widget productLists(context, products) {
-    return Expanded(
-      child: ListView.builder(
-        // shrinkWrap: true,
-        itemCount: products.length ,
-        itemBuilder: (context, index) {
-          var product = products[index];
-          return Column(
-            children: [
-              mb(1),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text('${product.name}'),
-                      mr(1),
-                      Text('x ${product.quantity}', style: Styles.label),
-                    ],
-                  ),
-                  Text('\$${product.quantity * product.price}'),
-                ],
-              ),
-            ]
-          );
-        }
-      ),
     );
   }
 
@@ -166,10 +101,10 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
       child: SizedBox(
         child: Column(
           children: [
-            hr(height: 1, mt : 1, mb : 1),
+            hr(height: 1, mt: 1, mb: 1),
             Column(
               children: [
-                testing != null ?Image.memory(testing) : mb(1),
+                testing != null ? Image.memory(testing) : mb(1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -194,10 +129,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
                   ],
                 ),
                 mb(1.5),
-                PrimaryButton(
-                  value: 'Print',
-                  onPressed: print
-                )
+                PrimaryButton(value: 'Print', onPressed: print)
               ],
             ),
           ],
@@ -207,8 +139,9 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
   }
 
   print() {
-    screenshotController.capture(delay: const Duration(milliseconds: 10))
-    .then((image) async {
+    screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((image) async {
       if (image != null) {
         setState(() {
           testing = image;
@@ -218,5 +151,58 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     }).catchError((onError) {
       console.log(onError);
     });
+  }
+
+  Widget productLists(context, products) {
+    return Expanded(
+      child: ListView.builder(
+          // shrinkWrap: true,
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            var product = products[index];
+            return Column(children: [
+              mb(1),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text('${product.name}'),
+                        ),
+                        mr(1),
+                        Text('x ${product.quantity}', style: Styles.label),
+                      ],
+                    ),
+                  ),
+                  Text('\$${product.quantity * product.price}'),
+                ],
+              ),
+            ]);
+          }),
+    );
+  }
+
+  Widget titleAndActions(invoice, delete, type) {
+    return Column(
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Row(children: [
+            SvgPicture.asset(AppAssets.invoiceIcon, width: 47, height: 47),
+            mr(1),
+            Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice',
+                style: Styles.h3),
+          ]),
+          Row(children: [
+            InkWell(
+              child: SvgPicture.asset(AppAssets.trash, width: 20, height: 20),
+              onTap: () => delete(invoice.id),
+            ),
+          ])
+        ]),
+        hr(height: 1, mt: 1),
+      ],
+    );
   }
 }
