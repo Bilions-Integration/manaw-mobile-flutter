@@ -15,7 +15,7 @@ class InvoiceModel {
   final String createdAt;
   final Map? account;
   final List<ProductModel> products;
-  final String dueDate;
+  final String? dueDate;
   final Map receiver;
 
   InvoiceModel({
@@ -42,14 +42,11 @@ class InvoiceModel {
         invoiceNumber = json['invoice_number'],
         taxValue = json['tax_value'],
         createdAt = moment(json['created_at']).format(),
-        account = json['account'] != null
-            ? AccountModel.fromJson(json['account']).toJson()
-            : null,
+        account = AccountModel.fromJson(json['account']).toJson(),
         products = (json['products'] as List)
             .map((e) => ProductModel.fromJson(e))
             .toList(),
-        dueDate =
-            (json['due_date'] != null) ? moment(json['due_date']).format() : '',
+        dueDate = (json['due_date'] != null) ? moment(json['due_date']).format() : null,
         receiver = ReceiverModel.fromJson(json['receiver']).toJson();
 
   Map toJson() => {

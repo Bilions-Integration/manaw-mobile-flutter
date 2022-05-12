@@ -14,13 +14,20 @@ class ReceiverModel {
       this.billingAddress,
       this.shippingAddress});
 
-  ReceiverModel.fromJson(Map json)
-      : receiverId = json['receiver_id'] ?? 0,
-        receiverName = json['receiver_name'] ?? '',
-        receiverEmail = json['receiver_email'] ?? '',
-        receiverPhone = json['receiver_phone'] ?? '',
-        shippingAddress = json['shipping_address'] ?? '',
-        billingAddress = json['billing_address'] ?? '';
+  factory ReceiverModel.fromJson(Map? json) {
+    if(json != null ) {
+      return ReceiverModel(
+        receiverId : json['receiver_id'] ?? 0,
+        receiverName : json['receiver_name'] as String?,
+        receiverEmail : json['receiver_email'] as String?,
+        receiverPhone : json['receiver_phone'] as String?,
+        shippingAddress : json['shipping_address'] as String?,
+        billingAddress : json['billing_address'] as String?
+      );
+    } else {
+      return ReceiverModel();
+    }
+  }
 
   Map toJson() => {
         'receiver_id': receiverId,

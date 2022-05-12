@@ -70,7 +70,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         mb(1),
-        Text(invoice.invoice_number, style: Styles.h3),
+        Text(invoice.invoiceNumber, style: Styles.h3),
         mb(1.5),
         Row(children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -82,9 +82,9 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
           ]),
           mr(3),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(invoice.invoice_date),
+            Text(invoice.invoiceDate),
             mb(1),
-            Text(invoice.due_date),
+            Text(invoice.dueDate ?? '-'),
             mb(1),
             Text(invoice.receiver['shipping_address'] ?? '-'),
           ])
@@ -118,7 +118,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Tax', style: Styles.label),
-                    Text('\$${invoice.tax_value}'),
+                    Text('\$${invoice.taxValue}'),
                   ],
                 ),
                 mb(1),
@@ -126,7 +126,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Total', style: Styles.textBold),
-                    Text('\$${invoice.grand_total}', style: Styles.textBold),
+                    Text('\$${invoice.grandTotal}', style: Styles.textBold),
                   ],
                 ),
                 mb(1.5),
@@ -157,26 +157,28 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
   Widget productLists(context, products) {
     return Expanded(
       child: ListView.builder(
-          // shrinkWrap: true,
           itemCount: products.length,
           itemBuilder: (context, index) {
             var product = products[index];
             return Column(children: [
-              mb(1),
+              mb(1.2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Text('${product.name}'),
                         ),
-                        mr(1),
+                        mr(1), 
                         Text('x ${product.quantity}', style: Styles.label),
                       ],
                     ),
                   ),
+                  mr(3),
                   Text('\$${product.quantity * product.price}'),
                 ],
               ),

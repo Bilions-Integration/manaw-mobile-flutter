@@ -76,8 +76,8 @@ class ListItems extends StatelessWidget {
       ),
       child: Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(invoice.invoice_number, style: Styles.h3),
-          Text(invoice.created_at),
+          Text(invoice.invoiceNumber, style: Styles.h3),
+          Text(invoice.createdAt),
         ]),
         mb(2),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -86,13 +86,13 @@ class ListItems extends StatelessWidget {
         ]),
         mb(0.5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(invoice.receiver["receiver_name"], style: Styles.h5),
-          Text(invoice.account["bank_name"], style: Styles.h5),
+          Text(invoice.receiver["receiver_name"] ?? '-', style: Styles.h5),
+          Text(invoice.account["bank_name"] ?? '-', style: Styles.h5),
         ]),
         hr(height: 1, mt: 1.5, mb: 1.5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const Text('Total'),
-          Text('\$${invoice.grand_total}', style: Styles.h4),
+          Text('${currency()} ${invoice.grandTotal}', style: Styles.h4),
         ]),
       ]),
     );
