@@ -56,13 +56,23 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(product.name),
+                  Text(
+                    product.name,
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: 13,
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '${currency()} ${cast(product.price)}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                          fontSize: 17,
+                        ),
                       ),
                       MaterialButton(
                         color: AppColors.primary,

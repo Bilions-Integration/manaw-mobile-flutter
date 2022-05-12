@@ -51,13 +51,23 @@ alert({String? title, String? message, Function()? onPressed}) {
   );
 }
 
-Widget borderRadiusCard(radius, child, {double border = 0}) {
+Widget borderRadiusCard(
+  double radius,
+  child, {
+  double border = 0,
+  color,
+  double padding = 0,
+}) {
   return Container(
     child: child,
+    padding: EdgeInsets.all(padding),
     decoration: BoxDecoration(
-      border: Border.all(color: AppColors.borderColor, width: border),
-      color: AppColors.white,
-      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: AppColors.borderColor,
+        width: border,
+      ),
+      color: color ?? AppColors.white,
+      borderRadius: BorderRadius.circular(radius),
     ),
   );
 }

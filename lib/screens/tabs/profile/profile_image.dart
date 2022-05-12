@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
@@ -13,46 +14,82 @@ class ProfileImage extends StatelessWidget {
 
   final String? image;
 
+  final auth = Get.find<AuthController>();
+
   ProfileImage({Key? key, required this.callback, this.image})
       : super(key: key);
 
-  final auth = Get.find<AuthController>();
-
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: InkWell(
-          onTap: _showUploader,
-          child: Stack(children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(image ?? ''),
-            ),
-            Positioned(
-              bottom: -5,
-              right: 4,
-              child: borderRadiusCard(
-                  10,
-                  const Icon(
-                    Icons.photo_camera,
-                    size: 20,
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: InkWell(
+            onTap: _showUploader,
+            child: Stack(
+              children: [
+                borderRadiusCard(
+                  100,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(100),
+                    ),
+                    child: Container(
+                      color: AppColors.white,
+                      child: Image.network(
+                        image ?? '',
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  border: 2),
-            )
-          ]),
+                  padding: 2,
+                  color: AppColors.lightGrey,
+                ),
+                Positioned(
+                  bottom: -5,
+                  right: 4,
+                  child: borderRadiusCard(
+                    20,
+                    const Icon(
+                      Icons.photo_camera,
+                      size: 20,
+                    ),
+                    border: 0,
+                    padding: 2,
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
-      Text(
-        auth.user.value!.name,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+        mr(1),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                auth.user.value!.name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              mb(0.5),
+              Text(
+                auth.user.value!.email,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.grey,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      mb(2)
-    ]);
+      ],
+    );
   }
 
   _showUploader() {

@@ -5,7 +5,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 
 class ProfileMenu extends StatelessWidget {
-  final Widget icon;
+  final String icon;
   final String title;
   final String? value;
   final Widget? screen;
@@ -26,7 +26,7 @@ class ProfileMenu extends StatelessWidget {
       onTap: () {
         onPressed != null ? onPressed!() : null;
       },
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.only(left: 3, right: 3),
         child: Container(
           padding: const EdgeInsets.only(right: 10, left: 10),
@@ -35,7 +35,20 @@ class ProfileMenu extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
-                children: [icon, mr(1), Text(title)],
+                children: [
+                  borderRadiusCard(
+                    10,
+                    SvgPicture.asset(
+                      icon,
+                      width: 18,
+                      color: AppColors.black,
+                    ),
+                    padding: 7,
+                    color: AppColors.lightGrey,
+                  ),
+                  mr(1),
+                  Text(title),
+                ],
               ),
               Expanded(
                 child: Row(
@@ -54,7 +67,8 @@ class ProfileMenu extends StatelessWidget {
                     SvgPicture.asset(AppAssets.icArrowRight),
                   ],
                 ),
-              )
+              ),
+              mr(0.5),
             ],
           ),
           width: double.infinity,
@@ -62,7 +76,7 @@ class ProfileMenu extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 0),
           decoration: BoxDecoration(
             border: Border(
-                bottom: BorderSide(color: AppColors.borderColor, width: 2)),
+                bottom: BorderSide(color: AppColors.borderColor, width: 1)),
           ),
         ),
       ),

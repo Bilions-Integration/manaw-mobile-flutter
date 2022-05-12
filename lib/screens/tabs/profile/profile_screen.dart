@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/color_picker.dart';
 import 'package:my_app/components/prompt.dart';
-import 'package:my_app/data/assets.dart';
-import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
@@ -32,18 +32,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   User? user;
 
   @override
-  void initState() {
-    setState(() {
-      user = auth.user.value;
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: AppColors.white,
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileImage(
             image: user?.image,
@@ -53,56 +47,57 @@ class _ProfileScreenState extends State<ProfileScreen> {
               })
             },
           ),
+          mb(1.5),
           Expanded(
             child: ListView(
               children: [
-                Column(children: [
-                  hr(),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  hr(width: 1),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icUser),
+                    icon: AppAssets.icUser,
                     title: 'Name',
                     value: user?.name ?? '',
                     onPressed: _changeName,
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icEmail),
+                    icon: AppAssets.icEmail,
                     title: 'Email',
                     value: user?.email ?? '',
                     onPressed: _changeEmail,
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icTheme),
+                    icon: AppAssets.icTheme,
                     title: 'Appearance',
                     onPressed: _showColorPicker,
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icKey),
+                    icon: AppAssets.icKey,
                     title: 'Password',
                     onPressed: _showChangePasswordModal,
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icPrinter),
+                    icon: AppAssets.icPrinter,
                     title: 'Printer Setting',
                     onPressed: () {
                       Get.to(RouteName.printerSettingScreen);
                     },
                   ),
-                  ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icHelp),
+                  const ProfileMenu(
+                    icon: AppAssets.icHelp,
                     title: 'Help',
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icInfo),
+                    icon: AppAssets.icInfo,
                     title: 'Report a problem',
                     onPressed: _reportProblem,
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.bilions),
+                    icon: AppAssets.bilions,
                     title: 'About us',
                     onPressed: _showAbout,
                   ),
                   ProfileMenu(
-                    icon: SvgPicture.asset(AppAssets.icLogout),
+                    icon: AppAssets.icLogout,
                     title: 'Logout',
                     onPressed: _logout,
                   )
@@ -115,24 +110,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _showChangePasswordModal() {
-    changePassword();
+  @override
+  void initState() {
+    setState(() {
+      user = auth.user.value;
+    });
+    super.initState();
   }
 
-  _reportProblem() {
+  _changeEmail() {
     prompt(
-      onSubmit: (String? name) {
-        Get.snackbar(
-          'Success',
-          'Thanks for your feedback.',
-          icon: const Icon(Icons.check_circle),
-        );
+      onSubmit: (String? email) async {
+        if (email != null && email != '') {
+          await ProfileService.requestChangeEmailOTP(email);
+          Get.to(() => OTPScreen(type: 'change_email', email: email));
+        }
       },
-      confirmText: 'Submit',
-      title: 'Report',
-      placeholder: 'Write a message',
-      textarea: true,
-      height: 300,
+      confirmText: 'Request OTP',
+      title: 'Change Email',
+      placeholder: 'Enter new email address',
+      icon: Icons.email,
     );
   }
 
@@ -156,42 +153,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _changeEmail() {
-    prompt(
-      onSubmit: (String? email) async {
-        if (email != null && email != '') {
-          await ProfileService.requestChangeEmailOTP(email);
-          Get.to(() => OTPScreen(type: 'change_email', email: email));
-        }
-      },
-      confirmText: 'Request OTP',
-      title: 'Change Email',
-      placeholder: 'Enter new email address',
-      icon: Icons.email,
-    );
-  }
-
-  _showAbout() {
-    showAboutDialog(
-      context: currentContext(),
-      applicationName: 'Manaw Store',
-      applicationVersion: "1.0.0",
-      applicationLegalese:
-          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
-    );
-  }
-
-  _showColorPicker() {
-    showColorPicker(onColorChange: (String color) {
-      final user = auth.user.value;
-      user?.company.hexColor = color;
-      auth.user.value = user;
-      tab.index.value = 0;
-      tab.index.value = 3;
-      CompanyService.setColor(color);
-    });
-  }
-
   _logout() {
     confirm(
       title: 'Logout',
@@ -208,5 +169,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
       },
     );
+  }
+
+  _reportProblem() {
+    prompt(
+      onSubmit: (String? name) {
+        Get.snackbar(
+          'Success',
+          'Thanks for your feedback.',
+          icon: const Icon(Icons.check_circle),
+        );
+      },
+      confirmText: 'Submit',
+      title: 'Report',
+      placeholder: 'Write a message',
+      textarea: true,
+      height: 300,
+    );
+  }
+
+  _showAbout() {
+    showAboutDialog(
+      context: currentContext(),
+      applicationName: 'Manaw Store',
+      applicationVersion: "1.0.0",
+      applicationLegalese:
+          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+    );
+  }
+
+  _showChangePasswordModal() {
+    changePassword();
+  }
+
+  _showColorPicker() {
+    showColorPicker(onColorChange: (String color) {
+      final user = auth.user.value;
+      user?.company.hexColor = color;
+      auth.user.value = user;
+      tab.index.value = 0;
+      tab.index.value = 3;
+      CompanyService.setColor(color);
+    });
   }
 }
