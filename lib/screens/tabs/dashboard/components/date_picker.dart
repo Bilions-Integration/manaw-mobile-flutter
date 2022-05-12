@@ -27,7 +27,7 @@ class _DatePickerState extends State<DatePicker> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 0,
       margin: const EdgeInsets.all(0),
       child: Container(
         height: 50,
