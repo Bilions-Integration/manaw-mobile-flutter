@@ -85,7 +85,7 @@ class _AccountListState extends State<AccountList> {
           )),
       child: ListTile(
         title: Text(
-          account.bankName,
+          account.bankName ?? '-',
           style: Styles.h5,
         ),
         subtitle: Text(
