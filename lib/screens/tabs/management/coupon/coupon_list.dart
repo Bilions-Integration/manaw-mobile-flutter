@@ -21,11 +21,8 @@ class _CouponListState extends State<CouponList> {
   bool isLoading = false;
   bool isLastPage = false;
   List coupons = [];
-  Map<String, dynamic> params = {
-    'page' : 1,
-    'limit' : 20
-  };
-  
+  Map<String, dynamic> params = {'page': 1, 'limit': 20};
+
   @override
   void initState() {
     getCoupons();
@@ -35,56 +32,56 @@ class _CouponListState extends State<CouponList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar2(
-        context: context,
-        title: 'Coupons',
-        isSearch: isSearch,
-        toggleSearch: () {
-          setState(() {
-            isSearch = !isSearch;
-          });
-        },
-        search: () {},
-        add: () => Get.to(const CouponCreateAndEdit()),
-      ),
-      body: list(context));
+        appBar: customAppBar2(
+          context: context,
+          title: 'Coupons',
+          isSearch: isSearch,
+          toggleSearch: () {
+            setState(() {
+              isSearch = !isSearch;
+            });
+          },
+          search: () {},
+          add: () => Get.to(const CouponCreateAndEdit()),
+        ),
+        body: list(context));
   }
 
   Widget list(BuildContext context) {
     return CustomItemList(
-      refresh: refresh,
-      items: coupons, 
-      params: params, 
-      loadMore: loadMore, 
-      isLoading: isLoading, 
-      isLastPage: isLastPage, 
-      emptyWidget: Styles.emptyList('No Coupon yet', AppAssets.emptyCategory, 'Create new Coupon', const CouponCreateAndEdit()),
-      itemBuilder: (context, index) => Column(
-        children: [
-          InkWell(
-            onLongPress: () => Styles.customBottomSheet(context, 20,
-              ActionPopup(
-                id: coupons[index].id, 
-                edit: (id) => Get.to(CouponCreateAndEdit(id : coupons[index].id)), 
-                delete: (id) => deleteData(coupons[index].id)
-              )
-            ),
-            child: ListTile(
-              title: Text(coupons[index].name),
-              subtitle: Text(coupons[index].couponCode),
-            )
-          ),
-        ],
-      )
-    );
+        refresh: refresh,
+        items: coupons,
+        params: params,
+        loadMore: loadMore,
+        isLoading: isLoading,
+        isLastPage: isLastPage,
+        emptyWidget: Styles.emptyList('No Coupon yet', AppAssets.emptyCategory,
+            'Create new Coupon', const CouponCreateAndEdit()),
+        itemBuilder: (context, index) => Column(
+              children: [
+                InkWell(
+                    onLongPress: () => Styles.customBottomSheet(
+                        context,
+                        20,
+                        ActionPopup(
+                            id: coupons[index].id,
+                            edit: (id) => Get.to(
+                                CouponCreateAndEdit(id: coupons[index].id)),
+                            delete: (id) => deleteData(coupons[index].id))),
+                    child: ListTile(
+                      title: Text(coupons[index].name),
+                      subtitle: Text(coupons[index].couponCode),
+                    )),
+              ],
+            ));
   }
 
   Future deleteData(int? id) async {
     confirm(
       onPressed: (result) async {
-        if(result) {
+        if (result) {
           Map<String, List> deleteParams = {
-            'discount_ids' : [ id ],
+            'discount_ids': [id],
           };
           await CouponService.delete(deleteParams);
           setState(() {
@@ -125,7 +122,7 @@ class _CouponListState extends State<CouponList> {
     });
   }
 
-  Future refresh() async{
+  Future refresh() async {
     var res = await CouponService.get(params);
     setState(() {
       coupons = res['data'];

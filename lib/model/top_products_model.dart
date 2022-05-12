@@ -15,7 +15,8 @@ class TopProductsModel {
     required this.percent,
   });
 
-  factory TopProductsModel.fromJson(Map<String, dynamic> json) => TopProductsModel(
+  factory TopProductsModel.fromJson(Map<String, dynamic> json) =>
+      TopProductsModel(
         name: json['name'] ?? '',
         image: json['images'][0] ?? AppAssets.placeholder,
         totalQuantity: json['total_quantity'],

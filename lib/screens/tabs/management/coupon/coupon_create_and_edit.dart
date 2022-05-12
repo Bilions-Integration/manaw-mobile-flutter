@@ -36,7 +36,7 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
 
   @override
   void initState() {
-    if(widget.id != null) {
+    if (widget.id != null) {
       fetchData();
     }
     super.initState();
@@ -45,26 +45,24 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar2(
-        context: context,
-        title: 'Coupon ${widget.id != null ? "Edit" : "Create"}',
-        showAction: false,
-        centerTitle: true,
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: loading == false 
-        ? FormCard(
-          params: params,
-          submit: submit,
-        )
-        : Styles.loading
-      )
-    );
+        appBar: customAppBar2(
+          context: context,
+          title: 'Coupon ${widget.id != null ? "Edit" : "Create"}',
+          showAction: false,
+          centerTitle: true,
+        ),
+        body: Container(
+            padding: const EdgeInsets.all(20),
+            child: loading == false
+                ? FormCard(
+                    params: params,
+                    submit: submit,
+                  )
+                : Styles.loading));
   }
 
   submit() async {
-    if(widget.id != null) {
+    if (widget.id != null) {
       await CouponService.update(widget.id, params);
       Get.snackbar(
         'Success',

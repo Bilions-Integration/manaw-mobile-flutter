@@ -9,6 +9,6 @@ class ManagePurchaseInvoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ManageInvoice(type : 'purchase');
+    return const ManageInvoice(type: 'purchase');
   }
 }

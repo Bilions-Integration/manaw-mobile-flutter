@@ -88,9 +88,9 @@ showCouponModal() {
 
 showAccountModal({Function()? callback}) async {
   final cartController = Get.find<CartController>();
-  Map<String,dynamic> params = {'page' : 1, 'limit' : 100, 'select' : true};
+  Map<String, dynamic> params = {'page': 1, 'limit': 100, 'select': true};
   var res = await AccountService.get(params);
-  List<AccountModel> accounts  = res['data'];
+  List<AccountModel> accounts = res['data'];
   _onSelect(AccountModel account) {
     cartController.account.value = account;
     final box = GetStorage();

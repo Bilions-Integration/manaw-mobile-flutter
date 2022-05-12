@@ -8,7 +8,7 @@ import 'components/form_card.dart';
 
 class ManageStore extends StatefulWidget {
   const ManageStore({
-    Key? key, 
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class ManageStore extends StatefulWidget {
 }
 
 class _ManageStoreState extends State<ManageStore> {
-  Map<String,dynamic> params = {};
+  Map<String, dynamic> params = {};
   bool loading = false;
 
   @override
@@ -28,25 +28,23 @@ class _ManageStoreState extends State<ManageStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar2(
-        context: context,
-        title: 'My Store',
-        showAction: false,
-        centerTitle: true,
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: loading == false 
-        ? FormCard(
-          params: params,
-          submit: submit,
-        )
-        : Styles.loading
-      )
-    );
+        appBar: customAppBar2(
+          context: context,
+          title: 'My Store',
+          showAction: false,
+          centerTitle: true,
+        ),
+        body: Container(
+            padding: const EdgeInsets.all(20),
+            child: loading == false
+                ? FormCard(
+                    params: params,
+                    submit: submit,
+                  )
+                : Styles.loading));
   }
 
-  Future submit() async{
+  Future submit() async {
     await CompanyService.update(params);
     Get.snackbar(
       'Success',
@@ -59,7 +57,7 @@ class _ManageStoreState extends State<ManageStore> {
     setState(() {
       loading = true;
     });
-    Future.delayed(const Duration(milliseconds: 1000), () async { 
+    Future.delayed(const Duration(milliseconds: 1000), () async {
       var res = await CompanyService.fetch();
       var data = res;
       data['old_logo'] = data['logo'];

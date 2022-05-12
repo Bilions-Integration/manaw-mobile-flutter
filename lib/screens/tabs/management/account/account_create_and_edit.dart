@@ -7,10 +7,7 @@ import 'package:my_app/screens/tabs/management/account/components/form_cart.dart
 import 'package:my_app/services/account_service.dart';
 
 class AccountCreateAndEdit extends StatefulWidget {
-  const AccountCreateAndEdit({
-    Key? key, 
-    this.id
-  }) : super(key: key);
+  const AccountCreateAndEdit({Key? key, this.id}) : super(key: key);
 
   final int? id;
 
@@ -30,7 +27,7 @@ class _AccountCreateAndEditState extends State<AccountCreateAndEdit> {
 
   @override
   void initState() {
-    if(widget.id != null) {
+    if (widget.id != null) {
       fetchData();
     }
     super.initState();
@@ -39,26 +36,24 @@ class _AccountCreateAndEditState extends State<AccountCreateAndEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar2(
-        context: context,
-        title: 'Coupon ${widget.id != null ? "Edit" : "Create"}',
-        showAction: false,
-        centerTitle: true,
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: loading == false 
-        ? FormCard(
-          params: params,
-          submit: submit,
-        )
-        : Styles.loading
-      )
-    );
+        appBar: customAppBar2(
+          context: context,
+          title: 'Coupon ${widget.id != null ? "Edit" : "Create"}',
+          showAction: false,
+          centerTitle: true,
+        ),
+        body: Container(
+            padding: const EdgeInsets.all(20),
+            child: loading == false
+                ? FormCard(
+                    params: params,
+                    submit: submit,
+                  )
+                : Styles.loading));
   }
 
   submit() async {
-    if(widget.id != null) {
+    if (widget.id != null) {
       await AccountService.update(widget.id, params);
       Get.snackbar(
         'Success',

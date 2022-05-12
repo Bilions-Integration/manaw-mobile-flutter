@@ -8,7 +8,7 @@ import 'package:my_app/screens/tabs/management/store/components/image_card.dart'
 class FormCard extends StatefulWidget {
   const FormCard({
     Key? key,
-    required this.params, 
+    required this.params,
     required this.submit,
   }) : super(key: key);
 
@@ -25,25 +25,25 @@ class _FormCardState extends State<FormCard> {
     return SingleChildScrollView(
       child: Column(
         children: [
-           ImageCard(
+          ImageCard(
             logo: widget.params['old_logo'],
             banner: widget.params['old_banner'],
             callback: (MyFile image, String type) {
               setState(() {
-                if(type == 'logo') {
+                if (type == 'logo') {
                   widget.params['logo'] = image.blob;
                 } else {
                   widget.params['banner'] = image.blob;
                 }
-              });               
+              });
             },
           ),
           MyTextInput(
-            value: widget.params['name'],
-            onChanged: _onValueChanged,
-            column: 'name',
-            placeholder: '',
-            label: 'Store Name'),
+              value: widget.params['name'],
+              onChanged: _onValueChanged,
+              column: 'name',
+              placeholder: '',
+              label: 'Store Name'),
           MyTextInput(
             value: widget.params['currencySymbol'],
             onChanged: _onValueChanged,
@@ -125,5 +125,4 @@ class _FormCardState extends State<FormCard> {
       widget.params[column] = value;
     });
   }
-
 }

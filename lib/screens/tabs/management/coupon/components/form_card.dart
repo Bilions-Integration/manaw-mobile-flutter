@@ -6,7 +6,8 @@ import 'package:my_app/helpers/helper.dart';
 class FormCard extends StatefulWidget {
   const FormCard({
     Key? key,
-    required this.params, required this.submit,
+    required this.params,
+    required this.submit,
   }) : super(key: key);
 
   final Map<String, dynamic> params;
@@ -23,11 +24,11 @@ class _FormCardState extends State<FormCard> {
       child: Column(
         children: [
           MyTextInput(
-            value: widget.params['name'],
-            onChanged: _onValueChanged,
-            column: 'name',
-            placeholder: 'Coupon Name',
-            label: 'Coupon Name'),
+              value: widget.params['name'],
+              onChanged: _onValueChanged,
+              column: 'name',
+              placeholder: 'Coupon Name',
+              label: 'Coupon Name'),
           MyTextInput(
             value: widget.params['coupon_code'],
             onChanged: _onValueChanged,
@@ -55,8 +56,9 @@ class _FormCardState extends State<FormCard> {
             value: widget.params[getInputParamByType()],
             onChanged: _onValueChanged,
             column: getInputParamByType(),
-            placeholder: '${widget.params['type'] == 'fixed' ? 'Amount' : 'Percent'} off',
-            numberOnly : true,
+            placeholder:
+                '${widget.params['type'] == 'fixed' ? 'Amount' : 'Percent'} off',
+            numberOnly: true,
           ),
           MyTextInput(
             value: widget.params['useable_time'],
@@ -64,7 +66,7 @@ class _FormCardState extends State<FormCard> {
             column: 'useable_time',
             placeholder: 'Useable Time',
             label: 'Useable Time ( leave empty for unlimited )',
-            numberOnly : true,
+            numberOnly: true,
           ),
           mb(2),
           PrimaryButton(value: 'Save', onPressed: widget.submit),
@@ -80,5 +82,6 @@ class _FormCardState extends State<FormCard> {
     });
   }
 
-  getInputParamByType() => widget.params['type'] == 'fixed' ? 'amount' : 'percent';
+  getInputParamByType() =>
+      widget.params['type'] == 'fixed' ? 'amount' : 'percent';
 }

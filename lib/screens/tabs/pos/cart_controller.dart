@@ -118,12 +118,10 @@ class CartController extends GetxController {
       "discount_type": "fixed",
       "account_id": account.value?.id,
       "products": list,
-      "receiver_auto_create" : true,
-      "paid_amount" : 0,
+      "receiver_auto_create": true,
+      "paid_amount": 0,
     };
     console.log('PARAMS to SUBMIT => $params');
     await InvoiceServices.create(params);
   }
 }
-
-

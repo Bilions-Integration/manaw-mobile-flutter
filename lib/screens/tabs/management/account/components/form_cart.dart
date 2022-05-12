@@ -6,7 +6,8 @@ import 'package:my_app/helpers/helper.dart';
 class FormCard extends StatefulWidget {
   const FormCard({
     Key? key,
-    required this.params, required this.submit,
+    required this.params,
+    required this.submit,
   }) : super(key: key);
 
   final Map<String, dynamic> params;
@@ -23,11 +24,11 @@ class _FormCardState extends State<FormCard> {
       child: Column(
         children: [
           MyTextInput(
-            value: widget.params['bank_name'],
-            onChanged: _onValueChanged,
-            column: 'bank_name',
-            placeholder: 'Bank Name',
-            label: 'Bank Name'),
+              value: widget.params['bank_name'],
+              onChanged: _onValueChanged,
+              column: 'bank_name',
+              placeholder: 'Bank Name',
+              label: 'Bank Name'),
           MyTextInput(
             value: widget.params['owner_name'],
             onChanged: _onValueChanged,
@@ -41,7 +42,7 @@ class _FormCardState extends State<FormCard> {
             column: 'initial_amount',
             placeholder: 'Initial Amount',
             label: 'Initial Amount',
-            numberOnly : true,
+            numberOnly: true,
           ),
           mb(2),
           PrimaryButton(value: 'Save', onPressed: widget.submit),
@@ -56,5 +57,4 @@ class _FormCardState extends State<FormCard> {
       widget.params[column] = value;
     });
   }
-
 }

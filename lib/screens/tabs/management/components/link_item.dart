@@ -21,7 +21,8 @@ class LinkItem extends StatelessWidget {
     return InkWell(
       onTap: () => {Get.to(page)},
       child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 14, bottom: 14),
+        padding:
+            const EdgeInsets.only(left: 10, right: 10, top: 14, bottom: 14),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

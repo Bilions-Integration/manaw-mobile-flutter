@@ -24,7 +24,8 @@ class _ImageUploaderState extends State<ImageUploader> {
   File? currentlyPickedImage;
 
   Future pickMedia() async {
-    final ImageSource source = isGallery ? ImageSource.gallery : ImageSource.camera;
+    final ImageSource source =
+        isGallery ? ImageSource.gallery : ImageSource.camera;
     final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile == null) return;
     if (!cropImage) {
@@ -36,56 +37,55 @@ class _ImageUploaderState extends State<ImageUploader> {
 
   Future cropSquareImage(XFile pickedFile) async {
     File? croppedFile = await ImageCropper().cropImage(
-      sourcePath: pickedFile.path,
-      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-      aspectRatioPresets: [CropAspectRatioPreset.square],
-      compressQuality: 70,
-      compressFormat: ImageCompressFormat.jpg
-    );
+        sourcePath: pickedFile.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        aspectRatioPresets: [CropAspectRatioPreset.square],
+        compressQuality: 70,
+        compressFormat: ImageCompressFormat.jpg);
 
-    if(croppedFile != null) setImage(croppedFile);
+    if (croppedFile != null) setImage(croppedFile);
   }
 
   Future setImage(File fileToSave) async {
     currentlyPickedImage = fileToSave;
     String fileName = fileToSave.path.split('/').last;
-    MultipartFile image = await MultipartFile.fromFile(fileToSave.path,filename: fileName);
+    MultipartFile image =
+        await MultipartFile.fromFile(fileToSave.path, filename: fileName);
     setState(() => widget.params?['image'] = image);
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          InkWell(
+        child: Column(
+      children: [
+        InkWell(
             onTap: () {
               pickMedia();
             },
-            child : Container(
-              width : MediaQuery.of(context).size.width * 0.4,
-              height : MediaQuery.of(context).size.width * 0.4,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: MediaQuery.of(context).size.width * 0.4,
               decoration: BoxDecoration(
                 color: const Color(0xffE8E8E8),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child : Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child : currentlyPickedImage != null 
-                      ? Image.file(currentlyPickedImage!)
-                      : widget.params?['old_image'] != null
-                      ? Image.network(widget.params?['old_image'])
-                      : SvgPicture.asset(AppAssets.plus,width: 20, height: 20)
-                  ),
+                      borderRadius: BorderRadius.circular(20),
+                      child: currentlyPickedImage != null
+                          ? Image.file(currentlyPickedImage!)
+                          : widget.params?['old_image'] != null
+                              ? Image.network(widget.params?['old_image'])
+                              : SvgPicture.asset(AppAssets.plus,
+                                  width: 20, height: 20)),
                 ],
               ),
-            )
-          ),
-          const SizedBox(height: 10),
-          const Text('add Category Image', style: TextStyle(fontSize: 15)),
+            )),
+        const SizedBox(height: 10),
+        const Text('add Category Image', style: TextStyle(fontSize: 15)),
       ],
     ));
   }

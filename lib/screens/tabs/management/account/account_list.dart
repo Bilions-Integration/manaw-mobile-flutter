@@ -21,18 +21,14 @@ class _AccountListState extends State<AccountList> {
   bool isLoading = false;
   bool isLastPage = false;
   List accounts = [];
-  Map<String,dynamic> params = {
-    'page' : 1,
-    'limit' : 20,
-    "select": true
-  };
+  Map<String, dynamic> params = {'page': 1, 'limit': 20, "select": true};
 
   @override
   void initState() {
     getAccounts();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,44 +49,53 @@ class _AccountListState extends State<AccountList> {
   }
 
   Widget list(BuildContext context) {
-    return  CustomItemList(
-      refresh: refresh,
-      items: accounts, 
-      params: params, 
-      loadMore: loadMore, 
-      isLoading: isLoading, 
-      isLastPage: isLastPage,
-      emptyWidget: Styles.emptyList('No Account yet', AppAssets.emptyCategory, 'Create new Account', const AccountCreateAndEdit()),
-      itemBuilder: (context, index) => Column(
-        children: [
-          InkWell(
-            onLongPress: () => Styles.customBottomSheet(context, 20,
-              ActionPopup(
-                id: accounts[index].id, 
-                edit: (id) => Get.to(AccountCreateAndEdit(id :accounts[index].id)), 
-                delete: (id) => deleteData(accounts[index].id)
-              )
-            ),
-            child: listItem(accounts[index]),
-          ),
-          mb(0.7),
-        ],
-      )
-    );
+    return CustomItemList(
+        refresh: refresh,
+        items: accounts,
+        params: params,
+        loadMore: loadMore,
+        isLoading: isLoading,
+        isLastPage: isLastPage,
+        emptyWidget: Styles.emptyList('No Account yet', AppAssets.emptyCategory,
+            'Create new Account', const AccountCreateAndEdit()),
+        itemBuilder: (context, index) => Column(
+              children: [
+                InkWell(
+                  onLongPress: () => Styles.customBottomSheet(
+                      context,
+                      20,
+                      ActionPopup(
+                          id: accounts[index].id,
+                          edit: (id) => Get.to(
+                              AccountCreateAndEdit(id: accounts[index].id)),
+                          delete: (id) => deleteData(accounts[index].id))),
+                  child: listItem(accounts[index]),
+                ),
+                mb(0.7),
+              ],
+            ));
   }
 
   Widget listItem(account) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        border: Border.all(
-          color : const Color(0xffE2E2E2),
-        )
-      ),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          border: Border.all(
+            color: const Color(0xffE2E2E2),
+          )),
       child: ListTile(
-        title: Text(account.bankName, style: Styles.h5,),
-        subtitle: Text(account.ownerName, style: Styles.l6,),
-        trailing: Text('\$${account.initialAmount}', style: Styles.t5,),
+        title: Text(
+          account.bankName,
+          style: Styles.h5,
+        ),
+        subtitle: Text(
+          account.ownerName,
+          style: Styles.l6,
+        ),
+        trailing: Text(
+          '\$${account.initialAmount}',
+          style: Styles.t5,
+        ),
       ),
     );
   }
@@ -113,7 +118,7 @@ class _AccountListState extends State<AccountList> {
     await AccountService.get(params);
   }
 
-  Future refresh() async{
+  Future refresh() async {
     var res = await AccountService.get(params);
     setState(() {
       accounts = res['data'];
@@ -124,7 +129,7 @@ class _AccountListState extends State<AccountList> {
   deleteData(int? id) {
     confirm(
       onPressed: (result) async {
-        if(result) {
+        if (result) {
           await AccountService.delete(id);
           setState(() {
             accounts.removeWhere((category) => category.id == id);
