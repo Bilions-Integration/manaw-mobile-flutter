@@ -7,9 +7,9 @@ import 'package:my_app/screens/tabs/management/account/components/form_cart.dart
 import 'package:my_app/services/account_service.dart';
 
 class AccountCreateAndEdit extends StatefulWidget {
-  const AccountCreateAndEdit({Key? key, this.id}) : super(key: key);
-
   final int? id;
+
+  const AccountCreateAndEdit({Key? key, this.id}) : super(key: key);
 
   @override
   State<AccountCreateAndEdit> createState() => _AccountCreateAndEditState();
@@ -26,30 +26,49 @@ class _AccountCreateAndEditState extends State<AccountCreateAndEdit> {
   };
 
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: customAppBar2(
+        context: context,
+        title: 'Account ${widget.id != null ? "Edit" : "Create"}',
+        showAction: false,
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: loading == false
+            ? FormCard(
+                params: params,
+                submit: submit,
+              )
+            : Styles.loading,
+      ),
+    );
+  }
+
+  fetchData() {
+    setState(() {
+      loading = true;
+    });
+    Future.delayed(const Duration(milliseconds: 1000), () async {
+      var res = await AccountService.fetch(widget.id);
+      setState(() {
+        params['owner_name'] = res['owner_name'];
+        params['account_number'] = res['account_number'];
+        params['bank_name'] = res['bank_name'];
+        params['initial_amount'] = res['initial_amount'];
+        params['current_amount'] = res['current_amount'];
+        loading = false;
+      });
+    });
+  }
+
+  @override
   void initState() {
     if (widget.id != null) {
       fetchData();
     }
     super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: customAppBar2(
-          context: context,
-          title: 'Coupon ${widget.id != null ? "Edit" : "Create"}',
-          showAction: false,
-          centerTitle: true,
-        ),
-        body: Container(
-            padding: const EdgeInsets.all(20),
-            child: loading == false
-                ? FormCard(
-                    params: params,
-                    submit: submit,
-                  )
-                : Styles.loading));
   }
 
   submit() async {
@@ -69,22 +88,5 @@ class _AccountCreateAndEditState extends State<AccountCreateAndEdit> {
       );
     }
     Get.to(const AccountList());
-  }
-
-  fetchData() {
-    setState(() {
-      loading = true;
-    });
-    Future.delayed(const Duration(milliseconds: 1000), () async {
-      var res = await AccountService.fetch(widget.id);
-      setState(() {
-        params['owner_name'] = res['owner_name'];
-        params['account_number'] = res['account_number'];
-        params['bank_name'] = res['bank_name'];
-        params['initial_amount'] = res['initial_amount'];
-        params['current_amount'] = res['current_amount'];
-        loading = false;
-      });
-    });
   }
 }
