@@ -64,27 +64,6 @@ class _ManageReportState extends State<ManageReport> {
     _getData();
   }
 
-  // _deleteData(int? id) {
-  //   confirm(
-  //     onPressed: (result) {
-  //       if (result) {
-  //         setState(() {
-  //           reports.removeWhere((invoice) => invoice.id == id);
-  //           Navigator.pop(context);
-  //         });
-  //         Get.snackbar(
-  //           'Success',
-  //           'Successfully Deleted',
-  //           icon: const Icon(Icons.check_circle),
-  //         );
-  //       }
-  //     },
-  //     title: 'Delete',
-  //     message: "Are you sure, you want to delete?",
-  //     confirmText: 'Yes',
-  //   );
-  // }
-
   _getData() async {
     setState(() {
       isLoading = true;
@@ -106,8 +85,8 @@ class _ManageReportState extends State<ManageReport> {
 
   _onDateChange(startDate, endDate) {
     setState(() {
-      reportController.params['start_date'] = startDate;
-      reportController.params['end_date'] = endDate;
+      reportController.params['date_from'] = startDate;
+      reportController.params['date_to'] = endDate;
     });
     _getData();
   }

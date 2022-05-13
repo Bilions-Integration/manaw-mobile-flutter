@@ -93,8 +93,11 @@ class _AccountListState extends State<AccountList> {
         loadMore: loadMore,
         isLoading: isLoading,
         isLastPage: isLastPage,
-        emptyWidget: Styles.emptyList('No Account yet', AppAssets.emptyCategory,
-            'Create new Account', const AccountCreateAndEdit()),
+        emptyWidget: Styles.emptyList(
+            label: 'No Account yet',
+            image: AppAssets.emptyCategory,
+            buttonLabel: 'Create new Account',
+            link: const AccountCreateAndEdit()),
         itemBuilder: (context, index) => Column(
               children: [
                 InkWell(

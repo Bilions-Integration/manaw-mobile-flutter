@@ -37,11 +37,7 @@ class ReportList extends StatelessWidget {
       isLoading: isLoading,
       isLastPage: isLastPage,
       emptyWidget: Styles.emptyList(
-        'No Reports yet',
-        AppAssets.emptyInvoice,
-        'Create new Invoice',
-        RouteName.product,
-      ),
+          label: 'No Reports yet', image: AppAssets.emptyInvoice),
       itemBuilder: (context, index) => Column(
         children: [
           // @todo NO idea what is going on

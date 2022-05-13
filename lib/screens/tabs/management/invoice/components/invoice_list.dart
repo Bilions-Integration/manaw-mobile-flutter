@@ -42,10 +42,10 @@ class InvoiceList extends StatelessWidget {
       isLoading: isLoading,
       isLastPage: isLastPage,
       emptyWidget: Styles.emptyList(
-        'No Invoice yet',
-        AppAssets.emptyInvoice,
-        'Create new Invoice',
-        RouteName.product,
+        label: 'No Invoice yet',
+        image: AppAssets.emptyInvoice,
+        buttonLabel: 'Create new Invoice',
+        link: RouteName.product,
       ),
       itemBuilder: (context, index) => Column(
         children: [
