@@ -6,6 +6,8 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/report_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/tabs/management/invoice/components/invoice_detail.dart';
+import 'package:my_app/screens/tabs/management/report/components/report_detail_view.dart';
 
 class ReportList extends StatelessWidget {
   final List<Report> reports;
@@ -40,18 +42,14 @@ class ReportList extends StatelessWidget {
           label: 'No Reports yet', image: AppAssets.emptyInvoice),
       itemBuilder: (context, index) => Column(
         children: [
-          // @todo NO idea what is going on
           InkWell(
-            // onTap: () => Styles.customBottomSheet(
-            //   context,
-            //   95,
-            //   InvoiceDetailView(
-            //     invoice: invoices[index],
-            //     delete: delete,
-            //     print: print,
-            //     type: "purchase",
-            //   ),
-            // ),
+            onTap: () => Styles.customBottomSheet(
+              context,
+              95,
+              ReportDetailView(
+                reportId: reports[index].id,
+              ),
+            ),
             child: listItem(
               reports[index],
               context,

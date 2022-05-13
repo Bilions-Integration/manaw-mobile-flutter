@@ -23,4 +23,13 @@ class ReportController {
     }
     return [];
   }
+
+  Future<Report?> getReportDetail({required int reportId}) async {
+    var res = await Api.get('inventories/$reportId');
+    if (res['success']) {
+      return Report.fromJson(res['data']);
+    } else {
+      return null;
+    }
+  }
 }
