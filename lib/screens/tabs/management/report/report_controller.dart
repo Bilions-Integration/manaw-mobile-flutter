@@ -9,7 +9,7 @@ class ReportController {
     'date_to': moment.string(DateTime.now()),
     'date_from': moment.string(DateTime(
         DateTime.now().year, DateTime.now().month - 1, DateTime.now().day)),
-    'keyword': ''
+    'keyword': null,
   };
   bool canLoadMore = false;
 

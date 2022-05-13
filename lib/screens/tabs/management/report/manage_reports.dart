@@ -91,13 +91,6 @@ class _ManageReportState extends State<ManageReport> {
     _getData();
   }
 
-  _onSearch(value) {
-    setState(() {
-      reportController.params['keyword'] = value;
-      _getData();
-    });
-  }
-
   _printData(int? id) async {
     await InvoiceServices.print(id);
   }
@@ -110,11 +103,18 @@ class _ManageReportState extends State<ManageReport> {
     });
   }
 
+  _onSearch(value) {
+    setState(() {
+      reportController.params['keyword'] = value.toString().trim();
+      _getData();
+    });
+  }
+
   _toggleSearch() {
     setState(() {
       isSearch = !isSearch;
       if (!isSearch) {
-        reportController.params['keyword'] = '';
+        reportController.params['keyword'] = null;
         _getData();
       }
     });
