@@ -137,6 +137,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return Scaffold(
       key: Key(status),
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Payment'),
         backgroundColor: AppColors.primary,
       ),

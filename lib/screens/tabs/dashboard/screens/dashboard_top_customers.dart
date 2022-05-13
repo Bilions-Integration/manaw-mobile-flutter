@@ -23,14 +23,6 @@ class CustomerCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                number.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
-              ),
-              mr(2),
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image.network(

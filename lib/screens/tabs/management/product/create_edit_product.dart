@@ -53,6 +53,7 @@ class _CreateProductState extends State<CreateProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.primary,
         title: Text(widget.type.capitalize.toString() + " Product"),
       ),

@@ -37,6 +37,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.primary,
         title: const Text('Verify OTP'),
         leading: IconButton(

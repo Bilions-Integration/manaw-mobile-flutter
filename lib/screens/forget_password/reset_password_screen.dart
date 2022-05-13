@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/forget_password/forget_password_controller.dart';
@@ -28,13 +28,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     "password": null,
   };
 
-  bool _showLogin() {
-    if (empty(params["password"]) || empty(params["password_confirmation"])) {
-      return false;
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,6 +41,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
             appBar: AppBar(
+              elevation: 0,
               title: const Text('Set New Password'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
@@ -144,5 +138,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   _showError() {
     Get.snackbar('Error', 'Something went wrong! Please try again.',
         icon: const Icon(Icons.info));
+  }
+
+  bool _showLogin() {
+    if (empty(params["password"]) || empty(params["password_confirmation"])) {
+      return false;
+    }
+    return true;
   }
 }

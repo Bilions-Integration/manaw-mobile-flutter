@@ -20,28 +20,47 @@ class _ManageStoreState extends State<ManageStore> {
   bool loading = false;
 
   @override
-  void initState() {
-    fetchData();
-    super.initState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: customAppBar2(
+        context: context,
+        title: 'My Store',
+        showAction: false,
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+        child: loading == false
+            ? FormCard(
+                params: params,
+                submit: submit,
+              )
+            : Styles.loading,
+      ),
+    );
+  }
+
+  Future fetchData() async {
+    setState(() {
+      loading = true;
+    });
+
+    var res = await CompanyService.fetch();
+    var data = res;
+    data['old_logo'] = data['logo'];
+    data['old_banner'] = data['banner'];
+    data['logo'] = null;
+    data['banner'] = null;
+    setState(() {
+      params = data;
+      loading = false;
+    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: customAppBar2(
-          context: context,
-          title: 'My Store',
-          showAction: false,
-          centerTitle: true,
-        ),
-        body: Container(
-            padding: const EdgeInsets.all(20),
-            child: loading == false
-                ? FormCard(
-                    params: params,
-                    submit: submit,
-                  )
-                : Styles.loading));
+  void initState() {
+    fetchData();
+    super.initState();
   }
 
   Future submit() async {
@@ -51,23 +70,5 @@ class _ManageStoreState extends State<ManageStore> {
       'Successfully Updated',
       icon: const Icon(Icons.check_circle),
     );
-  }
-
-  Future fetchData() async {
-    setState(() {
-      loading = true;
-    });
-    Future.delayed(const Duration(milliseconds: 1000), () async {
-      var res = await CompanyService.fetch();
-      var data = res;
-      data['old_logo'] = data['logo'];
-      data['old_banner'] = data['banner'];
-      data['logo'] = null;
-      data['banner'] = null;
-      setState(() {
-        params = data;
-        loading = false;
-      });
-    });
   }
 }

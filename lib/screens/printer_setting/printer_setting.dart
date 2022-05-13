@@ -71,6 +71,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.primary,
         title: const Text('Printer Setting'),
         leading: IconButton(

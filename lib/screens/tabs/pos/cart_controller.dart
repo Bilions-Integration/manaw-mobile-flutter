@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_app/controllers/auth_controller.dart';
@@ -20,6 +21,41 @@ class CartController extends GetxController {
 
   final discount = Rx<dynamic>(0);
 
+  checkout(callback) {
+    if (account.value == null) {
+      showAccountModal(
+        callback: () => {
+          _submit(),
+          callback(true),
+        },
+      );
+    } else {
+      _submit();
+      callback(true);
+    }
+  }
+
+  reset() {
+    final List<Product> newProducts = List.from(products.value);
+    products.value = [];
+    Future.delayed(const Duration(milliseconds: 10), () {
+      products.value = newProducts;
+    });
+  }
+
+  setAccount() {
+    final box = GetStorage();
+    var cachedAccount = box.read('@account');
+    if (cachedAccount != null) {
+      try {
+        var decodedString = jsonDecode(cachedAccount);
+        account.value = AccountModel.fromJson(decodedString);
+      } catch (e) {
+        console.log(e.toString());
+      }
+    }
+  }
+
   String subTotalPrice() {
     int price = 0;
     for (Product product in products.value) {
@@ -37,6 +73,10 @@ class CartController extends GetxController {
     return cast((price * (tax / 100)));
   }
 
+  int total() {
+    return products.value.length;
+  }
+
   String totalPrice() {
     final tax = auth.user.value?.company.tax ?? 0;
     int price = 0;
@@ -51,43 +91,6 @@ class CartController extends GetxController {
     }
 
     return cast(price - discountPrice - (price * (tax / 100)));
-  }
-
-  setAccount() {
-    final box = GetStorage();
-    var cachedAccount = box.read('@account');
-    if (cachedAccount != null) {
-      try {
-        var decodedString = jsonDecode(cachedAccount);
-        account.value = AccountModel.fromJson(decodedString);
-      } catch (e) {
-        console.log(e.toString());
-      }
-    }
-  }
-
-  int total() {
-    return products.value.length;
-  }
-
-  reset() {
-    final List<Product> newProducts = List.from(products.value);
-    products.value = [];
-    Future.delayed(const Duration(milliseconds: 10), () {
-      products.value = newProducts;
-    });
-  }
-
-  checkout() {
-    console.log('checked out called');
-    if (account.value == null) {
-      showAccountModal(
-          callback: () => {
-                _submit(),
-              });
-    } else {
-      _submit();
-    }
   }
 
   _submit() async {
@@ -123,5 +126,6 @@ class CartController extends GetxController {
     };
     console.log('PARAMS to SUBMIT => $params');
     await InvoiceServices.create(params);
+    products.value = [];
   }
 }

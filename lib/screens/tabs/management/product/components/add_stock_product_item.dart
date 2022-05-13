@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
@@ -28,11 +27,15 @@ class _ProductItemState extends State<AddStockProductItem> {
         Row(
           children: [
             IconButton(
-                onPressed: () {
-                  widget.onChange(
-                      action: 'delete', productId: widget.product.productId);
-                },
-                icon: const Icon(Icons.close_rounded)),
+              onPressed: () {
+                widget.onChange(
+                    action: 'delete', productId: widget.product.productId);
+              },
+              icon: Icon(
+                Icons.remove_circle_rounded,
+                color: AppColors.red,
+              ),
+            ),
             borderRadiusCard(
                 10,
                 ClipRRect(
@@ -70,23 +73,26 @@ class _ProductItemState extends State<AddStockProductItem> {
         Row(
           children: [
             IconButton(
-                onPressed: _decrease,
-                icon: const Icon(Icons.remove_circle_rounded)),
-
-            // SizedBox(width: 20, child: Text(count.toString())),
-            SizedBox(
-                width: 60,
-                child: MyTextInput(
-                  placeholder: '',
-                  onFieldSubmitted: _onChanged,
-                  value: count,
-                  key: Key(count.toString()),
-                  onChanged: (String e, String? col) {},
-                  numberOnly: true,
-                )),
+              onPressed: _decrease,
+              icon: const Icon(Icons.remove_circle_rounded),
+            ),
+            SizedBox(child: Text(count.toString())),
+            // SizedBox(
+            //   width: 60,
+            //   height: 50,
+            //   child: MyTextInput(
+            //     placeholder: '',
+            //     onFieldSubmitted: _onChanged,
+            //     value: count,
+            //     key: Key(count.toString()),
+            //     onChanged: (String e, String? col) {},
+            //     numberOnly: true,
+            //   ),
+            // ),
             IconButton(
-                onPressed: _increase,
-                icon: const Icon(Icons.add_circle_rounded)),
+              onPressed: _increase,
+              icon: const Icon(Icons.add_circle_rounded),
+            ),
           ],
         )
       ],

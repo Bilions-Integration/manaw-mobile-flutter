@@ -6,14 +6,14 @@ import 'package:my_app/model/common_model.dart';
 import 'package:my_app/screens/tabs/management/store/components/image_card.dart';
 
 class FormCard extends StatefulWidget {
+  final Map<String, dynamic> params;
+
+  final Function() submit;
   const FormCard({
     Key? key,
     required this.params,
     required this.submit,
   }) : super(key: key);
-
-  final Map<String, dynamic> params;
-  final Function() submit;
 
   @override
   State<FormCard> createState() => _FormCardState();
@@ -29,6 +29,7 @@ class _FormCardState extends State<FormCard> {
           child: ListView(
             shrinkWrap: true,
             children: [
+              mb(1.5),
               ImageCard(
                 logo: widget.params['old_logo'],
                 banner: widget.params['old_banner'],

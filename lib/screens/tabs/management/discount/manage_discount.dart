@@ -9,6 +9,7 @@ class ManageDiscount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text("Manage Discount"),
       ),
       body: const Center(

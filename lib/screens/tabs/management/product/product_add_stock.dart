@@ -29,6 +29,7 @@ class _AddStockState extends State<ProductAddStock> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.primary,
         title: const Text('Add Stock'),
         actions: [
@@ -153,13 +154,13 @@ class _AddStockState extends State<ProductAddStock> {
   }
 
   _submit() {
-    addStockController
-        .buyProducts(account: selectedAccount?.id)
-        .then((success) => {
-              if (success)
-                {Get.off(() => const ManagePurchaseInvoice())}
-              else
-                {Get.snackbar("Failed", "An error occurred in adding stock.")}
-            });
+    addStockController.buyProducts(account: selectedAccount?.id).then(
+          (success) => {
+            if (success)
+              {Get.off(() => const ManagePurchaseInvoice())}
+            else
+              {Get.snackbar("Failed", "An error occurred in adding stock.")}
+          },
+        );
   }
 }

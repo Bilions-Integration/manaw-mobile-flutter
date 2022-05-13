@@ -35,6 +35,7 @@ class MyColorPicker extends StatelessWidget {
     return Material(
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: AppColors.primary,
           title: const Text('Color Picker'),
           leading: IconButton(

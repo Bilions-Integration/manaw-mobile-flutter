@@ -104,9 +104,7 @@ class _ManageCategoryState extends State<ManageCategory> {
   void initState() {
     super.initState();
     isLoading = true;
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      getData();
-    });
+    getData();
   }
 
   Widget listItem(category) {

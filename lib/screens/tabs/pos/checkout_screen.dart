@@ -30,6 +30,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.primary,
         centerTitle: false,
         leading: IconButton(
@@ -165,7 +166,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   _confirmed(confirm) {
     if (confirm) {
-      cartController.checkout();
+      cartController.checkout((value) => {
+            if (value == true)
+              {
+                setState(() {
+                  carItems = [];
+                })
+              }
+          });
     }
   }
 
