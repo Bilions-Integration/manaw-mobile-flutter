@@ -7,7 +7,7 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/routes.dart';
-import 'package:my_app/screens/tabs/management/invoice/components/list_items.dart';
+import 'package:my_app/screens/tabs/management/invoice/components/invoice_list.dart';
 import 'package:my_app/services/invoice_services.dart';
 
 class ManageInvoice extends StatefulWidget {
@@ -57,7 +57,7 @@ class _ManageInvoiceState extends State<ManageInvoice> {
             onDateChanged: _onDateChange,
           ),
           Expanded(
-            child: ListItems(
+            child: InvoiceList(
               type: widget.type,
               isLoading: isLoading,
               invoices: invoices,

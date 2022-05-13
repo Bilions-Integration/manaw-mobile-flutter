@@ -7,30 +7,40 @@ import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:screenshot/screenshot.dart';
 
-void actionPopup(
-    {required BuildContext context,
-    required dynamic invoice,
-    required String type,
-    required Future<dynamic> Function(int? id) delete,
-    required Future<dynamic> Function(int? id) print}) {
+void actionPopup({
+  required BuildContext context,
+  required dynamic invoice,
+  required String type,
+  required Future<dynamic> Function(int? id) delete,
+  required Future<dynamic> Function(int? id) print,
+}) {
   showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) => SizedBox(
-          height: MediaQuery.of(context).size.height * 0.95,
-          child: ItemDetailCard(
-              invoice: invoice, delete: delete, print: print, type: type)));
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(15),
+      ),
+    ),
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) => SizedBox(
+      height: MediaQuery.of(context).size.height * 0.95,
+      child: InvoiceDetailView(
+        invoice: invoice,
+        delete: delete,
+        print: print,
+        type: type,
+      ),
+    ),
+  );
 }
 
-class ItemDetailCard extends StatefulWidget {
+class InvoiceDetailView extends StatefulWidget {
   final dynamic invoice;
   final Future<dynamic> Function(int? id) delete;
   final Future<dynamic> Function(int? id) print;
   final String type;
 
-  const ItemDetailCard({
+  const InvoiceDetailView({
     Key? key,
     required this.invoice,
     required this.delete,
@@ -39,10 +49,10 @@ class ItemDetailCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ItemDetailCard> createState() => _ItemDetailCardState();
+  State<InvoiceDetailView> createState() => _InvoiceDetailViewState();
 }
 
-class _ItemDetailCardState extends State<ItemDetailCard> {
+class _InvoiceDetailViewState extends State<InvoiceDetailView> {
   ScreenshotController screenshotController = ScreenshotController();
   // ignore: prefer_typing_uninitialized_variables
   var testing;
@@ -51,22 +61,22 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        titleAndActions(widget.invoice, widget.delete, widget.type),
+        _titleAndActions(widget.invoice, widget.delete, widget.type),
         Screenshot(
           controller: screenshotController,
           child: Column(children: [
             mb(6),
-            invoiceInfo(widget.invoice),
-            productLists(context, widget.invoice.products),
+            _invoiceInfo(widget.invoice),
+            _productLists(context, widget.invoice.products),
             mb(17),
           ]),
         ),
-        priceDetail(widget.invoice)
+        _priceDetail(widget.invoice)
       ],
     );
   }
 
-  Widget invoiceInfo(InvoiceModel invoice) {
+  _invoiceInfo(InvoiceModel invoice) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -109,7 +119,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     );
   }
 
-  Widget priceDetail(invoice) {
+  _priceDetail(invoice) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -145,7 +155,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
                   ],
                 ),
                 mb(1.5),
-                PrimaryButton(value: 'Print', onPressed: print)
+                PrimaryButton(value: 'Print', onPressed: _print)
               ],
             ),
           ],
@@ -154,7 +164,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     );
   }
 
-  print() {
+  _print() {
     screenshotController
         .capture(delay: const Duration(milliseconds: 10))
         .then((image) async {
@@ -169,7 +179,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     });
   }
 
-  Widget productLists(context, products) {
+  _productLists(context, products) {
     return Expanded(
       child: ListView.builder(
           itemCount: products.length,
@@ -201,7 +211,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     );
   }
 
-  Widget titleAndActions(invoice, delete, type) {
+  _titleAndActions(invoice, delete, type) {
     return Column(
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

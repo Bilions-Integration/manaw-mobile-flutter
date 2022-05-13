@@ -6,10 +6,9 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/tabs/management/invoice/components/invoice_detail.dart';
 
-import 'item_detail.dart';
-
-class ListItems extends StatelessWidget {
+class InvoiceList extends StatelessWidget {
   final List<InvoiceModel> invoices;
 
   final Future<dynamic> Function(int? id) delete;
@@ -20,7 +19,7 @@ class ListItems extends StatelessWidget {
   final Function() refresh;
   final Function() loadMore;
   final Map<String, dynamic> params;
-  const ListItems({
+  const InvoiceList({
     Key? key,
     required this.type,
     required this.invoices,
@@ -42,15 +41,20 @@ class ListItems extends StatelessWidget {
       loadMore: loadMore,
       isLoading: isLoading,
       isLastPage: isLastPage,
-      emptyWidget: Styles.emptyList('No Invoice yet', AppAssets.emptyInvoice,
-          'Create new Invoice', RouteName.product),
+      emptyWidget: Styles.emptyList(
+        'No Invoice yet',
+        AppAssets.emptyInvoice,
+        'Create new Invoice',
+        RouteName.product,
+      ),
       itemBuilder: (context, index) => Column(
         children: [
+          // @todo NO idea what is going on
           InkWell(
             onTap: () => Styles.customBottomSheet(
               context,
               95,
-              ItemDetailCard(
+              InvoiceDetailView(
                 invoice: invoices[index],
                 delete: delete,
                 print: print,
