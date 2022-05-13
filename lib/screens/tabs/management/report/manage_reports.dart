@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/date_picker.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/helpers/moment.dart';
-import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/model/report_model.dart';
-import 'package:my_app/routes.dart';
-import 'package:my_app/screens/tabs/management/invoice/components/invoice_list.dart';
 import 'package:my_app/screens/tabs/management/report/components/report_list.dart';
 import 'package:my_app/screens/tabs/management/report/report_controller.dart';
 import 'package:my_app/services/invoice_services.dart';
@@ -39,7 +33,6 @@ class _ManageReportState extends State<ManageReport> {
         isSearch: isSearch,
         toggleSearch: _toggleSearch,
         search: _onSearch,
-        add: () => Get.to(RouteName.product),
       ),
       body: Column(
         children: [

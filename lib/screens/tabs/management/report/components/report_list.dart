@@ -4,10 +4,8 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
-import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/model/report_model.dart';
 import 'package:my_app/routes.dart';
-import 'package:my_app/screens/tabs/management/invoice/components/invoice_detail.dart';
 
 class ReportList extends StatelessWidget {
   final List<Report> reports;

@@ -1,5 +1,4 @@
 import 'package:my_app/helpers/moment.dart';
-
 import 'invoice_account_model.dart';
 import 'product_model.dart';
 import 'receiver_model.dart';
