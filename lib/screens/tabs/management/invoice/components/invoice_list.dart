@@ -85,7 +85,6 @@ class InvoiceList extends StatelessWidget {
             invoice.invoiceNumber,
             style: TextStyle(
               color: AppColors.primary,
-              fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
           ),

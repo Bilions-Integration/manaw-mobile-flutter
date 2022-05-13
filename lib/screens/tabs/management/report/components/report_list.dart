@@ -3,10 +3,9 @@ import 'package:my_app/components/custom_item_list.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/report_model.dart';
-import 'package:my_app/routes.dart';
-import 'package:my_app/screens/tabs/management/invoice/components/invoice_detail.dart';
 import 'package:my_app/screens/tabs/management/report/components/report_detail_view.dart';
 
 class ReportList extends StatelessWidget {
@@ -50,7 +49,7 @@ class ReportList extends StatelessWidget {
                 reportId: reports[index].id,
               ),
             ),
-            child: listItem(
+            child: _listItem(
               reports[index],
               context,
             ),
@@ -61,12 +60,11 @@ class ReportList extends StatelessWidget {
     );
   }
 
-  Widget listItem(Report report, context) {
+  Widget _listItem(Report report, context) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
-        border: Border.all(color: AppColors.borderColor, width: 2),
         color: AppColors.white,
       ),
       child: Column(children: [
@@ -74,22 +72,30 @@ class ReportList extends StatelessWidget {
           Text(
             report.invoiceNumber,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
               fontSize: 18,
             ),
           ),
-          Text(report.createdAt),
+          Text(moment(report.createdAt).format()),
         ]),
         mb(0.3),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(report.name, style: Styles.h4),
-          Text('${report.quantity} Pc${report.quantity > 1 ? 's' : ''}',
-              style: Styles.l4),
+          Expanded(
+            child: Text(
+              report.name,
+              maxLines: 2,
+              style: const TextStyle(
+                  // fontSize: 16,
+                  ),
+            ),
+          ),
+          mr(2),
+          Text('${report.quantity} Pcs', style: Styles.l4),
         ]),
-        hr(height: 1, mt: 1.5, mb: 1),
+        hr(height: 1, mt: 1.5, mb: 1, width: 1),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const Text('Unit Price'),
-          Text('${currency()} ${report.unitPrice}', style: Styles.h4),
+          Text('${currency()} ${report.unitSalePrice}', style: Styles.h4),
         ]),
       ]),
     );

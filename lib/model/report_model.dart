@@ -1,7 +1,5 @@
 import 'package:my_app/helpers/moment.dart';
 import 'package:my_app/model/account_model/account_model.dart';
-import 'package:my_app/model/customer_model.dart';
-import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:my_app/model/invoice_model/receiver_model.dart';
 
 class Report {

@@ -21,28 +21,6 @@ class _ReportDetailState extends State<ReportDetailView> {
   var reportController = ReportController();
 
   @override
-  void initState() {
-    super.initState();
-    _get();
-  }
-
-  _get() {
-    setState(() {
-      isLoading = true;
-    });
-    reportController.getReportDetail(reportId: widget.reportId).then((res) {
-      setState(() {
-        if (res != null) {
-          report = res;
-        } else {
-          hasError = true;
-        }
-        isLoading = false;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return isLoading
         ? const LoadingWidget(
@@ -64,54 +42,55 @@ class _ReportDetailState extends State<ReportDetailView> {
                   ),
                   mb(1.5),
                   Expanded(
-                    child: ListView(children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Created at', style: Styles.label),
-                              mb(1),
-                              Text(
-                                'Invoice',
-                                style: Styles.t2,
-                              ),
-                              mb(0.7),
-                              Text('Invoice Number', style: Styles.label),
-                              mb(1),
-                              Text('Invoice Date', style: Styles.label),
-                              mb(1),
-                              Text('Total Price', style: Styles.label),
-                              mb(1),
-                              Text(
-                                'Customer',
-                                style: Styles.t2,
-                              ),
-                              mb(0.7),
-                              Text('Name', style: Styles.label),
-                              mb(1),
-                              Text('Email', style: Styles.label),
-                              mb(1),
-                              Text('Phone', style: Styles.label),
-                              mb(1),
-                              Text(
-                                'Account',
-                                style: Styles.t2,
-                              ),
-                              mb(0.7),
-                              Text('Bank Name', style: Styles.label),
-                              mb(1),
-                              Text('Owner Name', style: Styles.label),
-                            ],
-                          ),
-                          mr(3),
-                          Column(
+                    child: ListView(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Created at', style: Styles.label),
+                                mb(1),
+                                Text(
+                                  'Invoice',
+                                  style: Styles.t2,
+                                ),
+                                mb(0.7),
+                                Text('Invoice Number', style: Styles.label),
+                                mb(1),
+                                Text('Invoice Date', style: Styles.label),
+                                mb(1),
+                                Text('Total Price', style: Styles.label),
+                                mb(1),
+                                Text(
+                                  'Customer',
+                                  style: Styles.t2,
+                                ),
+                                mb(0.7),
+                                Text('Name', style: Styles.label),
+                                mb(1),
+                                Text('Email', style: Styles.label),
+                                mb(1),
+                                Text('Phone', style: Styles.label),
+                                mb(1),
+                                Text(
+                                  'Account',
+                                  style: Styles.t2,
+                                ),
+                                mb(0.7),
+                                Text('Bank Name', style: Styles.label),
+                                mb(1),
+                                Text('Owner Name', style: Styles.label),
+                              ],
+                            ),
+                            mr(3),
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(report.createdAt),
                                 mb(1),
-                                Text(''),
+                                const Text(''),
                                 mb(1),
                                 Text(report.invoiceNumber),
                                 mb(1),
@@ -119,25 +98,26 @@ class _ReportDetailState extends State<ReportDetailView> {
                                     DateTime.parse(report.invoiceDate ?? ''))),
                                 mb(1),
                                 Text(report.currency +
-                                        report.invoiceTotalPrice.toString() ??
-                                    '-'),
+                                    report.invoiceTotalPrice.toString()),
                                 mb(1),
-                                Text(''),
+                                const Text(''),
                                 mb(1),
                                 Text(report.customer?.receiverName ?? '-'),
                                 mb(1),
                                 Text(report.customer?.receiverEmail ?? '-'),
                                 mb(1),
                                 Text(report.customer?.receiverPhone ?? '-'),
-                                Text(''),
+                                const Text(''),
                                 mb(1),
                                 Text(report.account?.bankName ?? '-'),
                                 mb(1),
                                 Text(report.account?.ownerName ?? '-'),
-                              ]),
-                        ],
-                      )
-                    ]),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                   hr(height: 1, mt: 1.5),
                   Column(
@@ -170,13 +150,37 @@ class _ReportDetailState extends State<ReportDetailView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Total Sale Price', style: Styles.textBold),
-                          Text('${report.currency} ${report.totalSalePrice}',
-                              style: Styles.textBold),
+                          Text(
+                            '${report.currency} ${report.totalSalePrice}',
+                            style: Styles.textBold,
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ],
               );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _get();
+  }
+
+  _get() {
+    setState(() {
+      isLoading = true;
+    });
+    reportController.getReportDetail(reportId: widget.reportId).then((res) {
+      setState(() {
+        if (res != null) {
+          report = res;
+        } else {
+          hasError = true;
+        }
+        isLoading = false;
+      });
+    });
   }
 }

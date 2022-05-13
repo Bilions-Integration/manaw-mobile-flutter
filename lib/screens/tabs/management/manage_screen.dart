@@ -31,7 +31,7 @@ class ManageScreen extends StatelessWidget {
       icon: AppAssets.icmPurchaseInvoice,
     ),
     ManagePage(
-      name: "Reports",
+      name: "Inventory Reports",
       page: RouteName.report,
       icon: AppAssets.icmReport,
     ),
