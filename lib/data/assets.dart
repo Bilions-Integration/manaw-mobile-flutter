@@ -68,5 +68,13 @@ class AppAssets {
   //invoice
   static const invoiceIcon = 'assets/images/manage/invoice-icon.svg';
   static const emptyInvoice = 'assets/images/manage/empty-invoice.svg';
+  static const icmProduct = 'assets/images/manage/icm-product.svg';
+  static const icmCategory = 'assets/images/manage/icm-category.svg';
+  static const icmDiscount = 'assets/images/manage/icm-discount.svg';
+  static const icmPurchaseInvoice = 'assets/images/manage/icm-p-invoice.svg';
+  static const icmSaleInvoice = 'assets/images/manage/icm-s-invoice.svg';
+  static const icmReport = 'assets/images/manage/icm-report.svg';
+  static const icmStore = 'assets/images/manage/icm-store.svg';
+
   static getPlanIcon(image) => 'assets/images/plans/$image.png';
 }

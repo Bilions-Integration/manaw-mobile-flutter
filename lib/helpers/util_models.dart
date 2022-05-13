@@ -12,9 +12,11 @@ class DialogAction {
 class ManagePage {
   final String name;
   final dynamic page;
+  final String icon;
   ManagePage({
     required this.name,
     required this.page,
+    required this.icon,
   });
 }
 

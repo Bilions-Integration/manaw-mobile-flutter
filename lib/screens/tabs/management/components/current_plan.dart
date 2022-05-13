@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/plan/pricing_screen.dart';
 
 class CurrentPlan extends StatelessWidget {
+  final auth = Get.find<AuthController>();
+
   CurrentPlan({
     Key? key,
   }) : super(key: key);
-
-  final auth = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -26,8 +29,8 @@ class CurrentPlan extends StatelessWidget {
             color: const Color(0xe8e8e8ff),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
+        mr(1),
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,6 +49,22 @@ class CurrentPlan extends StatelessWidget {
               )
             ],
           ),
+        ),
+        MaterialButton(
+          onPressed: () {
+            Get.to(() => const PricingScreen());
+          },
+          child: const Text(
+            'Recharge',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          color: AppColors.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          height: 40,
         )
       ],
     );
