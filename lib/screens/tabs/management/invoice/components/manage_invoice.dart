@@ -45,21 +45,8 @@ class _ManageInvoiceState extends State<ManageInvoice> {
         context: context,
         title: widget.type == 'sale' ? 'Sale Invoices' : 'Purchase Invoices',
         isSearch: isSearch,
-        toggleSearch: () {
-          setState(() {
-            isSearch = !isSearch;
-            if (!isSearch) {
-              params['keyword'] = '';
-              getData();
-            }
-          });
-        },
-        search: (value) {
-          setState(() {
-            params['keyword'] = value;
-            getData();
-          });
-        },
+        toggleSearch: _toggleSearch,
+        search: _onSearch,
         add: () => Get.to(RouteName.product),
       ),
       body: Column(
@@ -67,24 +54,18 @@ class _ManageInvoiceState extends State<ManageInvoice> {
           DatePicker(
             startDate: params['start_date'],
             endDate: params['end_date'],
-            onDateChanged: (startDate, endDate) {
-              setState(() {
-                params['start_date'] = startDate;
-                params['end_date'] = endDate;
-              });
-              getData();
-            },
+            onDateChanged: _onDateChange,
           ),
           Expanded(
             child: ListItems(
               type: widget.type,
               isLoading: isLoading,
               invoices: invoices,
-              delete: (id) => deleteData(id),
-              print: (id) => printData(id),
+              delete: (id) => _deleteData(id),
+              print: (id) => _printData(id),
               isLastPage: isLastPage,
-              loadMore: loadMore,
-              refresh: refresh,
+              loadMore: _loadMore,
+              refresh: _refresh,
               params: params,
             ),
           )
@@ -93,7 +74,16 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     );
   }
 
-  deleteData(int? id) {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      params['type'] = widget.type;
+    });
+    _getData();
+  }
+
+  _deleteData(int? id) {
     confirm(
       onPressed: (result) {
         if (result) {
@@ -114,29 +104,18 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     );
   }
 
-  getData() {
+  _getData() async {
     setState(() {
       isLoading = true;
     });
-    Future.delayed(const Duration(milliseconds: 1000), () async {
-      var res = await InvoiceServices.get(params);
-      setState(() {
-        invoices = res['invoices'];
-        isLoading = false;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
+    var res = await InvoiceServices.get(params);
     setState(() {
-      params['type'] = widget.type;
+      invoices = res['invoices'];
+      isLoading = false;
     });
-    getData();
   }
 
-  Future loadMore() async {
+  _loadMore() async {
     var res = await InvoiceServices.get(params);
     setState(() {
       invoices = [...invoices, ...res['invoices']];
@@ -144,15 +123,40 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     });
   }
 
-  printData(int? id) async {
+  _onDateChange(startDate, endDate) {
+    setState(() {
+      params['start_date'] = startDate;
+      params['end_date'] = endDate;
+    });
+    _getData();
+  }
+
+  _onSearch(value) {
+    setState(() {
+      params['keyword'] = value;
+      _getData();
+    });
+  }
+
+  _printData(int? id) async {
     await InvoiceServices.print(id);
   }
 
-  Future refresh() async {
+  _refresh() async {
     var res = await InvoiceServices.get(params);
     setState(() {
       invoices = res['invoices'];
       isLastPage = res['last_page'];
+    });
+  }
+
+  _toggleSearch() {
+    setState(() {
+      isSearch = !isSearch;
+      if (!isSearch) {
+        params['keyword'] = '';
+        _getData();
+      }
     });
   }
 }

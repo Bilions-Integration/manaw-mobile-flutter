@@ -4,6 +4,7 @@ import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
+import 'package:my_app/model/invoice_model/invoice_model.dart';
 import 'package:screenshot/screenshot.dart';
 
 void actionPopup(
@@ -65,7 +66,7 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
     );
   }
 
-  Widget invoiceInfo(invoice) {
+  Widget invoiceInfo(InvoiceModel invoice) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -73,21 +74,35 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
         Text(invoice.invoiceNumber, style: Styles.h3),
         mb(1.5),
         Row(children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Invoice Date', style: Styles.label),
-            mb(1),
-            Text('Due Date', style: Styles.label),
-            mb(1),
-            Text('From', style: Styles.label),
-          ]),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Invoice Date', style: Styles.label),
+              mb(1),
+              Text('Account', style: Styles.label),
+              mb(1),
+              Text('Shipping Address', style: Styles.label),
+              mb(1),
+              Text('Customer/Supplier', style: Styles.label),
+              mb(1),
+              Text('Phone', style: Styles.label),
+            ],
+          ),
           mr(3),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(invoice.invoiceDate),
-            mb(1),
-            Text(invoice.dueDate ?? '-'),
-            mb(1),
-            Text(invoice.receiver['shipping_address'] ?? '-'),
-          ])
+          Expanded(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(invoice.invoiceDate),
+              mb(1),
+              Text(invoice.account?.bankName ?? '-'),
+              mb(1),
+              Text(invoice.receiver?.shippingAddress ?? '-'),
+              mb(1),
+              Text(invoice.receiver?.receiverName ?? '-'),
+              mb(1),
+              Text(invoice.receiver?.receiverPhone ?? '-'),
+            ]),
+          )
         ]),
         hr(height: 1, mt: 1.5),
       ],
@@ -170,11 +185,10 @@ class _ItemDetailCardState extends State<ItemDetailCard> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text('${product.quantity} x ', style: Styles.label),
                         Expanded(
                           child: Text('${product.name}'),
                         ),
-                        mr(1), 
-                        Text('x ${product.quantity}', style: Styles.label),
                       ],
                     ),
                   ),

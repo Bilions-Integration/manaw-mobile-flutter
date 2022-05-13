@@ -1,6 +1,6 @@
 import 'package:my_app/helpers/moment.dart';
 
-import 'account_model.dart';
+import 'invoice_account_model.dart';
 import 'product_model.dart';
 import 'receiver_model.dart';
 
@@ -13,10 +13,10 @@ class InvoiceModel {
   final String invoiceNumber;
   final num taxValue;
   final String createdAt;
-  final Map? account;
+  final InvoiceAccountModel? account;
   final List<ProductModel> products;
   final String? dueDate;
-  final Map receiver;
+  final ReceiverModel? receiver;
 
   InvoiceModel({
     required this.id,
@@ -42,12 +42,14 @@ class InvoiceModel {
         invoiceNumber = json['invoice_number'],
         taxValue = json['tax_value'],
         createdAt = moment(json['created_at']).format(),
-        account = AccountModel.fromJson(json['account']).toJson(),
+        account = InvoiceAccountModel.fromJson(json['account']),
         products = (json['products'] as List)
             .map((e) => ProductModel.fromJson(e))
             .toList(),
-        dueDate = (json['due_date'] != null) ? moment(json['due_date']).format() : null,
-        receiver = ReceiverModel.fromJson(json['receiver']).toJson();
+        dueDate = (json['due_date'] != null)
+            ? moment(json['due_date']).format()
+            : null,
+        receiver = ReceiverModel.fromJson(json['receiver']);
 
   Map toJson() => {
         'id': id,

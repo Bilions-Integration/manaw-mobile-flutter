@@ -51,10 +51,11 @@ class ListItems extends StatelessWidget {
               context,
               95,
               ItemDetailCard(
-                  invoice: invoices[index],
-                  delete: delete,
-                  print: print,
-                  type: type),
+                invoice: invoices[index],
+                delete: delete,
+                print: print,
+                type: type,
+              ),
             ),
             child: listItem(
               invoices[index],
@@ -67,7 +68,7 @@ class ListItems extends StatelessWidget {
     );
   }
 
-  Widget listItem(invoice, context) {
+  Widget listItem(InvoiceModel invoice, context) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -76,22 +77,29 @@ class ListItems extends StatelessWidget {
       ),
       child: Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(invoice.invoiceNumber, style: Styles.h3),
+          Text(
+            invoice.invoiceNumber,
+            style: TextStyle(
+              color: AppColors.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
           Text(invoice.createdAt),
         ]),
-        mb(2),
+        mb(0.2),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text('Customer', style: Styles.l5),
           Text('Account', style: Styles.l5),
         ]),
         mb(0.5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(invoice.receiver["receiver_name"] ?? '-', style: Styles.h5),
-          Text(invoice.account["bank_name"] ?? '-', style: Styles.h5),
+          Text(invoice.receiver?.receiverName ?? '-', style: Styles.h5),
+          Text(invoice.account?.bankName ?? '-', style: Styles.h5),
         ]),
         hr(height: 1, mt: 1.5, mb: 1.5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          const Text('Total'),
+          const Text('TOTAL'),
           Text('${currency()} ${invoice.grandTotal}', style: Styles.h4),
         ]),
       ]),
