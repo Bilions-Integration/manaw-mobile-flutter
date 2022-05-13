@@ -11,6 +11,7 @@ class ProductDetail {
   final dynamic retailPrice;
   final int? buyPrice;
   final int? price;
+  final int? negativeStock;
 
   final String? barcode;
   final bool enableSelling;
@@ -39,30 +40,8 @@ class ProductDetail {
     this.unit = '1 x Pcs',
     this.price,
     this.addStockQuantity = 1,
+    this.negativeStock = 0,
   });
-
-  ProductDetail.fromJson(Map json)
-      : name = json['name'] ?? "",
-        images = json['images'],
-        oldImages = json['images'],
-        productId = json['id'],
-        instock = json['instock'] ?? 0,
-        retailPrice = json['retail_price'] ?? 0,
-        buyPrice = json['buy_price'],
-        price = json['price'],
-        categoryId = json['category_id'],
-        category = json['category'] != null
-            ? CategoryModel.fromJson(json['category'])
-            : null,
-        barcode = json['barcode'],
-        type = json['type'] ?? "",
-        enableSelling = json['enable_selling'] ?? false,
-        quantity = json['quantity'] ?? 1,
-        units = ((json['units'] ?? []) as List)
-            .map((e) => ProductOption.fromJson(e as Map))
-            .toList(),
-        unit = json['unit'],
-        addStockQuantity = 1;
 
   ProductDetail.emptyProduct()
       : productId = 0,
@@ -80,7 +59,32 @@ class ProductDetail {
         enableSelling = false,
         categoryId = 0,
         addStockQuantity = 1,
+        negativeStock = 0,
         quantity = 1;
+
+  ProductDetail.fromJson(Map json)
+      : name = json['name'] ?? "",
+        images = json['images'],
+        oldImages = json['images'],
+        productId = json['id'],
+        instock = json['instock'] ?? 0,
+        retailPrice = json['retail_price'] ?? 0,
+        buyPrice = json['buy_price'],
+        price = json['price'],
+        categoryId = json['category_id'],
+        negativeStock = json['n_stock'] == true ? 1 : 0,
+        category = json['category'] != null
+            ? CategoryModel.fromJson(json['category'])
+            : null,
+        barcode = json['barcode'],
+        type = json['type'] ?? "",
+        enableSelling = json['enable_selling'] ?? false,
+        quantity = json['quantity'] ?? 1,
+        units = ((json['units'] ?? []) as List)
+            .map((e) => ProductOption.fromJson(e as Map))
+            .toList(),
+        unit = json['unit'],
+        addStockQuantity = 1;
 
   Map<String, dynamic> toJson() => {
         'index': index,
@@ -91,6 +95,7 @@ class ProductDetail {
         'old_images[]': oldImages,
         'instock': instock,
         'retail_price': retailPrice,
+        'n_stock': negativeStock,
         'type': type,
         'unit': unit,
         'category_id': categoryId,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
@@ -51,20 +52,30 @@ class CurrentPlan extends StatelessWidget {
           ),
         ),
         MaterialButton(
+          elevation: 0,
           onPressed: () {
             Get.to(() => const PricingScreen());
           },
-          child: const Text(
-            'Recharge',
-            style: TextStyle(
-              color: Colors.white,
+          child: Row(children: [
+            SvgPicture.asset(
+              AppAssets.icmRecharge,
+              color: AppColors.white,
+              width: 15,
             ),
-          ),
+            mr(0.4),
+            const Text(
+              'Recharge',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13,
+              ),
+            ),
+          ]),
           color: AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-          height: 40,
+          height: 35,
         )
       ],
     );

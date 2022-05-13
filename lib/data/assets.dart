@@ -75,6 +75,7 @@ class AppAssets {
   static const icmSaleInvoice = 'assets/images/manage/icm-s-invoice.svg';
   static const icmReport = 'assets/images/manage/icm-report.svg';
   static const icmStore = 'assets/images/manage/icm-store.svg';
+  static const icmRecharge = 'assets/images/manage/icm-recharge.svg';
 
   static getPlanIcon(image) => 'assets/images/plans/$image.png';
 }

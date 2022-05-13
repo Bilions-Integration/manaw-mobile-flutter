@@ -1,2 +1,4 @@
-Appbar on each headers?
-how to generate model serialization
+### TODO
+
+- 1. Variation selection with modal on pos product
+- 2. Payment method selection page before webview.

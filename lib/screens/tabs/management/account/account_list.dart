@@ -65,17 +65,16 @@ class _AccountListState extends State<AccountList> {
     );
   }
 
-  getAccounts() {
+  getAccounts() async {
     setState(() {
       isLoading = true;
     });
-    Future.delayed(const Duration(milliseconds: 1000), () async {
-      var res = await AccountService.get(params);
-      setState(() {
-        accounts = res['data'];
-        isLastPage = true;
-        isLoading = false;
-      });
+
+    var res = await AccountService.get(params);
+    setState(() {
+      accounts = res['data'];
+      isLastPage = true;
+      isLoading = false;
     });
   }
 

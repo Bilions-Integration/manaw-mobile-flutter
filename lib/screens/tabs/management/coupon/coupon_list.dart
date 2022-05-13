@@ -67,17 +67,15 @@ class _CouponListState extends State<CouponList> {
     );
   }
 
-  getCoupons() {
+  getCoupons() async {
     setState(() {
       isLoading = true;
     });
-    Future.delayed(const Duration(milliseconds: 1000), () async {
-      var res = await CouponService.get(params);
-      setState(() {
-        isLoading = false;
-        coupons = res['data'];
-        isLastPage = res['last_page'];
-      });
+    var res = await CouponService.get(params);
+    setState(() {
+      isLoading = false;
+      coupons = res['data'];
+      isLastPage = res['last_page'];
     });
   }
 

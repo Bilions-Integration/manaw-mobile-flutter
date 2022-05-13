@@ -43,21 +43,28 @@ class _ProductItemState extends State<ProductItem> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Checkbox(value: selected, onChanged: _onCheckBoxChange),
+            Checkbox(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              value: selected,
+              onChanged: _onCheckBoxChange,
+            ),
             Row(
               children: [
                 borderRadiusCard(
-                    10,
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      child: Image.network(
-                        widget.product.images[0],
-                        width: 40,
-                        height: 40,
-                        fit: BoxFit.cover,
-                      ),
+                  10,
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: Image.network(
+                      widget.product.images[0],
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
                     ),
-                    border: 1),
+                  ),
+                  border: 1,
+                ),
                 mr(1),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,14 +73,19 @@ class _ProductItemState extends State<ProductItem> {
                       width: 160,
                       child: Text(
                         widget.product.name,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: AppColors.black,
+                        ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
                       widget.product.retailPrice.toString(),
-                      style: TextStyle(color: AppColors.grey),
+                      style: TextStyle(
+                        color: AppColors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -87,7 +99,9 @@ class _ProductItemState extends State<ProductItem> {
                         fontWeight: FontWeight.bold, color: AppColors.red),
                   )
                 : Text(
-                    widget.product.instock.toString(),
+                    widget.product.negativeStock == 1
+                        ? '-'
+                        : widget.product.instock.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
             mr(1),

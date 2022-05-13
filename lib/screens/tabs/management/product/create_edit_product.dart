@@ -44,6 +44,7 @@ class _CreateProductState extends State<CreateProduct> {
     "type": null,
     "old_images[]": [],
     "unit": null,
+    "n_stock": 0,
     'instock': null,
     'units': []
   };
@@ -75,7 +76,24 @@ class _CreateProductState extends State<CreateProduct> {
                                 oldImages: params['old_images[]']),
                             mb(2),
                             hr(),
-                            mb(2),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Switch(
+                                  activeColor: AppColors.primary,
+                                  value: params['n_stock'] == 1 ? true : false,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      params['n_stock'] = value ? 1 : 0;
+                                    });
+                                  },
+                                ),
+                                const Text('Allow Negative Stock')
+                              ],
+                            ),
+                            hr(),
+                            mb(1),
                             MyTextInput(
                               value: params['name'],
                               column: 'name',
@@ -144,7 +162,8 @@ class _CreateProductState extends State<CreateProduct> {
                     color: AppColors.lightGrey,
                     padding: const EdgeInsets.all(20),
                     child: PrimaryButton(
-                        value: widget.type.toUpperCase() + ' PRODUCT',
+                        value: (widget.type == 'edit' ? 'UPDATE' : 'SAVE') +
+                            ' PRODUCT',
                         disabled:
                             !isFormValid(['name', 'retail_price'], params),
                         onPressed: () {
