@@ -4,26 +4,23 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
-import 'package:my_app/model/invoice_model/invoice_model.dart';
+import 'package:my_app/model/report_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/tabs/management/invoice/components/invoice_detail.dart';
+import 'package:my_app/screens/tabs/management/report/components/report_detail_view.dart';
 
-class InvoiceList extends StatelessWidget {
-  final List<InvoiceModel> invoices;
+class ReportList extends StatelessWidget {
+  final List<Report> reports;
 
-  final Future<dynamic> Function(int? id) delete;
   final Future<dynamic> Function(int? id) print;
   final bool isLoading;
-  final String type;
   final bool isLastPage;
   final Function() refresh;
   final Function() loadMore;
   final Map<String, dynamic> params;
-  const InvoiceList({
+  const ReportList({
     Key? key,
-    required this.type,
-    required this.invoices,
-    required this.delete,
+    required this.reports,
     required this.print,
     required this.isLoading,
     required this.isLastPage,
@@ -36,33 +33,25 @@ class InvoiceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomItemList(
       refresh: refresh,
-      items: invoices,
+      items: reports,
       params: params,
       loadMore: loadMore,
       isLoading: isLoading,
       isLastPage: isLastPage,
       emptyWidget: Styles.emptyList(
-        label: 'No Invoice yet',
-        image: AppAssets.emptyInvoice,
-        buttonLabel: 'Create new Invoice',
-        link: RouteName.product,
-      ),
+          label: 'No Reports yet', image: AppAssets.emptyInvoice),
       itemBuilder: (context, index) => Column(
         children: [
-          // @todo NO idea what is going on
           InkWell(
             onTap: () => Styles.customBottomSheet(
               context,
               95,
-              InvoiceDetailView(
-                invoice: invoices[index],
-                delete: delete,
-                print: print,
-                type: type,
+              ReportDetailView(
+                reportId: reports[index].id,
               ),
             ),
             child: listItem(
-              invoices[index],
+              reports[index],
               context,
             ),
           ),
@@ -72,39 +61,35 @@ class InvoiceList extends StatelessWidget {
     );
   }
 
-  Widget listItem(InvoiceModel invoice, context) {
+  Widget listItem(Report report, context) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        border: Border.all(color: AppColors.borderColor, width: 2),
         color: AppColors.white,
       ),
       child: Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            invoice.invoiceNumber,
+            report.invoiceNumber,
             style: TextStyle(
-              color: AppColors.primary,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
           ),
-          Text(invoice.createdAt),
+          Text(report.createdAt),
         ]),
-        mb(0.2),
+        mb(0.3),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Customer', style: Styles.l5),
-          Text('Account', style: Styles.l5),
+          Text(report.name, style: Styles.h4),
+          Text('${report.quantity} Pc${report.quantity > 1 ? 's' : ''}',
+              style: Styles.l4),
         ]),
-        mb(0.5),
+        hr(height: 1, mt: 1.5, mb: 1),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(invoice.receiver?.receiverName ?? '-', style: Styles.h5),
-          Text(invoice.account?.bankName ?? '-', style: Styles.h5),
-        ]),
-        hr(height: 1, mt: 1.5, mb: 1.5),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          const Text('TOTAL'),
-          Text('${currency()} ${invoice.grandTotal}', style: Styles.h4),
+          const Text('Unit Price'),
+          Text('${currency()} ${report.unitPrice}', style: Styles.h4),
         ]),
       ]),
     );

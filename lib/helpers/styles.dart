@@ -116,7 +116,11 @@ class Styles {
     );
   }
 
-  static Widget emptyList(label, image, buttonLabel, link) {
+  static Widget emptyList(
+      {required String label,
+      required String image,
+      String? buttonLabel,
+      dynamic link}) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -124,11 +128,12 @@ class Styles {
           SvgPicture.asset(image),
           Text(label),
           mb(1.5),
-          SecondaryButton(
-            value: buttonLabel,
-            width: 220,
-            onPressed: () => Get.to(link),
-          )
+          if (buttonLabel != null && link != null)
+            SecondaryButton(
+              value: buttonLabel,
+              width: 220,
+              onPressed: () => Get.to(link),
+            )
         ],
       ),
     );

@@ -61,10 +61,10 @@ class _ManageCategoryState extends State<ManageCategory> {
         isLoading: isLoading,
         isLastPage: isLastPage,
         emptyWidget: Styles.emptyList(
-            'No category yet',
-            AppAssets.emptyCategory,
-            'Create new category',
-            const CreateCategory()),
+            label: 'No category yet',
+            image: AppAssets.emptyCategory,
+            buttonLabel: 'Create new category',
+            link: const CreateCategory()),
         itemBuilder: (context, index) => listItem(categories[index]),
       ),
     );

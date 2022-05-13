@@ -30,11 +30,12 @@ customAppBar2({
     actions: showAction
         ? [
             openAndCloseSearch(isSearch, toggleSearch),
-            IconButton(
-              icon: SvgPicture.asset(AppAssets.plus,
-                  width: 17, height: 17, color: AppColors.white),
-              onPressed: add,
-            ),
+            if (add != null)
+              IconButton(
+                icon: SvgPicture.asset(AppAssets.plus,
+                    width: 17, height: 17, color: AppColors.white),
+                onPressed: add,
+              ),
           ]
         : [],
   );

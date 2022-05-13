@@ -95,8 +95,11 @@ class _CouponListState extends State<CouponList> {
       loadMore: loadMore,
       isLoading: isLoading,
       isLastPage: isLastPage,
-      emptyWidget: Styles.emptyList('No Coupon yet', AppAssets.emptyCategory,
-          'Create new Coupon', const CouponCreateAndEdit()),
+      emptyWidget: Styles.emptyList(
+          label: 'No Coupon yet',
+          image: AppAssets.emptyCategory,
+          buttonLabel: 'Create new Coupon',
+          link: const CouponCreateAndEdit()),
       itemBuilder: (context, index) => Column(
         children: [
           InkWell(
