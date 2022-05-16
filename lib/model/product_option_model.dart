@@ -22,7 +22,7 @@ class ProductOption {
       : id = json['id'],
         productId = json['product_id'],
         name = json['unit'],
-        active = json['active'],
+        active = [null, 0, false, ''].contains(json['active']) ? false : true,
         image = json['image'],
         salePrice =
             int.tryParse(json['sale_price'].toString()) ?? json['sale_price'],

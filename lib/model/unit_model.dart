@@ -1,6 +1,6 @@
 class Unit {
   final int coefficient;
-  final String description;
+  final String? description;
   final int? id;
   final bool isDefault;
   final int salePrice;
@@ -9,7 +9,7 @@ class Unit {
 
   Unit({
     required this.coefficient,
-    required this.description,
+    this.description,
     required this.id,
     required this.isDefault,
     required this.salePrice,

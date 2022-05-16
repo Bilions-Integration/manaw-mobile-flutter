@@ -22,11 +22,9 @@ class POSController extends GetxController {
         "category": category,
       });
       final resProducts = res['data']['data'];
-      console.log("Before mapping");
       final mapProducts =
           (resProducts as List).map((e) => Product.fromJson(e as Map)).toList();
       products.value = [...products.value, ...mapProducts];
-      console.log("after mapping");
     } catch (e) {
       inspect(e);
     }

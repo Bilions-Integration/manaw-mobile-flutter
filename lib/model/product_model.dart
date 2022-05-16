@@ -1,3 +1,5 @@
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/model/product_option_model.dart';
 import 'package:my_app/model/unit_model.dart';
 
 class Product {
@@ -8,7 +10,7 @@ class Product {
   final int instock;
   final int price;
   final String type;
-  final List<Unit> units;
+  final List<ProductOption> units;
   int quantity;
 
   Product({
@@ -30,7 +32,9 @@ class Product {
         price = json['price'],
         type = json['type'],
         quantity = json['quantity'] ?? 1,
-        units = (json['units'] as List).map((e) => Unit.fromJson(e)).toList();
+        units = (json['units'] as List)
+            .map((e) => ProductOption.fromJson(e))
+            .toList();
 
   Map<String, dynamic> toJson() => {
         'index': index,
@@ -41,7 +45,7 @@ class Product {
         'instock': instock,
         'price': price,
         'type': type,
-        'units': units.map((e) => e.toJson()),
+        'units': units.map((e) => e.toJson()).toList(),
         'quantity': quantity,
         "discount": 0,
         "discount_type": "fixed"
