@@ -21,18 +21,18 @@ class Unit {
       : coefficient = json['coefficient'],
         description = json['description'],
         id = json['id'],
-        isDefault = json['isDefault'],
-        salePrice = json['salePrice'],
-        purchasePrice = json['purchasePrice'],
+        isDefault = json['is_default'],
+        salePrice = json['sale_price'],
+        purchasePrice = json['purchase_price'],
         unit = json['unit'];
 
   Map<String, dynamic> toJson() => {
         'coefficient': coefficient,
         'description': description,
         'id': id,
-        'isDefault': isDefault,
-        'salePrice': salePrice,
-        'purchasePrice': purchasePrice,
+        'is_default': isDefault,
+        'sale_price': salePrice,
+        'purchase_price': purchasePrice,
         'unit': unit,
       };
 }

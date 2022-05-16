@@ -1,3 +1,5 @@
+import 'package:my_app/model/unit_model.dart';
+
 class Product {
   final int productId;
   int? index;
@@ -6,7 +8,7 @@ class Product {
   final int instock;
   final int price;
   final String type;
-  final List units;
+  final List<Unit> units;
   int quantity;
 
   Product({
@@ -28,7 +30,7 @@ class Product {
         price = json['price'],
         type = json['type'],
         quantity = json['quantity'] ?? 1,
-        units = json['units'];
+        units = (json['units'] as List).map((e) => Unit.fromJson(e)).toList();
 
   Map<String, dynamic> toJson() => {
         'index': index,
@@ -39,7 +41,7 @@ class Product {
         'instock': instock,
         'price': price,
         'type': type,
-        'units': units,
+        'units': units.map((e) => e.toJson()),
         'quantity': quantity,
         "discount": 0,
         "discount_type": "fixed"
