@@ -3,7 +3,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/product_model.dart';
-import 'package:my_app/model/product_option_model.dart';
+import 'package:my_app/model/unit_model.dart';
 
 class VariationSelect {
   final Product product;
@@ -93,11 +93,10 @@ class VariationSelector extends StatelessWidget {
     );
   }
 
-  _select(ProductOption option) {
+  _select(Unit unit) {
     final newProduct = Product.fromJson(product.toJson());
-    newProduct.price =
-        option.salePrice > 0 ? option.salePrice : newProduct.price;
-    newProduct.unit = option;
+    newProduct.price = unit.salePrice > 0 ? unit.salePrice : newProduct.price;
+    newProduct.unit = unit;
     callBack(newProduct);
   }
 }
