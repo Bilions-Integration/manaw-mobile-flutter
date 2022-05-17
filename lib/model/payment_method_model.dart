@@ -1,3 +1,19 @@
+class PaymentMethod {
+  final String key;
+  final List<String> images;
+  final String label;
+  final String description;
+  final List<String> channel;
+  final bool selected;
+
+  PaymentMethod.fromJson(json)
+      : key = json['key'],
+        images = json['images'],
+        label = json['label'],
+        description = json['description'],
+        channel = json['channel'],
+        selected = json['selected'];
+}
 /*
 
 [

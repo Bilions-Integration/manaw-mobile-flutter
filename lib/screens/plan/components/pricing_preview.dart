@@ -5,7 +5,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/components/plan_card.dart';
 import 'package:my_app/screens/plan/payment_service.dart';
-import 'package:my_app/screens/plan/payment_type_screen.dart';
+import 'package:my_app/screens/plan/payment_method_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingPreview extends StatefulWidget {
@@ -129,7 +129,7 @@ class _PricingPreview extends State<PricingPreview> {
             padding: const EdgeInsets.all(15),
             child: PrimaryButton(
                 value: 'Upgrade Now',
-                onPressed: () => Get.to(const PaymentType()))),
+                onPressed: () => Get.to(const PaymentMethodScreen()))),
         mb(0.5)
       ],
     );

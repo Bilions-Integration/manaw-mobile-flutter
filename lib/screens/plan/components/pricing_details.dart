@@ -6,7 +6,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/plan/payment_service.dart';
-import 'package:my_app/screens/plan/payment_type_screen.dart';
+import 'package:my_app/screens/plan/payment_method_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingDetails {
@@ -80,7 +80,7 @@ class PricingDetail extends StatelessWidget {
                   onPressed: () {
                     paymentController.plan.value = plan.name;
                     paymentController.period.value = 'yearly';
-                    Get.to(const PaymentType());
+                    Get.to(const PaymentMethodScreen());
                   }),
               mb(0.3),
               Center(
@@ -96,7 +96,7 @@ class PricingDetail extends StatelessWidget {
                   onPressed: () {
                     paymentController.plan.value = plan.name;
                     paymentController.period.value = 'monthly';
-                    Get.to(const PaymentType());
+                    Get.to(const PaymentMethodScreen());
                   })
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
