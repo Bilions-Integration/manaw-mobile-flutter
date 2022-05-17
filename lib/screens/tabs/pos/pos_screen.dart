@@ -78,19 +78,16 @@ class _PosScreenState extends State<PosScreen> {
 
   _checkVariations(Product product) {
     if (product.units.length > 1) {
-      VariationSelect().open();
+      VariationSelect(product: product, addCartCallback: _addCart).open();
     } else {
-      _addCart(product);
+      final newProduct = Product.fromJson(product.toJson());
+      _addCart(newProduct);
     }
   }
 
   _addCart(Product product) {
-    final newProduct = Product.fromJson(product.toJson());
-    console.log("Product Units : ", payload: newProduct.units.length);
-    cartController.products.value = [
-      ...cartController.products.value,
-      newProduct
-    ];
+    console.log("Product Units : ", payload: product.price);
+    cartController.products.value = [...cartController.products.value, product];
   }
 
   _categoryChanged(CategoryModel category) {

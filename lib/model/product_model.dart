@@ -8,9 +8,10 @@ class Product {
   final String name;
   final List<dynamic> images;
   final int instock;
-  final int price;
+  int price;
   final String type;
   final List<ProductOption> units;
+  ProductOption? unit;
   int quantity;
 
   Product({
@@ -32,6 +33,8 @@ class Product {
         price = json['price'],
         type = json['type'],
         quantity = json['quantity'] ?? 1,
+        unit =
+            json['unit'] != null ? ProductOption.fromJson(json['unit']) : null,
         units = (json['units'] as List)
             .map((e) => ProductOption.fromJson(e))
             .toList();
@@ -46,6 +49,7 @@ class Product {
         'price': price,
         'type': type,
         'units': units.map((e) => e.toJson()).toList(),
+        'unit': unit?.toJson(),
         'quantity': quantity,
         "discount": 0,
         "discount_type": "fixed"
