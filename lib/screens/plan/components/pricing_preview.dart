@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/components/plan_card.dart';
 import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_type_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingPreview extends StatefulWidget {
@@ -53,8 +55,7 @@ class PricingPreview extends StatefulWidget {
 class _PricingPreview extends State<PricingPreview> {
   String selectedTab = 'monthly';
   String selectedPlan = 'Silver';
-  var paymentService = PaymentService();
-
+  var paymentController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -125,12 +126,10 @@ class _PricingPreview extends State<PricingPreview> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(15),
-          child: PrimaryButton(
-              value: 'Upgrade Now',
-              onPressed: () => paymentService.doPayment(
-                  period: selectedTab, plan: selectedPlan)),
-        ),
+            padding: const EdgeInsets.all(15),
+            child: PrimaryButton(
+                value: 'Upgrade Now',
+                onPressed: () => Get.to(const PaymentType()))),
         mb(0.5)
       ],
     );
@@ -144,12 +143,14 @@ class _PricingPreview extends State<PricingPreview> {
   _changeTab(String type) {
     setState(() {
       selectedTab = type;
+      paymentController.period.value = type;
     });
   }
 
   _onPlanSelect(String name) {
     setState(() {
       selectedPlan = name;
+      paymentController.plan.value = name;
     });
   }
 }

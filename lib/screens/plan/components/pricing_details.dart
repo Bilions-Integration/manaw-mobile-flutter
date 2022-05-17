@@ -6,6 +6,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_type_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingDetails {
@@ -33,7 +34,7 @@ class PricingDetails {
 class PricingDetail extends StatelessWidget {
   PricingDetail({Key? key, required this.plan}) : super(key: key);
   final PlanModel plan;
-  final paymentService = PaymentService();
+  final paymentController = Get.find<PaymentController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -77,7 +78,9 @@ class PricingDetail extends StatelessWidget {
                   plan: plan,
                   type: 'yearly',
                   onPressed: () {
-                    paymentService.doPayment(plan: plan.name, period: 'yearly');
+                    paymentController.plan.value = plan.name;
+                    paymentController.period.value = 'yearly';
+                    Get.to(const PaymentType());
                   }),
               mb(0.3),
               Center(
@@ -91,8 +94,9 @@ class PricingDetail extends StatelessWidget {
                   plan: plan,
                   type: 'monthly',
                   onPressed: () {
-                    paymentService.doPayment(
-                        plan: plan.name, period: 'monthly');
+                    paymentController.plan.value = plan.name;
+                    paymentController.period.value = 'monthly';
+                    Get.to(const PaymentType());
                   })
             ],
             crossAxisAlignment: CrossAxisAlignment.start,

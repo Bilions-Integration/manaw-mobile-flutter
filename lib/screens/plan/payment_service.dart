@@ -2,15 +2,16 @@ import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/screens/plan/payment_webview.dart';
 
-class PaymentService {
-  Future<String?> getPaymentURL({
-    required String plan,
-    required String period,
-  }) async {
+class PaymentController extends GetxController {
+  var plan = ''.obs;
+  var period = ''.obs;
+  var channel = <String>['ALL'].obs;
+
+  Future<String?> getPaymentURL() async {
     Map<String, dynamic> params = {
-      'plan': plan,
-      'period': period,
-      'payment_channel[]': ['ALL']
+      'plan': plan.value,
+      'period': period.value,
+      'payment_channel[]': channel.value,
     };
     try {
       var res = await Api.get('payment_url', data: params, showLoading: true);
@@ -24,9 +25,8 @@ class PaymentService {
     }
   }
 
-  Future doPayment({required String plan, required String period}) async {
-    String? webUrl =
-        await getPaymentURL(plan: plan.toLowerCase(), period: period);
+  Future doPayment() async {
+    String? webUrl = await getPaymentURL();
     if (webUrl != null) {
       Get.to(() => PaymentWebView(webUrl: webUrl));
     }
