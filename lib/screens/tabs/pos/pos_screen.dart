@@ -86,7 +86,6 @@ class _PosScreenState extends State<PosScreen> {
   }
 
   _addCart(Product product) {
-    console.log("Product Units : ", payload: product.price);
     cartController.products.value = [...cartController.products.value, product];
   }
 

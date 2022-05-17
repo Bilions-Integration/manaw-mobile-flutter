@@ -42,18 +42,26 @@ class VariationSelector extends StatelessWidget {
           "Choose Variation",
           style: Styles.h2,
         ),
+        mb(0.2),
+        Text(
+          product.name,
+          style: Styles.l3,
+        ),
         Expanded(
           child: ListView(
             children: [
               ...product.units.map(
-                (e) => InkWell(
-                  onTap: () {
-                    _select(e);
-                  },
-                  child: Column(
-                    children: [
-                      mb(1),
-                      Container(
+                (e) => Column(
+                  children: [
+                    mb(1),
+                    InkWell(
+                      splashColor: AppColors.lightPurple,
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        _select(e);
+                        Navigator.pop(context);
+                      },
+                      child: Container(
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -74,8 +82,8 @@ class VariationSelector extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

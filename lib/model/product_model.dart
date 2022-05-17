@@ -1,6 +1,4 @@
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_option_model.dart';
-import 'package:my_app/model/unit_model.dart';
 
 class Product {
   final int productId;
