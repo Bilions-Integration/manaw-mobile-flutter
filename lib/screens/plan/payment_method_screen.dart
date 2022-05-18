@@ -32,44 +32,53 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Payment Method'),
+          title: Text('Choose Payment Method'),
           backgroundColor: AppColors.primary,
         ),
         body: loading
             ? LoadingWidget()
-            : Column(
-                children: [
-                  Text("Choose payment methods"),
-                  ...paymentMethods.map((e) => methodCard(e)),
-                ],
+            : Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    ...paymentMethods.map((e) => methodCard(e)),
+                  ],
+                ),
               ));
   }
 
   Widget methodCard(PaymentMethod method) {
     return Container(
+      padding: EdgeInsets.only(bottom: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           method.images.length > 1
               ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       method.label,
-                      style: Styles.h6,
+                      style: Styles.h4,
                     ),
                     Row(
                       children: [
                         ...method.images.map(
-                          (e) => Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Image.network(
-                              e,
-                              fit: BoxFit.cover,
-                            ),
+                          (e) => Row(
+                            children: [
+                              Container(
+                                width: 23,
+                                height: 23,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Image.network(
+                                  e,
+                                ),
+                              ),
+                              mr(0.5),
+                            ],
                           ),
                         )
                       ],
@@ -79,21 +88,20 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               : Row(
                   children: [
                     Container(
-                        width: 60,
-                        height: 60,
+                        width: 45,
+                        height: 45,
+                        clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Image.network(
-                          method.images.isNotEmpty
-                              ? method.images.first
-                              : AppAssets.placeholder,
+                          method.images.first,
                           fit: BoxFit.cover,
                         )),
                     mr(1),
                     Text(
                       method.label,
-                      style: Styles.h5,
+                      style: Styles.h4,
                     )
                   ],
                 ),
