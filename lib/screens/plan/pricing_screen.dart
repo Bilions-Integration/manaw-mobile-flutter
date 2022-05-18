@@ -17,23 +17,30 @@ class PricingScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              mb(1),
               Image.asset(AppAssets.getPlanIcon('pricing-promo')),
-              const Text(
-                "Best plans for your business",
-                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-              ),
-              mb(0.5),
-              const SizedBox(
-                width: 250,
-                child: Text(
-                  'Upgrade your account and get full access for your business',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.grey,
-                    height: 1.4,
-                  ),
-                  textAlign: TextAlign.center,
+              Container(
+                transform: Matrix4.translationValues(0, -25, 0),
+                child: Column(
+                  children: [
+                    const Text(
+                      "Best plans for your business",
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                    ),
+                    mb(0.5),
+                    const SizedBox(
+                      width: 250,
+                      child: Text(
+                        'Upgrade your account and get full access for your business',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.grey,
+                          height: 1.4,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               mb(1),

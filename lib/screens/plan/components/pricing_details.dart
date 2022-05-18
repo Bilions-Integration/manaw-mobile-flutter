@@ -21,7 +21,7 @@ class PricingDetails {
         shape: Styles.topOnlyBorderRadius(15),
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * (90 / 100),
+            height: MediaQuery.of(context).size.height * 0.95,
             padding: MediaQuery.of(context).viewInsets,
             child: PricingDetail(
               plan: plan,
@@ -72,7 +72,12 @@ class PricingDetail extends StatelessWidget {
                 style: Styles.h3,
               ),
               mb(0.5),
-              DetailContainer(plan: plan),
+              Expanded(
+                  child: ListView(
+                children: [
+                  DetailContainer(plan: plan),
+                ],
+              )),
               mb(1),
               pricingButton(
                   plan: plan,
@@ -97,7 +102,8 @@ class PricingDetail extends StatelessWidget {
                     paymentController.plan.value = plan.name;
                     paymentController.period.value = 'monthly';
                     Get.to(const PaymentMethodScreen());
-                  })
+                  }),
+              mb(1.5),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
           ),
