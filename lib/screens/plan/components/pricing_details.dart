@@ -80,13 +80,9 @@ class PricingDetail extends StatelessWidget {
               )),
               mb(1),
               pricingButton(
-                  plan: plan,
-                  type: 'yearly',
-                  onPressed: () {
-                    paymentController.plan.value = plan.name;
-                    paymentController.period.value = 'yearly';
-                    Get.to(const PaymentMethodScreen());
-                  }),
+                plan: plan,
+                type: 'yearly',
+              ),
               mb(0.3),
               Center(
                 child: Text(
@@ -96,13 +92,9 @@ class PricingDetail extends StatelessWidget {
               ),
               mb(1.5),
               pricingButton(
-                  plan: plan,
-                  type: 'monthly',
-                  onPressed: () {
-                    paymentController.plan.value = plan.name;
-                    paymentController.period.value = 'monthly';
-                    Get.to(const PaymentMethodScreen());
-                  }),
+                plan: plan,
+                type: 'monthly',
+              ),
               mb(1.5),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,14 +104,16 @@ class PricingDetail extends StatelessWidget {
     );
   }
 
-  Widget pricingButton(
-      {required PlanModel plan,
-      required String type,
-      void Function()? onPressed}) {
+  Widget pricingButton({
+    required PlanModel plan,
+    required String type,
+  }) {
     bool isYearly = type == 'yearly';
 
     return MaterialButton(
-      onPressed: onPressed,
+      onPressed: () {
+        _submit(plan, type);
+      },
       height: 50,
       elevation: 0,
       child: Row(
@@ -148,6 +142,13 @@ class PricingDetail extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
+  }
+
+  _submit(PlanModel plan, String period) {
+    paymentController.plan.value = plan.name;
+    paymentController.period.value = period;
+    paymentController.total.value = plan.prices[period]!;
+    Get.to(const PaymentMethodScreen());
   }
 }
 
