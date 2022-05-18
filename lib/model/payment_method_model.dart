@@ -6,7 +6,7 @@ class PaymentMethod {
   final String label;
   final String description;
   final List<String> channel;
-  final bool selected;
+  bool selected;
 
   PaymentMethod.fromJson(Map json)
       : key = json['key'],
