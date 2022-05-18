@@ -10,6 +10,7 @@ import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/pos/category/category_selector.dart';
 import 'package:my_app/screens/tabs/pos/components/product_card.dart';
+import 'package:my_app/screens/tabs/pos/components/variation_select.dart';
 import 'package:my_app/screens/tabs/pos/pos_controller.dart';
 
 class PosScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _PosScreenState extends State<PosScreen> {
                     product: product,
                     index: index,
                     crossCount: crossCount,
-                    addCart: _addCart,
+                    addCart: _checkVariations,
                   );
                 },
                 crossAxisSpacing: 15,
@@ -75,12 +76,17 @@ class _PosScreenState extends State<PosScreen> {
     });
   }
 
+  _checkVariations(Product product) {
+    if (product.units.length > 1) {
+      VariationSelect(product: product, addCartCallback: _addCart).open();
+    } else {
+      final newProduct = Product.fromJson(product.toJson());
+      _addCart(newProduct);
+    }
+  }
+
   _addCart(Product product) {
-    final newProduct = Product.fromJson(product.toJson());
-    cartController.products.value = [
-      ...cartController.products.value,
-      newProduct
-    ];
+    cartController.products.value = [...cartController.products.value, product];
   }
 
   _categoryChanged(CategoryModel category) {

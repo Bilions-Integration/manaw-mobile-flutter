@@ -1,38 +1,46 @@
 class Unit {
-  final int coefficient;
-  final String description;
-  final int? id;
-  final bool isDefault;
+  int? id;
+  int? productId;
+  final String name;
+  final bool active;
   final int salePrice;
+  final int coefficient;
   final int purchasePrice;
-  final String unit;
+  dynamic image;
+  String? description;
 
   Unit({
-    required this.coefficient,
-    required this.description,
-    required this.id,
-    required this.isDefault,
-    required this.salePrice,
-    required this.purchasePrice,
-    required this.unit,
+    required this.name,
+    this.active = true,
+    this.salePrice = 0,
+    this.coefficient = 1,
+    this.purchasePrice = 0,
+    this.description,
   });
 
   Unit.fromJson(Map json)
-      : coefficient = json['coefficient'],
+      : id = json['id'],
+        productId = json['product_id'],
+        name = json['unit'],
+        active = [null, 0, false, ''].contains(json['active']) ? false : true,
+        image = json['image'],
+        salePrice =
+            int.tryParse(json['sale_price'].toString()) ?? json['sale_price'],
+        purchasePrice = int.tryParse(json['purchase_price'].toString()) ??
+            json['purchase_price'],
         description = json['description'],
-        id = json['id'],
-        isDefault = json['isDefault'],
-        salePrice = json['salePrice'],
-        purchasePrice = json['purchasePrice'],
-        unit = json['unit'];
+        coefficient =
+            int.tryParse(json['coefficient'].toString()) ?? json['coefficient'];
 
   Map<String, dynamic> toJson() => {
-        'coefficient': coefficient,
-        'description': description,
         'id': id,
-        'isDefault': isDefault,
-        'salePrice': salePrice,
-        'purchasePrice': purchasePrice,
-        'unit': unit,
+        'product_id': productId,
+        'unit': name,
+        'image': image,
+        'sale_price': salePrice,
+        'purchase_price': purchasePrice,
+        'description': description,
+        'coefficient': coefficient,
+        'active': active ? 1 : 0,
       };
 }

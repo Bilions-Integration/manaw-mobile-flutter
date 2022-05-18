@@ -148,7 +148,7 @@ class _CreateProductState extends State<CreateProduct> {
                               ProductPackages(
                                 productId: widget.productId,
                                 afterMutation: _getProduct,
-                                options: params['units'],
+                                units: params['units'],
                               ),
                           ],
                         ),
