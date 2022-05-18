@@ -54,7 +54,14 @@ class PricingPreview extends StatefulWidget {
 
 class _PricingPreview extends State<PricingPreview> {
   String selectedTab = 'monthly';
-  String selectedPlan = 'Silver';
+  late PlanModel selectedPlan;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedPlan = widget.plans[0];
+  }
+
   var paymentController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
@@ -116,40 +123,40 @@ class _PricingPreview extends State<PricingPreview> {
           children: <Widget>[
             ...widget.plans.map((e) {
               return InkWell(
-                  onTap: () => _onPlanSelect(e.name),
-                  child: PlanCard(
-                      plan: e,
-                      selectedPlan: selectedPlan,
-                      selectedTab: selectedTab));
+                onTap: () => _onPlanSelect(e),
+                child: PlanCard(
+                    plan: e,
+                    selectedPlan: selectedPlan.name,
+                    selectedTab: selectedTab),
+              );
             })
           ],
         ),
         Padding(
-            padding: const EdgeInsets.all(15),
-            child: PrimaryButton(
-                value: 'Upgrade Now',
-                onPressed: () => Get.to(const PaymentMethodScreen()))),
-        mb(0.5)
+          padding: const EdgeInsets.all(15),
+          child: PrimaryButton(value: 'Upgrade Now', onPressed: _submit),
+        ),
+        mb(0.5),
       ],
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   _changeTab(String type) {
     setState(() {
       selectedTab = type;
-      paymentController.period.value = type;
     });
   }
 
-  _onPlanSelect(String name) {
+  _onPlanSelect(PlanModel plan) {
     setState(() {
-      selectedPlan = name;
-      paymentController.plan.value = name;
+      selectedPlan = plan;
     });
+  }
+
+  _submit() {
+    paymentController.period.value = selectedTab;
+    paymentController.plan.value = selectedPlan.name;
+    paymentController.total.value = selectedPlan.prices[selectedTab]!;
+    Get.to(const PaymentMethodScreen());
   }
 }

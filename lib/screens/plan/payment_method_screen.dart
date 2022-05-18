@@ -58,7 +58,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ],
                     ),
                   ),
-                  PrimaryButton(value: "Pay Now", onPressed: () {}),
+                  footerCard(),
                 ],
               ),
             ),
@@ -154,6 +154,25 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     );
   }
 
+  Widget footerCard() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Amount Due (MMK)",
+          style: Styles.l6,
+        ),
+        Text(
+          'K ' + cast(paymentController.total.value),
+          style: Styles.h1,
+        ),
+        mb(0.7),
+        PrimaryButton(value: "Pay Now", onPressed: _submit),
+        mb(0.8),
+      ],
+    );
+  }
+
   bool _isSelected(PaymentMethod method) {
     return method.key == selectedMethod.key;
   }
@@ -170,5 +189,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       paymentMethods = methods;
       selectedMethod = paymentMethods.firstWhere((element) => element.selected);
     });
+  }
+
+  _submit() {
+    paymentController.channel.value = selectedMethod.channel;
+    paymentController.doPayment();
   }
 }

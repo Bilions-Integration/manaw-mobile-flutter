@@ -27,7 +27,7 @@ class PricingScreen extends StatelessWidget {
             child: AppWidget.closeButton(context),
           ),
           Positioned(
-            top: 300,
+            top: 280,
             left: 0,
             right: 0,
             child: Column(
