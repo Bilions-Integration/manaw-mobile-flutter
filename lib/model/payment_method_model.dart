@@ -1,3 +1,5 @@
+import 'package:my_app/helpers/helper.dart';
+
 class PaymentMethod {
   final String key;
   final List<String> images;
@@ -6,12 +8,24 @@ class PaymentMethod {
   final List<String> channel;
   final bool selected;
 
-  PaymentMethod.fromJson(json)
+  PaymentMethod.fromJson(Map json)
       : key = json['key'],
-        images = json['images'],
+        images = (() {
+          List<String> res = [];
+          var imgs = json['images'] as List?;
+          if (imgs == null || imgs.isEmpty) {
+            String img = json['image'];
+            console.log("image  :", payload: img);
+            res.add(img);
+          } else {
+            res.addAll((imgs.cast<String>()));
+          }
+          console.log("final : ", payload: res);
+          return res;
+        })(),
         label = json['label'],
         description = json['description'],
-        channel = json['channel'],
+        channel = (json['channel'] as List).cast<String>(),
         selected = json['selected'];
 }
 /*
