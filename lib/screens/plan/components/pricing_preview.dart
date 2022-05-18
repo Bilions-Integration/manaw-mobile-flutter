@@ -4,7 +4,7 @@ import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/components/plan_card.dart';
-import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_controller.dart';
 import 'package:my_app/screens/plan/payment_method_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 

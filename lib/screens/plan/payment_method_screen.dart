@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/components/loading_widget.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/payment_method_model.dart';
-import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_controller.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   const PaymentMethodScreen({Key? key}) : super(key: key);
@@ -33,17 +31,17 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Payment Method'),
+        title: const Text('Choose Payment Method'),
         backgroundColor: AppColors.primary,
       ),
       body: paymentMethods.isEmpty
-          ? LoadingWidget()
+          ? mb(1)
           : Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Payment Methods",
                     style: Styles.l5,
                   ),
@@ -51,10 +49,12 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   Expanded(
                     child: ListView(
                       children: [
-                        ...paymentMethods.map((e) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: methodCard(e),
-                            )),
+                        ...paymentMethods.map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: methodCard(e),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -158,7 +158,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Amount Due (MMK)",
           style: Styles.l6,
         ),

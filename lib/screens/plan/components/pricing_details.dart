@@ -5,7 +5,7 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
-import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_controller.dart';
 import 'package:my_app/screens/plan/payment_method_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
@@ -67,7 +67,7 @@ class PricingDetail extends StatelessWidget {
                 ),
               ),
               mb(1.5),
-              Text(
+              const Text(
                 "Plan Details",
                 style: Styles.h3,
               ),
