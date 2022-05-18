@@ -110,20 +110,19 @@ class _PricingPreview extends State<PricingPreview> {
             ),
           ),
         ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(15),
-            children: <Widget>[
-              ...widget.plans.map((e) {
-                return InkWell(
-                    onTap: () => _onPlanSelect(e.name),
-                    child: PlanCard(
-                        plan: e,
-                        selectedPlan: selectedPlan,
-                        selectedTab: selectedTab));
-              })
-            ],
-          ),
+        ListView(
+          padding: const EdgeInsets.all(15),
+          shrinkWrap: true,
+          children: <Widget>[
+            ...widget.plans.map((e) {
+              return InkWell(
+                  onTap: () => _onPlanSelect(e.name),
+                  child: PlanCard(
+                      plan: e,
+                      selectedPlan: selectedPlan,
+                      selectedTab: selectedTab));
+            })
+          ],
         ),
         Padding(
             padding: const EdgeInsets.all(15),
