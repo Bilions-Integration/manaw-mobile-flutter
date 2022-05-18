@@ -41,7 +41,7 @@ class _ProductItemState extends State<ProductItem> {
       child: Padding(
         padding: EdgeInsets.only(bottom: 10, top: (widget.index == 1) ? 0 : 10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Checkbox(
               shape: RoundedRectangleBorder(
@@ -70,7 +70,7 @@ class _ProductItemState extends State<ProductItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 160,
+                      width: 150,
                       child: Text(
                         widget.product.name,
                         style: TextStyle(
@@ -91,7 +91,6 @@ class _ProductItemState extends State<ProductItem> {
                 ),
               ],
             ),
-            const Spacer(),
             widget.product.instock <= 0
                 ? Text(
                     'Out',
