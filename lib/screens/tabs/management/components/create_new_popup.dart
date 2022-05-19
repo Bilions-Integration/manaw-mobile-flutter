@@ -7,8 +7,7 @@ import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/helpers/util_models.dart' as util;
 import 'package:my_app/screens/tabs/management/category/create_edit_category.dart';
 import 'package:my_app/screens/tabs/management/components/popup_item.dart';
-import 'package:my_app/screens/tabs/management/discount/create_edit_discount.dart';
-// import 'package:my_app/screens/tabs/management/invoice/create_edit_invoice.dart';
+import 'package:my_app/screens/tabs/management/coupon/coupon_create_and_edit.dart';
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 
 class CreateNewPopup {
@@ -46,8 +45,8 @@ class MyPopup extends StatelessWidget {
     //     onTap: () => Get.to(() => const CreateInvoice())),
     util.PopupItem(
         icon: AppAssets.icDiscount,
-        name: "Discount",
-        onTap: () => Get.to(() => const CreateDiscount())),
+        name: "Coupon",
+        onTap: () => Get.to(() => const CouponCreateAndEdit())),
   ];
 
   MyPopup({
