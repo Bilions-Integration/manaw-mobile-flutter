@@ -95,7 +95,7 @@ class ReportList extends StatelessWidget {
         hr(height: 1, mt: 1.5, mb: 1, width: 1),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const Text('Unit Price'),
-          Text('${currency()} ${report.unitSalePrice}', style: Styles.h4),
+          Text('${report.currency} ${report.unitSalePrice}', style: Styles.h4),
         ]),
       ]),
     );
