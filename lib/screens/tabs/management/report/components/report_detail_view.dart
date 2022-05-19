@@ -52,36 +52,37 @@ class _ReportDetailState extends State<ReportDetailView> {
                               children: [
                                 Text('Created at', style: Styles.label),
                                 mb(1),
-                                Text(
+                                const Text(
                                   'Invoice',
                                   style: Styles.t2,
                                 ),
                                 mb(0.7),
-                                Text('Invoice Number', style: Styles.label),
+                                const Text('Invoice Number',
+                                    style: Styles.label),
                                 mb(1),
-                                Text('Invoice Date', style: Styles.label),
+                                const Text('Invoice Date', style: Styles.label),
                                 mb(1),
-                                Text('Total Price', style: Styles.label),
+                                const Text('Total Price', style: Styles.label),
                                 mb(1),
-                                Text(
+                                const Text(
                                   'Customer',
                                   style: Styles.t2,
                                 ),
                                 mb(0.7),
-                                Text('Name', style: Styles.label),
+                                const Text('Name', style: Styles.label),
                                 mb(1),
-                                Text('Email', style: Styles.label),
+                                const Text('Email', style: Styles.label),
                                 mb(1),
-                                Text('Phone', style: Styles.label),
+                                const Text('Phone', style: Styles.label),
                                 mb(1),
-                                Text(
+                                const Text(
                                   'Account',
                                   style: Styles.t2,
                                 ),
                                 mb(0.7),
-                                Text('Bank Name', style: Styles.label),
+                                const Text('Bank Name', style: Styles.label),
                                 mb(1),
-                                Text('Owner Name', style: Styles.label),
+                                const Text('Owner Name', style: Styles.label),
                               ],
                             ),
                             mr(3),
@@ -125,7 +126,7 @@ class _ReportDetailState extends State<ReportDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Quantity', style: Styles.label),
+                          const Text('Quantity', style: Styles.label),
                           Text('${report.currency} ${report.quantity}'),
                         ],
                       ),
@@ -133,7 +134,7 @@ class _ReportDetailState extends State<ReportDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Unit Price', style: Styles.label),
+                          const Text('Unit Price', style: Styles.label),
                           Text('${report.currency} ${report.unitPrice}'),
                         ],
                       ),
@@ -141,7 +142,7 @@ class _ReportDetailState extends State<ReportDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Sale Price', style: Styles.label),
+                          const Text('Sale Price', style: Styles.label),
                           Text('${report.currency} ${report.unitSalePrice}'),
                         ],
                       ),
@@ -149,7 +150,8 @@ class _ReportDetailState extends State<ReportDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Total Sale Price', style: Styles.textBold),
+                          const Text('Total Sale Price',
+                              style: Styles.textBold),
                           Text(
                             '${report.currency} ${report.totalSalePrice}',
                             style: Styles.textBold,
