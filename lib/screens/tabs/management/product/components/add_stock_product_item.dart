@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_detail_model.dart';
@@ -26,16 +28,7 @@ class _ProductItemState extends State<AddStockProductItem> {
       children: [
         Row(
           children: [
-            IconButton(
-              onPressed: () {
-                widget.onChange(
-                    action: 'delete', productId: widget.product.productId);
-              },
-              icon: Icon(
-                Icons.remove_circle_rounded,
-                color: AppColors.red,
-              ),
-            ),
+            mr(1),
             borderRadiusCard(
                 10,
                 ClipRRect(
@@ -74,24 +67,12 @@ class _ProductItemState extends State<AddStockProductItem> {
           children: [
             IconButton(
               onPressed: _decrease,
-              icon: const Icon(Icons.remove_circle_rounded),
+              icon: SvgPicture.asset(AppAssets.icMinus),
             ),
             SizedBox(child: Text(count.toString())),
-            // SizedBox(
-            //   width: 60,
-            //   height: 50,
-            //   child: MyTextInput(
-            //     placeholder: '',
-            //     onFieldSubmitted: _onChanged,
-            //     value: count,
-            //     key: Key(count.toString()),
-            //     onChanged: (String e, String? col) {},
-            //     numberOnly: true,
-            //   ),
-            // ),
             IconButton(
               onPressed: _increase,
-              icon: const Icon(Icons.add_circle_rounded),
+              icon: SvgPicture.asset(AppAssets.icPlus),
             ),
           ],
         )
@@ -110,6 +91,8 @@ class _ProductItemState extends State<AddStockProductItem> {
       if (count > 1) {
         count--;
         widget.product.addStockQuantity--;
+      } else {
+        _remove();
       }
     });
     widget.onChange();
@@ -123,14 +106,16 @@ class _ProductItemState extends State<AddStockProductItem> {
     widget.onChange();
   }
 
-  _onChanged(String text, String? e) {
-    int? num = int.tryParse(text);
-    setState(() {
-      if (num != null) {
-        count = num;
-        widget.product.addStockQuantity = num;
-      }
-    });
-    widget.onChange();
+  _remove() {
+    confirm(
+        onPressed: (value) => value
+            ? () {
+                widget.onChange(
+                    action: 'delete', productId: widget.product.productId);
+              }()
+            : null,
+        title: "Remove ?",
+        message: "Do you want to remove this product?",
+        confirmText: 'Remove');
   }
 }
