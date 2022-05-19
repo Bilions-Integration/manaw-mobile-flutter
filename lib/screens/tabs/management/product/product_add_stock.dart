@@ -50,12 +50,13 @@ class _AddStockState extends State<ProductAddStock> {
           Expanded(
             child: ListView(
               children: [
-                for (var product in addStockController.purchaseCart.value)
-                  Padding(
+                ...addStockController.purchaseCart.value.map(
+                  (product) => Padding(
                     padding: const EdgeInsets.only(left: 5, right: 20, top: 12),
                     child: AddStockProductItem(
                         product: product, onChange: _onChange),
-                  )
+                  ),
+                ),
               ],
             ),
           ),
