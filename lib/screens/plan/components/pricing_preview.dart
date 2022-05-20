@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/plan/components/plan_card.dart';
-import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_controller.dart';
+import 'package:my_app/screens/plan/payment_method_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingPreview extends StatefulWidget {
@@ -52,9 +54,15 @@ class PricingPreview extends StatefulWidget {
 
 class _PricingPreview extends State<PricingPreview> {
   String selectedTab = 'monthly';
-  String selectedPlan = 'Silver';
-  var paymentService = PaymentService();
+  late PlanModel selectedPlan;
 
+  @override
+  void initState() {
+    super.initState();
+    selectedPlan = widget.plans[0];
+  }
+
+  var paymentController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -109,36 +117,28 @@ class _PricingPreview extends State<PricingPreview> {
             ),
           ),
         ),
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(15),
-            children: <Widget>[
-              ...widget.plans.map((e) {
-                return InkWell(
-                    onTap: () => _onPlanSelect(e.name),
-                    child: PlanCard(
-                        plan: e,
-                        selectedPlan: selectedPlan,
-                        selectedTab: selectedTab));
-              })
-            ],
-          ),
+        ListView(
+          padding: const EdgeInsets.all(15),
+          shrinkWrap: true,
+          children: <Widget>[
+            ...widget.plans.map((e) {
+              return InkWell(
+                onTap: () => _onPlanSelect(e),
+                child: PlanCard(
+                    plan: e,
+                    selectedPlan: selectedPlan.name,
+                    selectedTab: selectedTab),
+              );
+            })
+          ],
         ),
         Padding(
           padding: const EdgeInsets.all(15),
-          child: PrimaryButton(
-              value: 'Upgrade Now',
-              onPressed: () => paymentService.doPayment(
-                  period: selectedTab, plan: selectedPlan)),
+          child: PrimaryButton(value: 'Upgrade Now', onPressed: _submit),
         ),
-        mb(0.5)
+        mb(0.5),
       ],
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   _changeTab(String type) {
@@ -147,9 +147,16 @@ class _PricingPreview extends State<PricingPreview> {
     });
   }
 
-  _onPlanSelect(String name) {
+  _onPlanSelect(PlanModel plan) {
     setState(() {
-      selectedPlan = name;
+      selectedPlan = plan;
     });
+  }
+
+  _submit() {
+    paymentController.period.value = selectedTab;
+    paymentController.plan.value = selectedPlan.name;
+    paymentController.total.value = selectedPlan.prices[selectedTab]!;
+    Get.to(const PaymentMethodScreen());
   }
 }

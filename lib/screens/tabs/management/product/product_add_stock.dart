@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model/account_model.dart';
@@ -34,7 +36,12 @@ class _AddStockState extends State<ProductAddStock> {
         title: const Text('Add Stock'),
         actions: [
           IconButton(
-              onPressed: _clearCart, icon: const Icon(Icons.delete_outlined))
+              onPressed: _clearCart,
+              icon: SvgPicture.asset(
+                AppAssets.icDelete,
+                width: 25,
+                color: Colors.white,
+              ))
         ],
       ),
       body: Column(
@@ -43,12 +50,13 @@ class _AddStockState extends State<ProductAddStock> {
           Expanded(
             child: ListView(
               children: [
-                for (var product in addStockController.purchaseCart.value)
-                  Padding(
+                ...addStockController.purchaseCart.value.map(
+                  (product) => Padding(
                     padding: const EdgeInsets.only(left: 5, right: 20, top: 12),
                     child: AddStockProductItem(
                         product: product, onChange: _onChange),
-                  )
+                  ),
+                ),
               ],
             ),
           ),

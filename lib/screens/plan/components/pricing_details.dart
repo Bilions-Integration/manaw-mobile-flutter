@@ -5,7 +5,8 @@ import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
-import 'package:my_app/screens/plan/payment_service.dart';
+import 'package:my_app/screens/plan/payment_controller.dart';
+import 'package:my_app/screens/plan/payment_method_screen.dart';
 import 'package:my_app/screens/plan/plan_model.dart';
 
 class PricingDetails {
@@ -20,7 +21,7 @@ class PricingDetails {
         shape: Styles.topOnlyBorderRadius(15),
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height * (90 / 100),
+            height: MediaQuery.of(context).size.height * 0.95,
             padding: MediaQuery.of(context).viewInsets,
             child: PricingDetail(
               plan: plan,
@@ -33,7 +34,7 @@ class PricingDetails {
 class PricingDetail extends StatelessWidget {
   PricingDetail({Key? key, required this.plan}) : super(key: key);
   final PlanModel plan;
-  final paymentService = PaymentService();
+  final paymentController = Get.find<PaymentController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -66,19 +67,22 @@ class PricingDetail extends StatelessWidget {
                 ),
               ),
               mb(1.5),
-              Text(
+              const Text(
                 "Plan Details",
                 style: Styles.h3,
               ),
               mb(0.5),
-              DetailContainer(plan: plan),
+              Expanded(
+                  child: ListView(
+                children: [
+                  DetailContainer(plan: plan),
+                ],
+              )),
               mb(1),
               pricingButton(
-                  plan: plan,
-                  type: 'yearly',
-                  onPressed: () {
-                    paymentService.doPayment(plan: plan.name, period: 'yearly');
-                  }),
+                plan: plan,
+                type: 'yearly',
+              ),
               mb(0.3),
               Center(
                 child: Text(
@@ -88,12 +92,10 @@ class PricingDetail extends StatelessWidget {
               ),
               mb(1.5),
               pricingButton(
-                  plan: plan,
-                  type: 'monthly',
-                  onPressed: () {
-                    paymentService.doPayment(
-                        plan: plan.name, period: 'monthly');
-                  })
+                plan: plan,
+                type: 'monthly',
+              ),
+              mb(1.5),
             ],
             crossAxisAlignment: CrossAxisAlignment.start,
           ),
@@ -102,14 +104,16 @@ class PricingDetail extends StatelessWidget {
     );
   }
 
-  Widget pricingButton(
-      {required PlanModel plan,
-      required String type,
-      void Function()? onPressed}) {
+  Widget pricingButton({
+    required PlanModel plan,
+    required String type,
+  }) {
     bool isYearly = type == 'yearly';
 
     return MaterialButton(
-      onPressed: onPressed,
+      onPressed: () {
+        _submit(plan, type);
+      },
       height: 50,
       elevation: 0,
       child: Row(
@@ -138,6 +142,13 @@ class PricingDetail extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
+  }
+
+  _submit(PlanModel plan, String period) {
+    paymentController.plan.value = plan.name;
+    paymentController.period.value = period;
+    paymentController.total.value = plan.prices[period]!;
+    Get.to(const PaymentMethodScreen());
   }
 }
 

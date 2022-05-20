@@ -57,7 +57,8 @@ class _CustomItemListState extends State<CustomItemList> {
                                 ? Styles.loading
                                 : widget.isLastPage &&
                                         widget.params['page'] != 1
-                                    ? Text('End of results .', style: Styles.l5)
+                                    ? const Text('End of results .',
+                                        style: Styles.l5)
                                     : const SizedBox(height: 1)),
                       );
                     }

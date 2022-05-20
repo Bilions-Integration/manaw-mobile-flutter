@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/model/product_option_model.dart';
+import 'package:my_app/model/unit_model.dart';
 import 'package:my_app/screens/tabs/management/product/components/new_package_modal.dart';
 import 'package:my_app/screens/tabs/management/product/product_option_controller.dart';
 
 class ProductPackages extends StatefulWidget {
   final Function() afterMutation;
   final int? productId;
-  final List<ProductOption>? options;
+  final List<Unit>? units;
   const ProductPackages(
-      {Key? key, required this.afterMutation, this.productId, this.options})
+      {Key? key, required this.afterMutation, this.productId, this.units})
       : super(key: key);
 
   @override
@@ -39,21 +39,21 @@ class _ProductPackagesState extends State<ProductPackages> {
             ),
           ),
         ),
-        ...?widget.options
-            ?.mapIndexed((option, i) => Stack(
+        ...?widget.units
+            ?.mapIndexed((unit, i) => Stack(
                   children: [
                     InkWell(
                       onTap: () {
-                        _edit(option);
+                        _edit(unit);
                       },
-                      child: PackageViewCard(option: option),
+                      child: PackageViewCard(unit: unit),
                     ),
                     Positioned(
                       right: 10,
                       top: 7,
                       child: InkWell(
                         onTap: () {
-                          _remove(option);
+                          _remove(unit);
                         },
                         child: Icon(
                           Icons.remove_circle,
@@ -74,12 +74,12 @@ class _ProductPackagesState extends State<ProductPackages> {
     );
   }
 
-  _edit(ProductOption unit) {
+  _edit(Unit unit) {
     NewPackageModal(params: unit.toJson())
         .open(widget.afterMutation, widget.productId);
   }
 
-  _remove(ProductOption unit) async {
+  _remove(Unit unit) async {
     var optionController = ProductOptionController();
     try {
       bool success = await optionController.deleteOption(
@@ -98,10 +98,10 @@ class _ProductPackagesState extends State<ProductPackages> {
 }
 
 class PackageViewCard extends StatelessWidget {
-  final ProductOption option;
+  final Unit unit;
   const PackageViewCard({
     Key? key,
-    required this.option,
+    required this.unit,
   }) : super(key: key);
 
   @override
@@ -120,7 +120,7 @@ class PackageViewCard extends StatelessWidget {
             padding:
                 const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
             child: Text(
-              option.name,
+              unit.name,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -152,9 +152,9 @@ class PackageViewCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 150,
-                  child: Text('${currency()} ${cast(option.salePrice)}'),
+                  child: Text('${currency()} ${cast(unit.salePrice)}'),
                 ),
-                Text('${currency()} ${cast(option.purchasePrice)}'),
+                Text('${currency()} ${cast(unit.purchasePrice)}'),
               ],
             ),
           ),
@@ -165,9 +165,9 @@ class PackageViewCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 150,
-                  child: Text('Coefficient : ${option.coefficient}'),
+                  child: Text('Coefficient : ${unit.coefficient}'),
                 ),
-                Text(option.active ? 'Active' : 'Inactive'),
+                Text(unit.active ? 'Active' : 'Inactive'),
               ],
             ),
           ),

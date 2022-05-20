@@ -63,7 +63,7 @@ class _ManageProductState extends State<ManageProduct> {
           CategorySelector(callback: _categoryChanged),
           Padding(
             padding:
-                const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 15),
+                const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -101,14 +101,13 @@ class _ManageProductState extends State<ManageProduct> {
                       key: Key(refresh.toString()),
                       controller: _scrollController,
                       children: [
-                        for (var item
-                            in productController.products.value.asMap().entries)
-                          ProductItem(
-                            product: item.value,
-                            index: item.key + 1,
+                        ...productController.products.value.map(
+                          (product) => ProductItem(
+                            product: product,
                             handler: _handleNavigation,
                             onSelect: _onItemSelection,
                           ),
+                        ),
                       ],
                     ),
                   ),

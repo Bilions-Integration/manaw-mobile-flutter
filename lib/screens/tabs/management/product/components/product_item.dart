@@ -9,17 +9,17 @@ import 'package:my_app/screens/tabs/management/product/components/options_menu.d
 
 class ProductItem extends StatefulWidget {
   final ProductDetail product;
-  final int index;
   final Function({required String action, int? productId}) handler;
   final Function({required bool value, required ProductDetail product})
       onSelect;
+
   const ProductItem({
     Key? key,
     required this.product,
     required this.handler,
-    required this.index,
     required this.onSelect,
   }) : super(key: key);
+
   @override
   State<ProductItem> createState() => _ProductItemState();
 }
@@ -39,9 +39,9 @@ class _ProductItemState extends State<ProductItem> {
             .open();
       },
       child: Padding(
-        padding: EdgeInsets.only(bottom: 10, top: (widget.index == 1) ? 0 : 10),
+        padding: const EdgeInsets.only(bottom: 10, top: 10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Checkbox(
               shape: RoundedRectangleBorder(
@@ -70,7 +70,7 @@ class _ProductItemState extends State<ProductItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 160,
+                      width: 150,
                       child: Text(
                         widget.product.name,
                         style: TextStyle(
@@ -91,7 +91,6 @@ class _ProductItemState extends State<ProductItem> {
                 ),
               ],
             ),
-            const Spacer(),
             widget.product.instock <= 0
                 ? Text(
                     'Out',
