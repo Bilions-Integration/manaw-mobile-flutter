@@ -94,6 +94,7 @@ class MyTextInput extends StatelessWidget {
             ),
           TextFormField(
             readOnly: readOnly,
+            autocorrect: false,
             maxLines: textarea ? 5 : 1,
             initialValue: '${value ?? ''}',
             // key: Key(value.toString()),

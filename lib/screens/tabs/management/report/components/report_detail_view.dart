@@ -50,7 +50,7 @@ class _ReportDetailState extends State<ReportDetailView> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Created at', style: Styles.label),
+                                const Text('Created at', style: Styles.label),
                                 mb(1),
                                 const Text(
                                   'Invoice',

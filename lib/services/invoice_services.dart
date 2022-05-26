@@ -16,6 +16,7 @@ class InvoiceServices {
   static Future print(int? id) async {
     var res = await Api.get('/invoice/$id/print_request');
     String url = res["data"]["redirect_url"];
-    await launch(url);
+    Uri uri = Uri.parse(url);
+    await launchUrl(uri);
   }
 }

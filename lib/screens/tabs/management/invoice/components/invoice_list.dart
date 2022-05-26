@@ -91,7 +91,7 @@ class InvoiceList extends StatelessWidget {
           Text(invoice.createdAt),
         ]),
         mb(0.2),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [
           Text('Customer', style: Styles.l5),
           Text('Account', style: Styles.l5),
         ]),

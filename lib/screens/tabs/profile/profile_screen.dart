@@ -47,12 +47,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               })
             },
           ),
-          mb(1.5),
+          mb(0.5),
           Expanded(
             child: ListView(
               children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  hr(width: 1),
+                  _label('Profile'),
                   ProfileMenu(
                     icon: AppAssets.icUser,
                     title: 'Name',
@@ -66,14 +66,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: _changeEmail,
                   ),
                   ProfileMenu(
-                    icon: AppAssets.icTheme,
-                    title: 'Appearance',
-                    onPressed: _showColorPicker,
-                  ),
-                  ProfileMenu(
                     icon: AppAssets.icKey,
                     title: 'Password',
                     onPressed: _showChangePasswordModal,
+                  ),
+                  mb(1),
+                  _label('Preference'),
+                  ProfileMenu(
+                    icon: AppAssets.icTheme,
+                    title: 'Appearance',
+                    onPressed: _showColorPicker,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icPrinter,
@@ -82,6 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(RouteName.printerSettingScreen);
                     },
                   ),
+                  mb(1),
+                  _label('Others'),
                   const ProfileMenu(
                     icon: AppAssets.icHelp,
                     title: 'Help',
@@ -150,6 +154,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Change Name',
       placeholder: 'Enter your Full name',
       icon: Icons.person,
+    );
+  }
+
+  _label(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            title.toUpperCase(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
+        ),
+        hr(width: 1),
+      ],
     );
   }
 
