@@ -76,10 +76,10 @@ class _PromptWidgetState extends State<PromptWidget> {
       ),
       insetPadding: const EdgeInsets.all(10),
       child: Container(
-        height: widget.height ?? 215,
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               widget.title ?? 'Prompt',
