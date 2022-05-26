@@ -5,6 +5,7 @@ import 'package:my_app/components/prompt.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
@@ -12,6 +13,7 @@ import 'package:my_app/routes.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/tabs/profile/components/change_password_modal.dart';
+import 'package:my_app/screens/tabs/profile/help_webview_screen.dart';
 import 'package:my_app/screens/tabs/profile/profile_image.dart';
 import 'package:my_app/screens/tabs/profile/profile_menu.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
@@ -82,9 +84,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(RouteName.printerSettingScreen);
                     },
                   ),
-                  const ProfileMenu(
+                  ProfileMenu(
                     icon: AppAssets.icHelp,
                     title: 'Help',
+                    onPressed: () => Get.to(() => const HelpWebViewScreen()),
                   ),
                   ProfileMenu(
                     icon: AppAssets.icInfo,
@@ -173,19 +176,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _reportProblem() {
     prompt(
-      onSubmit: (String? name) {
-        Get.snackbar(
-          'Success',
-          'Thanks for your feedback.',
-          icon: const Icon(Icons.check_circle),
-        );
-      },
+      onSubmit: _submitProblem,
       confirmText: 'Submit',
       title: 'Report',
       placeholder: 'Write a message',
       textarea: true,
       height: 300,
     );
+  }
+
+  _submitProblem(String? name) async {
+    //TODO : request api route for this
+    var res = await Api.post('/platform/helps',
+        data: {'description': name ?? ''}, formData: true);
+    if (res['success']) {
+      Get.snackbar(
+        'Success',
+        'Thanks for your feedback.',
+        icon: const Icon(Icons.check_circle),
+      );
+    } else {
+      Get.snackbar(
+        'Failed',
+        'Please try again.',
+        icon: const Icon(Icons.check_circle),
+      );
+    }
   }
 
   _showAbout() {
