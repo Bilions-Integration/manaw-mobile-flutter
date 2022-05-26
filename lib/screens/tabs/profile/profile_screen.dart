@@ -204,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Report',
       placeholder: 'Write a message',
       textarea: true,
-      height: 300,
+      height: 310,
     );
   }
 
