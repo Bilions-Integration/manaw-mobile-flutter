@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -158,10 +160,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   printConfirm() {
+    String text = Platform.isAndroid
+        ? 'Continue to print receipt?'
+        : 'Save receipt to gallery';
     confirmPrintDialog(
       onPressed: _confirmedPrint,
       title: 'Print Receipt',
-      message: "Are you sure to print receipt?",
+      message: text,
       confirmText: 'PRINT',
       onDownload: () {
         PosService service = PosService();
@@ -181,17 +186,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   _confirmed(confirm) {
     if (confirm) {
-      cartController.checkout(
-        (value) => {
-          if (value == true)
-            {
-              setState(() {
-                carItems = [];
-              }),
-              printConfirm()
-            }
-        },
-      );
+      cartController.checkout((value) {
+        if (value != 0) {
+          setState(() {
+            carItems = [];
+          });
+          printConfirm();
+        }
+      });
     }
   }
 

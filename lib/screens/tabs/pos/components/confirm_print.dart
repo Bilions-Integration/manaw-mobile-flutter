@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
@@ -56,16 +58,17 @@ confirmPrintDialog({
               width: 40,
               height: 40,
             ),
-            mr(1),
-            PrimaryButton(
-              value: confirmText ?? 'CONFIRM',
-              onPressed: () {
-                Navigator.pop(context);
-                onPressed(true);
-              },
-              width: 100,
-              height: 40,
-            ),
+            if (Platform.isAndroid) mr(1),
+            if (Platform.isAndroid)
+              PrimaryButton(
+                value: confirmText ?? 'CONFIRM',
+                onPressed: () {
+                  Navigator.pop(context);
+                  onPressed(true);
+                },
+                width: 100,
+                height: 40,
+              ),
           ],
         ),
       ],
