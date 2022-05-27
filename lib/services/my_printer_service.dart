@@ -12,12 +12,16 @@ class MyPrinterService {
   BluetoothPrinterManager? blueManager;
   USBPrinterManager? usbManager;
 
-  POSPrinter getPrinter() {
+  POSPrinter? getPrinter() {
     final box = GetStorage();
     final address = box.read('@printer-address');
     final name = box.read('@printer-name');
     final id = box.read('@printer-id');
     final connType = box.read('@printer-connectionType');
+
+    if (address.toString().isEmpty) {
+      return null;
+    }
 
     return POSPrinter(
       id: id,
@@ -37,16 +41,14 @@ class MyPrinterService {
     return profile;
   }
 
-  print(id) async {
+  print(id, printer) async {
+    console.log('printing');
     final box = GetStorage();
     final token = 'Bearer ' + box.read('@bearerToken');
     final baseUrl = dotenv.env['APP_URL'].toString();
     final url = '$baseUrl/invoice/$id/print_pos_mb?authorization=$token';
     console.log(url);
     var image = await WebcontentConverter.webUriToImage(uri: url);
-
-    POSPrinter printer = getPrinter();
-    console.log('printing');
 
     var paperSize = PaperSize.mm58;
     CapabilityProfile? loadedProfile = await getProfile();

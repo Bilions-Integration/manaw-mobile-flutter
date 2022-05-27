@@ -52,6 +52,7 @@ class _BottomTabState extends State<BottomTab> {
       unselectedItemColor: AppColors.lightDark,
       onTap: _onItemTapped,
       currentIndex: index,
+      elevation: 1,
     );
   }
 
