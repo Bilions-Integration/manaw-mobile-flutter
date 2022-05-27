@@ -56,6 +56,7 @@ dependencies:
   screenshot: ^1.2.3
   webview_flutter: ^3.0.2
   webcontent_converter: ^0.0.7+1
+  path_provider: ^2.0.10
 
 flutter_icons:
   android: 'launcher_icon'

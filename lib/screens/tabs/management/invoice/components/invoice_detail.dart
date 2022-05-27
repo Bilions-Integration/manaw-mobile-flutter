@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -155,7 +157,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 ),
                 mb(1.5),
                 PrimaryButton(
-                  value: 'Print',
+                  value: Platform.isAndroid ? 'Print' : 'Download Receipt',
                   onPressed: () => {_zPrint(invoice)},
                 )
               ],
@@ -209,6 +211,12 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 style: Styles.h3),
           ]),
           Row(children: [
+            IconButton(
+              onPressed: () {
+                _zDownloadReceipt(invoice.id);
+              },
+              icon: const Icon(Icons.download_rounded),
+            ),
             InkWell(
               child: SvgPicture.asset(AppAssets.trash, width: 20, height: 20),
               onTap: () => delete(invoice.id),
@@ -220,8 +228,22 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
     );
   }
 
+  _zDownloadReceipt(invoiceId) async {
+    try {
+      loading(title: 'Saving');
+      final service = MyPrinterService();
+      await service.downloadReceipt(invoiceId);
+      hideLoading();
+    } catch (error) {
+      hideLoading();
+    }
+  }
+
   _zPrint(invoice) async {
     try {
+      if (!Platform.isAndroid) {
+        return _zDownloadReceipt(invoice.id);
+      }
       final invoiceId = invoice.id;
       final service = MyPrinterService();
       POSPrinter? printer = service.getPrinter();
