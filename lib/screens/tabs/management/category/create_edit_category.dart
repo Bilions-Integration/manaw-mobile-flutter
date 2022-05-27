@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/services/category_service.dart';
 
 import 'components/form_card.dart';
@@ -71,17 +71,17 @@ class _CreateCategoryState extends State<CreateCategory> {
   Future submit() async {
     if (widget.id == null) {
       await CategoryService.create(params);
-      Get.snackbar(
+      snackBar(
         'Success',
         'Successfully Created',
-        icon: const Icon(Icons.check_circle),
+        icon: Icons.check_circle,
       );
     } else {
       await CategoryService.update(widget.id, params);
-      Get.snackbar(
+      snackBar(
         'Success',
         'Successfully Updated',
-        icon: const Icon(Icons.check_circle),
+        icon: Icons.check_circle,
       );
     }
     Navigator.pop(context);

@@ -233,6 +233,22 @@ Widget p(double padding, Widget child) {
   return Padding(padding: EdgeInsets.all(padding), child: child);
 }
 
+SnackbarController snackBar(String title, String message,
+    {IconData? icon, Color? color}) {
+  return Get.snackbar(title, message,
+      titleText: Text(
+        title,
+        style: TextStyle(color: color),
+      ),
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.7),
+      animationDuration: const Duration(milliseconds: 830),
+      barBlur: 18,
+      icon: Icon(
+        icon,
+        color: color,
+      ));
+}
+
 class console {
   static log(dynamic text, {dynamic payload = ''}) {
     var logger = Logger(printer: PrettyPrinter(colors: true, methodCount: 0));

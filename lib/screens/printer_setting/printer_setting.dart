@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/printer_setting/printer_card.dart';
 import 'package:my_app/screens/printer_setting/printer_setting_controller.dart';
 import 'package:pos_printer_manager/models/pos_printer.dart';
@@ -43,30 +46,46 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
           children: [
             Obx(
               () => (Expanded(
-                child: ListView(
-                  children: [
-                    ...printerSettingController.bluetoothPrinters.value
-                        .mapIndexed(
-                          (BluetoothPrinter data, index) => printerCard(
-                            data,
-                            defaultPrinter,
-                            'BLUETOOTH',
-                            _setPrinter,
-                          ),
-                        )
-                        .toList(),
-                    ...printerSettingController.usbPrinters.value
-                        .mapIndexed(
-                          (USBPrinter data, index) => printerCard(
-                            data,
-                            defaultPrinter,
-                            'USB',
-                            _setPrinter,
-                          ),
-                        )
-                        .toList()
-                  ],
-                ),
+                child: printerSettingController
+                            .bluetoothPrinters.value.isEmpty &&
+                        printerSettingController.usbPrinters.value.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(AppAssets.emptyPrinter),
+                            mb(1),
+                            const Text(
+                              'There\'re no printers connected',
+                              style: Styles.l5,
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView(
+                        children: [
+                          ...printerSettingController.bluetoothPrinters.value
+                              .mapIndexed(
+                                (BluetoothPrinter data, index) => printerCard(
+                                  data,
+                                  defaultPrinter,
+                                  'BLUETOOTH',
+                                  _setPrinter,
+                                ),
+                              )
+                              .toList(),
+                          ...printerSettingController.usbPrinters.value
+                              .mapIndexed(
+                                (USBPrinter data, index) => printerCard(
+                                  data,
+                                  defaultPrinter,
+                                  'USB',
+                                  _setPrinter,
+                                ),
+                              )
+                              .toList()
+                        ],
+                      ),
               )),
             ),
           ],
@@ -101,7 +120,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
           setState(() {
             defaultPrinter = printer.address ?? '';
           });
-          Get.snackbar('Success', 'Successfully set to ${printer.name}');
+          snackBar('Success', 'Successfully set to ${printer.name}');
         }
       },
       title: '${printer.name}',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/services/company_service.dart';
 
@@ -65,10 +65,10 @@ class _ManageStoreState extends State<ManageStore> {
 
   Future submit() async {
     await CompanyService.update(params);
-    Get.snackbar(
+    snackBar(
       'Success',
       'Successfully Updated',
-      icon: const Icon(Icons.check_circle),
+      icon: Icons.check_circle,
     );
   }
 }

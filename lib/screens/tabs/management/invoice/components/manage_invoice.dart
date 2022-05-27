@@ -91,10 +91,10 @@ class _ManageInvoiceState extends State<ManageInvoice> {
             invoices.removeWhere((invoice) => invoice.id == id);
             Navigator.pop(context);
           });
-          Get.snackbar(
+          snackBar(
             'Success',
             'Successfully Deleted',
-            icon: const Icon(Icons.check_circle),
+            icon: Icons.check_circle,
           );
         }
       },

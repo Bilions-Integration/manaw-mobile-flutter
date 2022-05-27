@@ -211,6 +211,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  _submitProblem(String? message) async {
+    var res = await Api.post('/reports', data: {'description': message ?? ''});
+    if (res['success']) {
+      snackBar("Success", "Success", icon: Icons.check_circle);
+    } else {
+      snackBar("Failed", "Please try again",
+          icon: Icons.error_outline_rounded, color: Colors.red);
+    }
+  }
+
   _showAbout() {
     showAboutDialog(
       context: currentContext(),
@@ -234,24 +244,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
       tab.index.value = 3;
       CompanyService.setColor(color);
     });
-  }
-
-  _submitProblem(String? name) async {
-    //TODO : request api route for this
-    var res = await Api.post('/platform/helps',
-        data: {'description': name ?? ''}, formData: true);
-    if (res['success']) {
-      Get.snackbar(
-        'Success',
-        'Thanks for your feedback.',
-        icon: const Icon(Icons.check_circle),
-      );
-    } else {
-      Get.snackbar(
-        'Failed',
-        'Please try again.',
-        icon: const Icon(Icons.check_circle),
-      );
-    }
   }
 }

@@ -136,8 +136,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   _showError() {
-    Get.snackbar('Error', 'Something went wrong! Please try again.',
-        icon: const Icon(Icons.info));
+    snackBar('Error', 'Something went wrong! Please try again.',
+        icon: Icons.info, color: Colors.red);
   }
 
   bool _showLogin() {

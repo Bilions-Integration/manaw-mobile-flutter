@@ -68,11 +68,7 @@ class PaymentStatus extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: voucherNo!));
-                        Get.snackbar("Copied", "Invoice number copied",
-                            animationDuration:
-                                const Duration(milliseconds: 300),
-                            duration: const Duration(seconds: 1),
-                            backgroundColor: AppColors.white);
+                        snackBar("Copied", "Invoice number copied");
                       },
                       child: Container(
                         padding: const EdgeInsets.all(10),
