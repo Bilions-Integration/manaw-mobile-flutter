@@ -7,6 +7,9 @@ class HelpWebViewScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const String faqWebUrl =
+      'https://manawstore.com/support?platform=mobile';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +19,7 @@ class HelpWebViewScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
       ),
       body: const WebView(
-        initialUrl: 'https://manawstore.com/support',
+        initialUrl: faqWebUrl,
         javascriptMode: JavascriptMode.unrestricted,
         zoomEnabled: false,
       ),
