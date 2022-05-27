@@ -6,3 +6,5 @@
 # bluetooth printer manager
 
 `await bluetooth.isConnected as bool`
+
+flutter pub run flutter_launcher_icons:main
