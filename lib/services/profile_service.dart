@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
@@ -12,10 +11,11 @@ class ProfileService {
     if ((password != null && password.isEmpty) ||
         password == null ||
         password != confirmPassword) {
-      Get.snackbar(
+      snackBar(
         'Error',
         'Password Required or the two passwords did not match!',
-        icon: const Icon(Icons.info),
+        icon: Icons.info,
+        color: Colors.red,
       );
       return false;
     }

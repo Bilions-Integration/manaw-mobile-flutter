@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/account/account_list.dart';
 import 'package:my_app/screens/tabs/management/account/components/form_cart.dart';
@@ -74,17 +75,17 @@ class _AccountCreateAndEditState extends State<AccountCreateAndEdit> {
   submit() async {
     if (widget.id != null) {
       await AccountService.update(widget.id, params);
-      Get.snackbar(
+      snackBar(
         'Success',
         'Successfully Updated',
-        icon: const Icon(Icons.check_circle),
+        icon: Icons.check_circle,
       );
     } else {
       await AccountService.create(params);
-      Get.snackbar(
+      snackBar(
         'Success',
         'Successfully Created',
-        icon: const Icon(Icons.check_circle),
+        icon: Icons.check_circle,
       );
     }
     Get.to(const AccountList());

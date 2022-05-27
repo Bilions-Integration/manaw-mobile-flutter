@@ -189,7 +189,11 @@ class _ManageProductState extends State<ManageProduct> {
 
   _deleteProduct(int productId) async {
     bool success = await productController.deleteProduct(productId: productId);
-    Get.snackbar('Success', "Delete Success", icon: const Icon(Icons.delete));
+    snackBar(
+      'Success',
+      'Successfully Deleted',
+      icon: Icons.check_circle,
+    );
     if (success) {
       _reset();
     }

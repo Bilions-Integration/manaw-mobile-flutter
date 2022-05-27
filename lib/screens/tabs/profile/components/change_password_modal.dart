@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
@@ -76,10 +75,10 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
                         confirmPassword: params['confirm_password'],
                       );
                       if (res != false) {
-                        Get.snackbar(
+                        snackBar(
                           'Success',
                           'Successfully changed new password!',
-                          icon: const Icon(Icons.check_circle),
+                          icon: Icons.check_circle,
                         );
                         Navigator.pop(context);
                       }

@@ -101,7 +101,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
           setState(() {
             defaultPrinter = printer.address ?? '';
           });
-          Get.snackbar('Success', 'Successfully set to ${printer.name}');
+          snackBar('Success', 'Successfully set to ${printer.name}');
         }
       },
       title: '${printer.name}',

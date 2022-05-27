@@ -167,7 +167,10 @@ class _AddStockState extends State<ProductAddStock> {
             if (success)
               {Get.off(() => const ManagePurchaseInvoice())}
             else
-              {Get.snackbar("Failed", "An error occurred in adding stock.")}
+              {
+                snackBar("Failed", "An error occurred in adding stock.",
+                    icon: Icons.error_outline_rounded, color: Colors.red)
+              }
           },
         );
   }

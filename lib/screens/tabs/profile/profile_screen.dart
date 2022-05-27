@@ -211,26 +211,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _submitProblem(String? message) async {
     var res = await Api.post('/reports', data: {'description': message ?? ''});
     if (res['success']) {
-      Get.snackbar(
-        'Success',
-        'Thanks for your feedback.',
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.6),
-        animationDuration: const Duration(milliseconds: 830),
-        barBlur: 16,
-        icon: const Icon(Icons.check_circle),
-      );
+      snackBar("Success", "Success", icon: Icons.check_circle);
     } else {
-      Get.snackbar(
-        'Failed',
-        'Please try again.',
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.6),
-        animationDuration: const Duration(milliseconds: 830),
-        barBlur: 16,
-        icon: Icon(
-          Icons.error_outline_rounded,
-          color: Colors.red.shade800,
-        ),
-      );
+      snackBar("Failed", "Please try again",
+          icon: Icons.error_outline_rounded, color: Colors.red);
     }
   }
 

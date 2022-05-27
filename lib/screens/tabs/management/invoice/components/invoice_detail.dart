@@ -244,7 +244,8 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
       }
     } catch (error) {
       hideLoading();
-      Get.snackbar('Error', 'Something went wrong try again!');
+      snackBar('Error', 'Something went wrong try again!',
+          icon: Icons.error_outline_rounded, color: Colors.red);
       console.log(error);
     }
   }

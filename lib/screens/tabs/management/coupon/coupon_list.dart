@@ -54,10 +54,10 @@ class _CouponListState extends State<CouponList> {
           setState(() {
             coupons.removeWhere((category) => category.id == id);
           });
-          Get.snackbar(
+          snackBar(
             'Success',
             'Successfully Deleted',
-            icon: const Icon(Icons.check_circle),
+            icon: Icons.check_circle,
           );
         }
       },

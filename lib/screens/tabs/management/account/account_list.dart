@@ -52,10 +52,10 @@ class _AccountListState extends State<AccountList> {
           setState(() {
             accounts.removeWhere((category) => category.id == id);
           });
-          Get.snackbar(
+          snackBar(
             'Success',
             'Successfully Deleted',
-            icon: const Icon(Icons.check_circle),
+            icon: Icons.check_circle,
           );
         }
       },
