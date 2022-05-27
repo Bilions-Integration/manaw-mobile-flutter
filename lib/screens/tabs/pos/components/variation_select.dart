@@ -38,8 +38,8 @@ class VariationSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Choose Variation",
+        Text(
+          "Choose Variation (${currency()} ${cast(product.price)})",
           style: Styles.h2,
         ),
         mb(0.2),

@@ -21,6 +21,8 @@ class CartController extends GetxController {
 
   final discount = Rx<dynamic>(0);
 
+  final lastId = Rx<num>(0);
+
   checkout(callback) {
     if (account.value == null) {
       showAccountModal(
@@ -126,7 +128,8 @@ class CartController extends GetxController {
       "paid_amount": 0,
     };
     console.log('PARAMS to SUBMIT => $params');
-    await InvoiceServices.create(params);
+    var res = await InvoiceServices.create(params);
+    lastId.value = res['data']['id'] as num;
     products.value = [];
   }
 }

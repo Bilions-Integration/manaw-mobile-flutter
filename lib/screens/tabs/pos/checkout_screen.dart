@@ -9,7 +9,9 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
+import 'package:my_app/screens/tabs/pos/components/confirm_print.dart';
 import 'package:my_app/screens/tabs/pos/components/product_card_checkout.dart';
+import 'package:my_app/services/pos_service.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({Key? key}) : super(key: key);
@@ -155,6 +157,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     });
   }
 
+  printConfirm() {
+    confirmPrintDialog(
+      onPressed: _confirmedPrint,
+      title: 'Print Receipt',
+      message: "Are you sure to print receipt?",
+      confirmText: 'PRINT',
+      onDownload: () {
+        PosService service = PosService();
+        service.downloadReceipt(cartController.lastId);
+      },
+    );
+  }
+
   _checkout() {
     confirm(
       onPressed: _confirmed,
@@ -166,15 +181,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   _confirmed(confirm) {
     if (confirm) {
-      cartController.checkout((value) => {
-            if (value == true)
-              {
-                setState(() {
-                  carItems = [];
-                })
-              }
-          });
+      cartController.checkout(
+        (value) => {
+          if (value == true)
+            {
+              setState(() {
+                carItems = [];
+              }),
+              printConfirm()
+            }
+        },
+      );
     }
+  }
+
+  _confirmedPrint(confirm) {
+    if (!confirm) {
+      return;
+    }
+    PosService service = PosService();
+    service.print(cartController.lastId);
   }
 
   _removed(int? index) {
