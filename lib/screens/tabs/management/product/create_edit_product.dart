@@ -110,6 +110,14 @@ class _CreateProductState extends State<CreateProduct> {
                               label: 'Sale Price',
                               isRequired: true,
                             ),
+                            MyTextInput(
+                              column: 'buy_price',
+                              value: params['buy_price'],
+                              placeholder: '0',
+                              onChanged: _setParams,
+                              label: 'Purchase Price',
+                              numberOnly: true,
+                            ),
                             SelectBox(
                               placeholder: 'Select Category',
                               label: 'Category',
@@ -122,14 +130,6 @@ class _CreateProductState extends State<CreateProduct> {
                               placeholder: 'ABC-1234567890',
                               onChanged: _setParams,
                               label: 'Barcode',
-                            ),
-                            MyTextInput(
-                              column: 'buy_price',
-                              value: params['buy_price'],
-                              placeholder: '0',
-                              onChanged: _setParams,
-                              label: 'Purchase Price',
-                              numberOnly: true,
                             ),
                             MyTextInput(
                               column: 'unit',
