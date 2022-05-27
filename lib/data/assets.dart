@@ -41,6 +41,7 @@ class AppAssets {
   static const icUser = 'assets/images/user.svg';
   static const icClose = 'assets/images/close.svg';
   static const icPrinter = 'assets/images/printer.svg';
+  static const emptyPrinter = 'assets/images/empty-printer.svg';
   static const bronzeIcon = 'assets/images/plans/bronze.png';
   static const rocket = 'assets/images/rocket.png';
   static const payFail = 'assets/images/plans/pay.fail.svg';
