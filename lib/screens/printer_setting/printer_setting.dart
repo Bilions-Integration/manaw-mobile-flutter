@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -80,15 +78,13 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) {
-      printerSettingController.scanBluePrinter();
-      printerSettingController.scanUSBPrinter();
-      final box = GetStorage();
-      final address = box.read('@printer-address');
-      setState(() {
-        defaultPrinter = (address != null) ? address : '';
-      });
-    }
+    printerSettingController.scanBluePrinter();
+    printerSettingController.scanUSBPrinter();
+    final box = GetStorage();
+    final address = box.read('@printer-address');
+    setState(() {
+      defaultPrinter = (address != null) ? address : '';
+    });
   }
 
   _setPrinter(POSPrinter printer) {

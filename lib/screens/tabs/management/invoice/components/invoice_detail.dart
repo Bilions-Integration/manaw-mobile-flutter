@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
+import 'package:my_app/screens/printer_setting/printer_setting.dart';
 import 'package:my_app/services/my_printer_service.dart';
+import 'package:pos_printer_manager/models/pos_printer.dart';
 
 void actionPopup({
   required BuildContext context,
@@ -219,12 +222,29 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
 
   _zPrint(invoice) async {
     try {
-      loading(title: 'Printing...');
       final invoiceId = invoice.id;
       final service = MyPrinterService();
-      await service.print(invoiceId);
-      hideLoading();
+      POSPrinter? printer = service.getPrinter();
+
+      if (printer == null) {
+        confirm(
+          onPressed: (confirm) {
+            if (confirm) {
+              Get.to(() => const PrinterSettingScreen());
+            }
+          },
+          title: 'Printer not selected yet',
+          message: 'Do you want to select printer?',
+          confirmText: 'Yes',
+        );
+      } else {
+        loading(title: 'Printing...');
+        await service.print(invoiceId, printer);
+        hideLoading();
+      }
     } catch (error) {
+      hideLoading();
+      Get.snackbar('Error', 'Something went wrong try again!');
       console.log(error);
     }
   }
