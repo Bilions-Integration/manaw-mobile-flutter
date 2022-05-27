@@ -5,6 +5,7 @@ import 'package:my_app/components/prompt.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
@@ -48,12 +49,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               })
             },
           ),
-          mb(1.5),
+          mb(0.5),
           Expanded(
             child: ListView(
               children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  hr(width: 1),
+                  _label('Profile'),
                   ProfileMenu(
                     icon: AppAssets.icUser,
                     title: 'Name',
@@ -67,14 +68,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: _changeEmail,
                   ),
                   ProfileMenu(
-                    icon: AppAssets.icTheme,
-                    title: 'Appearance',
-                    onPressed: _showColorPicker,
-                  ),
-                  ProfileMenu(
                     icon: AppAssets.icKey,
                     title: 'Password',
                     onPressed: _showChangePasswordModal,
+                  ),
+                  mb(1),
+                  _label('Preference'),
+                  ProfileMenu(
+                    icon: AppAssets.icTheme,
+                    title: 'Appearance',
+                    onPressed: _showColorPicker,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icPrinter,
@@ -83,6 +86,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Get.to(RouteName.printerSettingScreen);
                     },
                   ),
+                  mb(1),
+                  _label('Others'),
                   ProfileMenu(
                     icon: AppAssets.icHelp,
                     title: 'Help',
@@ -155,6 +160,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  _label(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            title.toUpperCase(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
+        ),
+        hr(width: 1),
+      ],
+    );
+  }
+
   _logout() {
     confirm(
       title: 'Logout',
@@ -180,13 +204,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Report',
       placeholder: 'Write a message',
       textarea: true,
-      height: 300,
+      height: 310,
     );
   }
 
   _submitProblem(String? message) async {
-    // var res = await Api.post('/reports', data: {'description': message ?? ''});
-    Map res = {'success': false};
+    var res = await Api.post('/reports', data: {'description': message ?? ''});
     if (res['success']) {
       Get.snackbar(
         'Success',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
@@ -31,7 +32,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
         leading: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Image.asset(AppAssets.appLogo),
+          child: SvgPicture.asset(AppAssets.appLogoSvg),
         ),
         centerTitle: false,
         backgroundColor: AppColors.primary,

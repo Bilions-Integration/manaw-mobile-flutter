@@ -38,7 +38,7 @@ class VariationSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           "Choose Variation",
           style: Styles.h2,
         ),

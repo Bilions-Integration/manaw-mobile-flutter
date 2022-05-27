@@ -36,9 +36,9 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
       ),
       insetPadding: const EdgeInsets.all(10),
       child: Container(
-        height: 263,
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(

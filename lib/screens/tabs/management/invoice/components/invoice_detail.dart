@@ -5,7 +5,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
-import 'package:screenshot/screenshot.dart';
+import 'package:my_app/services/my_printer_service.dart';
 
 void actionPopup({
   required BuildContext context,
@@ -53,7 +53,6 @@ class InvoiceDetailView extends StatefulWidget {
 }
 
 class _InvoiceDetailViewState extends State<InvoiceDetailView> {
-  ScreenshotController screenshotController = ScreenshotController();
   // ignore: prefer_typing_uninitialized_variables
   var testing;
 
@@ -62,15 +61,12 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
     return Stack(
       children: [
         _titleAndActions(widget.invoice, widget.delete, widget.type),
-        Screenshot(
-          controller: screenshotController,
-          child: Column(children: [
-            mb(6),
-            _invoiceInfo(widget.invoice),
-            _productLists(context, widget.invoice.products),
-            mb(17),
-          ]),
-        ),
+        Column(children: [
+          mb(6),
+          _invoiceInfo(widget.invoice),
+          _productLists(context, widget.invoice.products),
+          mb(17),
+        ]),
         _priceDetail(widget.invoice)
       ],
     );
@@ -87,15 +83,15 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Invoice Date', style: Styles.label),
+              const Text('Invoice Date', style: Styles.label),
               mb(1),
-              Text('Account', style: Styles.label),
+              const Text('Account', style: Styles.label),
               mb(1),
-              Text('Shipping Address', style: Styles.label),
+              const Text('Shipping Address', style: Styles.label),
               mb(1),
-              Text('Customer/Supplier', style: Styles.label),
+              const Text('Customer/Supplier', style: Styles.label),
               mb(1),
-              Text('Phone', style: Styles.label),
+              const Text('Phone', style: Styles.label),
             ],
           ),
           mr(3),
@@ -134,7 +130,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('SubTotal', style: Styles.label),
+                    const Text('SubTotal', style: Styles.label),
                     Text('\$${invoice.total}'),
                   ],
                 ),
@@ -142,7 +138,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Tax', style: Styles.label),
+                    const Text('Tax', style: Styles.label),
                     Text('\$${invoice.taxValue}'),
                   ],
                 ),
@@ -150,33 +146,21 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Total', style: Styles.textBold),
+                    const Text('Total', style: Styles.textBold),
                     Text('\$${invoice.grandTotal}', style: Styles.textBold),
                   ],
                 ),
                 mb(1.5),
-                PrimaryButton(value: 'Print', onPressed: _print)
+                PrimaryButton(
+                  value: 'Print',
+                  onPressed: () => {_zPrint(invoice)},
+                )
               ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  _print() {
-    screenshotController
-        .capture(delay: const Duration(milliseconds: 10))
-        .then((image) async {
-      if (image != null) {
-        setState(() {
-          testing = image;
-          console.log(testing);
-        });
-      }
-    }).catchError((onError) {
-      console.log(onError);
-    });
   }
 
   _productLists(context, products) {
@@ -231,5 +215,17 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
         hr(height: 1, mt: 1),
       ],
     );
+  }
+
+  _zPrint(invoice) async {
+    try {
+      loading(title: 'Printing...');
+      final invoiceId = invoice.id;
+      final service = MyPrinterService();
+      await service.print(invoiceId);
+      hideLoading();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

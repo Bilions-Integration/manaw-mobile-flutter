@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 
@@ -20,7 +21,7 @@ class LoadingWidget extends StatelessWidget {
           mb(1),
           Text(
             title ?? 'Loading...',
-            style: TextStyle(
+            style: GoogleFonts.readexPro(
               color: AppColors.white,
               fontWeight: FontWeight.normal,
               fontSize: 17,

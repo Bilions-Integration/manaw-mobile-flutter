@@ -1,7 +1,7 @@
 import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:my_app/helpers/api.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/product_model.dart';
 
 class POSController extends GetxController {

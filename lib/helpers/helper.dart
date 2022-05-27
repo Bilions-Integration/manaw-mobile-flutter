@@ -2,6 +2,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -204,8 +205,8 @@ loading({String? title}) async {
 }
 
 logo(double? width) {
-  return Image.asset(
-    AppAssets.appLogo,
+  return SvgPicture.asset(
+    AppAssets.appLogoSvg,
     width: width ?? 60,
   );
 }

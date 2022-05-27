@@ -1,59 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/printer_setting/printer_card.dart';
 import 'package:my_app/screens/printer_setting/printer_setting_controller.dart';
+import 'package:pos_printer_manager/models/pos_printer.dart';
 import 'package:pos_printer_manager/pos_printer_manager.dart';
-
-Widget printer(printer, defaultPrinter, type, setPrinter) {
-  return Card(
-    elevation: 0,
-    color: AppColors.lightGrey,
-    shape: RoundedRectangleBorder(
-      side: BorderSide(color: AppColors.borderColor, width: 2),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    margin: const EdgeInsets.only(bottom: 6),
-    child: InkWell(
-      onTap: () {
-        setPrinter(printer);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(children: [
-          SvgPicture.asset(
-            AppAssets.icPrinter,
-            width: 40,
-          ),
-          mr(1),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(printer.name ?? ''),
-              Text(
-                type,
-                style: TextStyle(color: AppColors.lightDark),
-              ),
-            ],
-          )),
-          Icon(
-            Icons.radio_button_checked,
-            size: 20,
-            color: defaultPrinter != printer.address
-                ? AppColors.lightDark
-                : AppColors.blue,
-          )
-        ]),
-      ),
-    ),
-  );
-}
 
 class PrinterSettingScreen extends StatefulWidget {
   const PrinterSettingScreen({Key? key}) : super(key: key);
@@ -67,6 +22,10 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
 
   var defaultPrinter = '';
 
+  CapabilityProfile? profile;
+
+  BluetoothPrinterManager? manager;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,44 +38,40 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
           onPressed: () => {Get.back()},
         ),
       ),
-      body: Padding(
+      body: Container(
+        color: AppColors.white,
         padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: SizedBox(
-            height: double.infinity,
-            child: Column(
-              children: [
-                Obx(
-                  () => (Expanded(
-                    child: ListView(
-                      children: [
-                        ...printerSettingController.bluetoothPrinters.value
-                            .mapIndexed(
-                              (BluetoothPrinter data, index) => printer(
-                                data,
-                                defaultPrinter,
-                                'BLUETOOTH',
-                                _setPrinter,
-                              ),
-                            )
-                            .toList(),
-                        ...printerSettingController.usbPrinters.value
-                            .mapIndexed(
-                              (USBPrinter data, index) => printer(
-                                data,
-                                defaultPrinter,
-                                'USB',
-                                _setPrinter,
-                              ),
-                            )
-                            .toList()
-                      ],
-                    ),
-                  )),
+        child: Column(
+          children: [
+            Obx(
+              () => (Expanded(
+                child: ListView(
+                  children: [
+                    ...printerSettingController.bluetoothPrinters.value
+                        .mapIndexed(
+                          (BluetoothPrinter data, index) => printerCard(
+                            data,
+                            defaultPrinter,
+                            'BLUETOOTH',
+                            _setPrinter,
+                          ),
+                        )
+                        .toList(),
+                    ...printerSettingController.usbPrinters.value
+                        .mapIndexed(
+                          (USBPrinter data, index) => printerCard(
+                            data,
+                            defaultPrinter,
+                            'USB',
+                            _setPrinter,
+                          ),
+                        )
+                        .toList()
+                  ],
                 ),
-              ],
+              )),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -129,23 +84,28 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
       printerSettingController.scanBluePrinter();
       printerSettingController.scanUSBPrinter();
       final box = GetStorage();
-      final address = box.read('@printer');
+      final address = box.read('@printer-address');
       setState(() {
         defaultPrinter = (address != null) ? address : '';
       });
     }
   }
 
-  _setPrinter(printer) {
+  _setPrinter(POSPrinter printer) {
     confirm(
-      onPressed: (confirm) {
+      onPressed: (confirm) async {
         if (confirm) {
           final box = GetStorage();
-          console.log(printer.address);
-          box.write('@printer', printer.address);
+          box.write('@printer-address', printer.address);
+          box.write('@printer-name', printer.name);
+          box.write('@printer-id', printer.id);
+          box.write('@printer-connectionType',
+              printer.connectionType.toString().split('.').last);
+          console.log(box.read('@printer-connectionType'));
           setState(() {
-            defaultPrinter = printer.address;
+            defaultPrinter = printer.address ?? '';
           });
+          Get.snackbar('Success', 'Successfully set to ${printer.name}');
         }
       },
       title: '${printer.name}',
