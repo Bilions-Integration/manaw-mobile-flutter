@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Manaw Store</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,6 +40,8 @@
 	<string>Need Location permission</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow Microphone access</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Our application needs permission to write photos to save receipt</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow Image access</string>
 	<key>UIBackgroundModes</key>
@@ -64,7 +68,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Our application needs permission to write photos to save receipt</string>
 </dict>
 </plist>
