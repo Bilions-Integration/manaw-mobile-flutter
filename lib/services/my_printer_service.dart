@@ -4,9 +4,11 @@ import 'dart:typed_data';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/printer_setting/image_printer_service.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pos_printer_manager/models/pos_printer.dart';
 import 'package:pos_printer_manager/pos_printer_manager.dart';
 import 'package:webcontent_converter/webcontent_converter.dart';
@@ -18,11 +20,17 @@ class MyPrinterService {
   USBPrinterManager? usbManager;
 
   downloadReceipt(id) async {
-    String? dir = await getDownloadPath();
+    requestPermission();
     var ts = DateTime.now().millisecondsSinceEpoch;
-    var savedPath = dir! + "/pos-download-$ts.jpg";
+    var savedPath = "pos-download-$ts";
     Uint8List image = await WebcontentConverter.webUriToImage(uri: getUri(id));
-    File(savedPath).writeAsBytes(image);
+    console.log(image);
+
+    final result = await ImageGallerySaver.saveImage(
+      Uint8List.fromList(image),
+      quality: 60,
+      name: savedPath,
+    );
     Get.snackbar('Success', 'Saved to gallery');
   }
 
@@ -75,10 +83,12 @@ class MyPrinterService {
   }
 
   getUri(id) {
+    int ios = Platform.isIOS ? 1 : 0;
     final box = GetStorage();
     final token = 'Bearer ' + box.read('@bearerToken');
     final baseUrl = dotenv.env['APP_URL'].toString();
-    final url = '$baseUrl/invoice/$id/print_pos_mb?authorization=$token';
+    final url =
+        '$baseUrl/invoice/$id/print_pos_mb?authorization=$token&ios=$ios';
     console.log(url);
     return url;
   }
@@ -120,5 +130,11 @@ class MyPrinterService {
       console.log("isConnected ${usbManager?.isConnected}");
       usbManager?.writeBytes(data);
     }
+  }
+
+  requestPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
   }
 }
