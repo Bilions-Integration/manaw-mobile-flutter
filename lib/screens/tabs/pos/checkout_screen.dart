@@ -168,18 +168,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     });
   }
 
-  printConfirm() {
+  printConfirm(id) {
     String text = Platform.isAndroid
         ? 'Continue to print receipt?'
         : 'Save receipt to gallery';
     confirmPrintDialog(
-      onPressed: _confirmedPrint,
+      onPressed: (confirm) {
+        _confirmedPrint(confirm, id);
+      },
       title: 'Print Receipt',
       message: text,
       confirmText: 'PRINT',
-      onDownload: () {
+      onDownload: () async {
         PosService service = PosService();
-        service.downloadReceipt(cartController.lastId);
+        await service.downloadReceipt(id);
       },
     );
   }
@@ -195,23 +197,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   _confirmed(confirm) {
     if (confirm) {
-      cartController.checkout((value) {
-        if (value != 0) {
+      cartController.checkout((id) {
+        if (id != 0) {
           setState(() {
             carItems = [];
           });
-          printConfirm();
+          printConfirm(id);
         }
       });
     }
   }
 
-  _confirmedPrint(confirm) {
+  _confirmedPrint(confirm, id) {
     if (!confirm) {
       return;
     }
     PosService service = PosService();
-    service.print(cartController.lastId);
+    service.print(id);
   }
 
   _removed(int? index) {

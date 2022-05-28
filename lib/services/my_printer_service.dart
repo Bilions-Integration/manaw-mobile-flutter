@@ -23,11 +23,8 @@ class MyPrinterService {
     var ts = DateTime.now().millisecondsSinceEpoch;
     var savedPath = "pos-download-$ts";
     Uint8List image = await WebcontentConverter.webUriToImage(uri: getUri(id));
-    console.log(image);
-
     await ImageGallerySaver.saveImage(
       Uint8List.fromList(image),
-      quality: 60,
       name: savedPath,
     );
     Get.snackbar('Success', 'Saved to gallery');
