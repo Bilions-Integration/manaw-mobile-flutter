@@ -8,7 +8,10 @@ class AppColors {
   static get black => HexColor('#1A1A1A');
   static get blue => HexColor('#4C40F7');
   static get borderColor => HexColor('#EEEEEE');
+  static get darkBlue => HexColor('#443D72');
   static get darkRed => HexColor("#873e23");
+  static get disableButton => HexColor('#DADADA');
+  static get disableText => HexColor('#9B9B9B');
   static get gold => HexColor('#F19E37');
   static get green => HexColor('#4ADB61');
   static get grey => HexColor('#7B7B7B');

@@ -52,6 +52,7 @@ class _CreateProductState extends State<CreateProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primary,
@@ -151,9 +152,9 @@ class _CreateProductState extends State<CreateProduct> {
                   ),
                 ),
                 Material(
-                  elevation: 20,
+                  elevation: 0,
                   child: Container(
-                    color: AppColors.lightGrey,
+                    color: AppColors.bg,
                     padding: const EdgeInsets.all(20),
                     child: PrimaryButton(
                         value: (widget.type == 'edit' ? 'UPDATE' : 'SAVE') +

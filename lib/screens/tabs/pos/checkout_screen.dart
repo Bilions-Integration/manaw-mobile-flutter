@@ -33,6 +33,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bg,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primary,
@@ -47,107 +48,111 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           });
         }),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-        child: carItems.isNotEmpty
-            ? Column(
-                children: [
-                  Expanded(
-                    child: (ListView(
-                      children: carItems.mapIndexed((Product product, index) {
-                        product.index = index;
-                        return ProductCardCheckout(
-                            product: product, removed: _removed);
-                      }).toList(),
-                    )),
-                  ),
-                  Obx(
-                    () => (Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0, top: 13),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: cartController.customer.value != null &&
-                                    cartController.customer.value!.id != null
-                                ? Row(
-                                    children: [
-                                      const Text('Customer'),
-                                      const Spacer(),
-                                      Text(cartController.customer.value!.name)
-                                    ],
-                                  )
-                                : null,
-                          ),
-                          Row(
-                            children: [
-                              const Text('Sub Total'),
-                              const Spacer(),
-                              Text(cartController.subTotalPrice().toString())
-                            ],
-                          ),
-                          mb(1),
-                          Row(
-                            children: [
-                              Text('Tax (${auth.user.value?.company.tax}%)'),
-                              const Spacer(),
-                              Text(cartController.tax().toString())
-                            ],
-                          ),
-                          mb(1),
-                          Row(
-                            children: [
-                              const Text('Discount'),
-                              const Spacer(),
-                              Text(cartController.discount.value.toString())
-                            ],
-                          ),
-                          mb(1),
-                          Row(
-                            children: [
-                              Container(
-                                constraints:
-                                    const BoxConstraints(minWidth: 100),
-                                child: Text(
-                                  '${currency()} ${cartController.totalPrice()}',
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              mr(2),
-                              Expanded(
-                                child: PrimaryButton(
-                                  width: 250,
-                                  value: '',
-                                  child: Text(
-                                    'CHECKOUT',
-                                    style: TextStyle(color: AppColors.white),
-                                  ),
-                                  onPressed: _checkout,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    )),
-                  ),
-                ],
-              )
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AppAssets.noItems),
-                    mb(1),
-                    const Text('No items in the cart'),
-                    mb(6),
-                  ],
+      body: carItems.isNotEmpty
+          ? Column(
+              children: [
+                Expanded(
+                  child: (ListView(
+                    children: carItems.mapIndexed((Product product, index) {
+                      product.index = index;
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: ProductCardCheckout(
+                            product: product, removed: _removed),
+                      );
+                    }).toList(),
+                  )),
                 ),
+                Obx(
+                  () => (Container(
+                    color: AppColors.white,
+                    padding: const EdgeInsets.only(
+                      bottom: 20.0,
+                      top: 13,
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: cartController.customer.value != null &&
+                                  cartController.customer.value!.id != null
+                              ? Row(
+                                  children: [
+                                    const Text('Customer'),
+                                    const Spacer(),
+                                    Text(cartController.customer.value!.name)
+                                  ],
+                                )
+                              : null,
+                        ),
+                        Row(
+                          children: [
+                            const Text('Sub Total'),
+                            const Spacer(),
+                            Text(cartController.subTotalPrice().toString())
+                          ],
+                        ),
+                        mb(1),
+                        Row(
+                          children: [
+                            Text('Tax (${auth.user.value?.company.tax}%)'),
+                            const Spacer(),
+                            Text(cartController.tax().toString())
+                          ],
+                        ),
+                        mb(1),
+                        Row(
+                          children: [
+                            const Text('Discount'),
+                            const Spacer(),
+                            Text(cartController.discount.value.toString())
+                          ],
+                        ),
+                        mb(1),
+                        Row(
+                          children: [
+                            Container(
+                              constraints: const BoxConstraints(minWidth: 100),
+                              child: Text(
+                                '${currency()} ${cartController.totalPrice()}',
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            mr(2),
+                            Expanded(
+                              child: PrimaryButton(
+                                width: 250,
+                                value: '',
+                                child: Text(
+                                  'CHECKOUT',
+                                  style: TextStyle(color: AppColors.white),
+                                ),
+                                onPressed: _checkout,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  )),
+                ),
+              ],
+            )
+          : Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(AppAssets.noItems),
+                  mb(1),
+                  const Text('No items in the cart'),
+                  mb(6),
+                ],
               ),
-      ),
+            ),
     );
   }
 

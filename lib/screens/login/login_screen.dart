@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
+            backgroundColor: AppColors.white,
             body: Center(
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 430),
@@ -50,14 +51,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        AppWidget.marginBottom(8),
-                        logo(60),
+                        AppWidget.marginBottom(7),
+                        logo(80),
                         AppWidget.marginBottom(2),
-                        const Text(
+                        Text(
                           'Manaw Store',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
+                            color: AppColors.darkBlue,
                           ),
                         ),
                         AppWidget.marginBottom(1),
@@ -68,7 +70,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: AppColors.lightDark,
                           ),
                         ),
-                        AppWidget.marginBottom(3),
+                        mb(3),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
+                        ),
+                        mb(0.5),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Enter your email to log in.',
+                            style: TextStyle(
+                              color: AppColors.lightDark,
+                            ),
+                          ),
+                        ),
+                        mb(1),
                         MyTextInput(
                           onChanged: _onValueChanged,
                           column: 'email',
@@ -85,20 +109,36 @@ class _LoginScreenState extends State<LoginScreen> {
                         PrimaryButton(
                           value: 'Login',
                           disabled: !_showLogin(),
-                          onPressed: _login,
+                          onPressed: () {
+                            if (_showLogin()) {
+                              _login();
+                            } else {
+                              Get.snackbar('New Message',
+                                  'Required password and email.');
+                            }
+                          },
                         ),
                         AppWidget.marginBottom(2),
+                        mb(2),
                         InkWell(
-                          child: const Text('Not a member yet? Register here'),
+                          child: Text(
+                            'Not a member yet? Register here',
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
                           onTap: () {
                             Get.to(() => RouteName.register);
                           },
                         ),
                         AppWidget.marginBottom(2),
                         InkWell(
-                          child: const Text(
+                          child: Text(
                             'Forget password?',
                             textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                            ),
                           ),
                           onTap: () {
                             Get.to(() => RouteName.forgetPassword);

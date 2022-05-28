@@ -44,7 +44,7 @@ class _SelectBoxState extends State<SelectBox> {
             child: Container(
               height: 53,
               decoration: BoxDecoration(
-                color: AppColors.lightGrey,
+                color: AppColors.white,
                 border: Border.all(color: AppColors.borderColor, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
