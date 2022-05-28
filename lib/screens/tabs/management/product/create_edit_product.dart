@@ -55,6 +55,12 @@ class _CreateProductState extends State<CreateProduct> {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         elevation: 0,
+        leading: BackButton(
+          onPressed: () {
+            var result = ProductMutationResult(type: 'reset');
+            Get.back(result: result);
+          },
+        ),
         backgroundColor: AppColors.primary,
         title: Text(widget.type.capitalize.toString() + " Product"),
       ),

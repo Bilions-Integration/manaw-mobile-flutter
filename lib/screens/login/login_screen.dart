@@ -9,6 +9,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
+import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
@@ -165,6 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
         AppWidget.storeToken(res['token']);
         final user = User.fromJson(res['data']);
         auth.user.value = user;
+        updateFirebaseToken();
         ARouter.push(RouteName.home);
       } else {
         _showError();

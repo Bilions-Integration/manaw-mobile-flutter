@@ -8,6 +8,7 @@ import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/pos/components/check_actions.dart';
@@ -40,7 +41,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         centerTitle: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => {Get.back()},
+          onPressed: () {
+            var result = ProductMutationResult(type: 'reset');
+            Get.back(result: result);
+          },
         ),
         actions: checkoutActions(onClear: () {
           setState(() {

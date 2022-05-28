@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/helpers/app_widget.dart';
+import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/app_widget.dart';
+import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
-import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -60,6 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
       AppWidget.storeToken(res['token']);
       var res2 = await Api.get('/auth/user');
       auth.user.value = User.fromJson(res2['data']);
+      updateFirebaseToken();
       ARouter.push(RouteName.home);
     } catch (e) {
       ARouter.push(RouteName.login);

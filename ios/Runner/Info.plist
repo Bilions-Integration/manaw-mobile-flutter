@@ -39,7 +39,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need Location permission to search POS printers</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Our application needs permission to write photos to save receipt</string>
+	<string>Our application needs permission to write photos to save payment receipt</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow Image access to upload your profile image and product images</string>
 	<key>UIBackgroundModes</key>
