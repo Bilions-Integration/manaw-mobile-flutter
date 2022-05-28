@@ -27,23 +27,21 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Need BLE permission</string>
+	<string>Need Bluetooth permission to search POS printers</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Need BLE permission</string>
+	<string>Need Bluetooth permission to search POS printers</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow Camera access</string>
+	<string>Allow Camera access to take your profile image and product images</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Need Location permission</string>
+	<string>Need Location permission to search POS printers</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Need Location permission</string>
+	<string>Need Location permission to search POS printers</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need Location permission</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Microphone access</string>
+	<string>Need Location permission to search POS printers</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Our application needs permission to write photos to save receipt</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow Image access</string>
+	<string>Allow Image access to upload your profile image and product images</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
