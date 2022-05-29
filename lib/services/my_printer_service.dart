@@ -36,8 +36,7 @@ class MyPrinterService {
     final name = box.read('@printer-name');
     final id = box.read('@printer-id');
     final connType = box.read('@printer-connectionType');
-
-    if (address.toString().isEmpty) {
+    if (address == null) {
       return null;
     }
 
