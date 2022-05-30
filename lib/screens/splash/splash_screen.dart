@@ -57,9 +57,9 @@ class _SplashScreenState extends State<SplashScreen> {
   _checkToken() async {
     try {
       // throw 'Auth Error';
-      var res = await Api.get('/auth/refresh');
+      var res = await Api.get('/auth/refresh', showLoading: false);
       AppWidget.storeToken(res['token']);
-      var res2 = await Api.get('/auth/user');
+      var res2 = await Api.get('/auth/user', showLoading: false);
       auth.user.value = User.fromJson(res2['data']);
       updateFirebaseToken();
       ARouter.push(RouteName.home);
