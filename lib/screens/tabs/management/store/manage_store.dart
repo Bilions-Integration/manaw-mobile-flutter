@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/services/company_service.dart';
@@ -22,21 +23,19 @@ class _ManageStoreState extends State<ManageStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: customAppBar2(
         context: context,
         title: 'My Store',
         showAction: false,
         centerTitle: true,
       ),
-      body: Container(
-        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-        child: loading == false
-            ? FormCard(
-                params: params,
-                submit: submit,
-              )
-            : Styles.loading,
-      ),
+      body: loading == false
+          ? FormCard(
+              params: params,
+              submit: submit,
+            )
+          : Styles.loading,
     );
   }
 

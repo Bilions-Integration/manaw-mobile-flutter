@@ -3,8 +3,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/firebase.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
@@ -63,17 +61,28 @@ class _PosScreenState extends State<PosScreen> {
 
   @override
   void initState() {
-    updateFirebaseToken();
     super.initState();
     _reset();
     cartController.setAccount();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        console.log('ended');
         _loadMore();
       }
     });
+  }
+
+  _addCart(Product product) {
+    cartController.products.value = [...cartController.products.value, product];
+  }
+
+  _categoryChanged(CategoryModel category) {
+    if (category.id == null) {
+      posController.products.value = [];
+      _reset();
+    } else {
+      posController.getProducts(category: category.id);
+    }
   }
 
   _checkVariations(Product product) {
@@ -85,20 +94,13 @@ class _PosScreenState extends State<PosScreen> {
     }
   }
 
-  _addCart(Product product) {
-    cartController.products.value = [...cartController.products.value, product];
-  }
-
-  _categoryChanged(CategoryModel category) {
-    posController.getProducts(category: category.id);
-  }
-
   _loadMore() {
     posController.page.value++;
     posController.getProducts();
   }
 
   _reset() {
+    posController.endOfPage.value = false;
     posController.page.value = 1;
     posController.products.value = [];
     posController.getProducts();

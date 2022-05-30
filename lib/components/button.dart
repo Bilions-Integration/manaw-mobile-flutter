@@ -27,16 +27,17 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      elevation: 0,
       onPressed: () => {disabled ? null : onPressed()},
       child: child ??
           Text(
             value.toUpperCase(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
-              color: Colors.white,
+              color: disabled ? AppColors.disableText : Colors.white,
             ),
           ),
-      color: disabled ? AppColors.lightDark : AppColors.primary,
+      color: disabled ? AppColors.disableButton : AppColors.primary,
       height: height,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

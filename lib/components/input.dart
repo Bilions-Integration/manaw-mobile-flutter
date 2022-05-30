@@ -104,7 +104,7 @@ class MyTextInput extends StatelessWidget {
             onFieldSubmitted: _onFieldSubmitted,
             decoration: InputDecoration(
               filled: true,
-              fillColor: AppColors.lightGrey,
+              fillColor: AppColors.white,
               contentPadding: EdgeInsets.symmetric(
                   vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
               prefixIcon: icon != null ? Icon(icon) : null,
@@ -125,7 +125,10 @@ class MyTextInput extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radius),
               ),
               hintText: placeholder,
-              hintStyle: TextStyle(color: AppColors.lightDark),
+              hintStyle: TextStyle(
+                color: AppColors.disableText,
+                fontSize: 14,
+              ),
             ),
           ),
         ],
@@ -175,7 +178,7 @@ class _PasswordInputState extends State<PasswordInput> {
         obscuringCharacter: "*",
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColors.lightGrey,
+          fillColor: AppColors.white,
           contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
           prefixIcon: Icon(widget.icon),
           suffixIcon: !showPassword
@@ -202,6 +205,10 @@ class _PasswordInputState extends State<PasswordInput> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           hintText: widget.placeholder,
+          hintStyle: TextStyle(
+            color: AppColors.disableText,
+            fontSize: 14,
+          ),
         ),
       ),
     );

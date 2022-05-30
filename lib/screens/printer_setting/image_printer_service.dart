@@ -25,8 +25,8 @@ class ImagePrinterService {
     final img.Image _resize =
         img.copyResize(img.decodeImage(receipt!)!, width: _paperSize!.width);
     bytes += generator.image(_resize);
-    bytes += generator.feed(2);
-    bytes += generator.cut();
+    bytes += generator.hr(ch: "-");
+    bytes += generator.emptyLines(2);
     return bytes;
   }
 }

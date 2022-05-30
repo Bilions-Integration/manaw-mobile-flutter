@@ -7,7 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/printer_setting/image_printer_service.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pos_printer_manager/models/pos_printer.dart';
 import 'package:pos_printer_manager/pos_printer_manager.dart';
@@ -24,33 +23,11 @@ class MyPrinterService {
     var ts = DateTime.now().millisecondsSinceEpoch;
     var savedPath = "pos-download-$ts";
     Uint8List image = await WebcontentConverter.webUriToImage(uri: getUri(id));
-    console.log(image);
-
-    final result = await ImageGallerySaver.saveImage(
+    await ImageGallerySaver.saveImage(
       Uint8List.fromList(image),
-      quality: 60,
       name: savedPath,
     );
     Get.snackbar('Success', 'Saved to gallery');
-  }
-
-  Future<String?> getDownloadPath() async {
-    Directory? directory;
-    try {
-      if (Platform.isIOS) {
-        directory = await getApplicationDocumentsDirectory();
-      } else {
-        directory = Directory('/storage/emulated/0/Download');
-        // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
-        // ignore: avoid_slow_async_io
-        if (!await directory.exists()) {
-          directory = await getExternalStorageDirectory();
-        }
-      }
-    } catch (err) {
-      return null;
-    }
-    return directory?.path;
   }
 
   POSPrinter? getPrinter() {
@@ -59,8 +36,7 @@ class MyPrinterService {
     final name = box.read('@printer-name');
     final id = box.read('@printer-id');
     final connType = box.read('@printer-connectionType');
-
-    if (address.toString().isEmpty) {
+    if (address == null) {
       return null;
     }
 
@@ -74,7 +50,7 @@ class MyPrinterService {
     );
   }
 
-  Future<CapabilityProfile?> getProfile() async {
+  Future getProfile() async {
     if (profile == null) {
       var p = await CapabilityProfile.load();
       profile = p;
@@ -94,46 +70,50 @@ class MyPrinterService {
   }
 
   print(id, printer) async {
-    console.log('printing');
+    try {
+      console.log('printing');
 
-    var image = await WebcontentConverter.webUriToImage(uri: getUri(id));
+      var image = await WebcontentConverter.webUriToImage(uri: getUri(id));
 
-    var paperSize = PaperSize.mm58;
-    CapabilityProfile? loadedProfile = await getProfile();
+      var paperSize = PaperSize.mm58;
+      CapabilityProfile loadedProfile = await getProfile();
 
-    var service = ImagePrinterService(image, loadedProfile);
-    var data = await service.getBytes(paperSize: PaperSize.mm58);
+      var service = ImagePrinterService(image, loadedProfile);
+      var data = await service.getBytes(paperSize: PaperSize.mm58);
 
-    console.log(data);
+      console.log(data);
 
-    if (blueManager != null) {
-      blueManager?.disconnect();
-    }
-    if (usbManager != null) {
-      usbManager?.disconnect();
-    }
-    blueManager = null;
-    usbManager = null;
+      if (blueManager != null) {
+        blueManager?.disconnect();
+      }
+      if (usbManager != null) {
+        usbManager?.disconnect();
+      }
+      blueManager = null;
+      usbManager = null;
 
-    if (printer.connectionType == ConnectionType.bluetooth) {
-      BluetoothPrinterManager m =
-          BluetoothPrinterManager(printer, paperSize, loadedProfile!);
-      blueManager = m;
-      await blueManager?.connect();
-      console.log("isConnected ${blueManager?.isConnected}");
-      blueManager?.writeBytes(data);
-    } else if (printer.connectionType == ConnectionType.usb) {
-      USBPrinterManager m =
-          USBPrinterManager(printer, paperSize, loadedProfile!);
-      usbManager = m;
-      await usbManager?.connect();
-      console.log("isConnected ${usbManager?.isConnected}");
-      usbManager?.writeBytes(data);
+      if (printer.connectionType == ConnectionType.bluetooth) {
+        BluetoothPrinterManager m =
+            BluetoothPrinterManager(printer, paperSize, loadedProfile);
+        blueManager = m;
+        await blueManager?.connect();
+        console.log("isConnected ${blueManager?.isConnected}");
+        blueManager?.writeBytes(data, isDisconnect: false);
+      } else if (printer.connectionType == ConnectionType.usb) {
+        USBPrinterManager m =
+            USBPrinterManager(printer, paperSize, loadedProfile);
+        usbManager = m;
+        await usbManager?.connect();
+        console.log("isConnected ${usbManager?.isConnected}");
+        usbManager?.writeBytes(data, isDisconnect: false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   requestPermission() async {
-    Map<Permission, PermissionStatus> statuses = await [
+    await [
       Permission.storage,
     ].request();
   }

@@ -6,6 +6,7 @@ import 'package:my_app/components/category_picker.dart';
 import 'package:my_app/components/common_widget.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/util_models.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/routes.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
@@ -115,6 +116,16 @@ class _CategorySelectorState extends State<CategorySelector> {
     );
   }
 
+  _afterMutation(ProductMutationResult? result) {
+    if (result != null) {
+      widget.callback(CategoryModel(
+        name: 'All',
+        id: null,
+        image: [],
+      ));
+    }
+  }
+
   _getCategory() async {
     if (menuList.isEmpty) {
       List<CategoryModel> initialCategories = [
@@ -140,7 +151,8 @@ class _CategorySelectorState extends State<CategorySelector> {
   }
 
   _showCheckout() {
-    Get.to(() => RouteName.checkoutScreen);
+    Get.to(() => RouteName.checkoutScreen)
+        ?.then((res) => _afterMutation(res as ProductMutationResult));
   }
 
   _showList() async {

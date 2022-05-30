@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/controllers/route_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
   final auth = Get.put(AuthController());
   final cart = Get.put(CartController());
   final bottomTabController = Get.put(BottomTabsController());
+  final rc = Get.put(RouteController());
 
   @override
   Widget build(BuildContext context) {
