@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/payment_method_model.dart';
 import 'package:my_app/screens/plan/payment_controller.dart';
@@ -86,7 +87,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Image.network(
+                    child: MyImage.network(
                       e,
                     ),
                   ),
@@ -110,7 +111,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.network(
+            child: MyImage.network(
               method.images.first,
               fit: BoxFit.cover,
             )),

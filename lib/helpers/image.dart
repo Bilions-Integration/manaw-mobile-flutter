@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_app/data/assets.dart';
+import 'package:my_app/data/colors.dart';
 
 class MyImage {
   static Widget network(String url,
@@ -10,8 +11,12 @@ class MyImage {
       imageUrl: url,
       width: width,
       height: height,
-      placeholder: (context, url) => SvgPicture.asset(AppAssets.appLogo),
-      errorWidget: (context, url, err) => SvgPicture.asset(AppAssets.icInfo),
+      placeholder: (context, url) => Center(
+        child: SvgPicture.asset(
+          AppAssets.manage,
+          color: AppColors.lightPurple,
+        ),
+      ),
       fit: fit,
     );
   }

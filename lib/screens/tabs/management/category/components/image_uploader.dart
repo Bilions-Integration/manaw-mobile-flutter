@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:my_app/data/assets.dart';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:my_app/data/assets.dart';
+import 'package:my_app/helpers/image.dart';
 
 class ImageUploader extends StatefulWidget {
   final Map? params;
@@ -78,7 +80,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                       child: currentlyPickedImage != null
                           ? Image.file(currentlyPickedImage!)
                           : widget.params?['old_image'] != null
-                              ? Image.network(widget.params?['old_image'])
+                              ? MyImage.network(widget.params?['old_image'])
                               : SvgPicture.asset(AppAssets.plus,
                                   width: 20, height: 20)),
                 ],

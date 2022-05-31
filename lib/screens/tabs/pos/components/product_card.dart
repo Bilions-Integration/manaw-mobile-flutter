@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -41,7 +42,7 @@ class ProductCard extends StatelessWidget {
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
-                  child: Image.network(
+                  child: MyImage.network(
                     product.images[0],
                   ),
                 )),

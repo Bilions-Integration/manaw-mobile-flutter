@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 
@@ -42,7 +43,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: Image.network(
+                child: MyImage.network(
                   widget.product.images[0],
                   width: 70,
                 ),

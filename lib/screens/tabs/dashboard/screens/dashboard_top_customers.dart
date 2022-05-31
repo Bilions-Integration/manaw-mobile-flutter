@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/top_customers_model.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -25,7 +26,7 @@ class CustomerCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: Image.network(
+                child: MyImage.network(
                   customer.image,
                   width: 40,
                   height: 40,
