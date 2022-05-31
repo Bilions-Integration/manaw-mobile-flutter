@@ -11,7 +11,6 @@ import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
-import 'package:upgrader/upgrader.dart';
 
 import 'firebase_options.dart';
 
@@ -19,7 +18,6 @@ void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   GetStorage.init();
-  await Upgrader.clearSavedSettings();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

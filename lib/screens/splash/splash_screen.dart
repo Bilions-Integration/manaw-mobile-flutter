@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
@@ -7,7 +8,6 @@ import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:upgrader/upgrader.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,6 +21,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final auth = Get.find<AuthController>();
+  AppUpdateInfo? _updateInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +52,27 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  void initState() async {
+  void initState() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       _checkToken();
     });
-    var packageInfo = PackageInfo(
-        appName: "MaNaw Store",
-        packageName: "org.bilions.manawstore",
-        version: '2.0.5',
-        buildNumber: '11',
-        buildSignature: '07B0C41ED9A5A1E81DDBBAC64FE559CE92BA3693');
-    // PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    console.log(
-        'app_version =>>>>>>>>> ${packageInfo.appName}, ${packageInfo.version} ');
-    //app_version =>>>>>>>>> 2.0.3, 07B0C41ED9A5A1E81DDBBAC64FE559CE92BA3693
+    _checkForUpdate();
     super.initState();
+  }
+
+  Future<void> _checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+      setState(() {
+        _updateInfo = info;
+        if (_updateInfo?.updateAvailability ==
+            UpdateAvailability.updateAvailable) {
+          InAppUpdate.startFlexibleUpdate();
+          // InAppUpdate.performImmediateUpdate();
+        }
+      });
+    }).catchError((e) {
+      console.warn("Update check failed");
+    });
   }
 
   _checkToken() async {
