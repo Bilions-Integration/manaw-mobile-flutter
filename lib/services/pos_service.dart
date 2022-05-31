@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/printing.dart';
 import 'package:my_app/screens/printer_setting/printer_setting.dart';
 import 'package:my_app/services/my_printer_service.dart';
 import 'package:pos_printer_manager/models/pos_printer.dart';
@@ -39,7 +40,7 @@ class PosService {
           confirmText: 'Yes',
         );
       } else {
-        loading(title: 'Printing...');
+        printing();
         await service.print(invoiceId, printer);
         hideLoading();
       }
