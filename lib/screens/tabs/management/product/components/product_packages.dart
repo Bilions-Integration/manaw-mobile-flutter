@@ -135,12 +135,12 @@ class PackageViewCard extends StatelessWidget {
                 SizedBox(
                   width: 150,
                   child: Text(
-                    'Sell Price',
+                    'Sale Price',
                     style: TextStyle(color: AppColors.grey),
                   ),
                 ),
                 Text(
-                  'Buy Price',
+                  'Purchase Price',
                   style: TextStyle(color: AppColors.grey),
                 ),
               ],
@@ -160,15 +160,23 @@ class PackageViewCard extends StatelessWidget {
           ),
           mb(1),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 150,
-                  child: Text('Coefficient : ${unit.coefficient}'),
-                ),
-                Text(unit.active ? 'Active' : 'Inactive'),
-              ],
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 10,
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1,
+                      color: unit.active ? AppColors.primary : AppColors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              child: Text(
+                unit.active ? 'Active' : 'Inactive',
+                style: TextStyle(
+                    fontSize: 12,
+                    color: unit.active ? AppColors.primary : AppColors.grey),
+              ),
             ),
           ),
           mb(1.5),

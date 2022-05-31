@@ -97,6 +97,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
     "unit": null,
     "sale_price": 0,
     "purchase_price": 0,
+    "coefficient": 1,
     "active": 0,
   };
   MyFile? image;
