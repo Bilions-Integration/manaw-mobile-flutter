@@ -5,6 +5,7 @@ import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/common_model.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/services/profile_service.dart';
@@ -37,7 +38,7 @@ class ProfileImage extends StatelessWidget {
                     ),
                     child: Container(
                       color: AppColors.white,
-                      child: Image.network(
+                      child: MyImage.network(
                         image ?? '',
                         width: 70,
                         height: 70,
