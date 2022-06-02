@@ -18,6 +18,7 @@ class MyImage {
         ),
       ),
       fit: fit,
+      fadeOutDuration: const Duration(milliseconds: 0),
     );
   }
 

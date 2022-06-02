@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -65,11 +67,11 @@ class ManageScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: ListView(
                 children: <Widget>[
-                  mb(1),
-                  CurrentPlan(),
-                  mb(1),
-                  ...pageList.map(
-                    (e) {
+                  if (Platform.isAndroid) mb(1),
+                  if (Platform.isAndroid) CurrentPlan(),
+                  if (Platform.isAndroid) mb(1),
+                  ...pageList.mapIndexed(
+                    (e, i) {
                       return Stack(
                         children: <Widget>[
                           LinkItem(
@@ -77,7 +79,7 @@ class ManageScreen extends StatelessWidget {
                             page: e.page,
                             icon: e.icon,
                           ),
-                          hr(width: 1),
+                          if (Platform.isIOS && i != 0) hr(width: 1),
                         ],
                       );
                     },
