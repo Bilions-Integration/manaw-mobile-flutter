@@ -79,7 +79,7 @@ class ManageScreen extends StatelessWidget {
                             page: e.page,
                             icon: e.icon,
                           ),
-                          if (Platform.isIOS && i != 0) hr(width: 1),
+                          hr(width: 1),
                         ],
                       );
                     },

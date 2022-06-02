@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
@@ -56,7 +58,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(milliseconds: 1000), () {
       _checkToken();
     });
-    _checkForUpdate();
+    if (Platform.isAndroid) {
+      _checkForUpdate();
+    }
     super.initState();
   }
 

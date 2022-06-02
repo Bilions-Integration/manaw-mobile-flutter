@@ -6,6 +6,7 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/printing.dart';
 import 'package:my_app/screens/printer_setting/printer_setting.dart';
 import 'package:my_app/services/my_printer_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pos_printer_manager/models/pos_printer.dart';
 
 class PosService {
@@ -25,6 +26,12 @@ class PosService {
       if (!Platform.isAndroid) {
         return downloadReceipt(invoiceId);
       }
+      await [
+        Permission.bluetooth,
+        Permission.bluetoothAdvertise,
+        Permission.bluetoothConnect,
+        Permission.bluetoothScan,
+      ].request();
       final service = MyPrinterService();
       POSPrinter? printer = service.getPrinter();
 
