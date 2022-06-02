@@ -6,6 +6,7 @@ import 'package:my_app/components/custom_item_list.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/screens/tabs/management/category/components/action_popup.dart';
@@ -116,7 +117,7 @@ class _ManageCategoryState extends State<ManageCategory> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4),
-                child: Image.network(
+                child: MyImage.network(
                   category.image,
                   height: 40,
                   width: 40,

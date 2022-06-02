@@ -95,9 +95,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
   var productOptionController = ProductOptionController();
   Map<String, dynamic> params = {
     "unit": null,
-    "coefficient": 1,
     "sale_price": 0,
     "purchase_price": 0,
+    "coefficient": 1,
     "active": 0,
   };
   MyFile? image;
@@ -164,14 +164,6 @@ class _NewPackageFormState extends State<NewPackageForm> {
                         placeholder: 'Red Color',
                         onChanged: _valueChanged,
                         isRequired: true,
-                      ),
-                      MyTextInput(
-                        value: params['coefficient'],
-                        column: 'coefficient',
-                        label: 'Coefficient',
-                        numberOnly: true,
-                        placeholder: '0',
-                        onChanged: _valueChanged,
                       ),
                       MyTextInput(
                         value: params['sale_price'],
@@ -261,9 +253,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
       setState(() {
         params = {
           "unit": null,
-          "coefficient": 1,
           "sale_price": 0,
           "purchase_price": 0,
+          "active": 0,
         };
       });
       Navigator.pop(context);

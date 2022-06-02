@@ -38,8 +38,8 @@ class VariationSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Choose Variation",
+        Text(
+          "Choose Variation (${currency()} ${cast(product.price)})",
           style: Styles.h2,
         ),
         mb(0.2),
@@ -51,7 +51,7 @@ class VariationSelector extends StatelessWidget {
           child: ListView(
             children: [
               ...product.units.map(
-                (e) => Column(
+                (Unit e) => Column(
                   children: [
                     mb(1),
                     InkWell(
@@ -76,7 +76,7 @@ class VariationSelector extends StatelessWidget {
                               style: Styles.h3,
                             ),
                             Text(
-                              '${currency()} ${e.salePrice}',
+                              '${e.addPrice ? '+' : ''} ${currency()} ${e.salePrice}',
                               style: Styles.t2,
                             ),
                           ],
@@ -95,7 +95,12 @@ class VariationSelector extends StatelessWidget {
 
   _select(Unit unit) {
     final newProduct = Product.fromJson(product.toJson());
-    newProduct.price = unit.salePrice > 0 ? unit.salePrice : newProduct.price;
+
+    if (unit.addPrice) {
+      newProduct.price = newProduct.price + unit.salePrice;
+    } else {
+      newProduct.price = unit.salePrice > 0 ? unit.salePrice : newProduct.price;
+    }
     newProduct.unit = unit;
     callBack(newProduct);
   }

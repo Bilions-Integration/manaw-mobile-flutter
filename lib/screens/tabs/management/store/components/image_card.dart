@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/common_model.dart';
 
 class ImageCard extends StatefulWidget {
@@ -33,7 +34,7 @@ class _ImageCardState extends State<ImageCard> {
               ? Image.file(pickedBanner!,
                   width: double.infinity, height: 180, fit: BoxFit.cover)
               : widget.banner != null
-                  ? Image.network(widget.banner!,
+                  ? MyImage.network(widget.banner!,
                       width: double.infinity, height: 180, fit: BoxFit.cover)
                   : Stack(
                       children: [
@@ -89,12 +90,19 @@ class _ImageCardState extends State<ImageCard> {
           },
           child: Stack(children: [
             CircleAvatar(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 3,
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(50)),
+              ),
               backgroundColor: Colors.grey[300],
-              radius: 45,
-              backgroundImage: (pickedLogo != null
-                      ? Image.file(pickedLogo!)
-                      : Image.network(widget.logo ?? ''))
-                  .image,
+              radius: 48,
+              backgroundImage: pickedLogo != null
+                  ? Image.file(pickedLogo!).image
+                  : MyImage.provider(widget.logo ?? ''),
             ),
             Positioned(
               bottom: -5,

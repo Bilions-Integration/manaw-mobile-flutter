@@ -52,8 +52,15 @@ class _CreateProductState extends State<CreateProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         elevation: 0,
+        leading: BackButton(
+          onPressed: () {
+            var result = ProductMutationResult(type: 'reset');
+            Get.back(result: result);
+          },
+        ),
         backgroundColor: AppColors.primary,
         title: Text(widget.type.capitalize.toString() + " Product"),
       ),
@@ -110,6 +117,14 @@ class _CreateProductState extends State<CreateProduct> {
                               label: 'Sale Price',
                               isRequired: true,
                             ),
+                            MyTextInput(
+                              column: 'buy_price',
+                              value: params['buy_price'],
+                              placeholder: '0',
+                              onChanged: _setParams,
+                              label: 'Purchase Price',
+                              numberOnly: true,
+                            ),
                             SelectBox(
                               placeholder: 'Select Category',
                               label: 'Category',
@@ -122,14 +137,6 @@ class _CreateProductState extends State<CreateProduct> {
                               placeholder: 'ABC-1234567890',
                               onChanged: _setParams,
                               label: 'Barcode',
-                            ),
-                            MyTextInput(
-                              column: 'buy_price',
-                              value: params['buy_price'],
-                              placeholder: '0',
-                              onChanged: _setParams,
-                              label: 'Purchase Price',
-                              numberOnly: true,
                             ),
                             MyTextInput(
                               column: 'unit',
@@ -151,9 +158,9 @@ class _CreateProductState extends State<CreateProduct> {
                   ),
                 ),
                 Material(
-                  elevation: 20,
+                  elevation: 0,
                   child: Container(
-                    color: AppColors.lightGrey,
+                    color: AppColors.bg,
                     padding: const EdgeInsets.all(20),
                     child: PrimaryButton(
                         value: (widget.type == 'edit' ? 'UPDATE' : 'SAVE') +

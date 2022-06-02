@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/color_picker.dart';
@@ -79,13 +81,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Appearance',
                     onPressed: _showColorPicker,
                   ),
-                  ProfileMenu(
-                    icon: AppAssets.icPrinter,
-                    title: 'Printer Setting',
-                    onPressed: () {
-                      Get.to(RouteName.printerSettingScreen);
-                    },
-                  ),
+                  if (Platform.isAndroid)
+                    ProfileMenu(
+                      icon: AppAssets.icPrinter,
+                      title: 'Printer Setting',
+                      onPressed: () {
+                        Get.to(RouteName.printerSettingScreen);
+                      },
+                    ),
                   mb(1),
                   _label('Others'),
                   ProfileMenu(

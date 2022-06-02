@@ -78,5 +78,8 @@ class AppAssets {
   static const icmStore = 'assets/images/manage/icm-store.svg';
   static const icmRecharge = 'assets/images/manage/icm-recharge.svg';
 
+  // lottie
+  static const lottiePrinting = 'assets/images/printing.json';
+
   static getPlanIcon(image) => 'assets/images/plans/$image.png';
 }

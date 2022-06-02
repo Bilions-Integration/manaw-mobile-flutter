@@ -233,6 +233,10 @@ Widget p(double padding, Widget child) {
   return Padding(padding: EdgeInsets.all(padding), child: child);
 }
 
+setTimeout(callback, {duration = 1000}) {
+  Future.delayed(Duration(milliseconds: duration), callback);
+}
+
 SnackbarController snackBar(String title, String message,
     {IconData? icon, Color? color}) {
   return Get.snackbar(title, message,

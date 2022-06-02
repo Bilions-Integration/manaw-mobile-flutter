@@ -8,6 +8,7 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/printer_setting/printer_card.dart';
 import 'package:my_app/screens/printer_setting/printer_setting_controller.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pos_printer_manager/models/pos_printer.dart';
 import 'package:pos_printer_manager/pos_printer_manager.dart';
 
@@ -97,8 +98,13 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
   @override
   void initState() {
     super.initState();
-    printerSettingController.scanBluePrinter();
-    printerSettingController.scanUSBPrinter();
+    _scan();
+  }
+
+  _scan() async {
+    await [Permission.bluetoothConnect, Permission.bluetooth].request();
+    await printerSettingController.scanBluePrinter();
+    await printerSettingController.scanUSBPrinter();
     final box = GetStorage();
     final address = box.read('@printer-address');
     setState(() {

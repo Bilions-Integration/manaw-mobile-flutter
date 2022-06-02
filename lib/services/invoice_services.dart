@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class InvoiceServices {
   static Future create(Map params) async {
-    await Api.post('/invoices/sale', data: params);
+    return await Api.post('/invoices/sale', data: params);
   }
 
   static Future<Map<String, dynamic>> get(Map<String, dynamic> params) async {

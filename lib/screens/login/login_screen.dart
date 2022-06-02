@@ -9,6 +9,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
+import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
@@ -28,13 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
     "password": null,
   };
 
-  bool _showLogin() {
-    if (empty(params["email"]) || empty(params["password"])) {
-      return false;
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,85 +41,122 @@ class _LoginScreenState extends State<LoginScreen> {
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ListView(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppWidget.marginBottom(8),
-                      logo(60),
-                      AppWidget.marginBottom(2),
-                      const Text(
-                        'Manaw Store',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+            backgroundColor: AppColors.white,
+            body: Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 430),
+                padding: const EdgeInsets.all(20.0),
+                child: ListView(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppWidget.marginBottom(7),
+                        logo(80),
+                        AppWidget.marginBottom(2),
+                        Text(
+                          'Manaw Store',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: AppColors.darkBlue,
+                          ),
                         ),
-                      ),
-                      AppWidget.marginBottom(1),
-                      Text(
-                        'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.lightDark,
+                        AppWidget.marginBottom(1),
+                        Text(
+                          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.lightDark,
+                          ),
                         ),
-                      ),
-                      AppWidget.marginBottom(3),
-                      MyTextInput(
-                        onChanged: _onValueChanged,
-                        column: 'email',
-                        placeholder: 'Email',
-                        icon: Icons.email,
-                      ),
-                      PasswordInput(
-                        onChanged: _onValueChanged,
-                        column: 'password',
-                        placeholder: 'Password',
-                        icon: Icons.lock,
-                      ),
-                      AppWidget.marginBottom(1),
-                      PrimaryButton(
-                        value: 'Login',
-                        disabled: !_showLogin(),
-                        onPressed: _login,
-                      ),
-                      AppWidget.marginBottom(2),
-                      InkWell(
-                        child: const Text('Not a member yet? Register here'),
-                        onTap: () {
-                          Get.to(() => RouteName.register);
-                        },
-                      ),
-                      AppWidget.marginBottom(2),
-                      InkWell(
-                        child: const Text(
-                          'Forget password?',
-                          textAlign: TextAlign.left,
+                        mb(3),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
                         ),
-                        onTap: () {
-                          Get.to(() => RouteName.forgetPassword);
-                        },
-                      ),
-                      AppWidget.marginBottom(7),
-                      SvgPicture.asset(AppAssets.icPoweredBy),
-                    ],
-                  )
-                ],
+                        mb(0.5),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Enter your email to log in.',
+                            style: TextStyle(
+                              color: AppColors.lightDark,
+                            ),
+                          ),
+                        ),
+                        mb(1),
+                        MyTextInput(
+                          onChanged: _onValueChanged,
+                          column: 'email',
+                          placeholder: 'Email',
+                          icon: Icons.email,
+                        ),
+                        PasswordInput(
+                          onChanged: _onValueChanged,
+                          column: 'password',
+                          placeholder: 'Password',
+                          icon: Icons.lock,
+                        ),
+                        AppWidget.marginBottom(1),
+                        PrimaryButton(
+                          value: 'Login',
+                          disabled: !_showLogin(),
+                          onPressed: () {
+                            if (_showLogin()) {
+                              _login();
+                            } else {
+                              Get.snackbar('New Message',
+                                  'Required password and email.');
+                            }
+                          },
+                        ),
+                        AppWidget.marginBottom(2),
+                        mb(2),
+                        InkWell(
+                          child: Text(
+                            'Not a member yet? Register here',
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
+                          onTap: () {
+                            Get.to(() => RouteName.register);
+                          },
+                        ),
+                        AppWidget.marginBottom(2),
+                        InkWell(
+                          child: Text(
+                            'Forget password?',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                            ),
+                          ),
+                          onTap: () {
+                            Get.to(() => RouteName.forgetPassword);
+                          },
+                        ),
+                        AppWidget.marginBottom(7),
+                        SvgPicture.asset(AppAssets.icPoweredBy),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  _onValueChanged(value, column) {
-    setState(() {
-      params[column] = value;
-    });
   }
 
   _login() async {
@@ -135,6 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
         AppWidget.storeToken(res['token']);
         final user = User.fromJson(res['data']);
         auth.user.value = user;
+        updateFirebaseToken();
         ARouter.push(RouteName.home);
       } else {
         _showError();
@@ -145,8 +177,21 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  _onValueChanged(value, column) {
+    setState(() {
+      params[column] = value;
+    });
+  }
+
   _showError() {
     snackBar('Error', 'Invalid email or password!',
         icon: Icons.info, color: Colors.red);
+  }
+
+  bool _showLogin() {
+    if (empty(params["email"]) || empty(params["password"])) {
+      return false;
+    }
+    return true;
   }
 }

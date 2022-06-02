@@ -1,14 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
-import 'package:my_app/screens/printer_setting/printer_setting.dart';
-import 'package:my_app/services/my_printer_service.dart';
-import 'package:pos_printer_manager/models/pos_printer.dart';
+import 'package:my_app/services/pos_service.dart';
 
 void actionPopup({
   required BuildContext context,
@@ -155,8 +154,8 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 ),
                 mb(1.5),
                 PrimaryButton(
-                  value: 'Print',
-                  onPressed: () => {_zPrint(invoice)},
+                  value: Platform.isAndroid ? 'Print' : 'Download Receipt',
+                  onPressed: () => {_zPrint(invoice.id)},
                 )
               ],
             ),
@@ -209,6 +208,12 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 style: Styles.h3),
           ]),
           Row(children: [
+            IconButton(
+              onPressed: () {
+                _zDownloadReceipt(invoice.id);
+              },
+              icon: const Icon(Icons.download_rounded),
+            ),
             InkWell(
               child: SvgPicture.asset(AppAssets.trash, width: 20, height: 20),
               onTap: () => delete(invoice.id),
@@ -220,33 +225,13 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
     );
   }
 
-  _zPrint(invoice) async {
-    try {
-      final invoiceId = invoice.id;
-      final service = MyPrinterService();
-      POSPrinter? printer = service.getPrinter();
+  _zDownloadReceipt(invoiceId) async {
+    PosService service = PosService();
+    service.downloadReceipt(invoiceId);
+  }
 
-      if (printer == null) {
-        confirm(
-          onPressed: (confirm) {
-            if (confirm) {
-              Get.to(() => const PrinterSettingScreen());
-            }
-          },
-          title: 'Printer not selected yet',
-          message: 'Do you want to select printer?',
-          confirmText: 'Yes',
-        );
-      } else {
-        loading(title: 'Printing...');
-        await service.print(invoiceId, printer);
-        hideLoading();
-      }
-    } catch (error) {
-      hideLoading();
-      snackBar('Error', 'Something went wrong try again!',
-          icon: Icons.error_outline_rounded, color: Colors.red);
-      console.log(error);
-    }
+  _zPrint(invoiceId) async {
+    PosService service = PosService();
+    service.print(invoiceId);
   }
 }

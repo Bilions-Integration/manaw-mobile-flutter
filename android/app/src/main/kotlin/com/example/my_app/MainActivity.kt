@@ -1,4 +1,4 @@
-package org.bilions.manaw
+package org.bilions.manawstore
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>571631180991-k2vqp1893p3llagbfscnemnvgpejcp7t.apps.googleusercontent.com</string>
+	<string>571631180991-n09tnlva4d2o8apsprdq3de8r50io3jr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.571631180991-k2vqp1893p3llagbfscnemnvgpejcp7t</string>
+	<string>com.googleusercontent.apps.571631180991-n09tnlva4d2o8apsprdq3de8r50io3jr</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>571631180991-n515f142slu0453l1pjovpqarrlplaqg.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.bilions.manaw</string>
+	<string>org.bilions.manawstore</string>
 	<key>PROJECT_ID</key>
 	<string>bilions-pos</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:571631180991:ios:c6200a70c59e51219d7a0a</string>
+	<string>1:571631180991:ios:61f047c2fc5af78d9d7a0a</string>
 	<key>DATABASE_URL</key>
 	<string>https://bilions-pos-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>

@@ -7,7 +7,19 @@ class PaymentController extends GetxController {
   var plan = ''.obs;
   var period = ''.obs;
   var total = 0.obs;
-  var channel = <String>['ALL'].obs;
+  final channel = Rx<List<String>>(['ALL']);
+
+  Future doPayment() async {
+    String? webUrl = await _getPaymentURL();
+    if (webUrl != null) {
+      Get.to(() => PaymentWebView(webUrl: webUrl));
+    }
+  }
+
+  Future<List<PaymentMethod>> getMethods() async {
+    var res = await Api.get('payment_methods');
+    return (res as List).map((e) => PaymentMethod.fromJson(e as Map)).toList();
+  }
 
   Future<String?> _getPaymentURL() async {
     Map<String, dynamic> params = {
@@ -25,17 +37,5 @@ class PaymentController extends GetxController {
     } catch (e) {
       return null;
     }
-  }
-
-  Future doPayment() async {
-    String? webUrl = await _getPaymentURL();
-    if (webUrl != null) {
-      Get.to(() => PaymentWebView(webUrl: webUrl));
-    }
-  }
-
-  Future<List<PaymentMethod>> getMethods() async {
-    var res = await Api.get('payment_methods');
-    return (res as List).map((e) => PaymentMethod.fromJson(e as Map)).toList();
   }
 }

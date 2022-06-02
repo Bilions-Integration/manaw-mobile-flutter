@@ -21,17 +21,19 @@ class CartController extends GetxController {
 
   final discount = Rx<dynamic>(0);
 
-  checkout(callback) {
+  final lastId = Rx<num>(0);
+
+  checkout(Function(num) callback) async {
     if (account.value == null) {
       showAccountModal(
-        callback: () => {
-          _submit(),
-          callback(true),
+        callback: () async {
+          num id = await _submit();
+          callback(id);
         },
       );
     } else {
-      _submit();
-      callback(true);
+      num id = await _submit();
+      callback(id);
     }
   }
 
@@ -126,7 +128,16 @@ class CartController extends GetxController {
       "paid_amount": 0,
     };
     console.log('PARAMS to SUBMIT => $params');
-    await InvoiceServices.create(params);
-    products.value = [];
+    var res = await InvoiceServices.create(params);
+    num lastId = 0;
+    if (res['success']) {
+      lastId = res['data']['id'] as num;
+      products.value = [];
+      console.log(lastId);
+    } else {
+      lastId = 0;
+      Get.snackbar('Error', res['message']);
+    }
+    return lastId;
   }
 }
