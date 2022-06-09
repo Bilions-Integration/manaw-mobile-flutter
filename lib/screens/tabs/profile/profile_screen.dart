@@ -12,6 +12,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/language/language_screen.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/tabs/profile/components/change_password_modal.dart';
@@ -80,6 +81,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     icon: AppAssets.icTheme,
                     title: 'Appearance',
                     onPressed: _showColorPicker,
+                  ),
+                  ProfileMenu(
+                    icon: AppAssets.icHelp,
+                    title: 'Language',
+                    onPressed: () => Get.to(() => const LanguageScreen()),
                   ),
                   if (Platform.isAndroid)
                     ProfileMenu(
