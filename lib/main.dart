@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/controllers/route_controller.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/data/translations.dart';
 import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/language/locale_helper.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
@@ -45,6 +46,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      locale: Get.deviceLocale,
+      fallbackLocale: const Locale('en', 'US'),
+      translations: AppLocales(),
       theme: ThemeData(
         textTheme: GoogleFonts.readexProTextTheme(),
         checkboxTheme: CheckboxThemeData(

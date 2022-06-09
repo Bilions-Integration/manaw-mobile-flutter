@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -13,42 +14,42 @@ import 'package:my_app/screens/tabs/management/components/link_item.dart';
 class ManageScreen extends StatelessWidget {
   static List<ManagePage> pageList = [
     ManagePage(
-      name: "Products",
+      name: "products".tr,
       page: RouteName.product,
       icon: AppAssets.icmProduct,
     ),
     ManagePage(
-      name: "Categories",
+      name: "categories".tr,
       page: RouteName.category,
       icon: AppAssets.icmCategory,
     ),
     ManagePage(
-      name: "Sale Invoice",
+      name: "saleInvoice".tr,
       page: RouteName.saleInvoice,
       icon: AppAssets.icmSaleInvoice,
     ),
     ManagePage(
-      name: "Purchase Invoices",
+      name: "purchaseInvoice".tr,
       page: RouteName.purchaseInvoice,
       icon: AppAssets.icmPurchaseInvoice,
     ),
     ManagePage(
-      name: "Inventory Reports",
+      name: "inventoryReports".tr,
       page: RouteName.report,
       icon: AppAssets.icmReport,
     ),
     ManagePage(
-      name: "My Store",
+      name: "myStore".tr,
       page: RouteName.myStore,
       icon: AppAssets.icmStore,
     ),
     ManagePage(
-      name: "Coupons",
+      name: "coupons".tr,
       page: RouteName.coupon,
       icon: AppAssets.icCoupon,
     ),
     ManagePage(
-      name: "Accounts",
+      name: "accounts".tr,
       page: RouteName.account,
       icon: AppAssets.icAccount,
     ),

@@ -30,7 +30,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Language'),
+        title: Text('language'.tr),
       ),
       body: Column(
         children: [
