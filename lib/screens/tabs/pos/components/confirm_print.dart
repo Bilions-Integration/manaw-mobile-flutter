@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -26,7 +27,7 @@ confirmPrintDialog({
         const Icon(Icons.info),
         mr(1),
         Text(
-          title ?? 'Info',
+          title ?? 'info'.tr,
           style: TextStyle(color: AppColors.black, fontSize: 17),
         )
       ]),
@@ -41,7 +42,7 @@ confirmPrintDialog({
           children: [
             InkWell(
               onTap: () => {onPressed(false), Navigator.pop(context)},
-              child: Text(cancelText ?? 'CANCEL',
+              child: Text(cancelText ?? 'cancel'.tr,
                   style: const TextStyle(fontSize: 13)),
             ),
             mr(1),
@@ -61,7 +62,7 @@ confirmPrintDialog({
             if (Platform.isAndroid) mr(1),
             if (Platform.isAndroid)
               PrimaryButton(
-                value: confirmText ?? 'CONFIRM',
+                value: confirmText ?? 'confirm'.tr,
                 onPressed: () {
                   Navigator.pop(context);
                   onPressed(true);
