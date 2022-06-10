@@ -234,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       applicationName: 'Manaw Store',
       applicationVersion: "1.0.0",
       applicationLegalese:
-          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+          'appDescription'.tr,
     );
   }
 

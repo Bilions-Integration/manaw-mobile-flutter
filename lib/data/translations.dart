@@ -103,6 +103,14 @@ class AppLocales extends Translations {
           'failUpload': 'Failed uploading',
           'failUploadDesc':
               'Cannot upload your profile picture. Please try again',
+          'themeColor': 'Pick Theme Color',
+          'pickColor': 'Pick Color',
+          'emptyPrinter': 'There\'re no printer connected',
+          'printerSetConfirm':
+              'Are you sure you want to set @printer as default printer?',
+          'printerSetSuccess': 'Successfully set to @printer',
+          'appDescription':
+              'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
           //Name
           'changeName': 'Change Name',
           'enterFullName': 'Enter Full Name',
@@ -286,10 +294,18 @@ class AppLocales extends Translations {
           'failUpload': 'ပုံတင်၍မရပါ',
           'failUploadDesc':
               'သင့်ပုံကိုတင်ရာတွင်အခက်ခဲရှိနေပါသည်။ ထပ်တင်ကြည့်ပါ။',
+          'themeColor': 'အရောင်ရွေးပါ',
+          'pickColor': 'ရွေးမည်',
+          'emptyPrinter': 'ချိတ်ဆက်ထားသော Printer များမရှိသေးပါ',
+          'printerSetConfirm':
+              '@printer ကို ပုံမှန်သုံး printer အဖြစ်အသုံးပြုချင်ပါသလား',
+          'printerSetSuccess': '@printer ကို ပုံမှန်သုံးအဖြစ်ထားရှိပြီးပြီ',
+          'appDescription':
+              'တွက်ချက်ခြင်း၊ ဘောက်ချာထုတ်ခြင်း၊ ပစ္စည်းစီမံခြင်း တို့ကို တစ်နေရာထဲတွင် အချိန်ကုန်၊ ငွေကုန်သက်သာစွာ အသုံးပြုနိုင်သော ဆော့ဝဲလ်',
 
           //Name
-          'changeName': 'Change Name',
-          'enterFullName': 'Enter Full Name',
+          'changeName': 'အမည်ပြောင်းမည်',
+          'enterFullName': 'အမည်အပြည့်စုံထည့်ပါ',
           //Email
           'changeEmail': 'အီးမေးလ်ပြောင်းပါ',
           'requestOtp': 'တစ်ခါသုံးကုဒ်ရယူမည်',

@@ -34,7 +34,7 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primary,
-        title: const Text('Printer Setting'),
+        title: Text('printerSetting'.tr),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => {Get.back()},
@@ -56,8 +56,8 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
                           children: [
                             SvgPicture.asset(AppAssets.emptyPrinter),
                             mb(1),
-                            const Text(
-                              'There\'re no printers connected',
+                            Text(
+                              'emptyPrinter'.tr,
                               style: Styles.l5,
                             ),
                           ],
@@ -126,12 +126,15 @@ class _PrinterSettingScreenState extends State<PrinterSettingScreen> {
           setState(() {
             defaultPrinter = printer.address ?? '';
           });
-          snackBar('Success', 'Successfully set to ${printer.name}');
+          snackBar(
+              'success'.tr,
+              'printerSetSuccess'
+                  .trParams({'printer': printer.name.toString()}));
         }
       },
       title: '${printer.name}',
       message:
-          'Are you sure you want to set ${printer.name} as default printer?',
+          'printerSetConfirm'.trParams({'printer': printer.name.toString()}),
     );
   }
 }

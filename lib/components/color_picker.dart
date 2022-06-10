@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -37,7 +38,7 @@ class MyColorPicker extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppColors.primary,
-          title: const Text('Color Picker'),
+          title: Text('themeColor'.tr),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () => {Navigator.pop(context)},
@@ -56,7 +57,7 @@ class MyColorPicker extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: PrimaryButton(
-                value: 'Pick Color',
+                value: 'pickColor'.tr,
                 onPressed: () {
                   Navigator.pop(context);
                   if (myColor.isNotEmpty) {
