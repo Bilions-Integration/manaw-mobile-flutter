@@ -33,11 +33,11 @@ class MyPopup extends StatelessWidget {
   final List<util.PopupItem> popupItems = [
     util.PopupItem(
         icon: AppAssets.icProduct,
-        name: "Product",
+        name: "product".tr,
         onTap: () => {Get.to(() => const CreateProduct(type: 'create'))}),
     util.PopupItem(
         icon: AppAssets.icCategory,
-        name: "Category",
+        name: "category".tr,
         onTap: () => Get.to(() => const CreateCategory())),
     // util.PopupItem(
     //     icon: AppAssets.icInvoice,
@@ -45,7 +45,7 @@ class MyPopup extends StatelessWidget {
     //     onTap: () => Get.to(() => const CreateInvoice())),
     util.PopupItem(
         icon: AppAssets.icDiscount,
-        name: "Coupon",
+        name: "coupon".tr,
         onTap: () => Get.to(() => const CouponCreateAndEdit())),
   ];
 
@@ -74,11 +74,11 @@ class MyPopup extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 30, bottom: 25),
+          Padding(
+            padding: const EdgeInsets.only(top: 30, bottom: 25),
             child: Text(
-              "Create New",
-              style: TextStyle(
+              "createNew".tr,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),

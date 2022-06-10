@@ -9,6 +9,10 @@ class AppLocales extends Translations {
           'dashboard': 'Dashboard',
           'manage': 'Manage',
           'profile': 'Profile',
+          'createNew': 'Create New',
+          'product': 'Product',
+          'category': 'Category',
+          'coupon': 'Coupon',
           //POS
           'all': 'All',
           'variations': 'Variations',
@@ -184,6 +188,10 @@ class AppLocales extends Translations {
           'pos': 'အရောင်း',
           'dashboard': 'စာရင်းဇယား',
           'manage': 'စီမံ',
+          'createNew': 'အသစ်ဖန်တီးမည်',
+          'product': 'ကုန်ပစ္စည်း',
+          'category': 'အမျိုးအစား',
+          'coupon': 'ကူပွန်',
           //POS
           'all': 'အားလုံး',
           'variations': 'ပုံစံကွဲများ',
