@@ -99,30 +99,34 @@ class AppLocales extends Translations {
           'failUpload': 'Failed uploading',
           'failUploadDesc':
               'Cannot upload your profile picture. Please try again',
-
+          //Name
+          'changeName': 'Change Name',
+          'enterFullName': 'Enter Full Name',
           //Email
           'next': 'Next',
+          'changeEmail': 'Change Email',
+          'requestOtp': 'Request OTP',
           'enterEmailAddress': 'Enter email address',
           'sendCodeToMail': "We will send a code to the email you entered.",
-          'enterPhone': 'Enter Phone Number',
           'sendCodeToPhone':
               "We will send a code (via SMS text message to your phone number.",
           'sentOTPLabel':
               'You will get a 6 digit verification code we\'ve sent to @target',
-          'manageEmail': 'Manage Email Address',
-          'addEmail': 'Add your email address',
           //Phone
           'phone': 'Phone',
-          'managePhone': 'Manage Phone Number',
-          'addPhone': 'Add your phone number',
           'verifyOTP': 'Verify OTP',
           'enterOTP': 'Enter the OTP code',
-          'changeTarget': 'Change @target',
           'invalidOTP': 'Invalid OTP',
           'notReceivedOTP': 'Didn’t received code?',
           'sendAgain': 'Send Again',
           'verify': 'Verify',
           'failedSendOTP': 'Failed to send OTP',
+          //Password
+          'newPassword': 'New Password',
+          'confirmPassword': 'Confirm Password',
+          'changePassword': 'Change Password',
+          'successPassword': 'Successfully updated password',
+          'failPassword': 'Failed to update password. Please try again',
 
           //Coupons
           'emptyCoupons': "You don't have any voucher yet.",
@@ -173,14 +177,6 @@ class AppLocales extends Translations {
           'version': 'Version @code',
           'failed': 'Failed',
           'reviewFailed': 'Failed to submit review, please try again',
-          //Change name
-          'changeName': 'Change Name',
-          'newName': 'New Name',
-          'namePlaceholder': 'John Doe',
-          'nameChangeSuccess': 'Successfully Changed',
-          'nameChangeSuccessMsg': 'Your name is successfully changed',
-          'nameChangeFail': 'Failed',
-          'nameChangeFailMsg': 'Some errors occurred, please try again',
         },
         'my_MM': {
           //Navigation
@@ -283,7 +279,12 @@ class AppLocales extends Translations {
           'failUploadDesc':
               'သင့်ပုံကိုတင်ရာတွင်အခက်ခဲရှိနေပါသည်။ ထပ်တင်ကြည့်ပါ။',
 
+          //Name
+          'changeName': 'Change Name',
+          'enterFullName': 'Enter Full Name',
           //Email
+          'changeEmail': 'အီးမေးလ်ပြောင်းပါ',
+          'requestOtp': 'တစ်ခါသုံးကုဒ်ရယူမည်',
           'next': 'နောက်တဆင့်',
           'enterEmailAddress': 'အီးမေးလ်လိပ်စာထည့်ပါ',
           'sendCodeToMail': "ရိုက်ထည့်လိုက်သောအီးမေးလ်ကို ကုဒ်ပို့ပါမည်",
@@ -291,8 +292,14 @@ class AppLocales extends Translations {
           'sendCodeToPhone': "ဖုန်းနံပါတ်ဆီသို့ SMS မှတဆင့် Code ပို့ပါမည်",
           'sentOTPLabel':
               'နံပါတ် ၆ လုံးပါသည့် အတည်ပြုကုဒ်ကို @target သို့ပို့ပြီးပါပြီ',
-          'manageEmail': 'အီးမေးလ်လိပ်စာ စီမံခြင်း',
-          'addEmail': 'အီးမေးလ်ထည့်ပါ',
+          //Password
+          'newPassword': 'စကားဝှက်အသစ်',
+          'confirmPassword': 'စကားဝှက်အသစ်ကိုပြန်ထည့်ပါ',
+          'changePassword': 'စကားဝှက်ပြောင်းမည်',
+          'successPassword': 'စကားဝှက်ပြောင်းခြင်းအောင်မြင်သည်',
+          'failPassword':
+              'စကားဝှက်ပြောင်းခြင်းမအောင်မြင်ပါ၊ ထပ်ကြိုးစားကြည့်ပါ',
+
           //Phone
           'phone': 'ဖုန်း',
           'managePhone': 'ဖုန်းနံပါတ်စီမံခြင်း',
