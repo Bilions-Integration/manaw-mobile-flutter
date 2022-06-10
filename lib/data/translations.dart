@@ -5,8 +5,9 @@ class AppLocales extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           //Navigation
-          'home': 'Home',
-          'cart': 'Cart',
+          'pos': 'POS',
+          'dashboard': 'Dashboard',
+          'manage': 'Manage',
           'profile': 'Profile',
           //Home
           'all': 'All',

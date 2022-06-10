@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class BottomTab extends StatefulWidget {
@@ -17,7 +18,18 @@ class BottomTab extends StatefulWidget {
 class _BottomTabState extends State<BottomTab> {
   int index = 0;
 
-  List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
+  List<String> titles = <String>[
+    'pos'.tr,
+    'dashboard'.tr,
+    'manage'.tr,
+    'profile'.tr
+  ];
+  List<NavItem> navItems = [
+    NavItem(title: 'pos'.tr, icon: AppAssets.pos),
+    NavItem(title: 'dashboard'.tr, icon: AppAssets.dashboard),
+    NavItem(title: 'manage'.tr, icon: AppAssets.manage),
+    NavItem(title: 'profile'.tr, icon: AppAssets.profile),
+  ];
 
   final bottomTabController = Get.find<BottomTabsController>();
 
@@ -27,26 +39,12 @@ class _BottomTabState extends State<BottomTab> {
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.pos,
-              width: 20, height: 20, color: _getColor(0)),
-          label: 'POS',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.dashboard,
-              width: 20, height: 20, color: _getColor(1)),
-          label: 'Dashboard',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.manage,
-              width: 20, height: 20, color: _getColor(2)),
-          label: 'Manage',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.profile,
-              width: 20, height: 20, color: _getColor(3)),
-          label: 'Profile',
-        ),
+        ...navItems
+            .mapIndexed((NavItem item, int idx) => BottomNavigationBarItem(
+                  icon: SvgPicture.asset(item.icon,
+                      width: 20, height: 20, color: _getColor(idx)),
+                  label: item.title,
+                )),
       ],
       selectedItemColor: AppColors.primary,
       unselectedItemColor: AppColors.lightDark,
@@ -66,4 +64,11 @@ class _BottomTabState extends State<BottomTab> {
     });
     bottomTabController.index.value = i;
   }
+}
+
+class NavItem {
+  String title;
+  String icon;
+
+  NavItem({required this.title, required this.icon});
 }
