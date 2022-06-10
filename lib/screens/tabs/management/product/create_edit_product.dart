@@ -62,7 +62,8 @@ class _CreateProductState extends State<CreateProduct> {
           },
         ),
         backgroundColor: AppColors.primary,
-        title: Text(widget.type.capitalize.toString() + " Product"),
+        title:
+            Text(widget.type == 'edit' ? 'editProduct'.tr : 'createProduct'.tr),
       ),
       body: isLoading
           ? const Center(
@@ -95,7 +96,7 @@ class _CreateProductState extends State<CreateProduct> {
                                     });
                                   },
                                 ),
-                                const Text('Allow Negative Stock')
+                                Text('allowNegativeStock'.tr)
                               ],
                             ),
                             hr(),
@@ -103,9 +104,9 @@ class _CreateProductState extends State<CreateProduct> {
                             MyTextInput(
                               value: params['name'],
                               column: 'name',
-                              placeholder: 'Enter Product Name',
+                              placeholder: 'productNamePlaceholder'.tr,
                               onChanged: _setParams,
-                              label: 'Product Name',
+                              label: 'productName'.tr,
                               isRequired: true,
                             ),
                             MyTextInput(
@@ -114,7 +115,7 @@ class _CreateProductState extends State<CreateProduct> {
                               placeholder: '0',
                               onChanged: _setParams,
                               numberOnly: true,
-                              label: 'Sale Price',
+                              label: 'salePrice'.tr,
                               isRequired: true,
                             ),
                             MyTextInput(
@@ -122,12 +123,12 @@ class _CreateProductState extends State<CreateProduct> {
                               value: params['buy_price'],
                               placeholder: '0',
                               onChanged: _setParams,
-                              label: 'Purchase Price',
+                              label: 'purchasePrice'.tr,
                               numberOnly: true,
                             ),
                             SelectBox(
-                              placeholder: 'Select Category',
-                              label: 'Category',
+                              placeholder: 'selectCategory'.tr,
+                              label: 'category'.tr,
                               value: selectedCategory?.name,
                               onClick: _showCategoryPicker,
                             ),
@@ -136,14 +137,14 @@ class _CreateProductState extends State<CreateProduct> {
                               column: 'barcode',
                               placeholder: 'ABC-1234567890',
                               onChanged: _setParams,
-                              label: 'Barcode',
+                              label: 'barcode'.tr,
                             ),
                             MyTextInput(
                               column: 'unit',
                               value: params['unit'],
                               placeholder: 'pcs',
                               onChanged: _setParams,
-                              label: 'Product Unit',
+                              label: 'productUnit'.tr,
                             ),
                             if (widget.type == 'edit')
                               ProductPackages(
@@ -163,8 +164,9 @@ class _CreateProductState extends State<CreateProduct> {
                     color: AppColors.bg,
                     padding: const EdgeInsets.all(20),
                     child: PrimaryButton(
-                        value: (widget.type == 'edit' ? 'UPDATE' : 'SAVE') +
-                            ' PRODUCT',
+                        value: (widget.type == 'edit'
+                            ? 'editProduct'.tr
+                            : 'createProduct'.tr),
                         disabled:
                             !isFormValid(['name', 'retail_price'], params),
                         onPressed: () {
