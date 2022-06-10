@@ -95,8 +95,8 @@ class ProfileImage extends StatelessWidget {
 
   _showUploader() {
     final List<Menu> menuList = [
-      Menu(icon: Icons.camera_alt, title: 'Camera', key: 'camera'),
-      Menu(icon: Icons.collections, title: 'Gallery', key: 'gallery'),
+      Menu(icon: Icons.camera_alt, title: 'camera'.tr, key: 'camera'),
+      Menu(icon: Icons.collections, title: 'gallery'.tr, key: 'gallery'),
     ];
     AppWidget.showMenu(
       menuList: menuList,

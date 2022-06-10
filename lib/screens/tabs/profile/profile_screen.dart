@@ -12,6 +12,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/language/language_screen.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/tabs/profile/components/change_password_modal.dart';
@@ -56,59 +57,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: ListView(
               children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  _label('Profile'),
+                  _label('profile'.tr),
                   ProfileMenu(
                     icon: AppAssets.icUser,
-                    title: 'Name',
+                    title: 'name'.tr,
                     value: user?.name ?? '',
                     onPressed: _changeName,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icEmail,
-                    title: 'Email',
+                    title: 'email'.tr,
                     value: user?.email ?? '',
                     onPressed: _changeEmail,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icKey,
-                    title: 'Password',
+                    title: 'password'.tr,
                     onPressed: _showChangePasswordModal,
                   ),
                   mb(1),
-                  _label('Preference'),
+                  _label('preference'.tr),
                   ProfileMenu(
                     icon: AppAssets.icTheme,
-                    title: 'Appearance',
+                    title: 'appearance'.tr,
                     onPressed: _showColorPicker,
+                  ),
+                  ProfileMenu(
+                    icon: AppAssets.icHelp,
+                    title: 'language'.tr,
+                    onPressed: () => Get.to(() => const LanguageScreen()),
                   ),
                   if (Platform.isAndroid)
                     ProfileMenu(
                       icon: AppAssets.icPrinter,
-                      title: 'Printer Setting',
+                      title: 'printerSetting'.tr,
                       onPressed: () {
                         Get.to(RouteName.printerSettingScreen);
                       },
                     ),
                   mb(1),
-                  _label('Others'),
+                  _label('others'.tr),
                   ProfileMenu(
                     icon: AppAssets.icHelp,
-                    title: 'Help',
+                    title: 'help'.tr,
                     onPressed: () => Get.to(() => const HelpWebViewScreen()),
                   ),
                   ProfileMenu(
                     icon: AppAssets.icInfo,
-                    title: 'Report a problem',
+                    title: 'reportProblem'.tr,
                     onPressed: _reportProblem,
                   ),
                   ProfileMenu(
                     icon: AppAssets.bilions,
-                    title: 'About us',
+                    title: 'aboutUs'.tr,
                     onPressed: _showAbout,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icLogout,
-                    title: 'Logout',
+                    title: 'logout'.tr,
                     onPressed: _logout,
                   )
                 ])
