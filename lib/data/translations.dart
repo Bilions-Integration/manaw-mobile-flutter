@@ -9,15 +9,15 @@ class AppLocales extends Translations {
           'dashboard': 'Dashboard',
           'manage': 'Manage',
           'profile': 'Profile',
-          //Home
+          //POS
           'all': 'All',
-          'popular': 'Popular',
           'variations': 'Variations',
           'addToCart': 'Add To Cart',
           //cart
           'cartItems': 'Cart Items',
           'clearAll': 'Clear All',
           'total': 'Total',
+          'tax': 'Tax (@percent %)',
           'taxIncluded': 'Tax Included',
           'taxExclusive': 'Tax Exclusive',
           'goToCheckout': 'Go to Checkout',
@@ -30,6 +30,14 @@ class AppLocales extends Translations {
           'outOfOpts': '@product have only @count @unit',
           'removeProduct': 'Are you sure to remove @product',
           'productVariation': 'Choose Variation (@currency @price)',
+          'confirmCheckout': 'Are you sure to continue checkout?',
+          'customer': 'Customer',
+          //Print
+          'continuePrint': 'Continue to print receipt?',
+          'saveReceipt': 'Save receipt to gallery',
+          'printReceipt': 'Print Receipt',
+          'print': 'Print',
+
           //-checkout
           'new': 'New',
           'title': 'Title',
@@ -49,10 +57,6 @@ class AppLocales extends Translations {
           'paymentSuccess': 'Payment Success',
           'paymentFail': 'Payment Fail',
           'backToHome': 'Back to Home',
-          'orderSuccess': 'Order Success',
-          'orderFail': 'Order Fail',
-          'orderSucceed': 'Successfully Ordered',
-          'orderFailed': 'Failed to Order',
           'doNotLeavePage': 'Do not leave the page',
           'update': 'Update',
 
@@ -97,7 +101,6 @@ class AppLocales extends Translations {
               'Cannot upload your profile picture. Please try again',
 
           //Email
-          'email': 'Email',
           'next': 'Next',
           'enterEmailAddress': 'Enter email address',
           'sendCodeToMail': "We will send a code to the email you entered.",
@@ -181,28 +184,19 @@ class AppLocales extends Translations {
         },
         'my_MM': {
           //Navigation
-          'cart': 'ဈေးခြင်း',
           'profile': 'ပရိုဖိုင်',
           'pos': 'အရောင်း',
           'dashboard': 'စာရင်းဇယား',
           'manage': 'စီမံ',
-          //Home
+          //POS
           'all': 'အားလုံး',
-          'popular': 'ကျော်ကြားသောပစ္စည်းများ',
-          'specialForYou': 'သင့်အတွက်အထူး',
           'variations': 'ပုံစံကွဲများ',
-          'productDesc': 'ပစ္စည်းအကြောင်း',
-          'basedOnReview': 'သုံးသပ်ချက် @count ခု',
-          'noReviews': 'သုံးသပ်ချက်မရှိသေး',
-          'seeReviews': 'သုံးသပ်ချက်များ',
-          'suggestionProducts': 'ဆက်စပ်သောပစ္စည်းများ',
-          'visitShop': 'ဆိုင်ကိုကြည့်ပါ',
-          'buyNow': 'အခုဝယ်မည်',
           'addToCart': 'ဈေးခြင်းထဲထည့်မည်',
           //cart
           'cartItems': 'ဈေးခြင်းရှိပစ္စည်းများ',
           'clearAll': 'အားလုံးရှင်းပါ',
           'total': 'စုစုပေါင်း',
+          'tax': 'အခွန် (@percent %)',
           'taxIncluded': 'အခွန်ပါဝင်ပြီး',
           'taxExclusive': 'အခွန်မပါဝင်သေး',
           'goToCheckout': 'ဝယ်ယူမည်',
@@ -214,48 +208,38 @@ class AppLocales extends Translations {
           'startOrder': 'ပစ္စည်းမှာမည်',
           'outOfStock': 'ပစ္စည်းကုန်နေသည်',
           'outOfOpts': '@product တွင် @unit ယူနစ် @count ခုသာကျန်တော့သည်',
-          'removeProduct': 'Are you sure to remove @product',
-          'productVariation': 'Choose Variation (@currency @price)',
+          'removeProduct': '@product ကိုဖျက်ဖို့သေချာပါသလား',
+          'productVariation': 'ပစ္စည်းပုံစံကွဲရွေးပါ (@currency @price)',
+          'confirmCheckout': 'ဝယ်မှာသေချာပါသလား',
+          'customer': 'ဝယ်သူ',
+          //Print
+          'continuePrint': 'ဖြတ်ပိုင်းထုတ်မလား',
+          'saveReceipt': 'ဖြတ်ပိုင်းသိမ်းမည်',
+          'printReceipt': 'ဖြတ်ပိုင်းထုတ်မည်',
+          'print': 'ထုတ်မည်',
+
           //-checkout
+          'new': 'အသစ်',
+          'title': 'ခေါင်းစဉ်',
+          'checkout': 'ဝယ်ယူမည်',
+          'change': 'ပြောင်းပါ',
+          'subTotal': 'ကျသင့်ငွေပေါင်း',
+          'discount': 'လျှော့ဈေး',
           'discountAmount': 'လျှော့ဈေးပမာဏ',
           'confirm': 'သေချာသည်',
           'info': 'အချက်အလက်',
           'selectCategory': 'အမျိုးအစားရွေးပါ',
 
-          'new': 'အသစ်',
-          'newAddress': 'လိပ်စာအသစ်',
-          'updateAddress': 'လိပ်စာပြင်မည်',
-          'addAddress': 'လိပ်စာထည့်မည်',
-          'changeAddress': 'လိပ်စာပြောင်းမည်',
-          'saveFavPlaces': 'ကြိုက်သောနေရာများကိုသိမ်းထားပါ',
-          'clickToPick': 'လက်ရှိလိပ်စာကိုသုံးရန် ဤနေရာကိုနှိပ်ပါ',
-          'title': 'ခေါင်းစဉ်',
-          'addrDetail': 'လိပ်စာအသေးစိတ်',
-          'noteToRider': 'ပို့မည်သူသို့အမှာစာ',
-          'confirmAddress': 'လိပ်စာအတည်ပြုပါ',
-          'checkout': 'ဝယ်ယူမည်',
-          'deliverToThis': 'ဤလိပ်စာကိုပို့ပေးပါ',
-          'change': 'ပြောင်းပါ',
-          'yourOrder': 'သင်မှာထားသည်များ',
-          'subTotal': 'ကျသင့်ငွေပေါင်း',
-          'discount': 'လျှော့ဈေး',
-          'deliveryFee': 'ပို့ဆောင်ခ',
           'addPromoCode': 'ဈေးလျှော့ကုဒ်ထည့်ပါ',
           'confirmPayment': 'ငွေပေးချေမှုအတည်ပြုပါ',
           'payment': 'ငွေပေးချေမှု',
-          'cashOnDelivery': 'ပစ္စည်းရောက်ငွေချေ',
           'otherPaymentMethods': 'အခြားပေးချေမှုနည်းလမ်းများ',
-          'updateContactInfo': 'အဆက်အသွယ်အချက်လက်ကိုပြောင်းမည်',
           'placeOrderAgree':
               'မှာယူခြင်းဖြင့် ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုစည်းကမ်းချက်များ နှင့် ကိုယ်ရေးအချက်အလက်ဝါဒကိုသဘောတူသည်ဟုယူဆပါသည်',
           'placeOrder': 'မှာယူမည်',
           'paymentSuccess': 'ပေးချေမှုအောင်မြင်သည်',
           'paymentFail': 'ပေးချေမှုမအောင်မြင်ပါ',
           'backToHome': 'ပင်မစာမျက်နှာသို့',
-          'orderSuccess': 'မှာယူခြင်းအောင်မြင်သည်',
-          'orderFail': 'မှာယူခြင်းမအောင်မြင်ပါ',
-          'orderSucceed': 'မှာယူခြင်းအောင်မြင်သည်',
-          'orderFailed': 'မှာယူခြင်းမအောင်မြင်ပါ',
           'doNotLeavePage': 'ဤစာမျက်နှာမှမထွက်ပါနှင့်',
           'update': 'ပြင်မည်',
 
@@ -271,15 +255,6 @@ class AppLocales extends Translations {
           'removeAll': 'အားလုံးကိုဖျက်မည်',
           'remove': 'ဖျက်မည်',
 
-          //Orders
-          'emptyOrder': 'မှာထားသောပစ္စည်းများမရှိသေးပါ',
-          'ongoingOrder': 'မရောက်သေးသောအော်ဒါ',
-          'receivedOrder': 'လက်ခံရရှိပြီးအော်ဒါ',
-          'orderNo': 'အော်ဒါနံပါတ် #@num',
-          'estimatedDeliDate': "ပို့ဆောင်မည့်နေ့",
-          'tax': 'အခွန် @percent %',
-          'writeReview': 'သုံးသပ်ချက်တစ်ခုရေးပါ',
-          'deliverTo': 'အောက်ပါလိပ်စာသို့',
           //Profile
           'email': 'အီးမေးလ်',
           'name': 'အမည်',
@@ -307,6 +282,7 @@ class AppLocales extends Translations {
           'failUpload': 'ပုံတင်၍မရပါ',
           'failUploadDesc':
               'သင့်ပုံကိုတင်ရာတွင်အခက်ခဲရှိနေပါသည်။ ထပ်တင်ကြည့်ပါ။',
+
           //Email
           'next': 'နောက်တဆင့်',
           'enterEmailAddress': 'အီးမေးလ်လိပ်စာထည့်ပါ',
