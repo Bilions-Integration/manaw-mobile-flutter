@@ -159,28 +159,28 @@ class AppLocales extends Translations {
           'suggestedKeywords': 'Suggested Keywords',
 
           //Auth
-          'everythingIsHere': 'Everything you need is here!',
-          'manawZay': 'MaNaw Zay',
           'or': 'OR',
           'agreePolicy':
               'By signing in, you agree to our Terms of Service and Privacy Policy.',
           'continue': 'Continue',
           'loginSuccess': 'Login Success',
+          'loginLabel': 'Enter your email to login',
+          'doLogin': 'LOGIN',
+          'notAMember': 'Not a member yet? Register here',
+          'alreadyMember': 'Already member? Login here',
+          'forgetPassword': 'Forget password?',
+          'fullName': 'Full name',
+          'companyName': 'Store / Company Name',
+          'error': 'Error',
+          'emailRegistered': 'Email already registered!',
+          'somethingWrong': 'Something went wrong. Please try again.',
+          'invalidCreds': 'Invalid email or password!',
 
-          //Review
-          'loadMore': 'Load More',
-          'aCustomer': 'A Customer',
-          'rateProductQuality': 'Rate the Product Quality',
-          'writeYourReview': 'Write your review',
-          'reviewPlaceholder':
-              "Would you like to write anything about this product?",
           'addPhoto': 'Add Photo',
           'submit': 'Submit',
           'success': 'Success',
-          'reviewSuccess': 'Successfully posted a review',
           'version': 'Version @code',
           'failed': 'Failed',
-          'reviewFailed': 'Failed to submit review, please try again',
         },
         'my_MM': {
           //Navigation
@@ -348,36 +348,29 @@ class AppLocales extends Translations {
           'suggestedKeywords': 'အကြံပြုထားသော စကားလုံးများ',
 
           //Auth
-          'everythingIsHere': 'လိုအပ်နေတာအားလုံးဒီမှာရနိုင်ပါတယ်',
-          'manawZay': 'မနောဈေး',
           'or': 'သို့မဟုတ်',
           'agreePolicy':
               'Login ဝင်ခြင်းဖြင့် ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုစည်းကမ်းချက်များ နှင့် ကိုယ်ရေးအချက်အလက်ဝါဒကိုသဘောတူသည်ဟုယူဆပါသည်',
           'continue': 'ဆက်သွားပါ',
           'loginSuccess': 'Login ဝင်ရောက်ခြင်းအောင်မြင်သည်',
-          //Review
-          'loadMore': 'နောက်ထပ်',
-          'aCustomer': 'ဝယ်သူတစ်ယောက်',
-          'rateProductQuality': 'ကုန်ပစ္စည်းအရည်အသွေးကိုသတ်မှတ်ပါ',
-          'writeYourReview': 'သုံးသပ်ချက်ရေးပါ',
-          'reviewPlaceholder':
-              "ဤပစ္စည်းနဲ့ပက်သတ်ပြီးရေးလိုသည်များကိုဤနေရာတွင်ရေးပါ",
+
+          'loginLabel': 'Login ဝင်ရန် အီးမေးလ် နှင့် စကားဝှက်ကိုအသုံးပြုပါ',
+          'doLogin': 'LOGIN ဝင်မည်',
+          'notAMember': 'အသုံးပြုသူအသစ်ဆိုလျှင် မှတ်ပုံအရင်တင်ပါ',
+          'alreadyMember': 'အသုံးပြုနေသူဆိုလျှင် Login ဝင်ပါ',
+          'forgetPassword': 'စကားဝှက်မေ့သွားပြီလား?',
+          'fullName': 'အမည်အပြည့်စုံ',
+          'companyName': 'ဆိုင်/ကုမ္ပဏီ အမည်',
+          'error': 'မအောင်မြင်ပါ',
+          'emailRegistered': 'အီးမေးလ် သည်မှတ်ပုံတင်ထားပြီးသားဖြစ်နေသည်',
+          'somethingWrong': 'တစ်ခုခုအဆင်မပြေဖြစ်သွားသည်။ ပြန်ကြိုးစားကြည့်ပါ',
+          'invalidCreds': 'အီးမေးလ်းသို့မဟုတ် စကားဝှက်မှားနေသည်',
+
           'addPhoto': 'ပုံထည့်ပါ',
           'submit': 'တင်မည်',
           'success': 'အောင်မြင်သည်',
-          'reviewSuccess': 'သုံးသပ်ချက်တစ်ခုအောင်မြင်စွာတင်ပြီးပြီ',
           'version': 'ဗားရှင်း - @code',
           'failed': 'မအောင်မြင်ပါ',
-          'reviewFailed': 'သုံးသပ်ချက်တင်ခြင်း မအောင်မြင်ပါ။ ထပ်တင်ကြည့်ပါ',
-
-          //Change Name
-          'changeName': 'အမည်ပြောင်းမည်',
-          'newName': 'အမည်အသစ်',
-          'namePlaceholder': 'John Doe',
-          'nameChangeSuccess': 'အောင်မြင်ပါသည်',
-          'nameChangeSuccessMsg': 'အမည်ပြောင်းခြင်းအောင်မြင်ပါသည်',
-          'nameChangeFail': 'မအောင်မြင်ပါ',
-          'nameChangeFailMsg': 'နောက်တစ်ကြိမ်ပြန်ကြိုးစားကြည့်ပါ။',
         }
       };
 }

@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:my_app/components/app_bar.dart';
 import 'package:my_app/components/bottom_tab.dart';
 import 'package:my_app/helpers/helper.dart';
-import 'package:my_app/screens/tabs/tabs_controller.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/language/locale_helper.dart';
+import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class TabsScreen extends StatelessWidget {
   final bottomTabController = Get.find<BottomTabsController>();
+  final langController = Get.find<LanguageController>();
 
   final screens = [
     RouteName.pos,
@@ -29,7 +31,9 @@ class TabsScreen extends StatelessWidget {
       child: Scaffold(
         appBar: MyAppBar(),
         body: Obx(() => screens[bottomTabController.index.value]),
-        bottomNavigationBar: const BottomTab(),
+        bottomNavigationBar: BottomTab(
+          key: Key(langController.locale.value.languageCode),
+        ),
       ),
     );
   }

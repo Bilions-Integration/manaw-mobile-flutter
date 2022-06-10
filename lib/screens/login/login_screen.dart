@@ -13,6 +13,7 @@ import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/register/company_headline.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -52,30 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        AppWidget.marginBottom(7),
-                        logo(80),
                         AppWidget.marginBottom(2),
-                        Text(
-                          'Manaw Store',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: AppColors.darkBlue,
-                          ),
-                        ),
-                        AppWidget.marginBottom(1),
-                        Text(
-                          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: AppColors.lightDark,
-                          ),
-                        ),
-                        mb(3),
+                        companyHeadline(),
+                        mb(4),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Login",
+                            "login".tr,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -87,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Enter your email to log in.',
+                            'loginLabel'.tr,
                             style: TextStyle(
                               color: AppColors.lightDark,
                             ),
@@ -97,25 +81,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         MyTextInput(
                           onChanged: _onValueChanged,
                           column: 'email',
-                          placeholder: 'Email',
+                          placeholder: 'email'.tr,
                           icon: Icons.email,
                         ),
                         PasswordInput(
                           onChanged: _onValueChanged,
                           column: 'password',
-                          placeholder: 'Password',
+                          placeholder: 'password'.tr,
                           icon: Icons.lock,
                         ),
                         AppWidget.marginBottom(1),
                         PrimaryButton(
-                          value: 'Login',
+                          value: 'doLogin'.tr,
                           disabled: !_showLogin(),
                           onPressed: () {
                             if (_showLogin()) {
                               _login();
-                            } else {
-                              Get.snackbar('New Message',
-                                  'Required password and email.');
                             }
                           },
                         ),
@@ -123,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mb(2),
                         InkWell(
                           child: Text(
-                            'Not a member yet? Register here',
+                            'notAMember'.tr,
                             style: TextStyle(
                               color: AppColors.darkBlue,
                             ),
@@ -135,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         AppWidget.marginBottom(2),
                         InkWell(
                           child: Text(
-                            'Forget password?',
+                            'forgetPassword'.tr,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: AppColors.darkBlue,
@@ -184,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _showError() {
-    snackBar('Error', 'Invalid email or password!',
+    snackBar('error'.tr, 'invalidCreds'.tr,
         icon: Icons.info, color: Colors.red);
   }
 
