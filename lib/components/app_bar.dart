@@ -8,8 +8,12 @@ import 'package:my_app/screens/tabs/management/manage_screen.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
-  final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
-
+  final List<String> titles = <String>[
+    'pos'.tr,
+    'dashboard'.tr,
+    'manage'.tr,
+    'profile'.tr
+  ];
   final bottomTabController = Get.find<BottomTabsController>();
   final authController = Get.find<AuthController>();
 

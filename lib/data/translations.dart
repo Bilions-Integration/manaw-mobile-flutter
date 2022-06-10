@@ -177,11 +177,11 @@ class AppLocales extends Translations {
         },
         'my_MM': {
           //Navigation
-          'home': 'ပင်မ',
           'cart': 'ဈေးခြင်း',
-          'favourite': 'အကြိုက်ဆုံး',
-          'orders': 'အော်ဒါများ',
           'profile': 'ပရိုဖိုင်',
+          'pos': 'အရောင်း',
+          'dashboard': 'စာရင်းဇယား',
+          'manage': 'စီမံ',
           //Home
           'all': 'အားလုံး',
           'popular': 'ကျော်ကြားသောပစ္စည်းများ',

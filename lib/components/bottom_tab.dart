@@ -18,12 +18,6 @@ class BottomTab extends StatefulWidget {
 class _BottomTabState extends State<BottomTab> {
   int index = 0;
 
-  List<String> titles = <String>[
-    'pos'.tr,
-    'dashboard'.tr,
-    'manage'.tr,
-    'profile'.tr
-  ];
   List<NavItem> navItems = [
     NavItem(title: 'pos'.tr, icon: AppAssets.pos),
     NavItem(title: 'dashboard'.tr, icon: AppAssets.dashboard),
