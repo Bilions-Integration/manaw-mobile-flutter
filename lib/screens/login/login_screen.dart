@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             body: Stack(
               children: [
                 Positioned(
-                  bottom: -100,
+                  bottom: -100 - MediaQuery.of(context).viewInsets.bottom,
                   left: -50,
                   child: SvgPicture.asset(
                     AppAssets.loginBelow,
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom: 80,
+                  bottom: 80 - MediaQuery.of(context).viewInsets.bottom,
                   right: 50,
                   child: SvgPicture.asset(
                     AppAssets.icPoweredBy,
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 430),
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: ListView(
                       children: [
                         Column(
@@ -83,10 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "login".tr,
                                 style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.darkBlue,
-                                ),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary),
                               ),
                             ),
                             mb(0.5),

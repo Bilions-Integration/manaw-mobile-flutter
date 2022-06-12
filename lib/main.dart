@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/controllers/route_controller.dart';
-import 'package:my_app/data/colors.dart';
 import 'package:my_app/data/translations.dart';
 import 'package:my_app/helpers/current_context.dart';
 import 'package:my_app/screens/language/locale_helper.dart';
 import 'package:my_app/screens/splash/splash_screen.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
+import 'package:my_app/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -49,17 +48,7 @@ class _MyAppState extends State<MyApp> {
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
       translations: AppLocales(),
-      theme: ThemeData(
-        textTheme: GoogleFonts.readexProTextTheme(),
-        checkboxTheme: CheckboxThemeData(
-          checkColor: MaterialStateProperty.all(AppColors.white),
-          fillColor: MaterialStateProperty.all(AppColors.primary),
-        ),
-      ).copyWith(
-        colorScheme: ThemeData().colorScheme.copyWith(
-              primary: AppColors.primary,
-            ),
-      ),
+      theme: MyTheme().init(),
       navigatorKey: CurrentContext.navigatorKey,
       key: CurrentContext.scaffoldKey,
       debugShowCheckedModeBanner: false,
