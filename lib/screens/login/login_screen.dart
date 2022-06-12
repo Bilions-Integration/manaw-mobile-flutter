@@ -33,6 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool useMobile = shortestSide < 600;
 
     return SafeArea(
       top: false,
@@ -48,18 +50,29 @@ class _LoginScreenState extends State<LoginScreen> {
             body: Stack(
               children: [
                 Positioned(
-                  bottom: -100 - MediaQuery.of(context).viewInsets.bottom,
-                  left: -50,
-                  child: SvgPicture.asset(
-                    AppAssets.loginBelow,
-                    color: HexColor('#519D51'),
-                    width: width + 80,
-                    height: 300,
-                  ),
+                  bottom: 0 - MediaQuery.of(context).viewInsets.bottom,
+                  left: 0,
+                  right: 0,
+                  child: Column(children: [
+                    SvgPicture.asset(
+                      useMobile
+                          ? AppAssets.loginBelowMobile
+                          : AppAssets.loginBelow,
+                      color: HexColor('#519D51'),
+                      width: width,
+                    ),
+                    if (useMobile)
+                      Container(
+                        height: 100,
+                        width: double.infinity,
+                        color: HexColor('#519D51'),
+                      )
+                  ]),
                 ),
                 Positioned(
-                  bottom: 80 - MediaQuery.of(context).viewInsets.bottom,
-                  right: 50,
+                  bottom: 50 - MediaQuery.of(context).viewInsets.bottom,
+                  right: 0,
+                  left: 0,
                   child: SvgPicture.asset(
                     AppAssets.icPoweredBy,
                     color: AppColors.white,
