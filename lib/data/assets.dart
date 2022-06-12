@@ -1,6 +1,7 @@
 class AppAssets {
   static const placeholder = 'https://api.manawstore.com/placeholder.png';
   static const appLogo = "assets/images/logo.png";
+  static const appLogoWhite = "assets/images/logo-white.svg";
   static const appLogoSvg = "assets/images/logo.svg";
   static const dashboard = 'assets/images/dashboard.svg';
   static const pos = 'assets/images/pos.svg';

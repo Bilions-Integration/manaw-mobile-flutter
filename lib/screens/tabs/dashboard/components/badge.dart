@@ -23,6 +23,7 @@ class Badge extends StatelessWidget {
         label: Text(
           title,
           style: TextStyle(
+            height: 1,
             color: active ? AppColors.white : AppColors.black,
             fontWeight: active ? FontWeight.bold : FontWeight.normal,
           ),

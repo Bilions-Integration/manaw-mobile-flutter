@@ -204,9 +204,15 @@ loading({String? title}) async {
   );
 }
 
-logo(double? width) {
+logo(double? width, {String? type = 'color'}) {
+  if (type == 'color') {
+    return SvgPicture.asset(
+      AppAssets.appLogoSvg,
+      width: width ?? 60,
+    );
+  }
   return SvgPicture.asset(
-    AppAssets.appLogoSvg,
+    AppAssets.appLogoWhite,
     width: width ?? 60,
   );
 }

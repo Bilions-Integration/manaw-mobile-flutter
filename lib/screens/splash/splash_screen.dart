@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/firebase.dart';
@@ -28,24 +29,35 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primary,
       body: UpgradeAlert(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              logo(100),
+              const Spacer(),
+              logo(100, type: 'white'),
               const Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child: Text(
                   'Manaw Store',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
                 ),
               ),
+              const Spacer(),
               const Text(
                 'Powered by Bilions Co., Ltd',
-                style: TextStyle(fontSize: 14),
-              )
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+              mb(4),
             ],
           ),
         ),
