@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
@@ -39,7 +40,8 @@ class VariationSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Choose Variation (${currency()} ${cast(product.price)})",
+          "productVariation"
+              .trParams({'currency': currency(), 'price': cast(product.price)}),
           style: Styles.h2,
         ),
         mb(0.2),

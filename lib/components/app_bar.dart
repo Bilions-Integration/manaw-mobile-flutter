@@ -4,12 +4,16 @@ import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/screens/tabs/management/manage_screen.dart';
+import 'package:my_app/screens/tabs/management/components/create_new_popup.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
-  final List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
-
+  final List<String> titles = <String>[
+    'pos'.tr,
+    'dashboard'.tr,
+    'manage'.tr,
+    'profile'.tr
+  ];
   final bottomTabController = Get.find<BottomTabsController>();
   final authController = Get.find<AuthController>();
 
@@ -40,16 +44,16 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
                 bottomTabController.index.value == 1
             ? 0
             : 0,
-        actions: const [
+        actions: [
           InkWell(
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Icon(
                 Icons.add,
                 color: Colors.white,
               ),
             ),
-            onTap: ManageScreen.openCreatePopup,
+            onTap: CreateNewPopup().open,
           ),
         ],
       ),

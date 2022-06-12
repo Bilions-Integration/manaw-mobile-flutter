@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
@@ -41,19 +42,19 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Change New Password',
+              'changePassword'.tr,
               style: TextStyle(color: AppColors.black, fontSize: 18),
             ),
             mb(2),
             PasswordInput(
               icon: Icons.lock,
-              placeholder: 'New Password',
+              placeholder: 'newPassword'.tr,
               column: 'password',
               onChanged: _inputChanged,
             ),
             PasswordInput(
               icon: Icons.lock,
-              placeholder: 'Confirm',
+              placeholder: 'confirmPassword'.tr,
               column: 'confirm_password',
               onChanged: _inputChanged,
             ),
@@ -63,11 +64,11 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
               children: [
                 InkWell(
                   onTap: () => {Navigator.pop(context)},
-                  child: Text(('CANCEL').toUpperCase()),
+                  child: Text(('cancel'.tr).toUpperCase()),
                 ),
                 mr(3),
                 PrimaryButton(
-                  value: 'CHANGE',
+                  value: 'change'.tr,
                   onPressed: () async {
                     try {
                       var res = await ProfileService.changePassword(
@@ -76,17 +77,15 @@ class _ChangePasswordModalWidgetState extends State<ChangePasswordModalWidget> {
                       );
                       if (res != false) {
                         snackBar(
-                          'Success',
-                          'Successfully changed new password!',
+                          'success'.tr,
+                          'successPassword'.tr,
                           icon: Icons.check_circle,
                         );
                         Navigator.pop(context);
                       }
                     } catch (e) {
                       Navigator.pop(context);
-                      alert(
-                          title: 'Error',
-                          message: 'Something went wrong. Please try again!.');
+                      alert(title: 'failed'.tr, message: 'failPassword'.tr);
                     }
                   },
                   width: 100,

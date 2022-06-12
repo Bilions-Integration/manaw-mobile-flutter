@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_app/components/account_picker.dart';
+import 'package:my_app/components/customer_picker.dart';
 import 'package:my_app/components/prompt.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/components/account_picker.dart';
-import 'package:my_app/components/customer_picker.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/account_model/account_model.dart';
 import 'package:my_app/model/customer_model.dart';
@@ -20,12 +20,12 @@ List<Widget> checkoutActions({onClear}) {
   _clearCartItems() {
     final cartController = Get.find<CartController>();
     confirm(
-      confirmText: 'Clear',
+      confirmText: 'clearAll'.tr,
       onPressed: (yes) => {
         if (yes) {cartController.products.value = [], onClear()}
       },
-      title: 'Confirm',
-      message: 'Are you sure you want to clear all cart items?',
+      title: 'clearAllTitle'.tr,
+      message: 'clearAllMessage'.tr,
     );
   }
 
@@ -77,10 +77,10 @@ showCouponModal() {
 
   prompt(
     icon: Icons.discount,
-    placeholder: 'Discount',
+    placeholder: 'discount'.tr,
     onSubmit: _onSubmit,
-    title: 'Discount Amount',
-    confirmText: 'Submit',
+    title: 'discountAmount'.tr,
+    confirmText: 'submit'.tr,
     value: cartController.discount.value,
     numberOnly: true,
   );

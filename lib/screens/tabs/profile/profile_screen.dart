@@ -142,9 +142,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Get.to(() => OTPScreen(type: 'change_email', email: email));
         }
       },
-      confirmText: 'Request OTP',
-      title: 'Change Email',
-      placeholder: 'Enter new email address',
+      confirmText: 'requestOtp'.tr,
+      title: 'changeEmail'.tr,
+      placeholder: 'enterEmailAddress'.tr,
       icon: Icons.email,
     );
   }
@@ -162,9 +162,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ProfileService.setName(name);
         }
       },
-      confirmText: 'Change',
-      title: 'Change Name',
-      placeholder: 'Enter your Full name',
+      confirmText: 'change'.tr,
+      title: 'changeName'.tr,
+      placeholder: 'enterFullName'.tr,
       icon: Icons.person,
     );
   }
@@ -190,8 +190,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _logout() {
     confirm(
-      title: 'Logout',
-      message: 'Are you sure to logout?',
+      title: 'logout'.tr,
+      message: 'logoutConfirm'.tr,
       onPressed: (confirm) {
         if (confirm) {
           loading();
@@ -209,9 +209,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _reportProblem() {
     prompt(
       onSubmit: _submitProblem,
-      confirmText: 'Submit',
-      title: 'Report',
-      placeholder: 'Write a message',
+      confirmText: 'submit'.tr,
+      title: 'reportProblem'.tr,
+      placeholder: 'helpPlaceholder'.tr,
       textarea: true,
       height: 310,
     );
@@ -220,9 +220,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _submitProblem(String? message) async {
     var res = await Api.post('/reports', data: {'description': message ?? ''});
     if (res['success']) {
-      snackBar("Success", "Success", icon: Icons.check_circle);
+      snackBar("successTitle".tr, "successDesc".tr,
+          icon: Icons.check_circle_outline_rounded);
     } else {
-      snackBar("Failed", "Please try again",
+      snackBar("failTitle".tr, "failDesc".tr,
           icon: Icons.error_outline_rounded, color: Colors.red);
     }
   }
@@ -233,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       applicationName: 'Manaw Store',
       applicationVersion: "1.0.0",
       applicationLegalese:
-          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+          'appDescription'.tr,
     );
   }
 

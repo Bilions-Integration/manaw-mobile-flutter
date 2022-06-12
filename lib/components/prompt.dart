@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
@@ -100,11 +101,11 @@ class _PromptWidgetState extends State<PromptWidget> {
               children: [
                 InkWell(
                   onTap: () => {Navigator.pop(context)},
-                  child: Text((widget.cancelText ?? 'Cancel').toUpperCase()),
+                  child: Text((widget.cancelText ?? 'cancel'.tr).toUpperCase()),
                 ),
                 mr(3),
                 PrimaryButton(
-                  value: widget.confirmText ?? 'Confirm',
+                  value: widget.confirmText ?? 'confirm'.tr,
                   onPressed: () {
                     widget.onSubmit(inputValue);
                     Navigator.pop(context);

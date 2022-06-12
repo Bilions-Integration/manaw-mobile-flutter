@@ -121,8 +121,8 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
       if (newQuantity == 0) {
         confirm(
           onPressed: _confirmRemove,
-          title: 'Confirm',
-          message: 'Are you sure you want to remove ${widget.product.name}?',
+          title: 'confirm'.tr,
+          message: 'removeProduct'.trParams({'product': widget.product.name}),
         );
       } else {
         setState(() {
