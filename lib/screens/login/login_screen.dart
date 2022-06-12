@@ -32,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       top: false,
       bottom: false,
@@ -43,96 +45,129 @@ class _LoginScreenState extends State<LoginScreen> {
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
             backgroundColor: AppColors.white,
-            body: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 430),
-                padding: const EdgeInsets.all(20.0),
-                child: ListView(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AppWidget.marginBottom(2),
-                        companyHeadline(),
-                        mb(4),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "login".tr,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.darkBlue,
-                            ),
-                          ),
-                        ),
-                        mb(0.5),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'loginLabel'.tr,
-                            style: TextStyle(
-                              color: AppColors.lightDark,
-                            ),
-                          ),
-                        ),
-                        mb(1),
-                        MyTextInput(
-                          onChanged: _onValueChanged,
-                          column: 'email',
-                          placeholder: 'email'.tr,
-                          icon: Icons.email,
-                        ),
-                        PasswordInput(
-                          onChanged: _onValueChanged,
-                          column: 'password',
-                          placeholder: 'password'.tr,
-                          icon: Icons.lock,
-                        ),
-                        AppWidget.marginBottom(1),
-                        PrimaryButton(
-                          value: 'doLogin'.tr,
-                          disabled: !_showLogin(),
-                          onPressed: () {
-                            if (_showLogin()) {
-                              _login();
-                            }
-                          },
-                        ),
-                        AppWidget.marginBottom(2),
-                        mb(2),
-                        InkWell(
-                          child: Text(
-                            'notAMember'.tr,
-                            style: TextStyle(
-                              color: AppColors.darkBlue,
-                            ),
-                          ),
-                          onTap: () {
-                            Get.to(() => RouteName.register);
-                          },
-                        ),
-                        AppWidget.marginBottom(2),
-                        InkWell(
-                          child: Text(
-                            'forgetPassword'.tr,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: AppColors.darkBlue,
-                            ),
-                          ),
-                          onTap: () {
-                            Get.to(() => RouteName.forgetPassword);
-                          },
-                        ),
-                        AppWidget.marginBottom(7),
-                        SvgPicture.asset(AppAssets.icPoweredBy),
-                      ],
-                    )
-                  ],
+            body: Stack(
+              children: [
+                Positioned(
+                  bottom: -100,
+                  left: -50,
+                  child: SvgPicture.asset(
+                    AppAssets.loginBelow,
+                    color: HexColor('#519D51'),
+                    width: width + 80,
+                    height: 300,
+                  ),
                 ),
-              ),
+                Positioned(
+                  bottom: 80,
+                  right: 50,
+                  child: SvgPicture.asset(
+                    AppAssets.icPoweredBy,
+                    color: AppColors.white,
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 430),
+                    padding: const EdgeInsets.all(20.0),
+                    child: ListView(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AppWidget.marginBottom(2),
+                            companyHeadline(),
+                            mb(4),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "login".tr,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.darkBlue,
+                                ),
+                              ),
+                            ),
+                            mb(0.5),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'loginLabel'.tr,
+                                style: TextStyle(
+                                  color: AppColors.lightDark,
+                                ),
+                              ),
+                            ),
+                            mb(1),
+                            MyTextInput(
+                              onChanged: _onValueChanged,
+                              column: 'email',
+                              placeholder: 'email'.tr,
+                              iconWidget: Container(
+                                padding: const EdgeInsets.all(13),
+                                child: SvgPicture.asset(
+                                  AppAssets.icEmail,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
+                            PasswordInput(
+                              onChanged: _onValueChanged,
+                              column: 'password',
+                              placeholder: 'password'.tr,
+                              iconWidget: Container(
+                                padding: const EdgeInsets.all(13),
+                                child: SvgPicture.asset(
+                                  AppAssets.icLock,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
+                            AppWidget.marginBottom(1),
+                            PrimaryButton(
+                              value: 'doLogin'.tr,
+                              disabled: false,
+                              onPressed: () {
+                                if (_showLogin()) {
+                                  _login();
+                                }
+                              },
+                            ),
+                            AppWidget.marginBottom(2),
+                            mb(2),
+                            InkWell(
+                              child: Text(
+                                'notAMember'.tr,
+                                style: TextStyle(
+                                  color: AppColors.darkBlue,
+                                ),
+                              ),
+                              onTap: () {
+                                Get.to(() => RouteName.register);
+                              },
+                            ),
+                            AppWidget.marginBottom(2),
+                            InkWell(
+                              child: Text(
+                                'forgetPassword'.tr,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: AppColors.darkBlue,
+                                ),
+                              ),
+                              onTap: () {
+                                Get.to(() => RouteName.forgetPassword);
+                              },
+                            ),
+                            AppWidget.marginBottom(7),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

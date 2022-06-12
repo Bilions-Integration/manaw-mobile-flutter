@@ -5,21 +5,28 @@ import 'package:my_app/helpers/helper.dart';
 
 Widget companyHeadline() {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       AppWidget.marginBottom(4),
-      logo(60),
-      AppWidget.marginBottom(2),
-      const Text(
-        'Manaw Store',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        ),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          logo(60),
+          mr(1),
+          Text(
+            'Manaw Store',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: AppColors.primary,
+            ),
+          ),
+        ],
       ),
-      AppWidget.marginBottom(1),
+      AppWidget.marginBottom(2),
       Text(
         'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: TextStyle(
           color: AppColors.lightDark,
         ),

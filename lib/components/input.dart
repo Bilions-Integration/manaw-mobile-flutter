@@ -10,6 +10,8 @@ class MyTextInput extends StatelessWidget {
 
   final IconData? icon;
 
+  final Widget? iconWidget;
+
   final double radius = 10.0;
 
   final String? column;
@@ -32,6 +34,7 @@ class MyTextInput extends StatelessWidget {
   const MyTextInput({
     Key? key,
     this.column,
+    this.iconWidget,
     this.label,
     this.textarea = false,
     this.value,
@@ -47,6 +50,13 @@ class MyTextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget? getIcon() {
+      if (iconWidget != null) {
+        return iconWidget;
+      }
+      return icon != null ? Icon(icon) : null;
+    }
+
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: Column(
@@ -107,7 +117,7 @@ class MyTextInput extends StatelessWidget {
               fillColor: AppColors.white,
               contentPadding: EdgeInsets.symmetric(
                   vertical: 16.5, horizontal: icon != null ? 0 : 16.5),
-              prefixIcon: icon != null ? Icon(icon) : null,
+              prefixIcon: getIcon(),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: error?[column] != null
@@ -149,16 +159,18 @@ class MyTextInput extends StatelessWidget {
 
 class PasswordInput extends StatefulWidget {
   final String placeholder;
-  final IconData icon;
+  final IconData? icon;
+  final Widget? iconWidget;
   final String? column;
   final Function(String, String?) onChanged;
 
   const PasswordInput(
       {Key? key,
       this.column,
+      this.iconWidget,
       required this.onChanged,
       required this.placeholder,
-      required this.icon})
+      this.icon})
       : super(key: key);
 
   @override
@@ -180,7 +192,7 @@ class _PasswordInputState extends State<PasswordInput> {
           filled: true,
           fillColor: AppColors.white,
           contentPadding: const EdgeInsets.symmetric(vertical: 16.5),
-          prefixIcon: Icon(widget.icon),
+          prefixIcon: getIcon(),
           suffixIcon: !showPassword
               ? IconTapper(
                   onTap: _togglePassword,
@@ -212,6 +224,13 @@ class _PasswordInputState extends State<PasswordInput> {
         ),
       ),
     );
+  }
+
+  Widget? getIcon() {
+    if (widget.iconWidget != null) {
+      return widget.iconWidget;
+    }
+    return widget.icon != null ? Icon(widget.icon) : null;
   }
 
   _onChanged(value) {

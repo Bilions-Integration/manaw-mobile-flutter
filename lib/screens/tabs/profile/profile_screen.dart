@@ -199,6 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Future.delayed(const Duration(milliseconds: 1000), () {
             hideLoading();
             Get.offAll(() => const LoginScreen());
+            auth.user.value = null;
             AppWidget.storeToken('');
           });
         }
@@ -217,24 +218,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  _submitProblem(String? message) async {
-    var res = await Api.post('/reports', data: {'description': message ?? ''});
-    if (res['success']) {
-      snackBar("successTitle".tr, "successDesc".tr,
-          icon: Icons.check_circle_outline_rounded);
-    } else {
-      snackBar("failTitle".tr, "failDesc".tr,
-          icon: Icons.error_outline_rounded, color: Colors.red);
-    }
-  }
-
   _showAbout() {
     showAboutDialog(
       context: currentContext(),
       applicationName: 'Manaw Store',
       applicationVersion: "1.0.0",
-      applicationLegalese:
-          'appDescription'.tr,
+      applicationLegalese: 'appDescription'.tr,
     );
   }
 
@@ -251,5 +240,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       tab.index.value = 3;
       CompanyService.setColor(color);
     });
+  }
+
+  _submitProblem(String? message) async {
+    var res = await Api.post('/reports', data: {'description': message ?? ''});
+    if (res['success']) {
+      snackBar("successTitle".tr, "successDesc".tr,
+          icon: Icons.check_circle_outline_rounded);
+    } else {
+      snackBar("failTitle".tr, "failDesc".tr,
+          icon: Icons.error_outline_rounded, color: Colors.red);
+    }
   }
 }

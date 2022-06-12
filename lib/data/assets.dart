@@ -32,6 +32,7 @@ class AppAssets {
   static const icArrowRight = 'assets/images/arrow-right.svg';
   static const bilions = 'assets/images/bilions.svg';
   static const icEmail = 'assets/images/email.svg';
+  static const icLock = 'assets/images/lock.svg';
   static const icPhone = 'assets/images/phone.svg';
   static const icHelp = 'assets/images/help.svg';
   static const icInfo = 'assets/images/info.svg';
@@ -77,6 +78,7 @@ class AppAssets {
   static const icmReport = 'assets/images/manage/icm-report.svg';
   static const icmStore = 'assets/images/manage/icm-store.svg';
   static const icmRecharge = 'assets/images/manage/icm-recharge.svg';
+  static const loginBelow = 'assets/images/login-below.svg';
 
   // lottie
   static const lottiePrinting = 'assets/images/printing.json';
