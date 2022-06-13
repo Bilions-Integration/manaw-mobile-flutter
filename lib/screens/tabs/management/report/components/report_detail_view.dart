@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/loading_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/moment.dart';
@@ -150,8 +151,7 @@ class _ReportDetailState extends State<ReportDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Total Sale Price',
-                              style: Styles.textBold),
+                          Text('totalSale'.tr, style: Styles.textBold),
                           Text(
                             '${report.currency} ${report.totalSalePrice}',
                             style: Styles.textBold,

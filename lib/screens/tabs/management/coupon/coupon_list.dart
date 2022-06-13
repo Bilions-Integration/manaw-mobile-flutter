@@ -30,7 +30,7 @@ class _CouponListState extends State<CouponList> {
         backgroundColor: AppColors.bg,
         appBar: customAppBar2(
           context: context,
-          title: 'Coupons',
+          title: 'coupons'.tr,
           isSearch: isSearch,
           toggleSearch: () {
             setState(() {

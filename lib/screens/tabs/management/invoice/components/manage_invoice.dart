@@ -43,7 +43,8 @@ class _ManageInvoiceState extends State<ManageInvoice> {
       backgroundColor: AppColors.bg,
       appBar: customAppBar2(
         context: context,
-        title: widget.type == 'sale' ? 'Sale Invoices' : 'Purchase Invoices',
+        title:
+            widget.type == 'sale' ? 'saleInvoices'.tr : 'purchaseInvoices'.tr,
         isSearch: isSearch,
         toggleSearch: _toggleSearch,
         search: _onSearch,

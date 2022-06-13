@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -84,7 +85,7 @@ class _DashboardTopCustomersState extends State<DashboardTopCustomers> {
               children: widget.topCustomers.isEmpty
                   ? [
                       Text(
-                        'Top Customers',
+                        'topCustomers'.tr,
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,
@@ -98,9 +99,9 @@ class _DashboardTopCustomersState extends State<DashboardTopCustomers> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children: [
                           Text(
-                            'No customer yet',
+                            'noCustomerYet'.tr,
                           )
                         ],
                       ),
@@ -108,7 +109,7 @@ class _DashboardTopCustomersState extends State<DashboardTopCustomers> {
                     ]
                   : [
                       Text(
-                        'Top Customers',
+                        'topCustomers'.tr,
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -27,7 +28,7 @@ class _DashboardSummaryState extends State<DashboardSummary> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Summary',
+                  'summary'.tr,
                   style: TextStyle(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
@@ -36,18 +37,18 @@ class _DashboardSummaryState extends State<DashboardSummary> {
                 mb(2),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icCapital),
-                  title: 'Capital',
+                  title: 'capital'.tr,
                   value: (widget.summary?.assets ?? 0) -
                       (widget.summary?.liability ?? 0),
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icAssets),
-                  title: 'Assets',
+                  title: 'assets'.tr,
                   value: widget.summary?.assets ?? 0,
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icWallet),
-                  title: 'Total Liability',
+                  title: 'totalLiability'.tr,
                   value: widget.summary?.liability ?? 0,
                 ),
               ],
@@ -64,7 +65,7 @@ class _DashboardSummaryState extends State<DashboardSummary> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Taxes',
+                  'taxes'.tr,
                   style: TextStyle(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
@@ -73,17 +74,17 @@ class _DashboardSummaryState extends State<DashboardSummary> {
                 mb(2),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icSaleTax),
-                  title: 'Sale Tax',
+                  title: 'saleTax'.tr,
                   value: widget.summary?.saleTax ?? 0,
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icPurchaseTax),
-                  title: 'Purchase Tax',
+                  title: 'purchaseTax'.tr,
                   value: widget.summary?.purchaseTax ?? 0,
                 ),
                 SummaryList(
                   icon: SvgPicture.asset(AppAssets.icSaleTax),
-                  title: 'Withholding Tax',
+                  title: 'whtTax'.tr,
                   value: widget.summary?.wht ?? 0,
                 ),
               ],

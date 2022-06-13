@@ -53,7 +53,7 @@ class DashboardService {
     final data = res['data'];
     List graph = data['graph'];
     return DashboardInfo(
-      title: 'Total Sale',
+      title: 'totalSale'.tr,
       percent: double.parse(data['percentage'].toString()),
       balance: double.parse(data['income'].toString()),
       graph: graph

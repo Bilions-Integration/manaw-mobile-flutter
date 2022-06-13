@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -29,18 +30,18 @@ class _FormCardState extends State<FormCard> {
           children: [
             ImageUploader(params: widget.params),
             mb(2),
-            const Text('Category Name', style: TextStyle(fontSize: 15)),
+            Text('categoryName'.tr, style: const TextStyle(fontSize: 15)),
             mb(1),
             MyTextInput(
               value: widget.params['name'],
               onChanged: _onValueChanged,
               column: 'name',
-              placeholder: 'Enter Category Name',
+              placeholder: 'categoryNamePlaceholder'.tr,
             ),
           ],
         ),
         PrimaryButton(
-            value: widget.editId == null ? 'Create' : 'Update',
+            value: widget.editId == null ? 'create'.tr : 'update'.tr,
             onPressed: () => widget.submit())
       ],
     );

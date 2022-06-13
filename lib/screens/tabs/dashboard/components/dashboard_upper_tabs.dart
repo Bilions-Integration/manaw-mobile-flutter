@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/screens/tabs/dashboard/components/badge.dart';
 
 class DashboardUpperTabs extends StatefulWidget {
@@ -14,10 +15,10 @@ class _DashboardUpperTabsState extends State<DashboardUpperTabs> {
   var currentScreen = 0;
 
   final List screens = [
-    {'title': 'overview', 'key': 0},
-    {'title': 'Summary', 'key': 1},
-    {'title': 'Top Products', 'key': 2},
-    {'title': 'Top Customer', 'key': 3},
+    {'title': 'overview'.tr, 'key': 0},
+    {'title': 'summary'.tr, 'key': 1},
+    {'title': 'topProducts'.tr, 'key': 2},
+    {'title': 'topCustomers'.tr, 'key': 3},
   ];
 
   _changeScreen(screen) {

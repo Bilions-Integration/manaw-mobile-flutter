@@ -24,12 +24,12 @@ class ManageScreen extends StatelessWidget {
       icon: AppAssets.icmCategory,
     ),
     ManagePage(
-      name: "saleInvoice".tr,
+      name: "saleInvoices".tr,
       page: RouteName.saleInvoice,
       icon: AppAssets.icmSaleInvoice,
     ),
     ManagePage(
-      name: "purchaseInvoice".tr,
+      name: "purchaseInvoices".tr,
       page: RouteName.purchaseInvoice,
       icon: AppAssets.icmPurchaseInvoice,
     ),

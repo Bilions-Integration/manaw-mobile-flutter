@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
@@ -51,20 +52,20 @@ class _FormCardState extends State<FormCard> {
                     onChanged: _onValueChanged,
                     column: 'name',
                     placeholder: '',
-                    label: 'Store Name'),
+                    label: 'storeName'.tr),
                 MyTextInput(
                   value: widget.params['currencySymbol'],
                   onChanged: _onValueChanged,
                   column: 'currencySymbol',
                   placeholder: '',
-                  label: 'Currency',
+                  label: 'currency'.tr,
                 ),
                 MyTextInput(
                   value: widget.params['tax_id'],
                   onChanged: _onValueChanged,
                   column: 'tax_id',
                   placeholder: '',
-                  label: 'Tax ID',
+                  label: 'taxId'.tr,
                   numberOnly: true,
                 ),
                 MyTextInput(
@@ -72,7 +73,7 @@ class _FormCardState extends State<FormCard> {
                   onChanged: _onValueChanged,
                   column: 'tax',
                   placeholder: '',
-                  label: 'Default Tax (%)',
+                  label: 'defaultTax'.tr,
                   numberOnly: true,
                 ),
                 MyTextInput(
@@ -80,7 +81,7 @@ class _FormCardState extends State<FormCard> {
                   onChanged: _onValueChanged,
                   column: 'wht',
                   placeholder: '',
-                  label: 'Default WHT (%)',
+                  label: 'defaultWht'.tr,
                   numberOnly: true,
                 ),
                 MyTextInput(
@@ -88,14 +89,14 @@ class _FormCardState extends State<FormCard> {
                   onChanged: _onValueChanged,
                   column: 'purchase_inv_prefix',
                   placeholder: '',
-                  label: 'Purchase Invoice Prefix',
+                  label: 'purchaseInvoicePrefix'.tr,
                 ),
                 MyTextInput(
                   value: widget.params['sale_inv_prefix'],
                   onChanged: _onValueChanged,
                   column: 'sale_inv_prefix',
                   placeholder: '',
-                  label: 'Sale Invoice Prefix',
+                  label: 'saleInvoicePrefix'.tr,
                 ),
                 MyTextInput(
                   value: widget.params['phone'],
@@ -103,21 +104,21 @@ class _FormCardState extends State<FormCard> {
                   column: 'phone',
                   placeholder: '',
                   numberOnly: true,
-                  label: 'Phone',
+                  label: 'phone'.tr,
                 ),
                 MyTextInput(
                   value: widget.params['email'],
                   onChanged: _onValueChanged,
                   column: 'email',
                   placeholder: '',
-                  label: 'Email',
+                  label: 'email'.tr,
                 ),
                 MyTextInput(
                   value: widget.params['address'],
                   onChanged: _onValueChanged,
                   column: 'address',
                   placeholder: 'Address . . .',
-                  label: 'Address',
+                  label: 'address'.tr,
                   textarea: true,
                 ),
               ],
