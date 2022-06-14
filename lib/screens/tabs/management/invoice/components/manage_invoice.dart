@@ -120,7 +120,7 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     var res = await InvoiceServices.get(params);
     setState(() {
       invoices = [...invoices, ...res['invoices']];
-      isLastPage = res['last_page'];
+      isLastPage = invoices.length >= res['total'];
     });
   }
 
