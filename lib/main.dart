@@ -60,8 +60,16 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     SharedPreferences.getInstance().then((value) {
-      String localeCode = value.getString(prefKeyLocale) ?? 'en';
-      Locale locale = Locale(localeCode);
+      Locale? deviceLocale = Get.deviceLocale;
+      String? localeCode = value.getString(prefKeyLocale);
+      late Locale locale;
+      if ([null, ''].contains(localeCode)) {
+        locale = deviceLocale?.languageCode == 'my'
+            ? deviceLocale!
+            : const Locale('en');
+      } else {
+        locale = Locale(localeCode!);
+      }
       Get.updateLocale(locale);
       langController.locale.value = locale;
     });

@@ -100,7 +100,7 @@ class _ManageInvoiceState extends State<ManageInvoice> {
         }
       },
       title: 'delete'.tr,
-      message: "deleteConfirm".tr,
+      message: "confirmDelete".tr,
       confirmText: 'yes'.tr,
     );
   }

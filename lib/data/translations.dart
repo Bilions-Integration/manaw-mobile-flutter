@@ -53,6 +53,7 @@ class AppLocales extends Translations {
           'confirmDelete': 'Are you sure, you want to delete?',
           'yes': 'Yes',
           //account
+          'account': 'Account',
           'emptyAccount': 'No accounts yet',
           'createAccount': 'Create account',
           'editAccount': 'Edit account',
@@ -87,7 +88,7 @@ class AppLocales extends Translations {
           'downloadReceipt': 'Download Receipt',
           'saleInvoice': 'Sale Invoice',
           'purchaseInvoice': 'Purchase Invoice',
-
+          'shippingAddress': 'Shipping Address',
           //cart
           'cartItems': 'Cart Items',
           'clearAll': 'Clear All',
@@ -173,6 +174,8 @@ class AppLocales extends Translations {
           'isActive': 'Active?',
           'create': 'Create',
           'varPlaceholder': 'Red color',
+          'editVariation': 'Edit Variation',
+          'createVariation': 'Create Variation',
 
           //Profile
           'email': 'Email',
@@ -338,6 +341,7 @@ class AppLocales extends Translations {
           'confirmDelete': 'ဖျက်ဖို့သေချာပါသလား',
           'yes': 'ဟုတ်ပါသည်',
           //account
+          'account': 'အကောင့်',
           'emptyAccount': 'အကောင့်မရှိသေးပါ',
           'createAccount': 'အကောင့်ဖန်တီးပါ',
           'editAccount': 'အကောင့်ပြင်ပါ',
@@ -373,6 +377,7 @@ class AppLocales extends Translations {
           'downloadReceipt': 'ဘောက်ချာသိမ်းပါ',
           'saleInvoice': 'အရောင်းပြေစာ',
           'purchaseInvoice': 'အဝယ်ပြေစာ',
+          'shippingAddress': 'ပို့ဆောင်ရန်လိပ်စာ',
           //cart
           'cartItems': 'ဈေးခြင်းရှိပစ္စည်းများ',
           'clearAll': 'အားလုံးရှင်းပါ',
@@ -462,6 +467,8 @@ class AppLocales extends Translations {
           'isActive': 'ဖွင့်ထားမည်',
           'create': 'ဖန်တီးမည်',
           'varPlaceholder': 'အနီရောင်',
+          'editVariation': 'ပုံစံကွဲကိုပြင်ပါ',
+          'createVariation': 'ပုံစံကွဲဖန်တီးပါ',
 
           //Profile
           'email': 'အီးမေးလ်',
