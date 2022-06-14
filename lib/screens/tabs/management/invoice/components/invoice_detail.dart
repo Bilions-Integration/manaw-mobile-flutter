@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -85,15 +86,15 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Invoice Date', style: Styles.label),
+              Text('invoiceDate'.tr, style: Styles.label),
               mb(1),
-              const Text('Account', style: Styles.label),
+              Text('account'.tr, style: Styles.label),
               mb(1),
-              const Text('Shipping Address', style: Styles.label),
+              Text('shippingAddress'.tr, style: Styles.label),
               mb(1),
-              const Text('Customer/Supplier', style: Styles.label),
+              Text('customerSupplier'.tr, style: Styles.label),
               mb(1),
-              const Text('Phone', style: Styles.label),
+              Text('phone'.tr, style: Styles.label),
             ],
           ),
           mr(3),
@@ -132,7 +133,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('SubTotal', style: Styles.label),
+                    Text('subTotal'.tr, style: Styles.label),
                     Text('\$${invoice.total}'),
                   ],
                 ),
@@ -140,7 +141,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Tax', style: Styles.label),
+                    Text('tax'.tr, style: Styles.label),
                     Text('\$${invoice.taxValue}'),
                   ],
                 ),
@@ -148,13 +149,13 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Total', style: Styles.textBold),
+                    Text('total'.tr, style: Styles.textBold),
                     Text('\$${invoice.grandTotal}', style: Styles.textBold),
                   ],
                 ),
                 mb(1.5),
                 PrimaryButton(
-                  value: Platform.isAndroid ? 'Print' : 'Download Receipt',
+                  value: Platform.isAndroid ? 'print'.tr : 'downloadReceipt'.tr,
                   onPressed: () => {_zPrint(invoice.id)},
                 )
               ],
@@ -204,7 +205,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
           Row(children: [
             SvgPicture.asset(AppAssets.invoiceIcon, width: 47, height: 47),
             mr(1),
-            Text(type == 'sale' ? 'Sale Invoice' : 'Purchase Invoice',
+            Text(type == 'sale' ? 'saleInvoice'.tr : 'purchaseInvoice'.tr,
                 style: Styles.h3),
           ]),
           Row(children: [
