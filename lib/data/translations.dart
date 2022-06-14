@@ -312,6 +312,8 @@ class AppLocales extends Translations {
           'done': 'Done',
           'tryAgain': 'Try Again',
           'goBack': 'Go Back',
+          'expiredIn': 'Expired in @date',
+          'recharge': 'Recharge',
         },
         'my_MM': {
           //Navigation
@@ -632,6 +634,8 @@ class AppLocales extends Translations {
           'done': 'အဆင်ပြေပါသည်',
           'tryAgain': 'ပြန်ကြိုးစားမည်',
           'goBack': 'နောက်သို့ပြန်သွားမည်',
+          'expiredIn': '@date တွင်သက်တမ်းကုန်မည်',
+          'recharge': 'သက်တမ်းတိုးမည်',
         }
       };
 }
