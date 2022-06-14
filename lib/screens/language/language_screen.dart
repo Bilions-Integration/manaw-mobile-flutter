@@ -30,6 +30,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: AppColors.primary,
         title: Text('language'.tr),
       ),
       body: Column(
@@ -73,8 +74,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
   void initState() {
     super.initState();
     setState(() {
-      selectedLanguage = languages.firstWhere(
-          (element) => element.locale == langController.locale.value);
+      selectedLanguage = languages.firstWhere((element) =>
+          element.locale.languageCode ==
+          langController.locale.value.languageCode);
     });
     SharedPreferences.getInstance().then((value) {
       setState(() {

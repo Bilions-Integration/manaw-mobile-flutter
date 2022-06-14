@@ -93,15 +93,15 @@ class _ManageInvoiceState extends State<ManageInvoice> {
             Navigator.pop(context);
           });
           snackBar(
-            'Success',
-            'Successfully Deleted',
+            'success'.tr,
+            'successDelete'.tr,
             icon: Icons.check_circle,
           );
         }
       },
-      title: 'Delete',
-      message: "Are you sure, you want to delete?",
-      confirmText: 'Yes',
+      title: 'delete'.tr,
+      message: "confirmDelete".tr,
+      confirmText: 'yes'.tr,
     );
   }
 
@@ -120,7 +120,7 @@ class _ManageInvoiceState extends State<ManageInvoice> {
     var res = await InvoiceServices.get(params);
     setState(() {
       invoices = [...invoices, ...res['invoices']];
-      isLastPage = res['last_page'];
+      isLastPage = invoices.length >= res['total'];
     });
   }
 

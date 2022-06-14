@@ -102,7 +102,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         Row(
                           children: [
                             Text(
-                              'tax'.trParams({
+                              'taxPercent'.trParams({
                                 'percent':
                                     auth.user.value?.company.tax.toString() ??
                                         ''

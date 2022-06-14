@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -27,25 +28,25 @@ class _FormCardState extends State<FormCard> {
               value: widget.params['bank_name'],
               onChanged: _onValueChanged,
               column: 'bank_name',
-              placeholder: 'Bank Name',
-              label: 'Bank Name'),
+              placeholder: 'bankName'.tr,
+              label: 'bankName'.tr),
           MyTextInput(
             value: widget.params['owner_name'],
             onChanged: _onValueChanged,
             column: 'owner_name',
-            placeholder: 'Owner Name',
-            label: 'Owner Name',
+            placeholder: 'ownerName'.tr,
+            label: 'ownerName'.tr,
           ),
           MyTextInput(
             value: widget.params['initial_amount'],
             onChanged: _onValueChanged,
             column: 'initial_amount',
-            placeholder: 'Initial Amount',
-            label: 'Initial Amount',
+            placeholder: 'initialBalance'.tr,
+            label: 'initialBalance'.tr,
             numberOnly: true,
           ),
           mb(2),
-          PrimaryButton(value: 'Save', onPressed: widget.submit),
+          PrimaryButton(value: 'save'.tr, onPressed: widget.submit),
           mb(1),
         ],
       ),

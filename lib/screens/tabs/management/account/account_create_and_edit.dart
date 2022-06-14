@@ -31,7 +31,7 @@ class _AccountCreateAndEditState extends State<AccountCreateAndEdit> {
     return Scaffold(
       appBar: customAppBar2(
         context: context,
-        title: 'Account ${widget.id != null ? "Edit" : "Create"}',
+        title: widget.id != null ? "editAccount".tr : "createAccount".tr,
         showAction: false,
         centerTitle: true,
       ),

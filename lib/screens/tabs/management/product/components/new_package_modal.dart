@@ -121,12 +121,12 @@ class _NewPackageFormState extends State<NewPackageForm> {
                       Row(
                         children: [
                           Text((widget.params != null
-                                  ? 'Edit Variation'
-                                  : 'New Variation')
+                                  ? 'editVariation'.tr
+                                  : 'createVariation'.tr)
                               .toUpperCase()),
                           const Spacer(),
                           TextTapper(
-                            title: 'CANCEL',
+                            title: 'cancel'.tr,
                             onTab: () {
                               Navigator.pop(context);
                             },

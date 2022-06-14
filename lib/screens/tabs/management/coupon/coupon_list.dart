@@ -55,15 +55,15 @@ class _CouponListState extends State<CouponList> {
             coupons.removeWhere((category) => category.id == id);
           });
           snackBar(
-            'Success',
-            'Successfully Deleted',
+            'success'.tr,
+            'successDelete'.tr,
             icon: Icons.check_circle,
           );
         }
       },
-      title: 'Delete',
-      message: "Are you sure, you want to delete?",
-      confirmText: 'Yes',
+      title: 'delete'.tr,
+      message: "confirmDelete".tr,
+      confirmText: 'yes'.tr,
     );
   }
 
@@ -94,9 +94,9 @@ class _CouponListState extends State<CouponList> {
       isLoading: isLoading,
       isLastPage: isLastPage,
       emptyWidget: Styles.emptyList(
-          label: 'No Coupon yet',
+          label: 'emptyCoupons'.tr,
           image: AppAssets.emptyCategory,
-          buttonLabel: 'Create new Coupon',
+          buttonLabel: 'createCoupon'.tr,
           link: const CouponCreateAndEdit()),
       itemBuilder: (context, index) => Column(
         children: [

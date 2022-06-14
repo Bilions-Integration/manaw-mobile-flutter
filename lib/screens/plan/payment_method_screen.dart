@@ -32,7 +32,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Choose Payment Method'),
+        title: Text('chooseMethod'.tr),
         backgroundColor: AppColors.primary,
       ),
       body: paymentMethods.isEmpty
@@ -42,8 +42,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Payment Methods",
+                  Text(
+                    "paymentMethods".tr,
                     style: Styles.l5,
                   ),
                   mb(1),
