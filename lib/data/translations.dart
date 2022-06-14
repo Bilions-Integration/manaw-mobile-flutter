@@ -62,7 +62,6 @@ class AppLocales extends Translations {
           'bankName': 'Bank Name',
           'initialBalance': 'Initial Balance',
           //Coupons
-          'emptyCoupons': 'No coupons yet',
           'createCoupon': 'Create Coupon',
           'editCoupon': 'Edit Coupon',
           'successCreate': 'Successfully Created',
@@ -290,6 +289,29 @@ class AppLocales extends Translations {
           'success': 'Success',
           'version': 'Version @code',
           'failed': 'Failed',
+
+          //pricing plan
+          'planHeadline': 'Best plans for your business',
+          'planDesc':
+              'Upgrade your account and get full access for your business',
+          'monthly': 'Monthly',
+          'yearly': 'Yearly',
+          'upgradeNow': 'Upgrade Now',
+          'planDetails': 'Plan Details',
+          'popular': 'Popular',
+          'saveFor2months': 'Save for 2 months',
+          'chooseMethod': 'Choose Payment Method',
+          'paymentMethods': 'Payment Methods',
+          'paymentError': 'Something went wrong!',
+          'paymentSuccessDesc':
+              'Your payment was successful! You can now continue using MaNaw Store.',
+          'paymentFailDesc':
+              'We aren’t able to process your payment. Please try again.',
+          'copied': 'Copied',
+          'invoiceNumberCopied': 'Invoice number copied',
+          'done': 'Done',
+          'tryAgain': 'Try Again',
+          'goBack': 'Go Back',
         },
         'my_MM': {
           //Navigation
@@ -540,8 +562,6 @@ class AppLocales extends Translations {
           'verify': 'အတည်ပြုပါ',
           'failedSendOTP': 'ကုဒ်ပေးပို့ခြင်းမအောင်မြင်ပါ',
 
-          //Coupons
-          'emptyCoupons': "ကူပွန်များမရှိသေးပါ",
           //Notification
           'notifications': 'အသိပေးချက်များ',
           //Help
@@ -590,6 +610,28 @@ class AppLocales extends Translations {
           'success': 'အောင်မြင်သည်',
           'version': 'ဗားရှင်း - @code',
           'failed': 'မအောင်မြင်ပါ',
+
+          //pricing plan
+          'planHeadline': 'သင့်လုပ်ငန်းအတွက် အကောင်းဆုံးအစီစဉ်များ',
+          'planDesc':
+              'အသင့်လုပ်ငန်းအတွက်အပြည့်အဝအသုံးပြုနိုင်ရန် အဆင့်မြှင့်တင်ပါ',
+          'monthly': 'လစဉ်',
+          'yearly': 'နှစ်စဉ်',
+          'upgradeNow': 'အဆင့်မြှင့်မည်',
+          'planDetails': 'အစီအစဉ်အကြောင်း',
+          'popular': 'လူကြိုက်များသော',
+          'saveFor2months': '၂ လစာချွေတာနိုင်သည်',
+          'chooseMethod': 'ငွေပေးချေနည်းလမ်းရွေးပါ',
+          'paymentMethods': 'ငွေပေးချေနည်းလမ်းများ',
+          'paymentError': ' တစ်စုံတစ်ခုများနေသည်',
+          'paymentSuccessDesc':
+              'ငွေပေးချေခြင်းအောင်မြင်ပါသည်။ ဆက်လက်အသုံးပြုနိုင်ပါပြီ',
+          'paymentFailDesc': 'ငွေပေးချေခြင်းမအောင်မြင်ပါ။ ပြန်ကြိုးစားကြည့်ပါ။',
+          'copied': 'ကူးပြီးပြီ',
+          'invoiceNumberCopied': 'ပြေစာနံပါတ်ကို ကူးယူပြီးပြီ',
+          'done': 'အဆင်ပြေပါသည်',
+          'tryAgain': 'ပြန်ကြိုးစားမည်',
+          'goBack': 'နောက်သို့ပြန်သွားမည်',
         }
       };
 }
