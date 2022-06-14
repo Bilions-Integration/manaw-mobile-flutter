@@ -99,7 +99,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
     "sale_price": 0,
     "purchase_price": 0,
     "coefficient": 1,
-    "active": 0,
+    "active": 1,
   };
   MyFile? image;
   dio.MultipartFile? imgBlob;
