@@ -55,7 +55,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.product.name,
+                      '${widget.product.name} ${_getVariationName(widget.product)}',
                       maxLines: 2,
                     ),
                     Row(
@@ -140,5 +140,12 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
       cartController.products.value[widget.product.index!].quantity = 0;
       widget.removed(widget.product.index!);
     }
+  }
+
+  _getVariationName(Product product) {
+    if (product.unit != null && product.unit?.id != null) {
+      return '(${product.unit?.name})';
+    }
+    return '';
   }
 }

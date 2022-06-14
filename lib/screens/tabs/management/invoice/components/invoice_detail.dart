@@ -7,6 +7,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/invoice_model/invoice_model.dart';
+import 'package:my_app/model/invoice_model/product_model.dart';
 import 'package:my_app/services/pos_service.dart';
 
 void actionPopup({
@@ -72,6 +73,13 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
         _priceDetail(widget.invoice)
       ],
     );
+  }
+
+  _getVariationName(ProductModel product) {
+    if (product.unit != null && product.unit?.id != null) {
+      return '(${product.unit?.name})';
+    }
+    return '';
   }
 
   _invoiceInfo(InvoiceModel invoice) {
@@ -165,7 +173,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
     );
   }
 
-  _productLists(context, products) {
+  _productLists(context, List<ProductModel> products) {
     return Expanded(
       child: ListView.builder(
           itemCount: products.length,
@@ -183,7 +191,9 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                       children: [
                         Text('${product.quantity} x ', style: Styles.label),
                         Expanded(
-                          child: Text('${product.name}'),
+                          child: Text(
+                            '${product.name} ${_getVariationName(product)}',
+                          ),
                         ),
                       ],
                     ),
