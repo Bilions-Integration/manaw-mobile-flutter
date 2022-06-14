@@ -43,7 +43,7 @@ class _CreateProductState extends State<CreateProduct> {
     "type": null,
     "old_images[]": [],
     "unit": null,
-    "n_stock": 0,
+    "n_stock": 1,
     'instock': null,
     'units': []
   };
