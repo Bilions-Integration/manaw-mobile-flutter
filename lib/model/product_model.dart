@@ -11,6 +11,7 @@ class Product {
   final List<Unit> units;
   Unit? unit;
   int quantity;
+  String? note;
 
   Product({
     required this.productId,
@@ -21,6 +22,7 @@ class Product {
     required this.type,
     required this.units,
     this.quantity = 1,
+    this.note,
   });
 
   Product.fromJson(Map json)
@@ -30,6 +32,7 @@ class Product {
         instock = json['instock'],
         price = json['price'],
         type = json['type'],
+        note = json['note'],
         quantity = json['quantity'] ?? 1,
         unit = json['unit'] != null ? Unit.fromJson(json['unit']) : null,
         units = (json['units'] as List).map((e) => Unit.fromJson(e)).toList();
@@ -47,6 +50,7 @@ class Product {
         'unit': unit?.toJson(),
         'quantity': quantity,
         "discount": 0,
-        "discount_type": "fixed"
+        "discount_type": "fixed",
+        "note": note,
       };
 }
