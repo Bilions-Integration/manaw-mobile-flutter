@@ -60,7 +60,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     children: carItems.mapIndexed((Product product, index) {
                       product.index = index;
                       return Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        padding: const EdgeInsets.only(left: 8, right: 8),
                         child: ProductCardCheckout(
                             product: product, removed: _removed),
                       );

@@ -28,7 +28,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
 
   @override
   Widget build(BuildContext context) {
-    double top = (widget.product.index! == 0) ? 15.0 : 0.0;
+    double top = (widget.product.index! == 0) ? 8.0 : 0.0;
     return Padding(
       padding: EdgeInsets.only(
         bottom: 6,
