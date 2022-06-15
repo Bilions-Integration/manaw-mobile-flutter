@@ -92,18 +92,21 @@ class _CustomItemListState extends State<CustomItemList> {
   }
 
   void scrollListener() async {
-    if (!isOnProgress) {
-      if (!widget.isLastPage) {
-        setState(() {
-          isScrollLoading = true;
-          isOnProgress = true;
-          widget.params['page'] += 1;
-        });
-        await widget.loadMore();
-        setState(() {
-          isScrollLoading = false;
-          isOnProgress = false;
-        });
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      if (!isOnProgress) {
+        if (!widget.isLastPage) {
+          setState(() {
+            isScrollLoading = true;
+            isOnProgress = true;
+            widget.params['page'] += 1;
+          });
+          await widget.loadMore();
+          setState(() {
+            isScrollLoading = false;
+            isOnProgress = false;
+          });
+        }
       }
     }
   }

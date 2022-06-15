@@ -140,7 +140,7 @@ packages:
       name: device_info_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.3"
+    version: "3.2.4"
   device_info_plus_linux:
     dependency: transitive
     description:
@@ -979,7 +979,7 @@ packages:
       name: upgrader
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.2.1"
   url_launcher:
     dependency: "direct main"
     description:
@@ -1056,7 +1056,7 @@ packages:
       name: version
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.2"
   webcontent_converter:
     dependency: "direct main"
     description:

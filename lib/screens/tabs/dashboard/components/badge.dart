@@ -24,6 +24,7 @@ class Badge extends StatelessWidget {
           title,
           style: TextStyle(
             height: 1,
+            fontSize: 14,
             color: active ? AppColors.white : AppColors.black,
             fontWeight: active ? FontWeight.bold : FontWeight.normal,
           ),

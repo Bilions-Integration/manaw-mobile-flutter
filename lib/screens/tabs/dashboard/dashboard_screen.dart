@@ -35,12 +35,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final dashboardController = Get.put(DashboardController());
 
   @override
-  void initState() {
-    super.initState();
-    _reload();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor('#F0F0F0'),
@@ -50,7 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         mb(1.5),
         Padding(
-          padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
+          padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
           child: DashboardUpperTabs(
             screenChanged: (int s) {
               setState(() {
@@ -59,10 +53,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             },
           ),
         ),
-        mb(2),
+        mb(1.5),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 0, left: 15, right: 15),
+            padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
             child: ListView(children: [
               IndexedStack(
                 index: currentScreen,
@@ -84,18 +78,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _reload();
+  }
+
   _dateChanged(startDate, endDate) {
     _reload();
   }
 
-  _reload() {
-    Future.delayed(const Duration(microseconds: 500), () async {
-      _getGrossProfit();
-      _getSale();
-      _getExpense();
-      _getSummary();
-      _getTopProducts();
-      _getTopCustomers();
+  _getExpense() async {
+    DashboardInfo res = await DashboardService.getExpense();
+    setState(() {
+      expense = res;
     });
   }
 
@@ -113,17 +109,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  _getExpense() async {
-    DashboardInfo res = await DashboardService.getExpense();
-    setState(() {
-      expense = res;
-    });
-  }
-
   _getSummary() async {
     DashboardSummaryModel res = await DashboardService.getSummary();
     setState(() {
       summary = res;
+    });
+  }
+
+  _getTopCustomers() async {
+    List<TopCustomersModel> res = await DashboardService.getTopCustomers();
+    setState(() {
+      topCustomers = res;
     });
   }
 
@@ -134,10 +130,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  _getTopCustomers() async {
-    List<TopCustomersModel> res = await DashboardService.getTopCustomers();
-    setState(() {
-      topCustomers = res;
+  _reload() {
+    Future.delayed(const Duration(microseconds: 500), () async {
+      _getGrossProfit();
+      _getSale();
+      _getExpense();
+      _getSummary();
+      _getTopProducts();
+      _getTopCustomers();
     });
   }
 }
