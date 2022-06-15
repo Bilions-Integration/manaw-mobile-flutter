@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_detail_model.dart';
 
 class AddStockProductItem extends StatefulWidget {
@@ -33,7 +34,7 @@ class _ProductItemState extends State<AddStockProductItem> {
                 10,
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: Image.network(
+                  child: MyImage.network(
                     widget.product.images[0],
                     width: 40,
                     height: 40,

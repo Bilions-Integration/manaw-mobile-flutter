@@ -104,7 +104,7 @@ confirm({
         const Icon(Icons.info),
         mr(1),
         Text(
-          title ?? 'Info',
+          title ?? 'info'.tr,
           style: TextStyle(color: AppColors.black, fontSize: 17),
         )
       ]),
@@ -119,12 +119,12 @@ confirm({
           children: [
             InkWell(
               onTap: () => {onPressed(false), Navigator.pop(context)},
-              child: Text(cancelText ?? 'CANCEL',
+              child: Text(cancelText ?? 'cancel'.tr.toUpperCase(),
                   style: const TextStyle(fontSize: 13)),
             ),
             mr(3),
             PrimaryButton(
-              value: confirmText ?? 'CONFIRM',
+              value: confirmText ?? 'confirm'.tr.toUpperCase(),
               onPressed: () {
                 Navigator.pop(context);
                 onPressed(true);
@@ -204,9 +204,15 @@ loading({String? title}) async {
   );
 }
 
-logo(double? width) {
+logo(double? width, {String? type = 'color'}) {
+  if (type == 'color') {
+    return SvgPicture.asset(
+      AppAssets.appLogoSvg,
+      width: width ?? 60,
+    );
+  }
   return SvgPicture.asset(
-    AppAssets.appLogoSvg,
+    AppAssets.appLogoWhite,
     width: width ?? 60,
   );
 }

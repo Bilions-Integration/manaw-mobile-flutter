@@ -1,10 +1,14 @@
 import 'dart:io';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_app/data/assets.dart';
-import 'package:dio/dio.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 
 class ImageUploader extends StatefulWidget {
   final Map? params;
@@ -49,8 +53,8 @@ class _ImageUploaderState extends State<ImageUploader> {
   Future setImage(File fileToSave) async {
     currentlyPickedImage = fileToSave;
     String fileName = fileToSave.path.split('/').last;
-    MultipartFile image =
-        await MultipartFile.fromFile(fileToSave.path, filename: fileName);
+    dio.MultipartFile image =
+        await dio.MultipartFile.fromFile(fileToSave.path, filename: fileName);
     setState(() => widget.params?['image'] = image);
   }
 
@@ -65,7 +69,6 @@ class _ImageUploaderState extends State<ImageUploader> {
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.4,
-              height: MediaQuery.of(context).size.width * 0.4,
               decoration: BoxDecoration(
                 color: const Color(0xffE8E8E8),
                 borderRadius: BorderRadius.circular(20),
@@ -78,14 +81,14 @@ class _ImageUploaderState extends State<ImageUploader> {
                       child: currentlyPickedImage != null
                           ? Image.file(currentlyPickedImage!)
                           : widget.params?['old_image'] != null
-                              ? Image.network(widget.params?['old_image'])
+                              ? MyImage.network(widget.params?['old_image'])
                               : SvgPicture.asset(AppAssets.plus,
                                   width: 20, height: 20)),
                 ],
               ),
             )),
-        const SizedBox(height: 10),
-        const Text('add Category Image', style: TextStyle(fontSize: 15)),
+        mb(2),
+        Text('addCategoryImg'.tr, style: const TextStyle(fontSize: 15)),
       ],
     ));
   }

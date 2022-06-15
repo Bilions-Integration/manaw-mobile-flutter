@@ -67,8 +67,8 @@ class PricingDetail extends StatelessWidget {
                 ),
               ),
               mb(1.5),
-              const Text(
-                "Plan Details",
+              Text(
+                "planDetails".tr,
                 style: Styles.h3,
               ),
               mb(0.5),
@@ -86,7 +86,7 @@ class PricingDetail extends StatelessWidget {
               mb(0.3),
               Center(
                 child: Text(
-                  'Save for 2 months',
+                  'saveFor2months'.tr,
                   style: TextStyle(color: AppColors.purple),
                 ),
               ),
@@ -198,18 +198,3 @@ class DetailContainer extends StatelessWidget {
     );
   }
 }
-
-/*
-Payment methods
-{
-    "plan" : "gold",
-    "period" : "monthly",
-    "payment_channel": [
-        "CC"
-        "KBZQR"
-        "CBPQR"
-        "MPU"
-        "ALL"
-    ]
-}
- */

@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:my_app/controllers/auth_controller.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:upgrader/upgrader.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -19,28 +24,42 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final auth = Get.find<AuthController>();
+  AppUpdateInfo? _updateInfo;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            logo(100),
-            const Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                'Manaw Store',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+      backgroundColor: AppColors.primary,
+      body: UpgradeAlert(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(),
+              logo(100, type: 'white'),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'Manaw Store',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-            const Text(
-              'Powered by Bilions Co., Ltd',
-              style: TextStyle(fontSize: 14),
-            )
-          ],
+              const Spacer(),
+              const Text(
+                'Powered by Bilions Co., Ltd',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+              mb(4),
+            ],
+          ),
         ),
       ),
     );
@@ -51,7 +70,25 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(milliseconds: 1000), () {
       _checkToken();
     });
+    if (Platform.isAndroid) {
+      _checkForUpdate();
+    }
     super.initState();
+  }
+
+  Future<void> _checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+      setState(() {
+        _updateInfo = info;
+        if (_updateInfo?.updateAvailability ==
+            UpdateAvailability.updateAvailable) {
+          InAppUpdate.startFlexibleUpdate();
+          // InAppUpdate.performImmediateUpdate();
+        }
+      });
+    }).catchError((e) {
+      console.warn("Update check failed");
+    });
   }
 
   _checkToken() async {

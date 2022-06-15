@@ -48,7 +48,7 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
     return Scaffold(
         appBar: customAppBar2(
           context: context,
-          title: 'Coupon ${widget.id != null ? "Edit" : "Create"}',
+          title: widget.id != null ? "editCoupon".tr : "createCoupon".tr,
           showAction: false,
           centerTitle: true,
         ),
@@ -66,15 +66,15 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
     if (widget.id != null) {
       await CouponService.update(widget.id, params);
       snackBar(
-        'Success',
-        'Successfully Updated',
+        'success'.tr,
+        'successUpdate'.tr,
         icon: Icons.check_circle,
       );
     } else {
       await CouponService.create(params);
       snackBar(
-        'Success',
-        'Successfully Created',
+        'success'.tr,
+        'successCreate'.tr,
         icon: Icons.check_circle,
       );
     }

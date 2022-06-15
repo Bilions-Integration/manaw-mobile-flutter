@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
-import 'package:my_app/helpers/api.dart';
-import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/assets.dart';
-import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/register/company_headline.dart';
 import 'package:my_app/screens/register/register_controller.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -61,58 +61,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AppWidget.marginBottom(4),
-                      logo(60),
-                      AppWidget.marginBottom(2),
-                      const Text(
-                        'Manaw Store',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      AppWidget.marginBottom(1),
-                      Text(
-                        'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.lightDark,
-                        ),
-                      ),
+                      companyHeadline(),
                       AppWidget.marginBottom(3),
                       MyTextInput(
                         onChanged: _onValueChanged,
                         column: 'full_name',
-                        placeholder: 'Full Name',
+                        placeholder: 'fullName'.tr,
                         icon: Icons.person,
                       ),
                       MyTextInput(
                         onChanged: _onValueChanged,
                         column: 'company_name',
-                        placeholder: 'Store / Company Name',
+                        placeholder: 'companyName'.tr,
                         icon: Icons.business,
                       ),
                       MyTextInput(
                         onChanged: _onValueChanged,
                         column: 'email',
-                        placeholder: 'Email',
+                        placeholder: 'email'.tr,
                         icon: Icons.email,
                       ),
                       PasswordInput(
                         onChanged: _onValueChanged,
                         column: 'password',
-                        placeholder: 'Password',
+                        placeholder: 'password'.tr,
                         icon: Icons.lock,
                       ),
                       AppWidget.marginBottom(1),
                       PrimaryButton(
                         disabled: !_showRegister(),
-                        value: 'Register',
+                        value: 'register'.tr,
                         onPressed: _register,
                       ),
                       AppWidget.marginBottom(2),
                       InkWell(
-                        child: const Text('Already member? Login here'),
+                        child: Text('alreadyMember'.tr),
                         onTap: () {
                           ARouter.push(RouteName.login);
                         },
@@ -149,14 +132,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Get.to(() => RouteName.otp);
       } else {
         alert(
-          title: 'Error',
-          message: 'Email already registered!',
+          title: 'error'.tr,
+          message: 'emailRegistered'.tr,
         );
       }
     } catch (e) {
       alert(
-        title: 'Error',
-        message: 'Something went wrong. Please try again.',
+        title: 'error'.tr,
+        message: 'somethingWrong'.tr,
       );
     }
   }

@@ -4,6 +4,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/customer_model.dart';
 import 'package:my_app/services/customer_service.dart';
 
@@ -131,7 +132,7 @@ class _CustomerListViewState extends State<CustomerListView> {
                             children: [
                               borderRadiusCard(
                                 3,
-                                Image.network(
+                                MyImage.network(
                                   item.image ?? AppAssets.placeholder,
                                   width: 30,
                                   height: 30,

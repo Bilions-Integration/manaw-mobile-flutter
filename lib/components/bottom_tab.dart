@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
+import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/screens/language/locale_helper.dart';
 import 'package:my_app/screens/tabs/tabs_controller.dart';
 
 class BottomTab extends StatefulWidget {
@@ -17,9 +19,15 @@ class BottomTab extends StatefulWidget {
 class _BottomTabState extends State<BottomTab> {
   int index = 0;
 
-  List<String> titles = <String>['POS', 'Dashboard', 'Manage', 'Profile'];
+  List<NavItem> navItems = [
+    NavItem(title: 'pos', icon: AppAssets.pos),
+    NavItem(title: 'dashboard', icon: AppAssets.dashboard),
+    NavItem(title: 'manage', icon: AppAssets.manage),
+    NavItem(title: 'profile', icon: AppAssets.profile),
+  ];
 
   final bottomTabController = Get.find<BottomTabsController>();
+  final langController = Get.find<LanguageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +35,12 @@ class _BottomTabState extends State<BottomTab> {
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.pos,
-              width: 20, height: 20, color: _getColor(0)),
-          label: 'POS',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.dashboard,
-              width: 20, height: 20, color: _getColor(1)),
-          label: 'Dashboard',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.manage,
-              width: 20, height: 20, color: _getColor(2)),
-          label: 'Manage',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppAssets.profile,
-              width: 20, height: 20, color: _getColor(3)),
-          label: 'Profile',
+        ...navItems.mapIndexed(
+          (NavItem item, int idx) => BottomNavigationBarItem(
+            icon: SvgPicture.asset(item.icon,
+                width: 20, height: 20, color: _getColor(idx)),
+            label: item.title.tr,
+          ),
         ),
       ],
       selectedItemColor: AppColors.primary,
@@ -66,4 +61,11 @@ class _BottomTabState extends State<BottomTab> {
     });
     bottomTabController.index.value = i;
   }
+}
+
+class NavItem {
+  String title;
+  String icon;
+
+  NavItem({required this.title, required this.icon});
 }

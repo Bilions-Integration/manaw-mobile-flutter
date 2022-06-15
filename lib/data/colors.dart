@@ -23,7 +23,7 @@ class AppColors {
 
   static get primary {
     final authController = Get.find<AuthController>();
-    return HexColor(authController.user.value?.company.hexColor ?? '#1A1A1A');
+    return HexColor(authController.user.value?.company.hexColor ?? '#418A41');
   }
 
   static get purple => HexColor('#4C40F7');

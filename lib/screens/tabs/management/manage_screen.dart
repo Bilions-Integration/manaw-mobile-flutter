@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -11,42 +13,42 @@ import 'package:my_app/screens/tabs/management/components/link_item.dart';
 class ManageScreen extends StatelessWidget {
   static List<ManagePage> pageList = [
     ManagePage(
-      name: "Products",
+      name: "products",
       page: RouteName.product,
       icon: AppAssets.icmProduct,
     ),
     ManagePage(
-      name: "Categories",
+      name: "categories",
       page: RouteName.category,
       icon: AppAssets.icmCategory,
     ),
     ManagePage(
-      name: "Sale Invoice",
+      name: "saleInvoices",
       page: RouteName.saleInvoice,
       icon: AppAssets.icmSaleInvoice,
     ),
     ManagePage(
-      name: "Purchase Invoices",
+      name: "purchaseInvoices",
       page: RouteName.purchaseInvoice,
       icon: AppAssets.icmPurchaseInvoice,
     ),
     ManagePage(
-      name: "Inventory Reports",
+      name: "inventoryReports",
       page: RouteName.report,
       icon: AppAssets.icmReport,
     ),
     ManagePage(
-      name: "My Store",
+      name: "myStore",
       page: RouteName.myStore,
       icon: AppAssets.icmStore,
     ),
     ManagePage(
-      name: "Coupons",
+      name: "coupons",
       page: RouteName.coupon,
       icon: AppAssets.icCoupon,
     ),
     ManagePage(
-      name: "Accounts",
+      name: "accounts",
       page: RouteName.account,
       icon: AppAssets.icAccount,
     ),
@@ -65,11 +67,11 @@ class ManageScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: ListView(
                 children: <Widget>[
-                  mb(1),
-                  CurrentPlan(),
-                  mb(1),
-                  ...pageList.map(
-                    (e) {
+                  if (Platform.isAndroid) mb(1),
+                  if (Platform.isAndroid) CurrentPlan(),
+                  if (Platform.isAndroid) mb(1),
+                  ...pageList.mapIndexed(
+                    (e, i) {
                       return Stack(
                         children: <Widget>[
                           LinkItem(

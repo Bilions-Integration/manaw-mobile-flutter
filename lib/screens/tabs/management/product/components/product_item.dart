@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/api.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_detail_model.dart';
 import 'package:my_app/screens/tabs/management/product/add_stock_controller.dart';
 import 'package:my_app/screens/tabs/management/product/components/options_menu.dart';
@@ -56,7 +57,7 @@ class _ProductItemState extends State<ProductItem> {
                   10,
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: Image.network(
+                    child: MyImage.network(
                       widget.product.images[0],
                       width: 40,
                       height: 40,

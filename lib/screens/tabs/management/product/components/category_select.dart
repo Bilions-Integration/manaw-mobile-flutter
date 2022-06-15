@@ -45,7 +45,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    selectedList?.name ?? 'Select Category',
+                    selectedList?.name ?? 'selectCategory'.tr,
                     style: TextStyle(color: AppColors.white),
                   ),
                   Icon(

@@ -37,7 +37,7 @@ class PaymentStatus extends StatelessWidget {
               ),
               mb(2),
               Text(
-                isSuccess ? 'Payment Successful!' : 'Something went wrong!',
+                isSuccess ? 'paymentSuccess'.tr : 'paymentError'.tr,
                 style: TextStyle(
                   color: isSuccess ? AppColors.green : AppColors.red,
                   fontSize: 20,
@@ -48,9 +48,7 @@ class PaymentStatus extends StatelessWidget {
               SizedBox(
                 width: 240,
                 child: Text(
-                  isSuccess
-                      ? 'Your payment was successful! You can now continue using MaNaw Store.'
-                      : 'We aren’t able to process your payment. Please try again.',
+                  isSuccess ? 'paymentSuccessDesc'.tr : 'paymentFailDesc'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: Styles.t3.fontSize,
@@ -64,11 +62,11 @@ class PaymentStatus extends StatelessWidget {
                   alignment: WrapAlignment.center,
                   runSpacing: 5,
                   children: [
-                    const Text('INVOICE NUMBER'),
+                    Text('invoiceNumber'.tr),
                     InkWell(
                       onTap: () {
                         Clipboard.setData(ClipboardData(text: voucherNo!));
-                        snackBar("Copied", "Invoice number copied");
+                        snackBar("copied".tr, "invoiceNumberCopied".tr);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(10),
@@ -90,19 +88,19 @@ class PaymentStatus extends StatelessWidget {
             children: isSuccess
                 ? [
                     PrimaryButton(
-                        value: 'Done',
+                        value: 'done'.tr,
                         onPressed: () {
                           Get.back();
                         })
                   ]
                 : [
                     PrimaryButton(
-                        value: "Try Again",
+                        value: "tryAgain".tr,
                         onPressed: () {
                           setStatus('pending');
                         }),
                     SecondaryButton(
-                        value: 'Go Back',
+                        value: 'goBack'.tr,
                         onPressed: () {
                           Get.back();
                         })

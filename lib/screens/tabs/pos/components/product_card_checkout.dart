@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 
@@ -42,7 +43,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: Image.network(
+                child: MyImage.network(
                   widget.product.images[0],
                   width: 70,
                 ),
@@ -54,7 +55,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.product.name,
+                      '${widget.product.name} ${_getVariationName(widget.product)}',
                       maxLines: 2,
                     ),
                     Row(
@@ -120,8 +121,8 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
       if (newQuantity == 0) {
         confirm(
           onPressed: _confirmRemove,
-          title: 'Confirm',
-          message: 'Are you sure you want to remove ${widget.product.name}?',
+          title: 'confirm'.tr,
+          message: 'removeProduct'.trParams({'product': widget.product.name}),
         );
       } else {
         setState(() {
@@ -139,5 +140,12 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
       cartController.products.value[widget.product.index!].quantity = 0;
       widget.removed(widget.product.index!);
     }
+  }
+
+  _getVariationName(Product product) {
+    if (product.unit != null && product.unit?.id != null) {
+      return '(${product.unit?.name})';
+    }
+    return '';
   }
 }

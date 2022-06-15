@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/custom_item_list.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -42,14 +43,13 @@ class InvoiceList extends StatelessWidget {
       isLoading: isLoading,
       isLastPage: isLastPage,
       emptyWidget: Styles.emptyList(
-        label: 'No Invoice yet',
+        label: 'emptyInvoice'.tr,
         image: AppAssets.emptyInvoice,
-        buttonLabel: 'Create new Invoice',
+        buttonLabel: 'createInvoice'.tr,
         link: RouteName.product,
       ),
       itemBuilder: (context, index) => Column(
         children: [
-          // @todo NO idea what is going on
           InkWell(
             onTap: () => Styles.customBottomSheet(
               context,
@@ -91,9 +91,9 @@ class InvoiceList extends StatelessWidget {
           Text(invoice.createdAt),
         ]),
         mb(0.2),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [
-          Text('Customer', style: Styles.l5),
-          Text('Account', style: Styles.l5),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text('customer'.tr, style: Styles.l5),
+          Text('account'.tr, style: Styles.l5),
         ]),
         mb(0.5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -102,7 +102,7 @@ class InvoiceList extends StatelessWidget {
         ]),
         hr(height: 1, mt: 1.5, mb: 1.5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          const Text('TOTAL'),
+          Text('total'.tr),
           Text('${currency()} ${invoice.grandTotal}', style: Styles.h4),
         ]),
       ]),
