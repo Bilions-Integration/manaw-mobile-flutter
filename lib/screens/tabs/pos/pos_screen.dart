@@ -50,7 +50,7 @@ class _PosScreenState extends State<PosScreen> {
                     index: index,
                     spacing: spacing,
                     crossCount: crossCount,
-                    addCart: _checkVariations,
+                    addCart: _addToCartModal,
                   );
                 },
                 crossAxisSpacing: spacing,
@@ -77,7 +77,6 @@ class _PosScreenState extends State<PosScreen> {
 
   _addCart(Product product) {
     cartController.products.value = [...cartController.products.value, product];
-    console.log('caret : ', payload: product.note);
   }
 
   _categoryChanged(CategoryModel category) {
@@ -89,13 +88,8 @@ class _PosScreenState extends State<PosScreen> {
     }
   }
 
-  _checkVariations(Product product) {
-    // if (product.units.length > 1) {
+  _addToCartModal(Product product) {
     VariationSelect(product: product, addCartCallback: _addCart).open();
-    // } else {
-    //   final newProduct = Product.fromJson(product.toJson());
-    //   _addCart(newProduct);
-    // }
   }
 
   _loadMore() {
