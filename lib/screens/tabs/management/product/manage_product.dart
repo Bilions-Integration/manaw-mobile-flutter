@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
+import 'package:my_app/components/my_modal/clone_modal.dart';
+import 'package:my_app/components/show_my_modal.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
@@ -267,8 +269,17 @@ class _ManageProductState extends State<ManageProduct> {
     });
   }
 
-  cloneProduct(productId) async {
-    await ProductServices.clone(productId);
-     _reset();
+  cloneProduct(productId) {
+    showMyModal(
+      context: context,
+      builder: (BuildContext context) {
+        return CloneModal(
+          submit: (val) async {
+            await ProductServices.clone(productId, val);
+            _reset();
+          },
+        );
+      }
+    );
   }
 }
