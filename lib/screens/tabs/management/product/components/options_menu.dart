@@ -16,7 +16,7 @@ class OptionsMenu {
       icon: AppAssets.icEdit,
       action: "edit",
     ),
-    Options(name: "Clone", icon: AppAssets.icClone, action: "clone"),
+    Options(name: "clone".tr, icon: AppAssets.icClone, action: "clone"),
     Options(
         name: "addStock".tr, icon: AppAssets.icAddStock, action: "add_stock"),
     Options(

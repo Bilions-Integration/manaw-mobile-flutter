@@ -177,6 +177,7 @@ class AppLocales extends Translations {
           'varPlaceholder': 'Red color',
           'editVariation': 'Edit Variation',
           'createVariation': 'Create Variation',
+          'clone' : 'Clone',
 
           //Profile
           'email': 'Email',
@@ -501,6 +502,7 @@ class AppLocales extends Translations {
           'varPlaceholder': 'အနီရောင်',
           'editVariation': 'ပုံစံကွဲကိုပြင်ပါ',
           'createVariation': 'ပုံစံကွဲဖန်တီးပါ',
+          'clone' : 'Clone',
 
           //Profile
           'email': 'အီးမေးလ်',
