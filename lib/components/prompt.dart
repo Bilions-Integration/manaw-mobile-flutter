@@ -16,6 +16,7 @@ prompt({
   bool textarea = false,
   required Function(String?) onSubmit,
   IconData? icon,
+  Widget? iconWidget,
 }) {
   final context = currentContext();
   showDialog(
@@ -32,6 +33,7 @@ prompt({
       placeholder: placeholder,
       title: title,
       height: height,
+      iconWidget: iconWidget,
     ),
   );
 }
@@ -47,6 +49,7 @@ class PromptWidget extends StatefulWidget {
   final bool textarea;
   final IconData? icon;
   final double? height;
+  final Widget? iconWidget;
 
   const PromptWidget({
     Key? key,
@@ -60,6 +63,7 @@ class PromptWidget extends StatefulWidget {
     this.cancelText,
     this.numberOnly = false,
     required this.onSubmit,
+    this.iconWidget,
   }) : super(key: key);
 
   @override
@@ -89,6 +93,7 @@ class _PromptWidgetState extends State<PromptWidget> {
             mb(2),
             MyTextInput(
               icon: widget.icon,
+              iconWidget: widget.iconWidget,
               placeholder: widget.placeholder ?? '',
               onChanged: _inputChanged,
               value: widget.value,

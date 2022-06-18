@@ -314,6 +314,10 @@ class AppLocales extends Translations {
           'goBack': 'Go Back',
           'expiredIn': 'Expired in @date',
           'recharge': 'Recharge',
+          'deleteAccount': 'Delete Account',
+          'waringDeleteAccount':
+              "Enter 'Yes' To delete your account. This action will delete your account completely from our system. You will not be able to recover your account again.",
+          'enterYesToDelete': "Please enter 'Yes' to delete your account!"
         },
         'my_MM': {
           //Navigation
@@ -636,6 +640,10 @@ class AppLocales extends Translations {
           'goBack': 'နောက်သို့ပြန်သွားမည်',
           'expiredIn': '@date တွင်သက်တမ်းကုန်မည်',
           'recharge': 'သက်တမ်းတိုးမည်',
+          'deleteAccount': 'အကောင့်ဖျက်မည်။',
+          'enterYesToDelete': "သင့်အကောင့်ကိုဖျက်ရန် 'Yes' ဟုရိုက်ထည့်ပါ",
+          'waringDeleteAccount':
+              "သင့်အကောင့်ကိုဖျက်ရန် 'Yes' ဟုရိုက်ထည့်ပါ။ ဤလုပ်ဆောင်ချက်သည် ကျွန်ုပ်တို့၏စနစ်မှ သင့်အကောင့်ကို လုံးလုံးလျားလျား ဖျက်လိုက်ပါမည်။ သင့်အကောင့်ကို နောက်တစ်ကြိမ် ပြန်လည်ရယူနိုင်တော့မည်မဟုတ်ပါ။",
         }
       };
 }

@@ -25,6 +25,10 @@ class ProfileService {
     });
   }
 
+  static Future deactivate(password) async {
+    return await Api.delete('/auth/user', data: {"password": password});
+  }
+
   static Future requestChangeEmailOTP(String email) async {
     return await Api.post('/change/email', data: {"email": email});
   }

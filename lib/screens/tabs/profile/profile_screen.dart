@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/color_picker.dart';
 import 'package:my_app/components/prompt.dart';
@@ -116,7 +117,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     icon: AppAssets.icLogout,
                     title: 'logout'.tr,
                     onPressed: _logout,
-                  )
+                  ),
+                  ProfileMenu(
+                    icon: AppAssets.icDeactivate,
+                    title: 'deleteAccount'.tr,
+                    onPressed: _deactivate,
+                    iconColor: AppColors.red,
+                    textStyle: TextStyle(
+                        color: AppColors.red, fontWeight: FontWeight.bold),
+                  ),
                 ])
               ],
             ),
@@ -166,6 +175,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'changeName'.tr,
       placeholder: 'enterFullName'.tr,
       icon: Icons.person,
+    );
+  }
+
+  _deactivate() {
+    prompt(
+      onSubmit: (String? password) {
+        if (password != null && password.toLowerCase() == 'yes') {
+          loading();
+          tab.index.value = 0;
+          ProfileService.deactivate(password);
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            hideLoading();
+            Get.offAll(() => const LoginScreen());
+            auth.user.value = null;
+            AppWidget.storeToken('');
+          });
+        } else {
+          Get.snackbar(
+            'failed'.tr,
+            'enterYesToDelete'.tr,
+          );
+        }
+      },
+      confirmText: 'delete'.tr,
+      title: 'waringDeleteAccount'.tr,
+      placeholder: 'Yes',
+      iconWidget: Container(
+        padding: const EdgeInsets.all(13),
+        child: SvgPicture.asset(
+          AppAssets.icDeactivate,
+          color: AppColors.red,
+        ),
+      ),
     );
   }
 
