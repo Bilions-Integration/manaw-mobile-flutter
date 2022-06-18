@@ -15,6 +15,7 @@ class OptionsMenu {
       icon: AppAssets.icEdit,
       action: "edit",
     ),
+    Options(name: "Clone", icon: AppAssets.icClone, action: "clone"),
     Options(name: "Add Stock", icon: AppAssets.icAddStock, action: "add_stock"),
     Options(
         name: "Delete Product",
@@ -30,7 +31,7 @@ class OptionsMenu {
       shape: Styles.topOnlyBorderRadius(15),
       builder: (builder) {
         return SizedBox(
-          height: 250,
+          height: 300,
           child: Padding(
             padding: const EdgeInsets.only(
               bottom: 10,

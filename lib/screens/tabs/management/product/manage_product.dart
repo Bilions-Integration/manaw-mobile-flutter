@@ -14,6 +14,7 @@ import 'package:my_app/screens/tabs/management/product/components/product_item.d
 import 'package:my_app/screens/tabs/management/product/create_edit_product.dart';
 import 'package:my_app/screens/tabs/management/product/product_add_stock.dart';
 import 'package:my_app/screens/tabs/management/product/product_controller.dart';
+import 'package:my_app/services/product_services.dart';
 
 class ManageProduct extends StatefulWidget {
   const ManageProduct({
@@ -225,6 +226,8 @@ class _ManageProductState extends State<ManageProduct> {
         });
         _addStock();
         break;
+      case 'clone': 
+        cloneProduct(productId);
     }
   }
 
@@ -262,5 +265,10 @@ class _ManageProductState extends State<ManageProduct> {
         hasFinishedLoading = true;
       });
     });
+  }
+
+  cloneProduct(productId) async {
+    await ProductServices.clone(productId);
+     _reset();
   }
 }
