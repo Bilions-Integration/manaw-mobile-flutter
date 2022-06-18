@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -30,7 +31,7 @@ class _ProductPackagesState extends State<ProductPackages> {
         SizedBox(
           height: 24,
           child: Text(
-            'VARIATIONS',
+            'variations'.tr,
             textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 11,
@@ -67,7 +68,7 @@ class _ProductPackagesState extends State<ProductPackages> {
         mb(1),
         SecondaryButton(
           height: 40,
-          value: '+ Add new variation',
+          value: '+ ' + 'addVariation'.tr,
           onPressed: _showAddPackageModal,
         )
       ],
@@ -135,12 +136,12 @@ class PackageViewCard extends StatelessWidget {
                 SizedBox(
                   width: 150,
                   child: Text(
-                    'Sell Price',
+                    'salePrice',
                     style: TextStyle(color: AppColors.grey),
                   ),
                 ),
                 Text(
-                  'Buy Price',
+                  'purchasePrice',
                   style: TextStyle(color: AppColors.grey),
                 ),
               ],
@@ -160,15 +161,23 @@ class PackageViewCard extends StatelessWidget {
           ),
           mb(1),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 10, top: 5),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 150,
-                  child: Text('Coefficient : ${unit.coefficient}'),
-                ),
-                Text(unit.active ? 'Active' : 'Inactive'),
-              ],
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 10,
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1,
+                      color: unit.active ? AppColors.primary : AppColors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              child: Text(
+                unit.active ? 'active'.tr : 'inactive'.tr,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: unit.active ? AppColors.primary : AppColors.grey),
+              ),
             ),
           ),
           mb(1.5),

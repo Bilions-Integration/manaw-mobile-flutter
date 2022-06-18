@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/components/date_picker.dart';
 import 'package:my_app/data/colors.dart';
@@ -29,7 +30,7 @@ class _ManageReportState extends State<ManageReport> {
       backgroundColor: AppColors.bg,
       appBar: customAppBar2(
         context: context,
-        title: "Inventory Report",
+        title: "inventoryReports".tr,
         isSearch: isSearch,
         toggleSearch: _toggleSearch,
         search: _onSearch,

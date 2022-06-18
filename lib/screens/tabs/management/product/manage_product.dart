@@ -39,7 +39,7 @@ class _ManageProductState extends State<ManageProduct> {
     return Scaffold(
       appBar: customAppBar2(
           context: context,
-          title: 'Manage Products',
+          title: 'manageProducts'.tr,
           isSearch: isSearch,
           toggleSearch: () {
             setState(() {
@@ -69,7 +69,7 @@ class _ManageProductState extends State<ManageProduct> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Product Name',
+                  'productName'.tr,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.lightDark,
@@ -77,7 +77,7 @@ class _ManageProductState extends State<ManageProduct> {
                 ),
                 const Spacer(),
                 Text(
-                  "Stock",
+                  "stock".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.lightDark,
@@ -85,7 +85,7 @@ class _ManageProductState extends State<ManageProduct> {
                 ),
                 mr(2),
                 Text(
-                  "Sell",
+                  "sell".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.lightDark,
@@ -123,7 +123,7 @@ class _ManageProductState extends State<ManageProduct> {
                     padding: const EdgeInsets.all(15),
                     child: PrimaryButton(
                       onPressed: _addStock,
-                      value: 'Add Stock',
+                      value: 'addStock'.tr,
                     ),
                   )
                 : const SizedBox(
@@ -212,10 +212,10 @@ class _ManageProductState extends State<ManageProduct> {
       case 'delete':
         confirm(
           onPressed: (value) => value ? _deleteProduct(productId!) : null,
-          title: "Are you sure?",
-          message: "Are you sure to delete this product?",
-          cancelText: 'Cancel',
-          confirmText: 'Delete',
+          title: "areYouSure".tr,
+          message: 'deleteProductConfirm'.tr,
+          cancelText: 'cancel'.tr,
+          confirmText: 'delete'.tr,
         );
         break;
       case 'add_stock':

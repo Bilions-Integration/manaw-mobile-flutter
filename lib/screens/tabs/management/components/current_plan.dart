@@ -42,12 +42,14 @@ class CurrentPlan extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              Text(
-                'Expired in ' + (auth.user.value?.expiredDate ?? ''),
-                style: const TextStyle(
-                  color: Colors.black45,
-                ),
-              )
+              if (![null, ''].contains(auth.user.value?.expiredDate))
+                Text(
+                  'expiredIn'
+                      .trParams({'date': auth.user.value?.expiredDate ?? ''}),
+                  style: const TextStyle(
+                    color: Colors.black45,
+                  ),
+                )
             ],
           ),
         ),
@@ -63,9 +65,9 @@ class CurrentPlan extends StatelessWidget {
               width: 15,
             ),
             mr(0.4),
-            const Text(
-              'Recharge',
-              style: TextStyle(
+            Text(
+              'recharge'.tr,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 13,
               ),

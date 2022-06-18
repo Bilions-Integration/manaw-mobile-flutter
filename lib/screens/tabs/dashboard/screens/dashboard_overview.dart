@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -36,7 +37,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
             child: Row(
               children: [
                 Text(
-                  'Gross Profit',
+                  'grossProfit'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     color: AppColors.grey,
@@ -58,7 +59,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
           hr(),
           mb(1.5),
           Text(
-            'Sale Overview',
+            'saleOverview'.tr,
             style: TextStyle(
               fontSize: 14,
               color: AppColors.grey,

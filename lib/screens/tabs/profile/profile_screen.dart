@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/color_picker.dart';
 import 'package:my_app/components/prompt.dart';
@@ -12,6 +13,7 @@ import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/language/language_screen.dart';
 import 'package:my_app/screens/login/login_screen.dart';
 import 'package:my_app/screens/otp/otp_screen.dart';
 import 'package:my_app/screens/tabs/profile/components/change_password_modal.dart';
@@ -56,61 +58,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: ListView(
               children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  _label('Profile'),
+                  _label('profile'.tr),
                   ProfileMenu(
                     icon: AppAssets.icUser,
-                    title: 'Name',
+                    title: 'name'.tr,
                     value: user?.name ?? '',
                     onPressed: _changeName,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icEmail,
-                    title: 'Email',
+                    title: 'email'.tr,
                     value: user?.email ?? '',
                     onPressed: _changeEmail,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icKey,
-                    title: 'Password',
+                    title: 'password'.tr,
                     onPressed: _showChangePasswordModal,
                   ),
                   mb(1),
-                  _label('Preference'),
+                  _label('preference'.tr),
                   ProfileMenu(
                     icon: AppAssets.icTheme,
-                    title: 'Appearance',
+                    title: 'appearance'.tr,
                     onPressed: _showColorPicker,
+                  ),
+                  ProfileMenu(
+                    icon: AppAssets.icHelp,
+                    title: 'language'.tr,
+                    onPressed: () => Get.to(() => const LanguageScreen()),
                   ),
                   if (Platform.isAndroid)
                     ProfileMenu(
                       icon: AppAssets.icPrinter,
-                      title: 'Printer Setting',
+                      title: 'printerSetting'.tr,
                       onPressed: () {
                         Get.to(RouteName.printerSettingScreen);
                       },
                     ),
                   mb(1),
-                  _label('Others'),
+                  _label('others'.tr),
                   ProfileMenu(
                     icon: AppAssets.icHelp,
-                    title: 'Help',
+                    title: 'help'.tr,
                     onPressed: () => Get.to(() => const HelpWebViewScreen()),
                   ),
                   ProfileMenu(
                     icon: AppAssets.icInfo,
-                    title: 'Report a problem',
+                    title: 'reportProblem'.tr,
                     onPressed: _reportProblem,
                   ),
                   ProfileMenu(
                     icon: AppAssets.bilions,
-                    title: 'About us',
+                    title: 'aboutUs'.tr,
                     onPressed: _showAbout,
                   ),
                   ProfileMenu(
                     icon: AppAssets.icLogout,
-                    title: 'Logout',
+                    title: 'logout'.tr,
                     onPressed: _logout,
-                  )
+                  ),
+                  ProfileMenu(
+                    icon: AppAssets.icDeactivate,
+                    title: 'deleteAccount'.tr,
+                    onPressed: _deactivate,
+                    iconColor: AppColors.red,
+                    textStyle: TextStyle(
+                        color: AppColors.red, fontWeight: FontWeight.bold),
+                  ),
                 ])
               ],
             ),
@@ -136,9 +151,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Get.to(() => OTPScreen(type: 'change_email', email: email));
         }
       },
-      confirmText: 'Request OTP',
-      title: 'Change Email',
-      placeholder: 'Enter new email address',
+      confirmText: 'requestOtp'.tr,
+      title: 'changeEmail'.tr,
+      placeholder: 'enterEmailAddress'.tr,
       icon: Icons.email,
     );
   }
@@ -156,10 +171,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ProfileService.setName(name);
         }
       },
-      confirmText: 'Change',
-      title: 'Change Name',
-      placeholder: 'Enter your Full name',
+      confirmText: 'change'.tr,
+      title: 'changeName'.tr,
+      placeholder: 'enterFullName'.tr,
       icon: Icons.person,
+    );
+  }
+
+  _deactivate() {
+    prompt(
+      onSubmit: (String? password) {
+        if (password != null && password.toLowerCase() == 'yes') {
+          loading();
+          tab.index.value = 0;
+          ProfileService.deactivate(password);
+          Future.delayed(const Duration(milliseconds: 1000), () {
+            hideLoading();
+            Get.offAll(() => const LoginScreen());
+            auth.user.value = null;
+            AppWidget.storeToken('');
+          });
+        } else {
+          Get.snackbar(
+            'failed'.tr,
+            'enterYesToDelete'.tr,
+          );
+        }
+      },
+      confirmText: 'delete'.tr,
+      title: 'waringDeleteAccount'.tr,
+      placeholder: 'Yes',
+      iconWidget: Container(
+        padding: const EdgeInsets.all(13),
+        child: SvgPicture.asset(
+          AppAssets.icDeactivate,
+          color: AppColors.red,
+        ),
+      ),
     );
   }
 
@@ -184,8 +232,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _logout() {
     confirm(
-      title: 'Logout',
-      message: 'Are you sure to logout?',
+      title: 'logout'.tr,
+      message: 'logoutConfirm'.tr,
       onPressed: (confirm) {
         if (confirm) {
           loading();
@@ -193,6 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Future.delayed(const Duration(milliseconds: 1000), () {
             hideLoading();
             Get.offAll(() => const LoginScreen());
+            auth.user.value = null;
             AppWidget.storeToken('');
           });
         }
@@ -203,22 +252,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _reportProblem() {
     prompt(
       onSubmit: _submitProblem,
-      confirmText: 'Submit',
-      title: 'Report',
-      placeholder: 'Write a message',
+      confirmText: 'submit'.tr,
+      title: 'reportProblem'.tr,
+      placeholder: 'helpPlaceholder'.tr,
       textarea: true,
       height: 310,
     );
-  }
-
-  _submitProblem(String? message) async {
-    var res = await Api.post('/reports', data: {'description': message ?? ''});
-    if (res['success']) {
-      snackBar("Success", "Success", icon: Icons.check_circle);
-    } else {
-      snackBar("Failed", "Please try again",
-          icon: Icons.error_outline_rounded, color: Colors.red);
-    }
   }
 
   _showAbout() {
@@ -226,8 +265,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: currentContext(),
       applicationName: 'Manaw Store',
       applicationVersion: "1.0.0",
-      applicationLegalese:
-          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
+      applicationLegalese: 'appDescription'.tr,
     );
   }
 
@@ -244,5 +282,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       tab.index.value = 3;
       CompanyService.setColor(color);
     });
+  }
+
+  _submitProblem(String? message) async {
+    var res = await Api.post('/reports', data: {'description': message ?? ''});
+    if (res['success']) {
+      snackBar("successTitle".tr, "successDesc".tr,
+          icon: Icons.check_circle_outline_rounded);
+    } else {
+      snackBar("failTitle".tr, "failDesc".tr,
+          icon: Icons.error_outline_rounded, color: Colors.red);
+    }
   }
 }

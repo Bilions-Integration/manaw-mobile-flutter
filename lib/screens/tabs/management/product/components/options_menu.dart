@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -11,14 +12,15 @@ class OptionsMenu {
   final Function({required String action, int? productId}) handler;
   final List<Options> options = [
     Options(
-      name: "Edit",
+      name: "edit".tr,
       icon: AppAssets.icEdit,
       action: "edit",
     ),
     Options(name: "Clone", icon: AppAssets.icClone, action: "clone"),
-    Options(name: "Add Stock", icon: AppAssets.icAddStock, action: "add_stock"),
     Options(
-        name: "Delete Product",
+        name: "addStock".tr, icon: AppAssets.icAddStock, action: "add_stock"),
+    Options(
+        name: "deleteProduct".tr,
         icon: AppAssets.icDelete,
         action: "delete",
         type: "danger"),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/top_customers_model.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -25,7 +27,7 @@ class CustomerCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: Image.network(
+                child: MyImage.network(
                   customer.image,
                   width: 40,
                   height: 40,
@@ -83,7 +85,7 @@ class _DashboardTopCustomersState extends State<DashboardTopCustomers> {
               children: widget.topCustomers.isEmpty
                   ? [
                       Text(
-                        'Top Customers',
+                        'topCustomers'.tr,
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,
@@ -97,9 +99,9 @@ class _DashboardTopCustomersState extends State<DashboardTopCustomers> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children: [
                           Text(
-                            'No customer yet',
+                            'noCustomerYet'.tr,
                           )
                         ],
                       ),
@@ -107,7 +109,7 @@ class _DashboardTopCustomersState extends State<DashboardTopCustomers> {
                     ]
                   : [
                       Text(
-                        'Top Customers',
+                        'topCustomers'.tr,
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.bold,

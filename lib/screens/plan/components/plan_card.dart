@@ -69,7 +69,7 @@ class PlanCard extends StatelessWidget {
                 onTap: () {
                   PricingDetails(plan: plan).open();
                 },
-                child: const Text('Plan Details'),
+                child: Text('planDetails'.tr),
               ),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,7 +85,7 @@ class PlanCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 3, top: 3),
         child: Text(
-          'Popular',
+          'popular'.tr,
           style: Styles.t6Light,
         ),
         decoration: BoxDecoration(

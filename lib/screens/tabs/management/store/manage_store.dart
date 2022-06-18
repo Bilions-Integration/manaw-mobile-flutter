@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
@@ -26,7 +27,7 @@ class _ManageStoreState extends State<ManageStore> {
       backgroundColor: AppColors.white,
       appBar: customAppBar2(
         context: context,
-        title: 'My Store',
+        title: 'myStore'.tr,
         showAction: false,
         centerTitle: true,
       ),
@@ -65,8 +66,8 @@ class _ManageStoreState extends State<ManageStore> {
   Future submit() async {
     await CompanyService.update(params);
     snackBar(
-      'Success',
-      'Successfully Updated',
+      'success'.tr,
+      'successUpdate'.tr,
       icon: Icons.check_circle,
     );
   }

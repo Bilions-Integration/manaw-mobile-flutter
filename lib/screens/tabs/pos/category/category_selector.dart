@@ -56,7 +56,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                     child: Row(
                       children: [
                         Text(
-                          selectedList?.name ?? 'Select Category',
+                          selectedList?.name ?? 'selectCategory'.tr,
                           style: TextStyle(color: AppColors.white),
                         ),
                         Icon(
@@ -119,7 +119,7 @@ class _CategorySelectorState extends State<CategorySelector> {
   _afterMutation(ProductMutationResult? result) {
     if (result != null) {
       widget.callback(CategoryModel(
-        name: 'All',
+        name: 'all'.tr,
         id: null,
         image: [],
       ));

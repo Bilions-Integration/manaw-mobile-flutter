@@ -10,6 +10,8 @@ class ProfileMenu extends StatelessWidget {
   final String? value;
   final Widget? screen;
   final Function()? onPressed;
+  final TextStyle? textStyle;
+  final Color? iconColor;
 
   const ProfileMenu({
     Key? key,
@@ -18,6 +20,8 @@ class ProfileMenu extends StatelessWidget {
     this.value,
     this.screen,
     this.onPressed,
+    this.textStyle,
+    this.iconColor,
   }) : super(key: key);
 
   @override
@@ -41,13 +45,16 @@ class ProfileMenu extends StatelessWidget {
                     SvgPicture.asset(
                       icon,
                       width: 18,
-                      color: AppColors.black,
+                      color: iconColor ?? AppColors.black,
                     ),
                     padding: 7,
                     color: AppColors.lightGrey,
                   ),
                   mr(1),
-                  Text(title),
+                  Text(
+                    title,
+                    style: textStyle,
+                  ),
                 ],
               ),
               Expanded(
@@ -64,7 +71,8 @@ class ProfileMenu extends StatelessWidget {
                       ),
                     ),
                     mr(2),
-                    SvgPicture.asset(AppAssets.icArrowRight),
+                    SvgPicture.asset(AppAssets.icArrowRight,
+                        color: iconColor ?? AppColors.black),
                   ],
                 ),
               ),

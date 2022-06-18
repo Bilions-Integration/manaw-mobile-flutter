@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -10,11 +11,14 @@ class ProductCard extends StatelessWidget {
 
   final int crossCount;
 
+  final double spacing;
+
   final Function(Product) addCart;
 
   const ProductCard({
     Key? key,
     required this.product,
+    this.spacing = 10,
     required this.crossCount,
     required this.index,
     required this.addCart,
@@ -24,8 +28,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: (index < crossCount) ? 15.0 : 0,
-        bottom: 15,
+        top: (index < crossCount) ? spacing : 0,
+        bottom: 5,
       ),
       child: borderRadiusCard(
         10,
@@ -41,7 +45,7 @@ class ProductCard extends StatelessWidget {
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
-                  child: Image.network(
+                  child: MyImage.network(
                     product.images[0],
                   ),
                 )),

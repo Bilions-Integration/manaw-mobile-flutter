@@ -30,7 +30,7 @@ class _AccountListState extends State<AccountList> {
       backgroundColor: AppColors.bg,
       appBar: customAppBar2(
         context: context,
-        title: 'Accounts',
+        title: 'accounts'.tr,
         isSearch: isSearch,
         toggleSearch: () {
           setState(() {
@@ -53,15 +53,15 @@ class _AccountListState extends State<AccountList> {
             accounts.removeWhere((category) => category.id == id);
           });
           snackBar(
-            'Success',
-            'Successfully Deleted',
+            'success'.tr,
+            'successDelete'.tr,
             icon: Icons.check_circle,
           );
         }
       },
-      title: 'Delete',
-      message: "Are you sure, you want to delete?",
-      confirmText: 'Yes',
+      title: 'delete'.tr,
+      message: "confirmDelete".tr,
+      confirmText: 'yes'.tr,
     );
   }
 
@@ -93,9 +93,9 @@ class _AccountListState extends State<AccountList> {
         isLoading: isLoading,
         isLastPage: isLastPage,
         emptyWidget: Styles.emptyList(
-            label: 'No Account yet',
+            label: 'emptyAccount'.tr,
             image: AppAssets.emptyCategory,
-            buttonLabel: 'Create new Account',
+            buttonLabel: 'createAccount'.tr,
             link: const AccountCreateAndEdit()),
         itemBuilder: (context, index) => Column(
               children: [

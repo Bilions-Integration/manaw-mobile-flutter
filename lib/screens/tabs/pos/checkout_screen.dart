@@ -60,7 +60,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     children: carItems.mapIndexed((Product product, index) {
                       product.index = index;
                       return Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        padding: const EdgeInsets.only(left: 8, right: 8),
                         child: ProductCardCheckout(
                             product: product, removed: _removed),
                       );
@@ -84,7 +84,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   cartController.customer.value!.id != null
                               ? Row(
                                   children: [
-                                    const Text('Customer'),
+                                    Text('customer'.tr),
                                     const Spacer(),
                                     Text(cartController.customer.value!.name)
                                   ],
@@ -93,7 +93,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ),
                         Row(
                           children: [
-                            const Text('Sub Total'),
+                            Text('subTotal'.tr),
                             const Spacer(),
                             Text(cartController.subTotalPrice().toString())
                           ],
@@ -101,7 +101,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         mb(1),
                         Row(
                           children: [
-                            Text('Tax (${auth.user.value?.company.tax}%)'),
+                            Text(
+                              'taxPercent'.trParams({
+                                'percent':
+                                    auth.user.value?.company.tax.toString() ??
+                                        ''
+                              }),
+                            ),
                             const Spacer(),
                             Text(cartController.tax().toString())
                           ],
@@ -109,7 +115,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         mb(1),
                         Row(
                           children: [
-                            const Text('Discount'),
+                            Text('discount'.tr),
                             const Spacer(),
                             Text(cartController.discount.value.toString())
                           ],
@@ -131,7 +137,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 width: 250,
                                 value: '',
                                 child: Text(
-                                  'CHECKOUT',
+                                  'checkout'.tr,
                                   style: TextStyle(color: AppColors.white),
                                 ),
                                 onPressed: _checkout,
@@ -152,7 +158,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 children: [
                   SvgPicture.asset(AppAssets.noItems),
                   mb(1),
-                  const Text('No items in the cart'),
+                  Text('emptyCart'.tr),
                   mb(6),
                 ],
               ),
@@ -169,16 +175,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   printConfirm(id) {
-    String text = Platform.isAndroid
-        ? 'Continue to print receipt?'
-        : 'Save receipt to gallery';
+    String text = Platform.isAndroid ? 'continuePrint'.tr : 'saveReceipt'.tr;
     confirmPrintDialog(
       onPressed: (confirm) {
         _confirmedPrint(confirm, id);
       },
-      title: 'Print Receipt',
+      title: 'printReceipt'.tr,
       message: text,
-      confirmText: 'PRINT',
+      confirmText: 'print'.tr,
       onDownload: () async {
         PosService service = PosService();
         await service.downloadReceipt(id);
@@ -189,9 +193,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   _checkout() {
     confirm(
       onPressed: _confirmed,
-      title: 'Checkout',
-      message: "Are you sure to continue checkout?",
-      confirmText: 'Yes',
+      title: 'checkout'.tr,
+      message: "confirmCheckout".tr,
+      confirmText: 'checkout'.tr,
     );
   }
 

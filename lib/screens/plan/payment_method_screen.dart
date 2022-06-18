@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/payment_method_model.dart';
 import 'package:my_app/screens/plan/payment_controller.dart';
@@ -31,7 +32,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Choose Payment Method'),
+        title: Text('chooseMethod'.tr),
         backgroundColor: AppColors.primary,
       ),
       body: paymentMethods.isEmpty
@@ -41,8 +42,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Payment Methods",
+                  Text(
+                    "paymentMethods".tr,
                     style: Styles.l5,
                   ),
                   mb(1),
@@ -86,7 +87,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Image.network(
+                    child: MyImage.network(
                       e,
                     ),
                   ),
@@ -110,7 +111,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.network(
+            child: MyImage.network(
               method.images.first,
               fit: BoxFit.cover,
             )),

@@ -13,6 +13,7 @@ import 'package:my_app/helpers/firebase.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/user_model.dart';
 import 'package:my_app/routes.dart';
+import 'package:my_app/screens/register/company_headline.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -31,6 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool useMobile = shortestSide < 600;
+
     return SafeArea(
       top: false,
       bottom: false,
@@ -42,116 +47,139 @@ class _LoginScreenState extends State<LoginScreen> {
           value: SystemUiOverlayStyle.dark,
           child: Scaffold(
             backgroundColor: AppColors.white,
-            body: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 430),
-                padding: const EdgeInsets.all(20.0),
-                child: ListView(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AppWidget.marginBottom(7),
-                        logo(80),
-                        AppWidget.marginBottom(2),
-                        Text(
-                          'Manaw Store',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: AppColors.darkBlue,
-                          ),
-                        ),
-                        AppWidget.marginBottom(1),
-                        Text(
-                          'All in one POS, Accounting, Invoices, Inventory software. Save your time & money.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: AppColors.lightDark,
-                          ),
-                        ),
-                        mb(3),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.darkBlue,
-                            ),
-                          ),
-                        ),
-                        mb(0.5),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Enter your email to log in.',
-                            style: TextStyle(
-                              color: AppColors.lightDark,
-                            ),
-                          ),
-                        ),
-                        mb(1),
-                        MyTextInput(
-                          onChanged: _onValueChanged,
-                          column: 'email',
-                          placeholder: 'Email',
-                          icon: Icons.email,
-                        ),
-                        PasswordInput(
-                          onChanged: _onValueChanged,
-                          column: 'password',
-                          placeholder: 'Password',
-                          icon: Icons.lock,
-                        ),
-                        AppWidget.marginBottom(1),
-                        PrimaryButton(
-                          value: 'Login',
-                          disabled: !_showLogin(),
-                          onPressed: () {
-                            if (_showLogin()) {
-                              _login();
-                            } else {
-                              Get.snackbar('New Message',
-                                  'Required password and email.');
-                            }
-                          },
-                        ),
-                        AppWidget.marginBottom(2),
-                        mb(2),
-                        InkWell(
-                          child: Text(
-                            'Not a member yet? Register here',
-                            style: TextStyle(
-                              color: AppColors.darkBlue,
-                            ),
-                          ),
-                          onTap: () {
-                            Get.to(() => RouteName.register);
-                          },
-                        ),
-                        AppWidget.marginBottom(2),
-                        InkWell(
-                          child: Text(
-                            'Forget password?',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: AppColors.darkBlue,
-                            ),
-                          ),
-                          onTap: () {
-                            Get.to(() => RouteName.forgetPassword);
-                          },
-                        ),
-                        AppWidget.marginBottom(7),
-                        SvgPicture.asset(AppAssets.icPoweredBy),
-                      ],
-                    )
-                  ],
+            body: Stack(
+              children: [
+                Positioned(
+                  bottom: 0 - MediaQuery.of(context).viewInsets.bottom,
+                  left: 0,
+                  right: 0,
+                  child: Column(children: [
+                    SvgPicture.asset(
+                      useMobile
+                          ? AppAssets.loginBelowMobile
+                          : AppAssets.loginBelow,
+                      color: HexColor('#519D51'),
+                      width: width,
+                    ),
+                    if (useMobile)
+                      Container(
+                        height: 100,
+                        width: double.infinity,
+                        color: HexColor('#519D51'),
+                      )
+                  ]),
                 ),
-              ),
+                Positioned(
+                  bottom: 50 - MediaQuery.of(context).viewInsets.bottom,
+                  right: 0,
+                  left: 0,
+                  child: SvgPicture.asset(
+                    AppAssets.icPoweredBy,
+                    color: AppColors.white,
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 430),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: ListView(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AppWidget.marginBottom(2),
+                            companyHeadline(),
+                            mb(4),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "login".tr,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary),
+                              ),
+                            ),
+                            mb(0.5),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'loginLabel'.tr,
+                                style: TextStyle(
+                                  color: AppColors.lightDark,
+                                ),
+                              ),
+                            ),
+                            mb(1),
+                            MyTextInput(
+                              onChanged: _onValueChanged,
+                              column: 'email',
+                              placeholder: 'email'.tr,
+                              iconWidget: Container(
+                                padding: const EdgeInsets.all(13),
+                                child: SvgPicture.asset(
+                                  AppAssets.icEmail,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
+                            PasswordInput(
+                              onChanged: _onValueChanged,
+                              column: 'password',
+                              placeholder: 'password'.tr,
+                              iconWidget: Container(
+                                padding: const EdgeInsets.all(13),
+                                child: SvgPicture.asset(
+                                  AppAssets.icLock,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
+                            AppWidget.marginBottom(1),
+                            PrimaryButton(
+                              value: 'doLogin'.tr,
+                              disabled: false,
+                              onPressed: () {
+                                if (_showLogin()) {
+                                  _login();
+                                }
+                              },
+                            ),
+                            AppWidget.marginBottom(2),
+                            mb(2),
+                            InkWell(
+                              child: Text(
+                                'notAMember'.tr,
+                                style: TextStyle(
+                                  color: AppColors.darkBlue,
+                                ),
+                              ),
+                              onTap: () {
+                                Get.to(() => RouteName.register);
+                              },
+                            ),
+                            AppWidget.marginBottom(2),
+                            InkWell(
+                              child: Text(
+                                'forgetPassword'.tr,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: AppColors.darkBlue,
+                                ),
+                              ),
+                              onTap: () {
+                                Get.to(() => RouteName.forgetPassword);
+                              },
+                            ),
+                            AppWidget.marginBottom(7),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -184,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _showError() {
-    snackBar('Error', 'Invalid email or password!',
+    snackBar('error'.tr, 'invalidCreds'.tr,
         icon: Icons.info, color: Colors.red);
   }
 

@@ -1,6 +1,7 @@
 class AppAssets {
   static const placeholder = 'https://api.manawstore.com/placeholder.png';
   static const appLogo = "assets/images/logo.png";
+  static const appLogoWhite = "assets/images/logo-white.svg";
   static const appLogoSvg = "assets/images/logo.svg";
   static const dashboard = 'assets/images/dashboard.svg';
   static const pos = 'assets/images/pos.svg';
@@ -25,6 +26,7 @@ class AppAssets {
   static const noCustomers = 'assets/images/no-customers.svg';
   static const icAddStock = 'assets/images/add.svg';
   static const icClone= 'assets/images/clone-icon.svg';
+  static const icDeactivate = 'assets/images/deactivate.svg';
 
   static const icCoupon = 'assets/images/coupon.svg';
   static const icPerson = 'assets/images/person.svg';
@@ -33,6 +35,7 @@ class AppAssets {
   static const icArrowRight = 'assets/images/arrow-right.svg';
   static const bilions = 'assets/images/bilions.svg';
   static const icEmail = 'assets/images/email.svg';
+  static const icLock = 'assets/images/lock.svg';
   static const icPhone = 'assets/images/phone.svg';
   static const icHelp = 'assets/images/help.svg';
   static const icInfo = 'assets/images/info.svg';
@@ -78,6 +81,8 @@ class AppAssets {
   static const icmReport = 'assets/images/manage/icm-report.svg';
   static const icmStore = 'assets/images/manage/icm-store.svg';
   static const icmRecharge = 'assets/images/manage/icm-recharge.svg';
+  static const loginBelow = 'assets/images/login-below.svg';
+  static const loginBelowMobile = 'assets/images/login-below-mobile.svg';
 
   // lottie
   static const lottiePrinting = 'assets/images/printing.json';

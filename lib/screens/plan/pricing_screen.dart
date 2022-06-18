@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
@@ -32,16 +33,17 @@ class PricingScreen extends StatelessWidget {
             right: 0,
             child: Column(
               children: [
-                const Text(
-                  "Best plans for your business",
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                Text(
+                  "planHeadline".tr,
+                  style: const TextStyle(
+                      fontSize: 23, fontWeight: FontWeight.bold),
                 ),
                 mb(0.5),
-                const SizedBox(
+                SizedBox(
                   width: 250,
                   child: Text(
-                    'Upgrade your account and get full access for your business',
-                    style: TextStyle(
+                    'planDesc'.tr,
+                    style: const TextStyle(
                       fontSize: 17,
                       color: Colors.grey,
                       height: 1.4,

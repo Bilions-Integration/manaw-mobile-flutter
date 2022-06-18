@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/components/image_preview.dart';
 import 'package:my_app/data/colors.dart';
@@ -7,7 +8,7 @@ import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/common_model.dart';
 
 class ProductImagePicker extends StatefulWidget {
-  final Function(List<MultipartFile>) onChanged;
+  final Function(List<dio.MultipartFile>) onChanged;
   final List oldImages;
   const ProductImagePicker(
       {Key? key, required this.onChanged, required this.oldImages})
@@ -19,7 +20,7 @@ class ProductImagePicker extends StatefulWidget {
 
 class _ProductImagePickerState extends State<ProductImagePicker> {
   List<MyFile> pickedImages = [];
-  List<MultipartFile> pickedBlobs = [];
+  List<dio.MultipartFile> pickedBlobs = [];
   bool isImageUpdated = false;
 
   @override
@@ -45,7 +46,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
               ),
               mb(1),
               Text(
-                'Add Product Image',
+                'addProductImage'.tr,
                 style: TextStyle(color: AppColors.grey),
               )
             ],
@@ -106,7 +107,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
               ),
               mb(1),
               Text(
-                'Add Product Image',
+                'addProductImage'.tr,
                 style: TextStyle(color: AppColors.grey),
               ),
             ],
@@ -116,7 +117,7 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
   _imageRemoved(index) {
     List<MyFile> files = pickedImages;
     files.removeAt(index);
-    List<MultipartFile> blobs = pickedBlobs;
+    List<dio.MultipartFile> blobs = pickedBlobs;
     blobs.removeAt(index);
 
     setState(() {
@@ -149,11 +150,11 @@ class _ProductImagePickerState extends State<ProductImagePicker> {
       return null;
     }
     List<MyFile> files = [...pickedImages];
-    List<MultipartFile> blobs = [...pickedBlobs];
+    List<dio.MultipartFile> blobs = [...pickedBlobs];
 
     for (var image in images) {
       final blob =
-          await MultipartFile.fromFile(image.path, filename: image.name);
+          await dio.MultipartFile.fromFile(image.path, filename: image.name);
       files = [
         MyFile(blob: blob, path: image.path, name: image.name),
         ...files

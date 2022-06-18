@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_app/components/button.dart';
+import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
@@ -14,11 +17,12 @@ class VariationSelect {
     BuildContext context = currentContext();
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         shape: Styles.topOnlyBorderRadius(15),
         builder: (builder) {
           return Container(
             padding: const EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.8,
             child:
                 VariationSelector(product: product, callBack: addCartCallback),
           );
@@ -26,7 +30,7 @@ class VariationSelect {
   }
 }
 
-class VariationSelector extends StatelessWidget {
+class VariationSelector extends StatefulWidget {
   final Product product;
   final Function callBack;
   const VariationSelector(
@@ -34,23 +38,33 @@ class VariationSelector extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<VariationSelector> createState() => _VariationSelectorState();
+}
+
+class _VariationSelectorState extends State<VariationSelector> {
+  Unit? selectedUnit;
+  String note = '';
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Choose Variation (${currency()} ${cast(product.price)})",
+          "addToCart".tr,
           style: Styles.h2,
         ),
         mb(0.2),
         Text(
-          product.name,
+          widget.product.name,
           style: Styles.l3,
         ),
         Expanded(
           child: ListView(
             children: [
-              ...product.units.map(
+              mb(1),
+              if (widget.product.units.isNotEmpty) Text('productVariation'.tr),
+              ...widget.product.units.map(
                 (Unit e) => Column(
                   children: [
                     mb(1),
@@ -59,13 +73,15 @@ class VariationSelector extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
                         _select(e);
-                        Navigator.pop(context);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           border: Border.all(
-                              width: 1, color: AppColors.borderColor),
+                              width: 1,
+                              color: e == selectedUnit
+                                  ? AppColors.primary
+                                  : AppColors.borderColor),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -86,22 +102,59 @@ class VariationSelector extends StatelessWidget {
                   ],
                 ),
               ),
+              mb(2),
+              Text('cartNote'.tr),
+              mb(1),
+              MyTextInput(
+                  placeholder: 'noteToCart'.tr,
+                  textarea: true,
+                  onChanged: (String s, String? col) {
+                    setState(() {
+                      note = s;
+                    });
+                  }),
+              mb(2),
             ],
           ),
         ),
+        PrimaryButton(
+          value: "addToCart".tr,
+          onPressed: _addToCart,
+          disabled: !_isButtonActive(),
+        )
       ],
     );
   }
 
   _select(Unit unit) {
-    final newProduct = Product.fromJson(product.toJson());
+    setState(() {
+      selectedUnit = unit;
+    });
+  }
 
-    if (unit.addPrice) {
-      newProduct.price = newProduct.price + unit.salePrice;
-    } else {
-      newProduct.price = unit.salePrice > 0 ? unit.salePrice : newProduct.price;
+  _isButtonActive() {
+    if (widget.product.units.isEmpty) {
+      return true;
+    } else if (selectedUnit == null) {
+      return false;
     }
-    newProduct.unit = unit;
-    callBack(newProduct);
+    return true;
+  }
+
+  _addToCart() {
+    final newProduct = Product.fromJson(widget.product.toJson());
+    if (selectedUnit != null) {
+      if (selectedUnit!.addPrice) {
+        newProduct.price = newProduct.price + selectedUnit!.salePrice;
+      } else {
+        newProduct.price = selectedUnit!.salePrice > 0
+            ? selectedUnit!.salePrice
+            : newProduct.price;
+      }
+      newProduct.unit = selectedUnit;
+    }
+    newProduct.note = note;
+    widget.callBack(newProduct);
+    Navigator.pop(context);
   }
 }

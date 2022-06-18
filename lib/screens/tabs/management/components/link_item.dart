@@ -42,7 +42,7 @@ class LinkItem extends StatelessWidget {
             mr(1),
             Expanded(
               child: Text(
-                name,
+                name.tr,
                 style: const TextStyle(
                   fontWeight: FontWeight.normal,
                 ),

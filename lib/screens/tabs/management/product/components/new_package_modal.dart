@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_app/components/button.dart';
 import 'package:my_app/components/image_preview.dart';
@@ -51,7 +52,7 @@ class NewPackageModal {
 }
 
 class UnitImagePicker extends StatelessWidget {
-  final Function(MyFile file, MultipartFile blob) onChanged;
+  final Function(MyFile file, dio.MultipartFile blob) onChanged;
   const UnitImagePicker({Key? key, required this.onChanged}) : super(key: key);
 
   @override
@@ -71,7 +72,7 @@ class UnitImagePicker extends StatelessWidget {
         ),
         mb(1),
         Text(
-          'Add Unit Image',
+          'addVarImage'.tr,
           style: TextStyle(color: AppColors.grey),
         )
       ],
@@ -84,8 +85,8 @@ class UnitImagePicker extends StatelessWidget {
     if (image == null) {
       return null;
     }
-    MultipartFile blob =
-        await MultipartFile.fromFile(image.path, filename: image.name);
+    dio.MultipartFile blob =
+        await dio.MultipartFile.fromFile(image.path, filename: image.name);
     MyFile file = MyFile(blob: blob, path: image.path, name: image.name);
     onChanged(file, blob);
   }
@@ -95,13 +96,13 @@ class _NewPackageFormState extends State<NewPackageForm> {
   var productOptionController = ProductOptionController();
   Map<String, dynamic> params = {
     "unit": null,
-    "coefficient": 1,
     "sale_price": 0,
     "purchase_price": 0,
-    "active": 0,
+    "coefficient": 1,
+    "active": 1,
   };
   MyFile? image;
-  MultipartFile? imgBlob;
+  dio.MultipartFile? imgBlob;
   Map? errors;
 
   @override
@@ -120,12 +121,12 @@ class _NewPackageFormState extends State<NewPackageForm> {
                       Row(
                         children: [
                           Text((widget.params != null
-                                  ? 'Edit Variation'
-                                  : 'New Variation')
+                                  ? 'editVariation'.tr
+                                  : 'createVariation'.tr)
                               .toUpperCase()),
                           const Spacer(),
                           TextTapper(
-                            title: 'CANCEL',
+                            title: 'cancel'.tr,
                             onTab: () {
                               Navigator.pop(context);
                             },
@@ -159,24 +160,16 @@ class _NewPackageFormState extends State<NewPackageForm> {
                       MyTextInput(
                         value: params['unit'],
                         column: 'unit',
-                        label: 'Name',
+                        label: 'name'.tr,
                         error: errors,
-                        placeholder: 'Red Color',
+                        placeholder: 'varPlaceholder'.tr,
                         onChanged: _valueChanged,
                         isRequired: true,
                       ),
                       MyTextInput(
-                        value: params['coefficient'],
-                        column: 'coefficient',
-                        label: 'Coefficient',
-                        numberOnly: true,
-                        placeholder: '0',
-                        onChanged: _valueChanged,
-                      ),
-                      MyTextInput(
                         value: params['sale_price'],
                         column: 'sale_price',
-                        label: 'Sale Price',
+                        label: 'salePrice'.tr,
                         placeholder: '0',
                         numberOnly: true,
                         onChanged: _valueChanged,
@@ -184,7 +177,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
                       MyTextInput(
                         value: params['purchase_price'],
                         column: 'purchase_price',
-                        label: 'Purchase Price',
+                        label: 'purchasePrice'.tr,
                         placeholder: '0',
                         numberOnly: true,
                         onChanged: _valueChanged,
@@ -192,7 +185,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
                       SizedBox(
                         height: 18,
                         child: Text(
-                          'ACTIVE',
+                          'isActive'.tr,
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
@@ -214,7 +207,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
               padding: const EdgeInsets.only(top: 20),
               child: PrimaryButton(
                   disabled: !isFormValid(['unit'], params),
-                  value: widget.params != null ? 'Update' : 'Create',
+                  value: widget.params != null ? 'update'.tr : 'create'.tr,
                   onPressed: _submit),
             )
           ],
@@ -233,7 +226,7 @@ class _NewPackageFormState extends State<NewPackageForm> {
     super.initState();
   }
 
-  _onImageChanged(MyFile file, MultipartFile blob) {
+  _onImageChanged(MyFile file, dio.MultipartFile blob) {
     setState(() {
       image = file;
       imgBlob = blob;
@@ -261,9 +254,9 @@ class _NewPackageFormState extends State<NewPackageForm> {
       setState(() {
         params = {
           "unit": null,
-          "coefficient": 1,
           "sale_price": 0,
           "purchase_price": 0,
+          "active": 0,
         };
       });
       Navigator.pop(context);

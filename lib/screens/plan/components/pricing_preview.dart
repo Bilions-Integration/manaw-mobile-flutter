@@ -86,7 +86,7 @@ class _PricingPreview extends State<PricingPreview> {
                     padding:
                         const EdgeInsets.only(top: 10, bottom: 10, right: 8),
                     child: Text(
-                      "Monthly",
+                      "monthly".tr,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: selectedTab == 'monthly'
@@ -104,7 +104,7 @@ class _PricingPreview extends State<PricingPreview> {
                     padding:
                         const EdgeInsets.only(top: 10, bottom: 10, left: 8),
                     child: Text(
-                      'Yearly',
+                      'yearly'.tr,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: selectedTab == 'yearly'
@@ -134,7 +134,7 @@ class _PricingPreview extends State<PricingPreview> {
         ),
         Padding(
           padding: const EdgeInsets.all(15),
-          child: PrimaryButton(value: 'Upgrade Now', onPressed: _submit),
+          child: PrimaryButton(value: 'upgradeNow'.tr, onPressed: _submit),
         ),
         mb(0.5),
       ],
