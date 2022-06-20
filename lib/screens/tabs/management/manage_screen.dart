@@ -52,6 +52,11 @@ class ManageScreen extends StatelessWidget {
       page: RouteName.account,
       icon: AppAssets.icAccount,
     ),
+    ManagePage(
+      name: "referral",
+      page: RouteName.referral,
+      icon: AppAssets.icReferral,
+    ),
   ];
 
   const ManageScreen({Key? key}) : super(key: key);

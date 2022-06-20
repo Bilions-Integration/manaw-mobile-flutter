@@ -25,7 +25,7 @@ class AppAssets {
   static const noProducts = 'assets/images/no-products.svg';
   static const noCustomers = 'assets/images/no-customers.svg';
   static const icAddStock = 'assets/images/add.svg';
-  static const icClone= 'assets/images/clone-icon.svg';
+  static const icClone = 'assets/images/clone-icon.svg';
   static const icDeactivate = 'assets/images/deactivate.svg';
 
   static const icCoupon = 'assets/images/coupon.svg';
@@ -52,7 +52,7 @@ class AppAssets {
   static const paySuccess = 'assets/images/plans/pay.success.svg';
   //Manage
   static const icProduct = 'assets/images/manage/product.svg';
-
+  static const icReferral = 'assets/images/manage/referral.svg';
   static const icCategory = 'assets/images/manage/category.svg';
   static const icInvoice = 'assets/images/manage/invoice.svg';
   static const icDiscount = 'assets/images/manage/discount.svg';

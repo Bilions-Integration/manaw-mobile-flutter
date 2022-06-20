@@ -149,6 +149,7 @@ class AppLocales extends Translations {
           'myStore': 'My Store',
           'coupons': 'Coupons',
           'accounts': 'Accounts',
+          'referral': 'Referral',
 
           // - //Products
           'manageProducts': 'Manage Products',
@@ -177,7 +178,7 @@ class AppLocales extends Translations {
           'varPlaceholder': 'Red color',
           'editVariation': 'Edit Variation',
           'createVariation': 'Create Variation',
-          'clone' : 'Clone',
+          'clone': 'Clone',
 
           //Profile
           'email': 'Email',
@@ -474,6 +475,7 @@ class AppLocales extends Translations {
           'accounts': 'အကောင့်များ',
           'removeAll': 'အားလုံးကိုဖျက်မည်',
           'remove': 'ဖျက်မည်',
+          'referral': 'ရည်ညွှန်းပေးထားသည်များ',
 
           // - //Products
           'manageProducts': 'ပစ္စည်းများစီမံ',
@@ -502,7 +504,7 @@ class AppLocales extends Translations {
           'varPlaceholder': 'အနီရောင်',
           'editVariation': 'ပုံစံကွဲကိုပြင်ပါ',
           'createVariation': 'ပုံစံကွဲဖန်တီးပါ',
-          'clone' : 'Clone',
+          'clone': 'Clone',
 
           //Profile
           'email': 'အီးမေးလ်',
