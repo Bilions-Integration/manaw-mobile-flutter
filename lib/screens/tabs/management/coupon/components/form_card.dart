@@ -84,35 +84,8 @@ class _FormCardState extends State<FormCard> {
             style: Styles.l6,
           ),
           mb(0.5),
-          ...(widget.params['customer_emails'] as List<String>).mapIndexed(
-            (e, index) => Stack(
-              clipBehavior: Clip.none,
-              children: [
-                MyTextInput(
-                    placeholder: 'customerEmail'.tr,
-                    column: index.toString(),
-                    value: e,
-                    onChanged: _onCustomerEmailChange),
-                Positioned(
-                  right: -2,
-                  top: -7,
-                  child: InkWell(
-                    onTap: () => _removeEmail(index),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Icon(
-                        Icons.remove_circle_outline_rounded,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+          ...(widget.params['customer_emails'] as List<String>)
+              .mapIndexed((e, index) => customerEmailField(e, index)),
           Center(
               child: TextButton(
                   onPressed: _addEmailInput,
@@ -122,6 +95,36 @@ class _FormCardState extends State<FormCard> {
           mb(1),
         ],
       ),
+    );
+  }
+
+  Widget customerEmailField(e, int index) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        MyTextInput(
+            placeholder: 'customerEmail'.tr,
+            column: index.toString(),
+            value: e,
+            onChanged: _onCustomerEmailChange),
+        Positioned(
+          right: -2,
+          top: -7,
+          child: InkWell(
+            onTap: () => _removeEmail(index),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Icon(
+                Icons.remove_circle_outline_rounded,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 
