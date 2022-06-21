@@ -93,6 +93,7 @@ class AppLocales extends Translations {
           'saleInvoice': 'Sale Invoice',
           'purchaseInvoice': 'Purchase Invoice',
           'shippingAddress': 'Shipping Address',
+          'customerNote': 'Customer Note',
           //cart
           'cartItems': 'Cart Items',
           'clearAll': 'Clear All',
@@ -421,6 +422,7 @@ class AppLocales extends Translations {
           'saleInvoice': 'အရောင်းပြေစာ',
           'purchaseInvoice': 'အဝယ်ပြေစာ',
           'shippingAddress': 'ပို့ဆောင်ရန်လိပ်စာ',
+          'customerNote': 'ဝယ်သူမှတ်စု',
           //cart
           'cartItems': 'ဈေးခြင်းရှိပစ္စည်းများ',
           'clearAll': 'အားလုံးရှင်းပါ',

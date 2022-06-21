@@ -103,6 +103,10 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
               Text('customerSupplier'.tr, style: Styles.label),
               mb(1),
               Text('phone'.tr, style: Styles.label),
+              if (widget.type == 'sale') ...[
+                mb(1),
+                Text('customerNote'.tr, style: Styles.label)
+              ],
             ],
           ),
           mr(3),
@@ -118,6 +122,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
               Text(invoice.receiver?.receiverName ?? '-'),
               mb(1),
               Text(invoice.receiver?.receiverPhone ?? '-'),
+              if (widget.type == 'sale') ...[mb(1), Text(invoice.note ?? '-')],
             ]),
           )
         ]),
