@@ -108,7 +108,7 @@ class _CouponListState extends State<CouponList> {
                 id: coupons[index].id,
                 edit: (id) => Get.to(
                   CouponCreateAndEdit(id: coupons[index].id),
-                ),
+                )?.then((value) => value ? refresh() : ''),
                 delete: (id) => deleteData(coupons[index].id),
               ),
             ),

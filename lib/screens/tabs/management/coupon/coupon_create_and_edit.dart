@@ -4,7 +4,6 @@ import 'package:my_app/components/custom_app_bar_2.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/screens/tabs/management/coupon/components/form_card.dart';
-import 'package:my_app/screens/tabs/management/coupon/coupon_list.dart';
 import 'package:my_app/services/coupon_service.dart';
 
 class CouponCreateAndEdit extends StatefulWidget {
@@ -70,6 +69,7 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
     console.log('customer emails : ', payload: params['customer_emails[]']);
     if (widget.id != null) {
       await CouponService.update(widget.id, params);
+      Get.back(result: true);
       snackBar(
         'success'.tr,
         'successUpdate'.tr,
@@ -77,13 +77,13 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
       );
     } else {
       await CouponService.create(params);
+      Get.back(result: true);
       snackBar(
         'success'.tr,
         'successCreate'.tr,
         icon: Icons.check_circle,
       );
     }
-    Get.to(const CouponList());
   }
 
   fetchData() {

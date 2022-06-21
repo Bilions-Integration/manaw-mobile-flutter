@@ -24,77 +24,81 @@ class _FormCardState extends State<FormCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MyTextInput(
-              value: widget.params['name'],
-              onChanged: _onValueChanged,
-              column: 'name',
-              placeholder: 'couponName'.tr,
-              label: 'couponName'.tr),
-          MyTextInput(
-            value: widget.params['coupon_code'],
-            onChanged: _onValueChanged,
-            column: 'coupon_code',
-            placeholder: 'couponCodePlaceholder'.tr,
-            label: 'couponCode'.tr,
-          ),
-          Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: ListView(
             children: [
-              Radio(
-                value: 'fixed',
-                groupValue: widget.params['type'],
-                onChanged: (value) => _onValueChanged(value, 'type'),
+              MyTextInput(
+                  value: widget.params['name'],
+                  onChanged: _onValueChanged,
+                  column: 'name',
+                  placeholder: 'couponName'.tr,
+                  label: 'couponName'.tr),
+              MyTextInput(
+                value: widget.params['coupon_code'],
+                onChanged: _onValueChanged,
+                column: 'coupon_code',
+                placeholder: 'couponCodePlaceholder'.tr,
+                label: 'couponCode'.tr,
               ),
-              Text('fixed'.tr),
-              Radio(
-                value: 'percentage',
-                groupValue: widget.params['type'],
-                onChanged: (value) => _onValueChanged(value, 'type'),
+              Row(
+                children: [
+                  Radio(
+                    value: 'fixed',
+                    groupValue: widget.params['type'],
+                    onChanged: (value) => _onValueChanged(value, 'type'),
+                  ),
+                  Text('fixed'.tr),
+                  Radio(
+                    value: 'percentage',
+                    groupValue: widget.params['type'],
+                    onChanged: (value) => _onValueChanged(value, 'type'),
+                  ),
+                  Text('percentage'.tr),
+                ],
               ),
-              Text('percentage'.tr),
+              MyTextInput(
+                value: widget.params[getInputParamByType()],
+                onChanged: _onValueChanged,
+                column: getInputParamByType(),
+                placeholder:
+                    '${widget.params['type'] == 'fixed' ? 'Amount' : 'Percent'} off',
+                numberOnly: true,
+              ),
+              MyTextInput(
+                value: widget.params['useable_time'],
+                onChanged: _onValueChanged,
+                column: 'useable_time',
+                placeholder: 'usableTimePlaceholder'.tr,
+                label: 'usableTime'.tr,
+                numberOnly: true,
+              ),
+              mb(1),
+              Text(
+                'specificCustomers'.tr,
+                style: Styles.label,
+              ),
+              mb(0.2),
+              Text(
+                "leaveBlankForAll".tr,
+                style: Styles.l6,
+              ),
+              mb(0.5),
+              ...(widget.params['customer_emails'] as List<String>)
+                  .mapIndexed((e, index) => customerEmailField(e, index)),
+              Center(
+                  child: TextButton(
+                      onPressed: _addEmailInput,
+                      child: Text('addAnotherCustomer'.tr))),
+              mb(1),
             ],
           ),
-          MyTextInput(
-            value: widget.params[getInputParamByType()],
-            onChanged: _onValueChanged,
-            column: getInputParamByType(),
-            placeholder:
-                '${widget.params['type'] == 'fixed' ? 'Amount' : 'Percent'} off',
-            numberOnly: true,
-          ),
-          MyTextInput(
-            value: widget.params['useable_time'],
-            onChanged: _onValueChanged,
-            column: 'useable_time',
-            placeholder: 'usableTimePlaceholder'.tr,
-            label: 'usableTime'.tr,
-            numberOnly: true,
-          ),
-          mb(1),
-          Text(
-            'specificCustomers'.tr,
-            style: Styles.label,
-          ),
-          mb(0.2),
-          Text(
-            "leaveBlankForAll".tr,
-            style: Styles.l6,
-          ),
-          mb(0.5),
-          ...(widget.params['customer_emails'] as List<String>)
-              .mapIndexed((e, index) => customerEmailField(e, index)),
-          Center(
-              child: TextButton(
-                  onPressed: _addEmailInput,
-                  child: Text('addAnotherCustomer'.tr))),
-          mb(2),
-          PrimaryButton(value: 'save'.tr, onPressed: widget.submit),
-          mb(1),
-        ],
-      ),
+        ),
+        PrimaryButton(value: 'save'.tr, onPressed: widget.submit),
+        mb(1),
+      ],
     );
   }
 
