@@ -150,6 +150,7 @@ class AppLocales extends Translations {
           'coupons': 'Coupons',
           'accounts': 'Accounts',
           'referral': 'Referral',
+          'referralCode': 'Referral Code',
 
           // - //Products
           'manageProducts': 'Manage Products',
@@ -476,6 +477,7 @@ class AppLocales extends Translations {
           'removeAll': 'အားလုံးကိုဖျက်မည်',
           'remove': 'ဖျက်မည်',
           'referral': 'ရည်ညွှန်းပေးထားသည်များ',
+          'referralCode': 'ရည်ညွှန်းကုဒ်',
 
           // - //Products
           'manageProducts': 'ပစ္စည်းများစီမံ',
@@ -504,7 +506,7 @@ class AppLocales extends Translations {
           'varPlaceholder': 'အနီရောင်',
           'editVariation': 'ပုံစံကွဲကိုပြင်ပါ',
           'createVariation': 'ပုံစံကွဲဖန်တီးပါ',
-          'clone': 'Clone',
+          'clone': 'ပုံစံတူ ပွားမည်',
 
           //Profile
           'email': 'အီးမေးလ်',

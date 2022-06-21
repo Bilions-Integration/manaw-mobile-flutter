@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:my_app/data/assets.dart';
 import 'package:my_app/data/colors.dart';
@@ -72,9 +70,9 @@ class ManageScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: ListView(
                 children: <Widget>[
-                  if (Platform.isAndroid) mb(1),
-                  if (Platform.isAndroid) CurrentPlan(),
-                  if (Platform.isAndroid) mb(1),
+                  mb(1),
+                  CurrentPlan(),
+                  mb(1),
                   ...pageList.mapIndexed(
                     (e, i) {
                       return Stack(

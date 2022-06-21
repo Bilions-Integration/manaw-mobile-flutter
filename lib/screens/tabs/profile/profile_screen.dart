@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:my_app/components/color_picker.dart';
@@ -64,6 +65,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'name'.tr,
                     value: user?.name ?? '',
                     onPressed: _changeName,
+                  ),
+                  ProfileMenu(
+                    icon: AppAssets.icReferral,
+                    title: 'referralCode'.tr,
+                    value: user?.company.referralCode ?? '',
+                    onPressed: () {
+                      _copyReferralCode(user?.company.referralCode ?? '');
+                    },
                   ),
                   ProfileMenu(
                     icon: AppAssets.icEmail,
@@ -176,6 +185,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       placeholder: 'enterFullName'.tr,
       icon: Icons.person,
     );
+  }
+
+  _copyReferralCode(String code) {
+    Clipboard.setData(ClipboardData(text: code));
+    Get.snackbar('Copied', code);
   }
 
   _deactivate() {

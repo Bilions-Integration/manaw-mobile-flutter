@@ -3,7 +3,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:my_app/controllers/auth_controller.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/model/category_model.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
@@ -79,6 +78,10 @@ class _PosScreenState extends State<PosScreen> {
     cartController.products.value = [...cartController.products.value, product];
   }
 
+  _addToCartModal(Product product) {
+    VariationSelect(product: product, addCartCallback: _addCart).open();
+  }
+
   _categoryChanged(CategoryModel category) {
     if (category.id == null) {
       posController.products.value = [];
@@ -86,10 +89,6 @@ class _PosScreenState extends State<PosScreen> {
     } else {
       posController.getProducts(category: category.id);
     }
-  }
-
-  _addToCartModal(Product product) {
-    VariationSelect(product: product, addCartCallback: _addCart).open();
   }
 
   _loadMore() {
