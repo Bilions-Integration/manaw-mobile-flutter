@@ -157,6 +157,7 @@ class AppLocales extends Translations {
           'accounts': 'Accounts',
           'referral': 'Referral',
           'referralCode': 'Referral Code',
+          'referralCodePlaceholder': 'Referral Code (Optional)',
 
           // - //Products
           'manageProducts': 'Manage Products',
@@ -490,6 +491,7 @@ class AppLocales extends Translations {
           'remove': 'ဖျက်မည်',
           'referral': 'ရည်ညွှန်းပေးထားသည်များ',
           'referralCode': 'ရည်ညွှန်းကုဒ်',
+          'referralCodePlaceholder': 'ရည်ညွှန်းကုဒ် (အလွတ်ထား၍ရသည်)',
 
           // - //Products
           'manageProducts': 'ပစ္စည်းများစီမံ',

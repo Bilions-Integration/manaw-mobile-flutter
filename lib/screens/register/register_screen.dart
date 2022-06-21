@@ -29,6 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     "password": null,
     "full_name": null,
     "company_name": null,
+    "referral_code": null,
   };
 
   bool _showRegister() {
@@ -86,6 +87,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         column: 'password',
                         placeholder: 'password'.tr,
                         icon: Icons.lock,
+                      ),
+                      MyTextInput(
+                        onChanged: _onValueChanged,
+                        column: 'referral_code',
+                        placeholder: 'referralCodePlaceholder'.tr,
+                        icon: Icons.groups,
                       ),
                       AppWidget.marginBottom(1),
                       PrimaryButton(
