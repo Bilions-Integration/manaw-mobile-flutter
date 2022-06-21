@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -53,32 +55,33 @@ class CurrentPlan extends StatelessWidget {
             ],
           ),
         ),
-        MaterialButton(
-          elevation: 0,
-          onPressed: () {
-            Get.to(() => const PricingScreen());
-          },
-          child: Row(children: [
-            SvgPicture.asset(
-              AppAssets.icmRecharge,
-              color: AppColors.white,
-              width: 15,
-            ),
-            mr(0.4),
-            Text(
-              'recharge'.tr,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 13,
+        if (Platform.isAndroid)
+          MaterialButton(
+            elevation: 0,
+            onPressed: () {
+              Get.to(() => const PricingScreen());
+            },
+            child: Row(children: [
+              SvgPicture.asset(
+                AppAssets.icmRecharge,
+                color: AppColors.white,
+                width: 15,
               ),
+              mr(0.4),
+              Text(
+                'recharge'.tr,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                ),
+              ),
+            ]),
+            color: AppColors.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          ]),
-          color: AppColors.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          height: 35,
-        )
+            height: 35,
+          )
       ],
     );
   }

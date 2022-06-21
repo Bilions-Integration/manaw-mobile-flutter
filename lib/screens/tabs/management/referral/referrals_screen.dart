@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_app/data/colors.dart';
-import 'package:my_app/helpers/api.dart';
+import 'package:my_app/helpers/helper.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ReferralScreen extends StatefulWidget {
@@ -14,37 +14,34 @@ class ReferralScreen extends StatefulWidget {
 }
 
 class _ReferralScreenState extends State<ReferralScreen> {
-  late WebViewController _controller;
+  String? url;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: AppColors.primary,
         title: Text("referral".tr),
       ),
       body: WebView(
-        initialUrl: 'about:blank',
         javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          setState(() {
-            _controller = webViewController;
-            _loadHtmlFromUrl();
-          });
-        },
+        initialUrl: url,
       ),
     );
   }
 
   @override
   void initState() {
+    final box = GetStorage();
+    final t = box.read('@bearerToken');
+    final u = dotenv.env['APP_URL'].toString() +
+        '/auth/tree?authorization=Bearer%20' +
+        t;
+    console.log(u);
+    setState(() {
+      url = u;
+    });
     super.initState();
-  }
-
-  _loadHtmlFromUrl() async {
-    var htmlText = await Api.get('auth/tree');
-    _controller.loadUrl(Uri.dataFromString(htmlText,
-            mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-        .toString());
   }
 }

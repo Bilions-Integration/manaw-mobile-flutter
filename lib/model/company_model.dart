@@ -1,7 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:my_app/data/colors.dart';
-import 'package:intl/intl.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:my_app/data/colors.dart';
+
+String getCurrency(String code) {
+  var format =
+      NumberFormat.simpleCurrency(locale: Platform.localeName, name: code);
+  return format.currencySymbol;
+}
 
 class Company {
   final int id;
@@ -20,6 +27,7 @@ class Company {
   final String? type;
   final String? email;
   final String? phone;
+  final String? referralCode;
 
   Company({
     required this.id,
@@ -38,6 +46,7 @@ class Company {
     this.type,
     this.email,
     this.phone,
+    this.referralCode,
   });
 
   Company.fromJson(Map json)
@@ -56,6 +65,7 @@ class Company {
         saleInvPrefix = json['sale_inv_prefix'] as String?,
         type = json['type'] as String?,
         email = json['email'] as String?,
+        referralCode = json['referral_code'] as String?,
         phone = json['phone'] as String?;
 
   Map<String, dynamic> toJson() => {
@@ -71,14 +81,9 @@ class Company {
         'wht': wht,
         'purchase_inv_prefix': purchaseInvPrefix,
         'sale_inv_prefix': saleInvPrefix,
+        'referral_code': referralCode,
         'type': type,
         'email': email,
         'phone': phone
       };
-}
-
-String getCurrency(String code) {
-  var format =
-      NumberFormat.simpleCurrency(locale: Platform.localeName, name: code);
-  return format.currencySymbol;
 }
