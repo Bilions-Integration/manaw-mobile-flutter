@@ -72,6 +72,11 @@ class AppLocales extends Translations {
           'usableTimePlaceholder': 'Usable Time',
           'usableTime': 'Usable Time ( leave empty for unlimited )',
           'save': 'Save',
+          'specificCustomers': 'Specific Customers',
+          'customerEmail': 'Customer Email',
+          'addAnotherCustomer': 'Add Another Customer',
+          'leaveBlankForAll': '(Leave blank if it can be used by everyone)',
+          'fixed': 'Fixed',
           //Report
           'createdAt': 'Created at',
           'invoice': 'Invoice',
@@ -394,6 +399,11 @@ class AppLocales extends Translations {
           'usableTime':
               'အကျုံးဝင်သောအချိန် (အမြဲတမ်းအသုံးပြုနိုင်စေလိုလျှင် အလွတ်ထားပါ)',
           'save': 'သိမ်းပါ',
+          'specificCustomers': 'အသုံးပြုနိုင်သောဝယ်ယူသူများ',
+          'customerEmail': 'ဝယ်သူ အီးမေးလ်',
+          'addAnotherCustomer': 'နောက်ထပ်ဝယ်သူတစ်ယောက်ထည့်ပါ',
+          'leaveBlankForAll': '(လူတိုင်းအသုံးပြုနိုင်ပါက ဖြည့်ရန်မလိုပါ)',
+          'fixed': 'ပုံသေ',
           //Report
           'createdAt': 'ပြုလုပ်ခဲ့သောအချိန်',
           'invoice': 'ပြေစာ',

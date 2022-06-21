@@ -31,7 +31,7 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
     'valid_from': null,
     'valid_to': null,
     // 'products': [],
-    // 'customers': [],
+    'customer_emails': [''],
     'status': true,
   };
 
@@ -63,6 +63,11 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
   }
 
   submit() async {
+    setState(() {
+      (params['customer_emails'] as List<String>)
+          .removeWhere((element) => element == '');
+    });
+    console.log('customer emails : ', payload: params['customer_emails[]']);
     if (widget.id != null) {
       await CouponService.update(widget.id, params);
       snackBar(
@@ -98,6 +103,8 @@ class _CouponCreateAndEditState extends State<CouponCreateAndEdit> {
         params['valid_to'] = res['valid_to'];
         params['valid_to'] = res['valid_to'];
         params['status'] = res['status'];
+        params['customer_emails'] =
+            (res['customer_emails'] as List).map((e) => e.toString()).toList();
         loading = false;
       });
     });
