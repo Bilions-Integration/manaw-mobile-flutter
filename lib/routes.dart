@@ -14,6 +14,7 @@ import 'package:my_app/screens/tabs/management/invoice/manage_purchase_invoice.d
 import 'package:my_app/screens/tabs/management/invoice/manage_sale_invoice.dart';
 import 'package:my_app/screens/tabs/management/manage_screen.dart';
 import 'package:my_app/screens/tabs/management/product/manage_product.dart';
+import 'package:my_app/screens/tabs/management/referral/referrals_screen.dart';
 import 'package:my_app/screens/tabs/management/report/manage_reports.dart';
 import 'package:my_app/screens/tabs/management/store/manage_store.dart';
 import 'package:my_app/screens/tabs/pos/checkout_screen.dart';
@@ -48,4 +49,5 @@ class RouteName {
   static const myStore = ManageStore();
   static const coupon = CouponList();
   static const account = AccountList();
+  static const referral = ReferralScreen();
 }
