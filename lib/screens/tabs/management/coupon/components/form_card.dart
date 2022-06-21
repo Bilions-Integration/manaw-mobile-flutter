@@ -85,11 +85,33 @@ class _FormCardState extends State<FormCard> {
           ),
           mb(0.5),
           ...(widget.params['customer_emails'] as List<String>).mapIndexed(
-            (e, index) => MyTextInput(
-                placeholder: 'customerEmail'.tr,
-                column: index.toString(),
-                value: e,
-                onChanged: _onCustomerEmailChange),
+            (e, index) => Stack(
+              clipBehavior: Clip.none,
+              children: [
+                MyTextInput(
+                    placeholder: 'customerEmail'.tr,
+                    column: index.toString(),
+                    value: e,
+                    onChanged: _onCustomerEmailChange),
+                Positioned(
+                  right: -2,
+                  top: -7,
+                  child: InkWell(
+                    onTap: () => _removeEmail(index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: const Icon(
+                        Icons.remove_circle_outline_rounded,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
           Center(
               child: TextButton(
@@ -113,6 +135,12 @@ class _FormCardState extends State<FormCard> {
     setState(() {
       customerEmails[int.parse(column)] = value;
       widget.params['customer_emails'][int.parse(column)] = value;
+    });
+  }
+
+  _removeEmail(idx) {
+    setState(() {
+      (widget.params['customer_emails'] as List).removeAt(idx);
     });
   }
 
