@@ -44,7 +44,9 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: MyImage.network(
-                  widget.product.images[0],
+                  (widget.product.unit?.image != null)
+                      ? widget.product.unit?.image
+                      : widget.product.images[0],
                   width: 70,
                 ),
               ),
