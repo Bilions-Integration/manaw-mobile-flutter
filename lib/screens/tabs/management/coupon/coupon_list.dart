@@ -38,7 +38,8 @@ class _CouponListState extends State<CouponList> {
             });
           },
           search: () {},
-          add: () => Get.to(const CouponCreateAndEdit()),
+          add: () => Get.to(const CouponCreateAndEdit())
+              ?.then((value) => value ? refresh() : ''),
         ),
         body: list(context));
   }
@@ -97,6 +98,7 @@ class _CouponListState extends State<CouponList> {
           label: 'emptyCoupons'.tr,
           image: AppAssets.emptyCategory,
           buttonLabel: 'createCoupon'.tr,
+          afterCallback: (value) => value ? refresh() : '',
           link: const CouponCreateAndEdit()),
       itemBuilder: (context, index) => Column(
         children: [
