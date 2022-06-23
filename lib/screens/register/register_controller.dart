@@ -8,16 +8,23 @@ class RegisterParams {
   String? code;
   final address = '';
   final currency = 'MMK';
+  final String? referralCode;
 
   RegisterParams(
-      {this.name, this.companyName, this.email, this.password, this.code});
+      {this.name,
+      this.companyName,
+      this.email,
+      this.password,
+      this.code,
+      this.referralCode});
 
   RegisterParams.fromJson(Map json)
       : name = json['full_name'],
         email = json['email'],
         companyName = json['company_name'],
         password = json['password'],
-        code = json['code'];
+        code = json['code'],
+        referralCode = json['referral_code'];
 
   Map<String, dynamic> toJson() => {
         'full_name': name,
@@ -28,6 +35,7 @@ class RegisterParams {
         'code': code,
         'address': address,
         'currency': currency,
+        'referral_code': referralCode,
       };
 }
 
