@@ -103,12 +103,12 @@ class _CouponListState extends State<CouponList> {
           InkWell(
             onTap: () => Styles.customBottomSheet(
               context,
-              20,
+              26,
               ActionPopup(
                 id: coupons[index].id,
                 edit: (id) => Get.to(
                   CouponCreateAndEdit(id: coupons[index].id),
-                ),
+                )?.then((value) => value ? refresh() : ''),
                 delete: (id) => deleteData(coupons[index].id),
               ),
             ),
