@@ -95,6 +95,7 @@ class ProductDetail {
         'old_images[]': oldImages,
         'instock': instock,
         'retail_price': retailPrice,
+        'buy_price': buyPrice,
         'n_stock': negativeStock,
         'type': type,
         'unit': unit,
