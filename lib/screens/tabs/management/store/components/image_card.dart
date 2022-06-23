@@ -118,8 +118,8 @@ class _ImageCardState extends State<ImageCard> {
                 color: AppColors.lightGrey,
               ),
               Positioned(
-                bottom: -5,
-                right: 4,
+                bottom: -3,
+                right: 10,
                 child: borderRadiusCard(
                   20,
                   const Icon(
