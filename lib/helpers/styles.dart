@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -117,6 +119,7 @@ class Styles {
       {required String label,
       required String image,
       String? buttonLabel,
+      FutureOr<dynamic> Function(dynamic)? afterCallback,
       dynamic link}) {
     return Center(
       child: Column(
@@ -129,7 +132,9 @@ class Styles {
             SecondaryButton(
               value: buttonLabel,
               width: 220,
-              onPressed: () => Get.to(link),
+              onPressed: () => afterCallback != null
+                  ? Get.to(link)?.then(afterCallback)
+                  : Get.to(link),
             )
         ],
       ),

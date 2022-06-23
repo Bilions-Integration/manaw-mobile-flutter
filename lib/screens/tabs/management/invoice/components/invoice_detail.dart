@@ -208,6 +208,16 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                   Text('\$${product.quantity * product.price}'),
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'customerNote'.tr,
+                    style: Styles.label,
+                  ),
+                  Text(product.note ?? '-'),
+                ],
+              ),
             ]);
           }),
     );

@@ -135,6 +135,7 @@ class DioWrapper {
           "authorization": "Bearer $token",
           "Accept": "application/json"
         });
+    console.log('token : ', payload: token);
     return Dio(options);
   }
 }

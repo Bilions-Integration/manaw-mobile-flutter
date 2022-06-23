@@ -107,6 +107,7 @@ class CartController extends GetxController {
           "discount": 0,
           "discount_type": "fixed",
           "unit": product.unit?.toJson(),
+          "note": product.note,
         }
       ];
     }
