@@ -18,7 +18,7 @@ class AppColors {
   static get lightBlue => HexColor("#063970");
   static get lightDark => HexColor('#999999');
   static get lightGrey => HexColor('#F3F3F3');
-  static get lightPurple => HexColor('#F0EFF9');
+  static get lightPurple => HexColor('#bbb6fa');
   static get line => HexColor('#BDBDBD');
 
   static get primary {

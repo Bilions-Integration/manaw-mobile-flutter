@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/app_widget.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/image.dart';
@@ -88,30 +89,49 @@ class _ImageCardState extends State<ImageCard> {
           onTap: () {
             _showUploader('logo');
           },
-          child: Stack(children: [
-            CircleAvatar(
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 3,
-                      color: Colors.white,
-                    ),
-                    borderRadius: BorderRadius.circular(50)),
+          child: Stack(
+            children: [
+              borderRadiusCard(
+                100,
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(100),
+                  ),
+                  child: Container(
+                    color: AppColors.white,
+                    child: pickedLogo != null
+                        ? Image.file(
+                            pickedLogo!,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          )
+                        : MyImage.network(
+                            widget.logo ?? '',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+                padding: 2,
+                color: AppColors.lightGrey,
               ),
-              backgroundColor: Colors.grey[300],
-              radius: 48,
-              backgroundImage: pickedLogo != null
-                  ? Image.file(pickedLogo!).image
-                  : MyImage.provider(widget.logo ?? ''),
-            ),
-            Positioned(
-              bottom: -5,
-              right: 4,
-              child: borderRadiusCard(
-                  10, const Icon(Icons.photo_camera, size: 20),
-                  border: 2),
-            )
-          ]),
+              Positioned(
+                bottom: -5,
+                right: 4,
+                child: borderRadiusCard(
+                  20,
+                  const Icon(
+                    Icons.photo_camera,
+                    size: 20,
+                  ),
+                  border: 0,
+                  padding: 2,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
