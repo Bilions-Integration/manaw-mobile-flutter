@@ -32,16 +32,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     "referral_code": null,
   };
 
-  bool _showRegister() {
-    if (empty(params["email"]) ||
-        empty(params["password"]) ||
-        empty(params["full_name"]) ||
-        empty(params["company_name"])) {
-      return false;
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -140,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else {
         alert(
           title: 'error'.tr,
-          message: 'emailRegistered'.tr,
+          message: res['error'],
         );
       }
     } catch (e) {
@@ -149,5 +139,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         message: 'somethingWrong'.tr,
       );
     }
+  }
+
+  bool _showRegister() {
+    if (empty(params["email"]) ||
+        empty(params["password"]) ||
+        empty(params["full_name"]) ||
+        empty(params["company_name"])) {
+      return false;
+    }
+    return true;
   }
 }
