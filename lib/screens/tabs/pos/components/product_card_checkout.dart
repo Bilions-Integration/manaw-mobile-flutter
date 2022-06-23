@@ -48,6 +48,7 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
                       ? widget.product.unit?.image
                       : widget.product.images[0],
                   width: 70,
+                  height: 50,
                 ),
               ),
               mr(2),
