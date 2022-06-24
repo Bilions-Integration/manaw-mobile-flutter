@@ -56,15 +56,18 @@ class _VariationSelectorState extends State<VariationSelector> {
           style: Styles.h2,
         ),
         mb(0.5),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: MyImage.network(
+        SizedBox(
+          width: 120,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: MyImage.network(
               selectedUnit?.image ?? widget.product.images[0],
-              height: 200,
               width: double.infinity,
-              fit: BoxFit.cover),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-        mb(0.3),
+        mb(0.5),
         Text(
           widget.product.name,
           style: Styles.h2,
@@ -149,21 +152,6 @@ class _VariationSelectorState extends State<VariationSelector> {
     );
   }
 
-  _select(Unit unit) {
-    setState(() {
-      selectedUnit = unit;
-    });
-  }
-
-  _isButtonActive() {
-    if (widget.product.units.isEmpty) {
-      return true;
-    } else if (selectedUnit == null) {
-      return false;
-    }
-    return true;
-  }
-
   _addToCart() {
     final newProduct = Product.fromJson(widget.product.toJson());
     if (selectedUnit != null) {
@@ -179,5 +167,20 @@ class _VariationSelectorState extends State<VariationSelector> {
     newProduct.note = note;
     widget.callBack(newProduct);
     Navigator.pop(context);
+  }
+
+  _isButtonActive() {
+    if (widget.product.units.isEmpty) {
+      return true;
+    } else if (selectedUnit == null) {
+      return false;
+    }
+    return true;
+  }
+
+  _select(Unit unit) {
+    setState(() {
+      selectedUnit = unit;
+    });
   }
 }
