@@ -11,12 +11,8 @@ class MyImage {
       imageUrl: url,
       width: width,
       height: height,
-      placeholder: (context, url) => Center(
-        child: SvgPicture.asset(
-          AppAssets.manage,
-          color: AppColors.lightPurple,
-        ),
-      ),
+      placeholder: (context, url) => _placeholder(),
+      errorWidget: (context, url, error) => _placeholder(),
       fit: fit,
       fadeOutDuration: const Duration(milliseconds: 0),
     );
@@ -24,5 +20,17 @@ class MyImage {
 
   static ImageProvider provider(String url) {
     return CachedNetworkImageProvider(url);
+  }
+
+  static Widget _placeholder() {
+    return Container(
+      color: const Color(0xffe4e1ff),
+      child: Center(
+        child: SvgPicture.asset(
+          AppAssets.manage,
+          color: AppColors.lightPurple,
+        ),
+      ),
+    );
   }
 }

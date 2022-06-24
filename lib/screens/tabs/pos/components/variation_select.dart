@@ -4,6 +4,7 @@ import 'package:my_app/components/button.dart';
 import 'package:my_app/components/input.dart';
 import 'package:my_app/data/colors.dart';
 import 'package:my_app/helpers/helper.dart';
+import 'package:my_app/helpers/image.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/model/unit_model.dart';
@@ -22,7 +23,7 @@ class VariationSelect {
         builder: (builder) {
           return Container(
             padding: const EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.9,
             child:
                 VariationSelector(product: product, callBack: addCartCallback),
           );
@@ -54,10 +55,19 @@ class _VariationSelectorState extends State<VariationSelector> {
           "addToCart".tr,
           style: Styles.h2,
         ),
-        mb(0.2),
+        mb(0.5),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: MyImage.network(
+              selectedUnit?.image ?? widget.product.images[0],
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover),
+        ),
+        mb(0.3),
         Text(
           widget.product.name,
-          style: Styles.l3,
+          style: Styles.h2,
         ),
         Expanded(
           child: ListView(
@@ -75,10 +85,10 @@ class _VariationSelectorState extends State<VariationSelector> {
                         _select(e);
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           border: Border.all(
-                              width: 1,
+                              width: 2,
                               color: e == selectedUnit
                                   ? AppColors.primary
                                   : AppColors.borderColor),
@@ -87,9 +97,22 @@ class _VariationSelectorState extends State<VariationSelector> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              e.name,
-                              style: Styles.h3,
+                            Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: MyImage.network(
+                                      e.image ?? widget.product.images[0],
+                                      fit: BoxFit.cover,
+                                      width: 35,
+                                      height: 35),
+                                ),
+                                mr(1),
+                                Text(
+                                  e.name,
+                                  style: Styles.t3,
+                                ),
+                              ],
                             ),
                             Text(
                               '${e.addPrice ? '+' : ''} ${currency()} ${e.salePrice}',
