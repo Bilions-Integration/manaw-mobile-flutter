@@ -8,6 +8,7 @@ import 'package:my_app/helpers/image.dart';
 import 'package:my_app/helpers/styles.dart';
 import 'package:my_app/model/product_model.dart';
 import 'package:my_app/model/unit_model.dart';
+import 'package:my_app/model/view_image.dart';
 
 class VariationSelect {
   final Product product;
@@ -56,14 +57,23 @@ class _VariationSelectorState extends State<VariationSelector> {
           style: Styles.h2,
         ),
         mb(0.5),
-        SizedBox(
-          width: 120,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: MyImage.network(
-              selectedUnit?.image ?? widget.product.images[0],
-              width: double.infinity,
-              fit: BoxFit.cover,
+        InkWell(
+          onTap: () {
+            if (selectedUnit?.image != null) {
+              viewImages([selectedUnit?.image]);
+            } else {
+              viewImages(widget.product.images);
+            }
+          },
+          child: SizedBox(
+            width: 120,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: MyImage.network(
+                selectedUnit?.image ?? widget.product.images[0],
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
