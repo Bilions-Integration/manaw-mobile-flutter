@@ -59,11 +59,7 @@ class _VariationSelectorState extends State<VariationSelector> {
         mb(0.5),
         InkWell(
           onTap: () {
-            if (selectedUnit?.image != null) {
-              viewImages([selectedUnit?.image]);
-            } else {
-              viewImages(widget.product.images);
-            }
+            viewImages(product: widget.product, selectedUnit: selectedUnit);
           },
           child: SizedBox(
             width: 120,
@@ -108,25 +104,25 @@ class _VariationSelectorState extends State<VariationSelector> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: MyImage.network(
-                                      e.image ?? widget.product.images[0],
-                                      fit: BoxFit.cover,
-                                      width: 35,
-                                      height: 35),
-                                ),
-                                mr(1),
-                                Text(
-                                  e.name,
-                                  style: Styles.t3,
-                                ),
-                              ],
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: MyImage.network(
+                                  e.image ?? widget.product.images[0],
+                                  fit: BoxFit.cover,
+                                  width: 35,
+                                  height: 35),
                             ),
+                            mr(1),
+                            Expanded(
+                              child: Text(
+                                e.name,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: Styles.t3,
+                              ),
+                            ),
+                            mr(1),
                             Text(
                               '${e.addPrice ? '+' : ''} ${currency()} ${e.salePrice}',
                               style: Styles.t2,

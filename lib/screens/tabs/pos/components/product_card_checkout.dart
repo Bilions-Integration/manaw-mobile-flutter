@@ -5,6 +5,7 @@ import 'package:my_app/data/assets.dart';
 import 'package:my_app/helpers/helper.dart';
 import 'package:my_app/helpers/image.dart';
 import 'package:my_app/model/product_model.dart';
+import 'package:my_app/model/view_image.dart';
 import 'package:my_app/screens/tabs/pos/cart_controller.dart';
 
 class ProductCardCheckout extends StatefulWidget {
@@ -41,14 +42,22 @@ class _ProductCardCheckoutState extends State<ProductCardCheckout> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: MyImage.network(
-                  (widget.product.unit?.image != null)
-                      ? widget.product.unit?.image
-                      : widget.product.images[0],
-                  width: 70,
-                  height: 50,
+              InkWell(
+                onTap: () {
+                  viewImages(
+                    product: widget.product,
+                    selectedUnit: widget.product.unit,
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: MyImage.network(
+                    (widget.product.unit?.image != null)
+                        ? widget.product.unit?.image
+                        : widget.product.images[0],
+                    width: 70,
+                    height: 50,
+                  ),
                 ),
               ),
               mr(2),
